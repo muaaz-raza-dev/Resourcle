@@ -1,0 +1,59 @@
+import mongoose from 'mongoose';
+
+const resourceSchema = new mongoose.Schema({
+    title : {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true
+    },
+    tags: {
+        type: mongoose.Types.ObjectId,
+        ref:"Tags"
+    },
+    publisher:{
+        type: mongoose.Types.ObjectId,
+        ref:"User"
+    },
+    upvotes:{
+        type: Number,
+        default: 0
+    },
+    content:[
+        {
+            Heading:String,
+            Link:{
+                title:String,
+                url:String,
+                description:String,
+                isPaid:Boolean,
+                consumption_time:String,
+                skill_level:String,
+                stars:Number
+            }
+        }
+    ]
+}, { timestamps: true });
+
+
+export interface IResource extends mongoose.Document {
+    title: string;
+    tags: mongoose.Types.ObjectId;
+    publisher: mongoose.Types.ObjectId;
+    upvotes: number;
+    content: Array<{
+        Heading: string;
+        Link: {
+            title: string;
+            url: string;
+            description: string;
+            isPaid: boolean;
+            consumption_time: string;
+            skill_level: string;
+            stars: number;
+        };
+    }>;
+    createdAt: Date;
+    updatedAt: Date;
+}
+export const Tags = mongoose.model<IResource>('resource', resourceSchema);

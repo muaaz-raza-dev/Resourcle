@@ -1,0 +1,12 @@
+**/node_modules/
+*.env
+# Log files
+logs
+*.log
+npm-debug.log*
+
+# Build output
+.next/
+
+# OS generated files
+*.swp

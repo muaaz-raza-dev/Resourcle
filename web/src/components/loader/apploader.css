@@ -1,0 +1,60 @@
+
+.loader {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    padding: 20px;
+    border-radius: 50%;
+    /* border: 5px solid rgba(0, 0, 0, 0.1); Light border for circular look */
+    animation: rotateLoader 2.5s linear infinite;
+}
+
+.ball {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual balls with unique colors */
+.ball1 {
+    background-color: #f37021;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ball2 {
+    background-color: #495e45;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ball3 {
+    background-color: #333;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.ball4 {
+    background-color: #ffe5cf;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+/* Rotate the entire loader */
+@keyframes rotateLoader {
+    0% {
+        transform: rotate(-360deg);
+    }
+    50%{
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

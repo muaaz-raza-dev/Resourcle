@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background:210 17% 98%; /* #FFFFFF */
+    --foreground: 240 3% 20%; /* #3C3D37 */
+    --card: 0 0% 100%;
+    --card-foreground: 240 3% 20%; /* #3C3D37 */
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 20%; /* #3C3D37 */
+    --primary: 120 30% 45%; /* #557C56 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 6% 95%; /* Lighter variant of #3C3D37 */
+    --secondary-foreground: 240 3% 20%; /* #3C3D37 */
+    --muted: 240 6% 95%; /* Similar to secondary */
+    --muted-foreground: 240 4% 50%; /* Darker muted variant */
+    --accent: 24 100% 50%; /* #FF6600 */
+    --accent-foreground: 240 3% 20%; /* #3C3D37 */
+    --destructive: 0 84% 60%; /* #FF6600 */
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 90%; /* Light border color */
+    --input: 240 4% 90%; /* Light input background */
+    --ring: 240 10% 3.9%; /* Similar to foreground */
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%; /* Adjust for your charts */
+    --chart-2: 173 58% 39%; /* Adjust for your charts */
+    --chart-3: 197 37% 24%; /* Adjust for your charts */
+    --chart-4: 43 74% 66%; /* Adjust for your charts */
+    --chart-5: 27 87% 67%; /* Adjust for your charts */
+  }
+
+  .dark {
+    --background: 240 3% 20%; /* #3C3D37 */
+    --foreground: 0 0% 98%;
+    --card: 240 3% 20%; /* #3C3D37 */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 3% 20%; /* #3C3D37 */
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 120 30% 45%; /* #557C56 */
+    --secondary: 240 3% 15%; /* Darker secondary */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3% 15%; /* Darker muted */
+    --muted-foreground: 240 5% 64.9%; /* Lighter muted */
+    --accent: 240 3% 15%; /* Darker accent */
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%; /* Darker destructive */
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3% 15%; /* Darker border */
+    --input: 240 3% 15%; /* Darker input */
+    --ring: 240 4.9% 83.9%; /* Light ring */
+    --chart-1: 220 70% 50%; /* Adjust for your charts */
+    --chart-2: 160 60% 45%; /* Adjust for your charts */
+    --chart-3: 30 80% 55%; /* Adjust for your charts */
+    --chart-4: 280 65% 60%; /* Adjust for your charts */
+    --chart-5: 340 75% 55%; /* Adjust for your charts */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI-BoldItalic.eot');
+  src: local('Segoe UI Bold Italic'), local('SegoeUI-BoldItalic'),
+      url('/public/fonts/SegoeUI-BoldItalic.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI-BoldItalic.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI-BoldItalic.woff') format('woff'),
+      url('/public/fonts/SegoeUI-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI.eot');
+  src: local('Segoe UI'), local('SegoeUI'),
+      url('/public/fonts/SegoeUI.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI.woff') format('woff'),
+      url('/public/fonts/SegoeUI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI-SemiBold.eot');
+  src: local('Segoe UI Semibold'), local('SegoeUI-SemiBold'),
+      url('/public/fonts/SegoeUI-SemiBold.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI-SemiBold.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI-SemiBold.woff') format('woff'),
+      url('/public/fonts/SegoeUI-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI-Light.eot');
+  src: local('Segoe UI Light'), local('SegoeUI-Light'),
+      url('/public/fonts/SegoeUI-Light.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI-Light.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI-Light.woff') format('woff'),
+      url('/public/fonts/SegoeUI-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI-Bold.eot');
+  src: local('Segoe UI Bold'), local('SegoeUI-Bold'),
+      url('/public/fonts/SegoeUI-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI-Bold.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI-Bold.woff') format('woff'),
+      url('/public/fonts/SegoeUI-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/public/fonts/SegoeUI-Italic.eot');
+  src: local('Segoe UI Italic'), local('SegoeUI-Italic'),
+      url('/public/fonts/SegoeUI-Italic.eot?#iefix') format('embedded-opentype'),
+      url('/public/fonts/SegoeUI-Italic.woff2') format('woff2'),
+      url('/public/fonts/SegoeUI-Italic.woff') format('woff'),
+      url('/public/fonts/SegoeUI-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+
+.authBg{
+background: rgb(255,102,0);
+border-radius:100% 20% 10% 10% / 74% 31% 0% 0% ;
+background: linear-gradient(40deg, rgba(255,102,0,1) 0%, rgba(85,124,86,1) 96%), url('/authbg.png') center;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primaryShadow{
+  box-shadow: 19px 39px 31px 0px rgba(0,0,0,0.1);}
+
+  html {
+    font-size: 95%;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  @media screen and (max-width: 480px) {
+    html {
+      font-size: 80%;
+    }
+  }
+  
+  /* Media screen for screens with width between 481px and 768px */
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    html {
+      font-size: 85%;
+    }
+  }
+  
+  /* Media screen for screens with width between 769px and 1024px */
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    html {
+      font-size: 90%;
+    }
+  }
+  
+  /* Media screen for screens with width between 1025px and 1280px */
+  @media screen and (min-width: 1025px) and (max-width: 1280px) {
+    html {
+      font-size: 95%;
+    }
+  }
+  
+  /* Media screen for screens with width greater than or equal to 1281px */
+  @media screen and (min-width: 1281px) {
+    html {
+      font-size: 100%;
+    }
+  }
