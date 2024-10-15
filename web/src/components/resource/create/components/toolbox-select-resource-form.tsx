@@ -1,4 +1,4 @@
-import { IResource } from '@/types/Iresource'
+import { defaultResourceLink, IResource } from '@/types/Iresource'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
@@ -6,7 +6,7 @@ import {Tooltip} from "antd"
 export default function ToolboxSelectResourceForm() {
     const form = useFormContext<IResource>()
     const handleAddLinkGroup = () => {
-        form.setValue("content", form.getValues("content")?.concat({label:"",links:[]}))
+        form.setValue("content", form.getValues("content")?.concat({label:"",links:[defaultResourceLink]}))
     }
 
   return (

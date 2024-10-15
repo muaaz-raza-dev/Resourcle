@@ -32,3 +32,13 @@ export const defaultResource: IResource = {
     createdAt: new Date(),
     updatedAt: new Date()
 };
+
+export const defaultResourceLink: IResourceLink = {
+    title: '',
+    url: '',
+    description: '',
+    isPaid: false,
+    consumption_time: '',
+    skill_level: 'intermediate',
+    stars: 0,
+}

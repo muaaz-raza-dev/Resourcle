@@ -16,7 +16,7 @@ export default function CreateResourcePage() {
   return (
     <section className='max-w-5xl mx-auto m-4'>
       <FormProvider {...methods}>
-    <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
+    <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-2 ">
     <BannerResourceForm/>   
     <TitleDescriptionResournceForm/>
     <ContentResourceForm/>
