@@ -1,46 +1,48 @@
 import { IResource } from "@/types/Iresource";
-import React from "react";
+import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import {  FaLink } from "react-icons/fa";
-import { BsArrowsCollapse } from "react-icons/bs";
+import { FaLink, FaTrash } from "react-icons/fa";
+import { BsArrowsCollapse, BsArrowsExpand } from "react-icons/bs";
 import LinksComponentResourceForm from "./links-component-resource-form";
 export default function LinkGroupResourceForm({ index }: { index: number }) {
   const form = useFormContext<IResource>();
-  function DeleteLinkGroup(
-    key: React.KeyboardEvent<HTMLInputElement>,
-    index: number
-  ) {
-    if (key.key == "Backspace") {
-      const toBeDelelted = form.getValues("content").find((_, i) => i == index);
-      if (toBeDelelted?.label == "" && toBeDelelted?.links.length == 0) {
-        form.setValue(
-          "content",
-          form.getValues("content").filter((_, i) => i != index)
-        );
-      }
-    } else if (key.key == "Enter") {
-    }
+  const [collapse, setcollapse] = useState(false)
+
+
+  console.log(" I am whole rendering",index)
+  function DeleteLinkGroup() {
+    form.setValue(
+      "content",
+      form.getValues("content").filter((_, i) => i != index)
+    );
   }
   return (
-    <div className="w-full rounded-md p-2 flex flex-col gap-4">
+    <div className="w-full rounded-md p-2 flex flex-col  border-2 py-4 gap-4">
+      <header className="flex justify-between rounded-md w-full">
+        <input
+        {...form.register(`content.${index}.label`,{required:"Label of the link group is required"})}
+          className="text-xl px-2 h-max rounded-md  border-none w-full  outline-none font-bold placeholder:text-gray-400 bg-transparent"
+          placeholder="Youtube videos links"
+          autoFocus
+        />
+        <div className="flex gap-2 ">
+          <div className="rounded-xl px-2 p-1 items-center border-2 border-accent bg-orange-50 flex gap-1 font-semibold text-sm">
+            <FaLink size={12} />  {form.watch(`content.${index}.links`)?.length}
+          </div>
+          <button className=" rounded-md px-2 p-1 hover:bg-secondary transition-colors" onClick={()=>setcollapse(e=>!e)}>
+            {
+              collapse? <BsArrowsExpand size={20} /> : <BsArrowsCollapse size={20} />
+            }
+          </button>
 
-        <header className="flex justify-between w-full">
-      <input
-        className="text-xl px-2 h-max rounded-md  border-none w-full  outline-none font-bold placeholder:text-gray-400 bg-transparent"
-        placeholder="Youtube videos links"
-        onKeyDown={(e) => DeleteLinkGroup(e, index)}
-        autoFocus
-      />
-      <div className="flex gap-2 ">
-        <div className="rounded-xl px-2 p-1 items-center border-2 border-accent bg-orange-50 flex gap-1 font-semibold text-sm"><FaLink size={12}/> 32 </div>
-        <button className=" rounded-md px-2 p-1 hover:bg-accent">
-        <BsArrowsCollapse size={24} />
-        </button>
-      </div>
-        </header>
+          <button className=" rounded-md  p-1 hover:bg-secondary text-destructive " onClick={DeleteLinkGroup}>
+            <FaTrash  />
+          </button>
+          
+        </div>
+      </header>
 
-      <LinksComponentResourceForm index={index}/>
-
+      {!collapse&&<LinksComponentResourceForm index={index} />}
     </div>
   );
 }
