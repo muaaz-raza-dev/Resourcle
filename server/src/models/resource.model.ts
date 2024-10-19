@@ -39,7 +39,7 @@ const resourceSchema = new mongoose.Schema({
 export interface IResource extends mongoose.Document {
     title: string;
     tags: mongoose.Types.ObjectId;
-    publisher: mongoose.Types.ObjectId;
+    publisher: string;
     upvotes: number;
     content: Array<{
         Heading: string;
@@ -56,4 +56,4 @@ export interface IResource extends mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
 }
-export const Tags = mongoose.model<IResource>('resource', resourceSchema);
+export const Resource = mongoose.model<IResource>('resource', resourceSchema);
