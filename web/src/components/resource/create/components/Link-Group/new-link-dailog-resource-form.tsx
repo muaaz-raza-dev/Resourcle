@@ -9,14 +9,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shadcn/components/ui/dialog";
+import { ImBooks } from "react-icons/im";
 import { IResource, IResourceLink } from "@/types/Iresource";
 import { FormProvider, SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { Button } from "@/shadcn/components/ui/button";
 import { Label } from "@/shadcn/components/ui/label";
 import { Input } from "@/shadcn/components/ui/input";
 import { Select } from "antd";
-import { FaClock, FaStar } from "react-icons/fa";
+import { FaClock} from "react-icons/fa";
 import LinkInputResourceForm from "./link-input-resource-form";
+import { IoMdPricetags } from "react-icons/io";
 
 export default function NewLinkDailogResourceForm({
   children,
@@ -31,11 +33,12 @@ export default function NewLinkDailogResourceForm({
 }) {
   const ParentForm = useFormContext<IResource>();
   const [open, setopen] = useState(false);
-  const form = useForm<IResourceLink>({defaultValues: { skill_level: "intermediate", isPaid: true, ...data },});
+  const form = useForm<IResourceLink>({defaultValues: { level_information: "intermediate", isPaid: true, ...data },});
   const {handleSubmit,register,watch,setValue,trigger,formState: { errors },} =form;
   const link = useState(data?true:false)
   const [isLinkValid ] =link
-  const onSubmit: SubmitHandler<IResourceLink> = (data) => {
+  const onSubmit: SubmitHandler<IResourceLink> = (data,event) => {
+    event?.stopPropagation();
     if(!isLinkValid)return;
     const isValid = trigger();
     if (!isValid) return;
@@ -90,7 +93,8 @@ export default function NewLinkDailogResourceForm({
           <section className="flex gap-2 w-full">
             <div className="w-[32%]">
               <Label className="py-2 font-semibold flex gap-2 ">
-                Resource availablity
+              Availability (Free/Paid)
+              <IoMdPricetags />
               </Label>
               <Select
                 options={[
@@ -116,8 +120,7 @@ export default function NewLinkDailogResourceForm({
             </div>
 
             <div className="w-[32%]">
-              <Label className="flex gap-2 py-2 font-semibold">
-                Skill level <FaStar />
+              <Label className="flex gap-2 py-2 font-semibold"> Level of information <ImBooks />
               </Label>
               <Select
                 className="w-full h-9"
@@ -126,14 +129,14 @@ export default function NewLinkDailogResourceForm({
                   { value: "beginner", label: "Beginner" },
                   { value: "advanced", label: "Advanced" },
                 ]}
-                value={watch("skill_level")}
-                onSelect={(value: string) => setValue("skill_level", value)}
+                value={watch("level_information")}
+                onSelect={(value: string) => setValue("level_information", value)}
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
             </div>
           </section>
           <DialogFooter>
-            <Button type="submit">Save</Button>
+            <Button type="button" onClick={handleSubmit(onSubmit)}>Save</Button>
             <DialogClose onClick={() => setopen(false)}>
               <Button variant="secondary" type="button">
                 Close

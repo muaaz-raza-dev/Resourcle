@@ -10,7 +10,7 @@ import AuthUiValidator from "@/components/validators/auth-ui-validator";
 
 
 export const metadata: Metadata = {
-  title: "Colabra",
+  title: "Resourcera",
 };
 
 export default function RootLayout({

@@ -1,8 +1,11 @@
+import { IResource } from '@/types/Iresource';
 import React from 'react'
 import { useDropzone } from 'react-dropzone';
+import { useFormContext } from 'react-hook-form';
 
 export default function BannerResourceForm() {
     const [sample, setsample] = React.useState("");
+    const {setValue} = useFormContext<IResource>()
     const { getRootProps, getInputProps } = useDropzone({
         maxSize: 1024 ** 3 * 5,
         multiple: false,
@@ -10,7 +13,7 @@ export default function BannerResourceForm() {
         onDrop(acceptedFiles) {
           if (acceptedFiles.length) {
             const sample = URL.createObjectURL(acceptedFiles[0]);
-            // setFile(acceptedFiles[0]);
+            setValue("banner",acceptedFiles[0])
             setsample(sample);
           }
         },

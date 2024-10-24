@@ -29,13 +29,13 @@ export default function LinkGroupResourceForm({ index }: { index: number }) {
           <div className="rounded-xl px-2 p-1 items-center border-2 border-accent bg-orange-50 flex gap-1 font-semibold text-sm">
             <FaLink size={12} />  {form.watch(`content.${index}.links`)?.length}
           </div>
-          <button className=" rounded-md px-2 p-1 hover:bg-secondary transition-colors" onClick={()=>setcollapse(e=>!e)}>
+          <button type="button" className=" rounded-md px-2 p-1 hover:bg-secondary transition-colors" onClick={()=>setcollapse(e=>!e)}>
             {
               collapse? <BsArrowsExpand size={20} /> : <BsArrowsCollapse size={20} />
             }
           </button>
 
-          <button className=" rounded-md  p-1 hover:bg-secondary text-destructive " onClick={DeleteLinkGroup}>
+          <button type="button" className=" rounded-md  p-1 hover:bg-secondary text-destructive " onClick={DeleteLinkGroup}>
             <FaTrash  />
           </button>
           

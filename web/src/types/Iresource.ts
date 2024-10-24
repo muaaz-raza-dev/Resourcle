@@ -3,6 +3,7 @@ export interface IResource  {
     tags:string[];
     description: string;
     publisher: string;
+    banner:string|File;
     upvotes: number;
     content: Array<{
         label: string;
@@ -18,8 +19,7 @@ export interface IResourceLink{
     description: string;
     isPaid: boolean;
     consumption_time: string;
-    skill_level: string;
-    stars: number;
+    level_information: string;
 }
 
 export const defaultResource: IResource = {
@@ -28,6 +28,7 @@ export const defaultResource: IResource = {
     description: '',
     publisher: '',
     upvotes: 0,
+    banner:"",
     content: [],
     createdAt: new Date(),
     updatedAt: new Date()
@@ -39,6 +40,5 @@ export const defaultResourceLink: IResourceLink = {
     description: '',
     isPaid: false,
     consumption_time: '',
-    skill_level: 'intermediate',
-    stars: 0,
-}
+    level_information: 'intermediate',
+    }

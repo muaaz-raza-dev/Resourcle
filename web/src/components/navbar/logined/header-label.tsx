@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 const routesMap = {
-  "/project/create": "New Project",
+  "/resource/create": "New Resource",
   "/": "Dashboard",
 };
 export default function HeaderLabel() {

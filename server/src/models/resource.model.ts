@@ -7,8 +7,9 @@ const resourceSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
+    description:String,
     tags: {
-        type: mongoose.Types.ObjectId,
+        type: [mongoose.Types.ObjectId],
         ref:"Tags"
     },
     publisher:{
@@ -21,16 +22,16 @@ const resourceSchema = new mongoose.Schema({
     },
     content:[
         {
-            Heading:String,
-            Link:{
+            label:String,
+            links:[{
                 title:String,
                 url:String,
                 description:String,
                 isPaid:Boolean,
                 consumption_time:String,
-                skill_level:String,
+                level_infomation:String,
                 stars:Number
-            }
+            }]
         }
     ]
 }, { timestamps: true });

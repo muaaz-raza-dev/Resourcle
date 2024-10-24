@@ -1,12 +1,12 @@
 import { Axios } from "@/lib/Axios"
-import { InewProject } from "@/types/InewProject"
+import { IResource } from "@/types/Iresource"
 import Cookie from "js-cookie"
-const CreateProjectApi = async (payload:InewProject) => {
+const CreateResourceApi = async (payload:IResource) => {
     const response = await Axios.post(
-        "/project/create", 
+        "/resource/new", 
         {payload},
         {headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } }
         )
     return response.data
 }
-export default CreateProjectApi
+export default CreateResourceApi

@@ -16,6 +16,7 @@ export default function TitleDescriptionResournceForm() {
       <FormField
       control={methods.control}
       name="title"
+      rules={{required:"*Title is required"}}
       render={({field}) => (
         <FormItem>
           <FormLabel />
@@ -32,12 +33,14 @@ export default function TitleDescriptionResournceForm() {
 
 <FormField
       control={methods.control}
+      rules={{required:"*Short description is required"}}
       name="description"
       render={({field}) => (
         <FormItem>
           <FormLabel />
           <FormControl>
           <textarea {...field}
+          
            className='text-xl border-none outline-none w-full resize-none font-semibold placeholder:text-gray-400 bg-transparent '
             placeholder='Description of the resource' ref={descriptionRef}/>
            </FormControl>
@@ -46,6 +49,8 @@ export default function TitleDescriptionResournceForm() {
         </FormItem>
       )}
     />
+
+    
     </section>
   )
 }
