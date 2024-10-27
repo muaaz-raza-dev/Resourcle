@@ -5,14 +5,15 @@ export interface IResource  {
     publisher: string;
     banner:string|File;
     upvotes: number;
-    content: Array<{
-        label: string;
-        links:IResourceLink[];
-    }>;
+    content: Array<IresourceContent>;
     createdAt: Date;
     updatedAt: Date;
 }
 
+export interface IresourceContent{
+    label: string;
+    links:IResourceLink[];
+}
 export interface IResourceLink{
     title: string;
     url: string;
