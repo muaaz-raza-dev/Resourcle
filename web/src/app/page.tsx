@@ -1,18 +1,28 @@
-import { BackgroundBeamsWithCollision } from "@/shadcn/components/ui/background-beams-with-collision";
-import React from "react";
+'use client'
 
-export default function Home() {
+import ActiveUsers from "@/components/landing page/sections/active-users";
+import LovedResources from "@/components/landing page/sections/loved-resources";
+import TrendingTopics from "@/components/landing page/sections/trending-topics";
+import { TextGenerateEffect } from "@/shadcn/components/ui/text-generate-effect";
 
-return (
-<BackgroundBeamsWithCollision>
-      <h2 className="text-2xl relative z-20 md:text-4xl lg:text-7xl font-bold text-center text-black dark:text-white font-sans tracking-tight">
-      Build Together, Shine Together {" "}
-        <div className="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
-          <div className="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-primary via-accent-foreground to-accent py-4">
-            <span className="">Welcome to Colabra .</span>
-          </div>
-        </div>
-      </h2>
-    </BackgroundBeamsWithCollision>
+export default function DeveloperRoadmaps() {
+  return (
+    <div className="min-h-screen  p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-5xl text-center pt-6 font-bold text-primary mb-4">
+          Resource Ocean
+        </h1>
+        <TextGenerateEffect
+          words={`resourcera.sh is a community effort to share resource , guides and other educational content
+          to help guide users in picking up a path and guide their learnings.`}
+          className="!text-white pb-4"
+        />
+
+        <LovedResources />
+        <TrendingTopics/>
+        <ActiveUsers/>
+        
+      </div>
+    </div>
   );
 }

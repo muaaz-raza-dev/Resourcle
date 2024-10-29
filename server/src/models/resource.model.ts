@@ -20,6 +20,7 @@ const resourceSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    banner:String,
     content:[
         {
             label:String,
