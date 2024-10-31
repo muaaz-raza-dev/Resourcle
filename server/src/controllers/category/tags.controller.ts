@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { Itags, Tags } from "../../models/tag.model";
-import { SuccessResponse } from "../../utils/responsehandler";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
+import { Resource } from "../../models/resource.model";
 
-export default async function SearchCategories(req:Request,res:Response) {
+export default async function SearchTags(req:Request,res:Response) {
 const {q} = req.body;
 try {
     let tags:Itags[] = [];
@@ -21,4 +22,56 @@ catch(err){
     return SuccessResponse(res,{payload:[]});
 }
 
+}
+
+interface ItrendingTagPayload{
+  name:string;
+  _id:string;
+  total:number;
+}
+export async function TrendingTags(req:Request,res:Response) {
+  try{
+
+  
+    const resources:ItrendingTagPayload[] = await Resource.aggregate([
+      {$unwind: {
+          path: "$tags",
+          preserveNullAndEmptyArrays: false
+        }},
+        {$project: {
+          "tags":1
+        }},
+        {
+          $lookup: {
+            from: "tags",
+            localField: "tags",
+            foreignField: "_id",
+            as: "tags"
+          }
+        },
+        
+        {$group: {
+          _id: "$tags",
+          total: {
+            $sum: 1,
+          },
+        name: { $first: "$tags.name" }
+            
+        }},
+        {$unwind: {
+          path: "$name",
+          preserveNullAndEmptyArrays: false
+        }},
+        {$sort: {
+          total:-1
+        }}
+      ,{
+        $limit: 10
+      }
+    ])
+    return SuccessResponse(res,{payload:resources})
+  }
+  catch(err){
+    return ErrorResponse(res,{message:"Internal server error"})
+  }
 }

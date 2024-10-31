@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     },
     headline:String,
     links:{type:[{label:String,url:String}]},
-    about:String
-
+    about:String,
+    interest:{type:mongoose.Types.ObjectId,ref:"Tags"},
   },{timestamps:true});
 
   interface Iuser {

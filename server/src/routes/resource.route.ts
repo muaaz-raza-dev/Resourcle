@@ -1,10 +1,12 @@
 
 import express from 'express';
-import CreateResource, { GetResource } from '../controllers/resource/resource.controller';
+import CreateResource, {  GetFeedResources, GetResource } from '../controllers/resource/resource.controller';
+import { Authenticate } from '../middlewares/Authenticate';
 
 const router = express.Router();
 
-router.post("/new",CreateResource)
-router.get("/:id",GetResource)
+router.post("/new",Authenticate,CreateResource);
+router.get("/d/:id",Authenticate,GetResource);
+router.get("/feed",GetFeedResources)
 
 export default router

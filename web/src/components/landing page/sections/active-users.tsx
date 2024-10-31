@@ -7,49 +7,31 @@ import {
   AvatarImage,
   AvatarFallback,
 } from "@/shadcn/components/ui/avatar";
-import { Avatar as AvatarAntd } from "antd";
 import { AnimatedTooltip } from "@/shadcn/components/ui/animated-tooltip";
-const users = [
-  {
-    name: "Muaaz",
-    avatar: "/user.png",
-    headline: "scientist will beat einstien",
-    id: "govindam",
-  },
-  {
-    name: "Muaaz",
-    avatar: "/user.png",
-    headline: "scientist will beat einstien",
-    id: "govindam",
-  },
-  {
-    name: "Muaaz",
-    avatar: "/user.png",
-    headline: "scientist will beat einstien",
-    id: "govindam",
-  },
-  {
-    name: "Muaaz",
-    avatar: "/user.png",
-    headline: "scientist will beat einstien",
-    id: "govindam",
-  },
-];
+import useLoadUsersFeed from "@/hooks/feed/useLoadUserFeed";
+import ResourceLoader from "../loader/resource-loader";
+
 export default function ActiveUsers() {
+  const { isLoading, data } = useLoadUsersFeed();
+  if (isLoading) return <ResourceLoader />;
+  const users = data?.payload;
   return (
     <>
       <HeadingComp text={"🚀 Active users"} />
       <Card className="w-full max-w-full bg-transparent border-none shadow-none">
         <CardContent>
           <section className="flex flex-wrap justify-between gap-y-3">
-            {users.map((user) => (
+            {users?.slice(0, 4)?.map(({ user, top_posts, upvotes }) => (
               <div
-                key={user.id}
+                key={user._id}
                 className="flex items-center gap-3 py-4 w-[48%] bg-secondary px-5 rounded-md"
               >
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback>
+                  <AvatarImage
+                    src={user.picture || "/user.png"}
+                    alt={user.name}
+                  />
+                  <AvatarFallback className="bg-secondary-foreground text-white font-semibold">
                     {user.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -58,7 +40,7 @@ export default function ActiveUsers() {
                     {user.name}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {user.headline}
+                    {user.headline} {top_posts} {upvotes}
                   </p>
                 </div>
                 <div className="flex " />
@@ -69,35 +51,16 @@ export default function ActiveUsers() {
             ))}
           </section>
           <section className="center py-4 gap-2 font-semibold">
-              <AnimatedTooltip
-                items={[
-                  {
-                    id: 2,
-                    name: "Munna",
-                    designation: "asdfasdfasf",
-                    image: "/logo2.png",
-                  },
-                  {
-                    id: 2,
-                    name: "Munna",
-                    designation: "asdfasdfasf",
-                    image: "/logo2.png",
-                  },
-                  {
-                    id: 2,
-                    name: "Munna",
-                    designation: "asdfasdfasf",
-                    image: "/logo2.png",
-                  },
-                  {
-                    id: 2,
-                    name: "Munna",
-                    designation: "asdfasdfasf",
-                    image: "/logo2.png",
-                  },
-                ]}
-              ></AnimatedTooltip>
-            <p>+34 more</p>
+            <AnimatedTooltip
+              items={users
+                ?.slice(4,8).map((e,i)=> ({
+                  name: e.user.name,
+                  image: e.user.picture || "/user.png",
+                  designation: e.user.headline,
+                  id: i,
+                }))||[]}
+            ></AnimatedTooltip>
+            { users && (users?.length-8) > 0 && <p>+{users?.length-8} more</p>}
           </section>
         </CardContent>
       </Card>
