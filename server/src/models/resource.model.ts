@@ -4,8 +4,8 @@ const resourceSchema = new mongoose.Schema({
     title : {
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        unique:false,
+        text:true,
     },
     description:String,
     tags: {
