@@ -4,73 +4,53 @@ import { Avatar } from "antd"
 import { Bookmark, Dot, Link as LinkIcon } from "lucide-react"
 import Image from "next/image"
 import UpvoteBtn from "../global/upvote-btn"
+import { useRecoilValue } from "recoil"
+import { searchedResourcesAtom } from "@/state/search-resource.atom"
+import moment from "moment"
+import RequestLoader from "../loader/request-loading"
+import { useMemo } from "react"
+import NotAvailableFallbackSearched from "./not-available-fallback-searched"
 
-interface ResourceItem {
-  id: string
-  title: string
-  bannerUrl: string
-  linkCount: number
-  upvotes: number;
-  description?: string;
-}
-const resourceItems: ResourceItem[] = [
-  {
-    id: "1",
-    title: "Frontend Developer Roadmap 2024",
-    bannerUrl: "/banner.png",
-    linkCount: 42,
-    upvotes: 1337
-  },
-  {
-    id: "2",
-    title: "Backend Developer Career Path",
-    bannerUrl: "/banner.png",
-    linkCount: 35,
-    upvotes: 982
-  },
-  {
-    id: "3",
-    title: "Full Stack Web Development Guide",
-    bannerUrl: "/banner.png",
-    linkCount: 50,
-    upvotes: 1500
-  }
-  // Add more items as needed
-];
-export default function SearchedResources() {
+export default function SearchedResources({isLoading}:{isLoading:boolean}) {
+  const {resources,total,count } = useRecoilValue(searchedResourcesAtom)
+  const FlatResources  = useMemo(()=>Object.values(resources).flat(),[resources])
   return (
 <div className=" flex flex-col ">
-      <div className="flex flex-col gap-2">
-        {resourceItems.map((item) => (
-          <Card key={item.id} className="overflow-hidden px-2 py-2">
+      <div className="flex flex-col  gap-2">
+        {
+        FlatResources.map((resource) => (
+          <Card key={resource._id} className="overflow-hidden px-2 py-2">
             <div className="flex flex-col sm:flex-row center">
-              <div className="relative w-full sm:w-48 h-28">
+                {resource.banner&&
+              <div className="relative w-full sm:w-48 h-28 bg-secondary rounded-md">
+                
                 <Image
-                  src={item.bannerUrl}
-                  alt={item.title}
+                  src={resource.banner||""}
+                  alt={resource.title}
                   layout="fill"
                   objectFit="cover"
                   className="rounded-md"
                 />
               </div>
+                }
               <div className="flex-1 p-4 flex flex-col justify-between">
                 <CardContent className="p-0">
                   <div className="flex items-center gap-1">
-                    <Avatar src="/user.png" size={20}/>
-                    <p className="font-semibold text-sm pl-1">Muaaz Raza</p>
+                    <Avatar src={resource?.publisher?.picture||"/user.png"} size={20}/>
+                    <p className="font-semibold text-sm pl-1">{resource?.publisher?.name}</p>
                     <Dot/>
-                    <span className="text-sm text-gray-500">10 days ago</span>
+                    <span className="text-sm text-gray-500">{moment(resource.createdAt).fromNow()}</span>
                   </div>
-                  <h2 className="text-xl font-semibold ">{item.title}</h2>
+                  <h2 className="text-xl font-semibold ">{resource.title}</h2>
                   
                 </CardContent>
                 <CardFooter className="p-0 items-end">
                 <div className="flex items-center space-x-3  text-sm text-muted-foreground">
                     <span className="flex items-center  text-primary  text-xs font-semibold">
                       <LinkIcon className="h-4 w-4 mr-1 font-medium text-primary" />
-                      {item.linkCount} links
+                      {resource.linksLength} links
                     </span>
-                    <UpvoteBtn value={`45 upvotes`} size={18} containerClassName="flex-row-reverse"/>
+                    <UpvoteBtn value={`${resource.upvotes} upvotes`} size={18} containerClassName="flex-row-reverse"/>
                     
                     
                   </div>
@@ -84,9 +64,20 @@ export default function SearchedResources() {
           </Card>
         ))}
       </div>
+      {
+      isLoading?
+      <div className="center max-auto my-2">
+      <RequestLoader/>
+      </div>
+      :
+      FlatResources.length ==0 &&
+      <NotAvailableFallbackSearched/>
+      }
+      {  (total>((count+1)*10)) ?
       <Button className=" my-4 mx-auto" variant={"secondary"} >
           Load more
-      </Button>
+      </Button>:null
+      }
     </div>
   )
 }

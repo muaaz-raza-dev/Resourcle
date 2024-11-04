@@ -1,13 +1,21 @@
+"use client"
 import FilterbarSearched from '@/components/searched/filterbar-searched'
 import SearchedResources from '@/components/searched/searched-resources'
-
-import React from 'react'
+import useSearchResource from '@/hooks/resource/useSearchResource'
+import { useSearchParams } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 export default function Page() {
-  return (
-    <section className='max-w-4xl mx-auto'>
+  const searchParams = useSearchParams()
+  const search = searchParams.get('search')
+  const {mutate,isLoading} = useSearchResource()
+  useEffect(() => {
+  if(search) mutate("")
+  }, [])
+return (
+  <section className='max-w-4xl mx-auto'>
       <FilterbarSearched/>
-      <SearchedResources/>
+      <SearchedResources isLoading={isLoading}/>
     </section>
   )
 }

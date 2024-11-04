@@ -18,7 +18,7 @@ export default function HeroSection() {
     initial={{ opacity: 0, x: 10 }}
     whileInView={{ opacity: 1, x: 0 }}
     transition={{
-      duration: 0.3,
+      duration: 0.1,
       ease: "easeInOut",
     }}
     className="bg-gradient-to-br from-slate-300 to-slate-500  bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"

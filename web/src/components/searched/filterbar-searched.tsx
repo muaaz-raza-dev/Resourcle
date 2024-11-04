@@ -1,15 +1,20 @@
 "use client";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/shadcn/components/ui/dropdown-menu"
-import { ArrowUpDown} from "lucide-react"
+import useSearchResource from "@/hooks/resource/useSearchResource";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/components/ui/select";
+import { searchedResourcesAtom, SearchedSortOptions } from "@/state/search-resource.atom";
 import { useSearchParams } from 'next/navigation'
+import { useRecoilState } from "recoil";
 export default function FilterbarSearched() {
     const searchParams = useSearchParams()
+    const [{total,sort},setAtom] = useRecoilState(searchedResourcesAtom)
     const search = searchParams.get('search')
+    const { mutate,isLoading } = useSearchResource();
+
+    function HandleSortChange(val: SearchedSortOptions ){
+      setAtom(e => ({ ...e, sort: val }))
+      mutate({sort:val})
+    }
+
   return (
     
       <div className="container px-4 py-6 md:py-8 mx-auto">
@@ -24,21 +29,19 @@ export default function FilterbarSearched() {
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b pb-4">
           <div className="text-muted-foreground">
-            <span className="font-semibold text-foreground">2,451</span> results found
+            <span className="font-semibold text-foreground">{total}</span> result(s) found
           </div>
           <div className="flex items-center gap-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button  className="gap-2 text-sm flex items-center  px-4 rounded py-1">
-                  <ArrowUpDown className="h-4 w-4" />
-                  Most Upvoted
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem className="hover:!bg-slate-300">Most Upvoted</DropdownMenuItem>
-                <DropdownMenuItem className="hover:!bg-slate-300">Recent</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <Select disabled={isLoading} value={sort} onValueChange={HandleSortChange}>
+  <SelectTrigger className="min-w-[180px] border ring-offset-transparent outline-none ">
+    <SelectValue className="hover:!bg-slate-300" />
+  </SelectTrigger>
+  <SelectContent align="end">
+    <SelectItem value="upvotes" className="hover:!bg-slate-300">Most Upvoted</SelectItem>
+    <SelectItem value="createdAt" className="hover:!bg-slate-300">Recent</SelectItem>
+  </SelectContent>
+</Select>
+
           </div>
         </div>
       </div>
