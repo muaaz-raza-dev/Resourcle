@@ -17,17 +17,22 @@ export default async function CreateResource(req: Request, res: Response):Promis
 
 }
 export async function GetResource(req: Request, res: Response):Promise<void> {
-
     try {
+
         if (!req.params.id || req.params.id.length != 24) {
             ErrorResponse(res, { status: 404, message: "Invalid Id" })
             return;
 
         }
         const resource = await Resource.findById(req.params.id).populate("tags").populate({ path: "publisher", select: "name photo" })
+        
         if (!resource) {
             ErrorResponse(res, { status: 404, message: "Not found" })
             return;
+        }
+        const isLogined = await ValidateLogin(req)
+        if(isLogined){
+           await Resource.findByIdAndUpdate(req.params.id,{$addToSet:{views:req.userid}}) 
         }
         SuccessResponse(res, { payload: resource })
         return;

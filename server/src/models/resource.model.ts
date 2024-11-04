@@ -7,6 +7,7 @@ const resourceSchema = new mongoose.Schema({
         unique:false,
         text:true,
     },
+    views:{ref:"User",type:[mongoose.Types.ObjectId]},
     description:String,
     tags: {
         type: [mongoose.Types.ObjectId],

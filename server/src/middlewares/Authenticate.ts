@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../utils/tokens";
 import { User } from "../models/user.model";
 export async function Authenticate(req:Request,res:Response,next:NextFunction):Promise<void>{
+
+    
     try {
 
         const token = req.cookies[process.env.SESSION_COOKIE_KEY];
@@ -34,7 +36,6 @@ export async function ValidateLogin(req:Request){
     
     try {
         const token = req.cookies[process.env.SESSION_COOKIE_KEY];
-        console.log("I am here")
         if (!token) {
             return false
         }
