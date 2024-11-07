@@ -10,7 +10,7 @@ export default function Page() {
   const search = searchParams.get('search')
   const {mutate,isLoading} = useSearchResource()
   useEffect(() => {
-  if(search) mutate("")
+  if(search) mutate(undefined)
   }, [])
 return (
   <section className='max-w-4xl mx-auto'>

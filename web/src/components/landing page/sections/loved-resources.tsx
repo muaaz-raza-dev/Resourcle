@@ -2,10 +2,10 @@ import React from "react";
 import HeadingComp from "../components/heading-comp";
 import { FaPlus } from "react-icons/fa";
 import UpvoteBtn from "@/components/global/upvote-btn";
-import { BookmarkIcon } from "lucide-react";
 import useLoadResourceFeed from "@/hooks/feed/useLoadResourceFeed";
 import Link from "next/link";
 import ResourceLoader from "../loader/resource-loader";
+import SaveBtn from "@/components/global/save-btn";
 
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();
@@ -18,20 +18,23 @@ export default function LovedResources() {
         {q?.map((resource, index) => (
           <section
             key={index}
-            className="bg-secondary border-gray-200  py-3  rounded-md px-3 hover:border-gray-500 border border-transparent cursor-pointer transition-colors   w-[32%] "
+            className="bg-secondary border-gray-200  py-3  rounded-md px-3 hover:border-gray-500 border border-transparent transition-colors   w-[32%] "
           >
-            <Link
-              href={`/resource/${resource._id}`}
+            <main
+              
               className="flex flex-row gap-4  justify-between items-center h-max py-0   "
             >
+              <Link  href={`/resource/${resource._id}`} >
               <h2 className="font-semibold text-[0.9rem]  whitespace-pre-wrap ">
                 {resource.title}
               </h2>
+              </Link>
+
               <div className="flex gap-1 items-center">
-                <UpvoteBtn value={resource.upvotes} />
-                <BookmarkIcon className="text-gray-700 py-0" size={18} />
+                <UpvoteBtn value={`${resource.upvotes}`} id={resource._id} isUpvoted={resource.isUpvoted}/>
+                <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
               </div>
-            </Link>
+            </main>
           </section>
         ))}
 
