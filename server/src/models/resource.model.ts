@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Iupvote } from './upvote.model';
 
 const resourceSchema = new mongoose.Schema({
     title : {
@@ -21,6 +22,7 @@ const resourceSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    upvotesDoc:{type:mongoose.Types.ObjectId,ref:"Upvotes"},
     banner:String,
     content:[
         {
@@ -35,7 +37,8 @@ const resourceSchema = new mongoose.Schema({
                 stars:Number
             }]
         }
-    ]
+    ],
+    isPrivate:{type:Boolean,default:false}
 }, { timestamps: true });
 
 
@@ -56,6 +59,7 @@ export interface IResource extends mongoose.Document {
             stars: number;
         };
     }>;
+    upvotesDoc:mongoose.Types.ObjectId | Iupvote,
     createdAt: Date;
     updatedAt: Date;
 }

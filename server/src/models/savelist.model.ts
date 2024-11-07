@@ -18,4 +18,4 @@ const BookmarkSchema = new mongoose.Schema({
     }
 })
 
-export const Bookmark = mongoose.model('Bookmark', BookmarkSchema);
+export const SaveList = mongoose.model('SaveList', BookmarkSchema);

@@ -6,6 +6,7 @@ import tagsRoute from "./routes/tags.route"
 import resourceRoute from "./routes/resource.route"
 import profileRoute from "./routes/profile.route"
 import usersRoute from "./routes/users.route"
+import upvotesRoute from "./routes/upvotes.route"
 import express from 'express';
 import cors from 'cors';
 import { dbConnection } from './db.js';
@@ -30,6 +31,7 @@ app.use("/api/v1/tags", tagsRoute);
 app.use("/api/v1/resource",resourceRoute );
 app.use("/api/v1/profile",Authenticate, profileRoute);
 app.use("/api/v1/users", usersRoute);
+app.use("/api/v1/upvotes",upvotesRoute)
 
 dbConnection().then(_=>{
 app.listen(PORT, () => {

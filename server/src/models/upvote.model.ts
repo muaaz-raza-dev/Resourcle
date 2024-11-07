@@ -16,5 +16,9 @@ const UpvoteSchema = new mongoose.Schema({
         default: Date.now
     }
 })
-
-export const Bookmark = mongoose.model('Upvotes', UpvoteSchema);
+export interface Iupvote{
+    resource: mongoose.Types.ObjectId;
+    users: mongoose.Types.ObjectId[];
+    createdAt: Date;
+}
+export const Upvotes = mongoose.model<Iupvote>('Upvotes', UpvoteSchema);
