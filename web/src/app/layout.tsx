@@ -5,6 +5,7 @@ import Navbar from "@/components/global/navbar";
 import  { Toaster } from 'react-hot-toast';
 import QueryClientsProvider from "@/components/providers/query-client-provider";
 import AuthUiValidator from "@/components/validators/auth-ui-validator";
+import AuthReminderModal from "@/components/global/auth-reminder-modal";
 
 
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       <Toaster/>
         <RecoilProvider>
         <QueryClientsProvider>
+              <AuthReminderModal/>
         <AuthUiValidator>
         <Navbar/>
         {children}

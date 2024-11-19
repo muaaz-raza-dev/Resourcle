@@ -11,14 +11,17 @@ export async function Authenticate(req:Request,res:Response,next:NextFunction):P
         const token = req.cookies[process.env.SESSION_COOKIE_KEY];
         if (!token) {
              ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
+             return;
         }
         const decodedToken = jwt.verify(token, JWT_SECRET) as { user_id: string };
         if (!decodedToken || !decodedToken.user_id) {
              ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
+             return;
         }
         const user = await User.findById(decodedToken.user_id).select('name username email email_verified');
         if (!user) {
              ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
+             return;
         }
 
         req.userid = decodedToken.user_id
@@ -27,6 +30,7 @@ export async function Authenticate(req:Request,res:Response,next:NextFunction):P
     }
     catch(err){
          ErrorResponse(res, { message: "Internal server error", status: 401 });
+         return;
     }
 
 }

@@ -21,6 +21,7 @@ export default function CreateResourcePage() {
         const urls = await UploadImageCloudinary([data.banner]);
         setUploading(false);
         if (urls) {
+          methods.setValue("banner",urls[0])
           await mutate({ ...data, banner: urls[0] });
         } else {
           await mutate(data);

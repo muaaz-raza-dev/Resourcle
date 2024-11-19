@@ -5,7 +5,6 @@ import Searchbar from "./logined/searchbar";
 import { FaInbox } from "react-icons/fa";
 import ActiveNavLinkWrapper from "../global/active-nav-link-wrapper";
 import { IoMdAdd } from "react-icons/io";
-import { GoIssueOpened } from "react-icons/go";
 import ProfileMenu from "./logined/profile-menu";
 export default function LoginedNavbar() {
   return (
@@ -24,9 +23,6 @@ export default function LoginedNavbar() {
               <IoMdAdd />
             </ActiveNavLinkWrapper>
 
-            <ActiveNavLinkWrapper tooltip={"You have no unread issues"}>
-              <GoIssueOpened />
-            </ActiveNavLinkWrapper>
 
             <ActiveNavLinkWrapper tooltip={"You have no unread notification"}>
               <FaInbox />

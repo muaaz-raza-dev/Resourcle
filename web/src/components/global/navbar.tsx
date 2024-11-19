@@ -3,7 +3,7 @@ import React from 'react'
 import { usePathname } from 'next/navigation';
 import RouteValidator from '@/utils/PublicRouteValidator';
 import { useRecoilValue } from 'recoil';
-import { authAtom } from '@/state/user-info.atom';
+import { authAtom } from '@/state/auth.atom';
 import LoginedNavbar from '../navbar/logined-navbar';
 import UnLoginedNavbar from '../navbar/unlogined-navbar';
 

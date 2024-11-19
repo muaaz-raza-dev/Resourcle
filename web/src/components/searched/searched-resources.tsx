@@ -5,8 +5,8 @@ import NotAvailableFallbackSearched from "./not-available-fallback-searched";
 import SearchedLoadMoreButton from "./searched-load-more-button";
 import SkeletonResources from "./skeleton-resources";
 import { Separator } from "@/shadcn/components/ui/separator";
-import EachResourceComponent from "./each-resource-component";
-
+import EachResourceComponent from "./resource/each-resource-component";
+const ResourcesPerRequest  =+process.env.NEXT_PUBLIC_SEARCH_LIMIT||10;
 export default function SearchedResources({
   isLoading,
 }: {
@@ -21,7 +21,7 @@ export default function SearchedResources({
           <EachResourceComponent
             resource={resource}
             key={resource._id}
-          />
+            />
         ))}
       </div>
       {isLoading ? (
@@ -29,10 +29,10 @@ export default function SearchedResources({
       ) : (
         FlatResources.length == 0 && <NotAvailableFallbackSearched />
       )}
-      {total > (count + 1) * 10 ? <SearchedLoadMoreButton /> :
+      {total > (count + 1) * ResourcesPerRequest ? <SearchedLoadMoreButton /> :
       <div className="flex flex-col center my-4 gap-2">
       <Separator/>
-      <p className="mx-auto text-muted-foreground ">You all caught up</p>
+      <p className="mx-auto text-muted-foreground text-sm">You all caught up</p>
       </div>
       }
     </div>

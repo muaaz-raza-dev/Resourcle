@@ -12,9 +12,9 @@ export default function ProfileLinkField() {
         form.setValue("links",form.getValues("links")?.concat({url:"",label:""}))
     }
   return (
-    <div className="space-y-4">
-    <Label className="!font-semibold text-xl">Additional Link</Label>
-    <p className='text-sm text-muted-foreground'>Add an additional link to showcase more about yourself, such as a personal website, portfolio, or social media profile. This link will be visible on your public profile.</p>
+    <div className="border-t py-4">
+    <Label className="!font-bold text-2xl ">Handles</Label>
+    <p className='text-sm text-muted-foreground pb-4 leading-tight'>Add an additional link to showcase more about yourself, such as a personal website, portfolio, or social media profile.</p>
     {
         links?.map((l,i)=><EachLinkInput key={i+l.url} index={i}/>)
     }

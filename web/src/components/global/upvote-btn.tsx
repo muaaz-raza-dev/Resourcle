@@ -3,6 +3,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { AiFillFire, AiOutlineFire } from "react-icons/ai";
 import  "../../app/globals.css"
+import useProtectAuthorisedEvents from "@/utils/authorised-event-protector";
 export default function UpvoteBtn({
   className,
   value,
@@ -12,15 +13,16 @@ export default function UpvoteBtn({
   id,
 }: {
   className?: string;
-  value: string;
+  value: number;
   size?: number;
   id: string;
   containerClassName?: string;
   isUpvoted: boolean;
 }) {
   const [state, setstate] = useState({ upvotes: +value, isUpvoted });
+  const authorize = useProtectAuthorisedEvents()
   const { mutateAsync, isLoading } = useUpvoteResource();
-  const handleUpvote = async () => {
+  async function upvote(){
     const prevState = state;
     try {
       setstate((state) => ({
@@ -32,18 +34,22 @@ export default function UpvoteBtn({
     } catch (_) {
       setstate(prevState);
     }
+  }
+  const handleUpvote =  () => {
+    authorize(upvote)
   };
+
   return (
     <button
       className={clsx(
-        "rounded flex gap-0.5 items-center upvote-button text-xs font-semibold",
+        "rounded flex gap-0.5 items-center upvote-button text-xs font-semibold ",
         containerClassName
       )}
       onClick={handleUpvote}
     >
-      <p>{state.upvotes}</p>
+      <p className="font-semibold">{state.upvotes}</p>
       {state.isUpvoted ? (
-        <AiFillFire strokeWidth={3} fill="rgb(249 115 22)" className={clsx( "upvote-icon",isLoading && "animate-ping transition-all")} 
+        <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-ping transition-all")}  
         size={size || 18} />
       ) : (
         <AiOutlineFire

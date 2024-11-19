@@ -1,11 +1,17 @@
 import { TabsList, TabsTrigger } from '@/shadcn/components/ui/tabs'
 import React from 'react'
+import { FaBookmark, FaThList } from 'react-icons/fa'
 
 export default function UserProfileResourceNavbar() {
   return (
     <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger className='shadow-none border-none py-2 font-semibold' value="resource">Resources</TabsTrigger>
-            <TabsTrigger className='shadow-none border-none py-2 font-semibold' value="saved">Saved Resources</TabsTrigger>
+               <TabsTrigger value='resource' className='flex gap-2 items-center py-2 font-semibold '>
+                <FaThList />
+                  Resources
+                </TabsTrigger>
+              <TabsTrigger value='saved' className='flex gap-2 items-center py-2 font-semibold '>
+                <FaBookmark /> Savelist
+                </TabsTrigger>
           </TabsList>
   )
 }

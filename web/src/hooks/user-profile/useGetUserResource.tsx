@@ -4,12 +4,13 @@ import {
   SearchedSortOptions,
 } from "@/state/search-resource.atom";
 import { UserProfileResourceAtom } from "@/state/user-profile-resource.atom";
+import { useParams } from "next/navigation";
 import { useMutation } from "react-query";
 import { useRecoilState } from "recoil";
 
 export default function useGetUserResources() {
   const [{ resources:{count, sort: sortP,isPrivate} },setValue] = useRecoilState(UserProfileResourceAtom);
-
+  const userid  = useParams().user as string
   return useMutation({
     mutationKey: ["User",  sortP],
     mutationFn: (directPayload?: {
@@ -19,9 +20,10 @@ export default function useGetUserResources() {
       isPrivate?:boolean
     }) => {
      return GetUserResourceApi({
-        count: directPayload?.count || count,
-        sort: directPayload?.sort || sortP ,
-        isPrivate: directPayload?.isPrivate || isPrivate,
+        count: directPayload?.count ?? count,
+        sort: directPayload?.sort ?? sortP ,
+        isPrivate: directPayload?.isPrivate ?? isPrivate,
+        userid:userid??null
       })
     },
     onSuccess({ payload: { resources, total } }) {
@@ -36,6 +38,9 @@ export default function useGetUserResources() {
       },
     }) {
       console.error("Error creating resource", message);
+    },
+    onSettled() {
+      setValue(val=>({...val,resources:{...val.resources,isLoading:false}}))
     },
   });
 }

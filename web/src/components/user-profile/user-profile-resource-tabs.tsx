@@ -1,11 +1,12 @@
 "use client";
-import { Tabs, TabsContent } from '@/shadcn/components/ui/tabs'
+import { Tabs, TabsContent, } from '@/shadcn/components/ui/tabs'
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import UserProfileResourceNavbar from './user-profile-resource-navbar'
 import UserProfileResourcesFilterbar from './user-profile-resources-filterbar';
 import UserProfileOwnResources from './user-profile-own-resources';
+import UserProfileSavedResources from './user-profile-saved-resources';
 
 export default function UserProfileResourceTabs() {
   const search =  useSearchParams()
@@ -30,17 +31,17 @@ export default function UserProfileResourceTabs() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
             >
+           
 
-              <TabsContent value="resource" className="mt-6">
+              <TabsContent value="resource" className="mt-6" >
                 <UserProfileResourcesFilterbar/>
-                <div className="flex flex-col  gap-2">
+                <div className="flex flex-col mt-2  gap-2">
                   <UserProfileOwnResources/>
                 </div>
               </TabsContent>
 
               <TabsContent value="saved" className="mt-6">
-
-              {/* <PostGrid posts={posts.filter(post => post.saved)} /> */}
+              <UserProfileSavedResources/>
               </TabsContent>
             </motion.div>
           </AnimatePresence>

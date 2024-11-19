@@ -42,7 +42,14 @@ export default function NewLinkDailogResourceForm({
     if(!isLinkValid)return;
     const isValid = trigger();
     if (!isValid) return;
-    ParentForm.setValue(`content.${linkGroupIndex}.links.${linkIndex}`, data);
+    if(ParentForm.getValues(`content.${linkGroupIndex}.links`).length<=linkIndex){
+      ParentForm.setValue(`content.${linkGroupIndex}.links.${linkIndex}`, data);
+    }
+    else {
+      ParentForm.setValue(`content.${linkGroupIndex}.links`,
+      [...ParentForm.getValues(`content.${linkGroupIndex}.links`).slice(0, linkIndex), data,
+      ...ParentForm.getValues(`content.${linkGroupIndex}.links`).slice(linkIndex)])
+    }
     form.reset();
     setopen(false);
   };

@@ -10,6 +10,8 @@ import {
 import { AnimatedTooltip } from "@/shadcn/components/ui/animated-tooltip";
 import useLoadUsersFeed from "@/hooks/feed/useLoadUserFeed";
 import ResourceLoader from "../loader/resource-loader";
+import Link from "next/link";
+import { AiFillFire } from "react-icons/ai";
 
 export default function ActiveUsers() {
   const { isLoading, data } = useLoadUsersFeed();
@@ -35,18 +37,30 @@ export default function ActiveUsers() {
                     {user.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <div className="flex-1 ">
+                <div className="flex-1  flex flex-col justify-betweeen">
                   <p className="text-sm font-semibold leading-none">
                     {user.name}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {user.headline} {top_posts} {upvotes}
+                    {user.headline} 
                   </p>
+                  <div className="flex gap-2 items-center text-xs ">
+
+                    <div  className="border p-0.5 rounded">
+                  Top Resources {top_posts}
+                    </div>
+                    <div  className="flex gap-1 items-center border p-0.5 rounded">
+                      <AiFillFire fill="rgb(249 115 22)" />
+
+                  Upvotes {upvotes}
+                   </div>
+                  </div>
+                  
                 </div>
                 <div className="flex " />
-                <button className="text-sm text-white transition-colors duration-200 bg-primary hover:bg-primary-dark rounded-md py-1 px-2">
-                  Follow
-                </button>
+                <Link href={`${user._id}`} className="text-sm text-white transition-colors duration-200 bg-primary hover:bg-primary-dark rounded-md py-1 px-2">
+                  Visit
+                </Link>
               </div>
             ))}
           </section>

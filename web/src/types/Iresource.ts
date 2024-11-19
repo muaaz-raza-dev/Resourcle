@@ -5,6 +5,7 @@ export interface IResource  {
     publisher: string;
     banner:string|File;
     upvotes: number;
+    isPrivate:boolean;
     content: Array<IresourceContent>;
     createdAt: Date;
     updatedAt: Date;
@@ -27,6 +28,7 @@ export const defaultResource: IResource = {
     title: '',
     tags: [],
     description: '',
+    isPrivate:false,
     publisher: '',
     upvotes: 0,
     banner:"",

@@ -12,7 +12,10 @@ export default function useGetResource() {
     useQuery({
         queryKey:["resource",id],queryFn:()=>GetResourceApi(id),
         enabled:id!="",
-        onError({response:{data:{message}}}){
+        refetchOnWindowFocus:false,
+        retry:3,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onError({response:{data:{message}},status}){
             toast.error(message||"An error occured")
         }
     })

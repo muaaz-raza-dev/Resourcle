@@ -31,7 +31,7 @@ export default function LovedResources() {
               </Link>
 
               <div className="flex gap-1 items-center">
-                <UpvoteBtn value={`${resource.upvotes}`} id={resource._id} isUpvoted={resource.isUpvoted}/>
+                <UpvoteBtn value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted}/>
                 <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
               </div>
             </main>

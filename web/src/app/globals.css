@@ -219,3 +219,16 @@ background: linear-gradient(40deg, rgba(255,102,0,1) 0%, rgba(85,124,86,1) 96%),
       transform: translateY(0) scale(1);
     }
   }
+
+  .radix-overlay, .shadcn-overlay {
+    z-index: 9999;  /* Ensure overlay is above content */
+  }
+  
+  body {
+    pointer-events: auto !important;
+  }
+  
+  html{
+    scroll-behavior: smooth !important;
+    
+  }

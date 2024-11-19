@@ -17,9 +17,9 @@ export default async function ResourceSearchController(req: Request, res: Respon
 
       const totalResource = await Resource.countDocuments({ $text: { $search: search } })
       
-        const resources  = await PopulateResources(req,[{
+        const resources  = await PopulateResources(req,{query:[{
           $match: { $text: { $search: search } }
-        }],sort,count)
+        }],sort,count})
       
 
       SuccessResponse(res, { payload: { resources, total: totalResource } })

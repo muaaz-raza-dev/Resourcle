@@ -9,13 +9,10 @@ export default function LinkGroupResourceForm({ index }: { index: number }) {
   const [collapse, setcollapse] = useState(false)
 
 
-  console.log(" I am whole rendering",index)
   function DeleteLinkGroup() {
-    form.setValue(
-      "content",
-      form.getValues("content").filter((_, i) => i != index)
-    );
+    form.setValue("content",form.getValues("content").filter((_, i) => i != index));
   }
+  
   return (
     <div className="w-full rounded-md p-2 flex flex-col  border-2 py-4 gap-4">
       <header className="flex justify-between rounded-md w-full">
