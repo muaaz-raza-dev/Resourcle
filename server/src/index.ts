@@ -11,7 +11,6 @@ import express from 'express';
 import cors from 'cors';
 import { dbConnection } from './db.js';
 import cookieParser from "cookie-parser"
-import { Authenticate } from './middlewares/Authenticate';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,7 +28,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/utils", utilRoute);
 app.use("/api/v1/tags", tagsRoute);
 app.use("/api/v1/resource",resourceRoute );
-app.use("/api/v1/profile",Authenticate, profileRoute);
+app.use("/api/v1/profile", profileRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/upvotes",upvotesRoute)
 

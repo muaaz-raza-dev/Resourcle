@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Query } from 'mongoose';
 import { Iupvote } from './upvote.model';
+import { Iuser } from './user.model';
 
 const resourceSchema = new mongoose.Schema({
     title : {
@@ -38,14 +39,16 @@ const resourceSchema = new mongoose.Schema({
             }]
         }
     ],
+    isDeleted:{type:Boolean,default:false},
     isPrivate:{type:Boolean,default:false}
 }, { timestamps: true });
 
 
 export interface IResource extends mongoose.Document {
+    views: any;
     title: string;
     tags: mongoose.Types.ObjectId;
-    publisher: string;
+    publisher: string | Iuser;
     upvotes: number;
     content: Array<{
         Heading: string;
@@ -61,6 +64,13 @@ export interface IResource extends mongoose.Document {
     }>;
     upvotesDoc:mongoose.Types.ObjectId | Iupvote,
     createdAt: Date;
+    isDeleted:boolean,
     updatedAt: Date;
+    isPrivate:boolean;
 }
+resourceSchema.pre(/^find/,function (this: Query<any, any>, next) {
+    this.where({ isDeleted: false });
+    next();
+});
+  
 export const Resource = mongoose.model<IResource>('resource', resourceSchema);

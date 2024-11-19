@@ -7,6 +7,6 @@ const router: Router = express.Router();
 
 
 router.post("/search", Authenticate,SearchTags)
-router.get("/feed", Authenticate,TrendingTags)
+router.get("/feed", TrendingTags)
 
 export default router;

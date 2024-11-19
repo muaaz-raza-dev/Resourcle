@@ -16,20 +16,35 @@ export async function GoogleLoginController(req: Request, res: Response) {
             audience: process.env.GOOGLE_CLIENT_ID,
         });
         const payload = ticket.getPayload();
-        if (!payload?.sub) { return ErrorResponse(res, { message: "Invalid Credentials", status: 403 }) }
+        if (!payload?.sub) { 
+            ErrorResponse(res, { message: "Invalid Credentials", status: 403 }) 
+            return ;
+        }
         let user = await User.findOne({ email: payload.email })
-        const payloadToStore = { name: payload?.name, email: payload?.email, email_verified: payload?.email_verified, picture: payload?.picture, user_provider_id: payload?.sub, provider: "google" }
 
+        if(user){
+        if(user?.isDeleted) {
+            ErrorResponse(res, { message: "Invalid Credentials", status: 403 })
+            return ;
+        }
+        if(user?.provider=="local"){
+            ErrorResponse(res, { message: "Invalid Credentials", status: 403 })
+            return ;
+        }
+    }
+        const payloadToStore = { name: payload?.name, email: payload?.email, email_verified: payload?.email_verified, picture: payload?.picture, user_provider_id: payload?.sub, provider: "google" }
         if (!user) { user = await User.create(payloadToStore) }
 
         const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", { expiresIn: "30d" })
-        return res.cookie(cookie_key, token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) })
-            .json({ token, message: "Logged in successfully!" })
+        res.cookie(cookie_key, token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) })
+        .json({ token, message: "Logged in successfully!" })
+        return ;
 
     }
     catch (error) {
-        console.error('Error verifying token:', error);
-        return res.status(403).json({ message: 'Invalid token.' });
+        console.log(error);
+        res.status(403).json({ message: 'Invalid token.' });
+        return;
     }
 }
 
@@ -37,19 +52,26 @@ export async function GoogleLoginController(req: Request, res: Response) {
 export async function LocaleLoginController(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email })
-        if (!user||!user.password) return ErrorResponse(res, { message: "Invalid Credentials", status: 404 })
+        const user = await User.findOne({ email,isDeleted:false })
+        if (!user||!user.password) {
+            ErrorResponse(res, { message: "Invalid Credentials", status: 404 })
+            return  ;
+        } 
             
         const isMatch = isValidPassword(password,user.password)
-        if (!isMatch) return ErrorResponse(res, { message: "Invalid Credentials", status: 404 })
-            
+        if (!isMatch){
+            ErrorResponse(res, { message: "Invalid Credentials", status: 404 })
+            return;
+        } 
         const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", { expiresIn: "30d" })
-        return res.cookie(cookie_key, token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) }).json({ token, message: "Logged in successfully!" })
+        res.cookie(cookie_key, token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) }).json({ token, message: "Logged in successfully!" })
+        return;
 
     }
     catch (error) {
+        res.status(403).json({ message: 'Internal server error.' });
         
-        return res.status(403).json({ message: 'Internal server error.' });
+        return ;
     }
 }
 

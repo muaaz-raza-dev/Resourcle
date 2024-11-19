@@ -1,12 +1,23 @@
 import express from 'express';
-import { GetProfileInfoController, GetUserProfileInfoController, SaveResourceInfoController, UpdateProfileInfoController } from '../controllers/profile/profile.controller';
+import { AttachGoogleLogin, ChangePassword, DeleteAccount, DetachHybridLoginProvider, GetProfileInfoController, GetSecurityInfo, GetUserProfileInfoController, SaveResourceInfoController,  UpdateProfileInfoController, ValidateUsername } from '../controllers/profile/profile.controller';
+import { Authenticate } from '../middlewares/Authenticate';
 
 const router = express.Router();
 
-router.get('/', GetProfileInfoController);
-router.put('/update', UpdateProfileInfoController);
-router.put('/save/resource', SaveResourceInfoController);
+router.get('/', Authenticate,GetProfileInfoController);
+router.put('/update', Authenticate,UpdateProfileInfoController);
+router.put('/save/resource',Authenticate, SaveResourceInfoController);
 router.get("/user/:id",GetUserProfileInfoController)
+router.post("/validate/username/",ValidateUsername)
+
+router.put("/delete/account",Authenticate,DeleteAccount)
+router.get("/security/info",Authenticate,GetSecurityInfo)
+router.put("/change/password",Authenticate,ChangePassword) // setup + change
+router.put("/attach/google/login",Authenticate,AttachGoogleLogin)
+router.put("/dettach/hybrid/login",Authenticate,DetachHybridLoginProvider)
+
+
 
 
 export default router;
+

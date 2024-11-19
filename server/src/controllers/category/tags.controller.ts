@@ -15,11 +15,12 @@ try {
             name: { $regex: new RegExp(q, 'i') }
         }).limit(20);
     }
-    return SuccessResponse(res,{payload:tags});
+    SuccessResponse(res,{payload:tags});
+    return;
 }
 catch(err){
-    console.log(err)
-    return SuccessResponse(res,{payload:[]});
+  SuccessResponse(res,{payload:[]});
+  return;
 }
 
 }
@@ -69,9 +70,11 @@ export async function TrendingTags(req:Request,res:Response) {
         $limit: 10
       }
     ])
-    return SuccessResponse(res,{payload:resources})
+    SuccessResponse(res,{payload:resources})
+    return;
   }
   catch(err){
-    return ErrorResponse(res,{message:"Internal server error"})
+    ErrorResponse(res,{message:"Internal server error"})
+    return;
   }
 }

@@ -18,7 +18,7 @@ export async function Authenticate(req:Request,res:Response,next:NextFunction):P
              ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
              return;
         }
-        const user = await User.findById(decodedToken.user_id).select('name username email email_verified');
+        const user = await User.findById(decodedToken.user_id).select('name username email email_verified password provider');
         if (!user) {
              ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
              return;

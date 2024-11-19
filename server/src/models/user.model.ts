@@ -35,11 +35,17 @@ const userSchema = new mongoose.Schema({
     },
     headline:String,
     links:{type:[{label:String,url:String}]},
+    isDeleted:{type:Boolean,default:false},
     about:String,
+    username:{unique:true,type:String},
     interest:{type:mongoose.Types.ObjectId,ref:"Tags"},
+    reset_token:String,
+    reset_token_expiration:Date,
+    reset_verification:{type:Boolean,default:false}, // For password reset verification
   },{timestamps:true});
 
-  interface Iuser {
+  export interface Iuser {
+    _id:string
     name: string;
     email: string;
     email_verified: boolean;
@@ -48,6 +54,7 @@ const userSchema = new mongoose.Schema({
     user_provider_id?: string;
     password?: string;
     headline?: string;
+    isDeleted:boolean;
     links?: Array<{
       label: string;
       url: string;
@@ -55,6 +62,9 @@ const userSchema = new mongoose.Schema({
     about?: string;
     createdAt: Date;
     updatedAt: Date;
+    reset_token_expiration?:Date;
+    reset_token?:string
+    reset_verification?:boolean;
   }
 export const User = mongoose.model<Iuser>('User', userSchema);
 

@@ -12,14 +12,20 @@ export async function PopulateResources(req: Request, { query, count = 0, sort, 
 
   const userBookmarks =req.userid? (await SaveList.findOne({ user: req.userid }).select("resource").lean())?.resource||[]:[]
   const resources = await Resource.aggregate([
-    ...(!allowPrivate ? [{ $match: { isPrivate: false } }] : []),
     ...query,
+    {$match:{isDeleted:false}},
+    ...(!allowPrivate ? [{ $match: { isPrivate: false } }] : []),
     {
       $sort: { [sort]: -1 }
     },
     {
       $addFields: {
-        isSaved: { $in: ["$_id", userBookmarks] } 
+        isSaved: { $in: ["$_id", userBookmarks] } ,
+        isOwned:{$cond:{
+          if: { $eq: ["$publisher",new Types.ObjectId(req?.userid)] },
+          then: true,
+          else: false
+        }}
       }
     },
     {
@@ -29,7 +35,10 @@ export async function PopulateResources(req: Request, { query, count = 0, sort, 
         upvotes: 1,
         isSaved:1,
         publisher: 1,
-        upvotesDoc: req.userid ? 1 : 0,
+        isOwned:1,
+        isPrivate:1,
+        upvotesDoc: 1,
+        views:{$size:{$ifNull: ["$views", []]}},
         linksLength: {
           $map: {
             input: "$content",
@@ -55,7 +64,8 @@ export async function PopulateResources(req: Request, { query, count = 0, sort, 
     },
     ...(
       req.userid ?
-        [{
+        [
+          {
           $lookup: {
             from: "upvotes",
             localField: "upvotesDoc",
@@ -82,13 +92,18 @@ export async function PopulateResources(req: Request, { query, count = 0, sort, 
         }]
     ),
     {
+
       $project: {
         title: 1,
         createdAt: 1,
         upvotes: 1,
         isSaved: 1,
         isUpvoted: 1,
+        views:1,
+        isOwned:1,
+        upvotesDoc:1,
         linksLength: 1,
+        isPrivate:1,
         "publisher.name": 1,
         "publisher.picture": 1
       }

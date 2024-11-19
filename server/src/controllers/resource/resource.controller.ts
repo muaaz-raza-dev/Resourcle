@@ -5,23 +5,36 @@ import { ValidateLogin } from "../../middlewares/Authenticate";
 import { SaveList } from "../../models/savelist.model";
 import { Types } from "mongoose";
 import { Upvotes } from "../../models/upvote.model";
+import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js";
 
 export default async function CreateResource(req: Request, res: Response): Promise<void> {
     const { payload }: { payload: IResource } = req.body;
     try {
-        payload.publisher = req.userid as string;
+        delete payload._id
+
+
+
+
+
+
+        
+        payload.publisher = req.userid?.toString() as string;
         const resource = await Resource.create(payload)
-        const upvotesDoc = await Upvotes.create({ resource: resource._id })
+        let upvotesDoc = await Upvotes.findOne({resource:resource._id})
+            if(!upvotesDoc) {
+                upvotesDoc = await Upvotes.create({ resource: resource._id })
+            }
         resource.upvotesDoc = upvotesDoc._id;
-        await resource.save();
+        await Resource.findByIdAndUpdate(resource._id,{upvotesDoc:upvotesDoc._id});
         res.status(201).send({ message: "Resource created successfully" });
         return;
     }
     catch (err) {
+        console.log(err)
         res.status(500).send({ message: "Internal server error" });
     }
-
 }
+
 export async function GetResource(req: Request, res: Response): Promise<void> {
     try {
 
@@ -30,18 +43,37 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
             return;
 
         }
-        const resource = await Resource.findById(req.params.id).populate("tags").populate({ path: "publisher", select: "name photo" })
-
-        if (!resource) {
+        
+        const resourceRaw= await Resource.findById(req.params.id).populate("tags upvotesDoc").populate({ path: "publisher", select: "name photo headline" }).lean()
+        
+        if (!resourceRaw) {
             ErrorResponse(res, { status: 404, message: "Not found" })
             return;
         }
+        const resource = JSON.parse(JSON.stringify(resourceRaw))
+        resource.isUpvoted = false
+        resource.isSaved = false
+
         const isLogined = await ValidateLogin(req)
         if (isLogined) {
             await Resource.findByIdAndUpdate(req.params.id, { $addToSet: { views: req.userid } })
         }
-        SuccessResponse(res, { payload: resource })
-        return;
+
+        if(resource.isPrivate){
+            if(isLogined&& typeof resource.publisher != "string" &&req.userid?.toString()==resource.publisher._id.toString()){
+                SuccessResponse(res, { payload: resource })    
+                return;
+            }
+            else{
+                ErrorResponse(res,{message:"Not found",status:404})
+                return;
+            }
+        }
+        else{
+            await UpvoteAndSavedPopulator(req,{resourceRaw,resource})
+            SuccessResponse(res, { payload: resource })
+            return;
+        }
     }
     catch (err) {
 
@@ -66,9 +98,8 @@ export async function GetFeedResources(req: Request, res: Response): Promise<voi
 
         }
 
-        const resources = await Resource.find(query).sort("-upvotes -createdAt").populate("upvotesDoc")
+        const resources = await Resource.find({...query,isPrivate:false}).sort("-upvotes -createdAt").populate("upvotesDoc")
             .select("title upvotes upvotesDoc").limit(18).lean();
-
         let payload = JSON.parse(JSON.stringify(resources))
 
         payload = resources.map((elm) => {
@@ -91,3 +122,22 @@ export async function GetFeedResources(req: Request, res: Response): Promise<voi
 }
 
 
+export async function DeleteResource(req:Request,res:Response){
+   const {id} =req.body;
+   try{
+    if(!id||id.length!=24) {
+        ErrorResponse(res,{message:"Invalid id",status:403})
+        return ;
+    }
+        const resource = await Resource.findByIdAndUpdate(id,{isDeleted:true});
+        if(!resource){
+            ErrorResponse(res,{message:"Not found",status:404})
+            return ;
+        }
+        SuccessResponse(res,{message:"The resource is no longer exist",payload:id})
+
+   }
+   catch(err){
+
+   } 
+}
