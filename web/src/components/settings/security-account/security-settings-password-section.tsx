@@ -16,6 +16,7 @@ import useChangePassword from "@/hooks/settings/useChangePassword";
 import { FormProvider, useForm,SubmitHandler, Controller } from "react-hook-form";
 import { Iproviders } from "@/types/Isecurity";
 import RequestLoader from "@/components/loader/request-loading";
+import SecurityAccountForgetPasswordBtn from "./security-account-forget-password-btn";
 export interface IChangePasswordForm {
   current_password: string;
   new_password: string;
@@ -50,8 +51,6 @@ export default function SecuritySettingsPasswordSection() {
       </CardHeader>
       <CardContent>
         <FormProvider {...form}>
-
-        
         <form className="space-y-4" onSubmit={handleSubmit(onSumbit)}>
           {q?.provider != "google" && (
             <div className="space-y-2">
@@ -133,6 +132,11 @@ export default function SecuritySettingsPasswordSection() {
           )}
         </form>
         </FormProvider>
+        <div className="flex justify-end">
+          {data?.payload.email?
+          <SecurityAccountForgetPasswordBtn email={data.payload.email}/>:null
+          }
+        </div>
       </CardContent>
     </Card>
   );
