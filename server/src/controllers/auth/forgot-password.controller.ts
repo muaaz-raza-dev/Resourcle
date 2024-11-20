@@ -52,7 +52,7 @@ export async function RequestForgotPassword(req: Request, res: Response) {
             reset_verification: false // Reset verification status
         })
 
-        await SendMail(receiver, OTP, GenerateHTMLTemplate(receiver, OTP, authToken))
+        await SendMail(receiver,GenerateHTMLTemplate(receiver, OTP, authToken))
 
         const forgotKeyToken = jwt.sign({ email: user.email }, JWT_SECRET)
         res.cookie(ForgotCookieKey, forgotKeyToken, { expires: new Date(expirationTime) }).json( { message: "Password reset link sent to your email" })
