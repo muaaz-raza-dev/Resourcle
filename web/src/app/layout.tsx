@@ -6,12 +6,14 @@ import  { Toaster } from 'react-hot-toast';
 import QueryClientsProvider from "@/components/providers/query-client-provider";
 import AuthUiValidator from "@/components/validators/auth-ui-validator";
 import AuthReminderModal from "@/components/global/auth-reminder-modal";
+import Footer from "@/components/global/footer";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 
 
 
 export const metadata: Metadata = {
-  title: "Resourcera",
+  title: "Resourcin",
 };
 
 export default function RootLayout({
@@ -22,10 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="shortcut icon" href="/logo2.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="/logo/logo.ico" type="image/x-icon" />
       </head>
       <body className={`antialiased`}>
       <Toaster/>
+        <GoogleOAuthProvider  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID} >
         <RecoilProvider>
         <QueryClientsProvider>
               <AuthReminderModal/>
@@ -35,6 +38,8 @@ export default function RootLayout({
         </AuthUiValidator>
         </QueryClientsProvider>
         </RecoilProvider>
+        <Footer/>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

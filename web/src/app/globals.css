@@ -13,7 +13,7 @@
     --primary: 120 30% 45%; /* #557C56 */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 6% 95%; /* Lighter variant of #3C3D37 */
-    --secondary-foreground: 240 3% 20%; /* #3C3D37 */
+    --secondary-foreground:120 37.8% 5.5%; /* #0b110b */
     --muted: 240 6% 95%; /* Similar to secondary */
     --muted-foreground: 240 4% 50%; /* Darker muted variant */
     --accent: 24 100% 50%; /* #FF6600 */
@@ -21,8 +21,7 @@
     --destructive: 0 84% 60%; /* #FF6600 */
     --destructive-foreground: 0 0% 98%;
     --border: 240 4% 90%; /* Light border color */
-    --input: 240 4% 90%; /* Light input background */
-    --ring: 240 10% 3.9%; /* Similar to foreground */
+      --ring: 240 10% 3.9%; /* Similar to foreground */
     --radius: 0.5rem;
     --chart-1: 12 76% 61%; /* Adjust for your charts */
     --chart-2: 173 58% 39%; /* Adjust for your charts */
@@ -231,4 +230,12 @@ background: linear-gradient(40deg, rgba(255,102,0,1) 0%, rgba(85,124,86,1) 96%),
   html{
     scroll-behavior: smooth !important;
     
+  }
+
+  .navbar-bg{
+    background: rgba( 0, 0, 0, 0.05 );
+    backdrop-filter: blur( 12px );
+    -webkit-backdrop-filter: blur( 12px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
   }

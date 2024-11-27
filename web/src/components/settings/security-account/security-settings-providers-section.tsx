@@ -10,6 +10,7 @@ import { Database, GitMerge } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import SecuritySettingsSwitchProviderDialog from "./security-settings-switch-provider-dialog";
 import SecuritySettingsProviderInfoDialog from "./security-settings-provider-info-dialog";
+import GoogleAuthDialog from "@/components/auth/Attach-Google-auth-Dialog";
 type Provider = "google" | "local" | "hybrid";
 interface ProviderOption {
   id: Provider;
@@ -22,9 +23,39 @@ const providers: ProviderOption[] = [
   { id: "local", name: "Local", icon: <Database className="w-6 h-6" /> },
   { id: "hybrid", name: "Hybrid", icon: <GitMerge className="w-6 h-6" /> },
 ];
+function SwitchButtonRenderer({currentProvider,provider}:{currentProvider:Provider,provider:ProviderOption}){
+  if(currentProvider == provider.id){
+    return (<button className=" text-accent text-xs font-semibold ">
+      Current
+    </button>)
+  }
+  else if(currentProvider=="hybrid"){
+    return (<SecuritySettingsSwitchProviderDialog
+      provider={provider.id}
+      title={"Switch Provider to " + provider.id}
+    >
+      <button className=" text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all">
+        {" "}
+        Switch{" "}
+      </button>
+    </SecuritySettingsSwitchProviderDialog>)
+  }
+  else if(currentProvider=="local"){
+    return <GoogleAuthDialog  provider={provider.id}>
+     <button className=" text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all">
+    Switch
+  </button>
+    </GoogleAuthDialog>
+    }
+    else if(currentProvider == "google"){
+      return <label className="text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all" htmlFor="new-password">Switch</label>
+    }
+}
 export default function SecuritySettingsProvidersSection() {
+  
   const { data } = useFetchSecurityInfo();
   const q = data?.payload;
+  if(!q) return null
   return (
     <Card className="bg-transparent shadow-none border-none rounded-none">
       <CardHeader>
@@ -69,29 +100,7 @@ export default function SecuritySettingsProvidersSection() {
                   {provider.name}
                 </span>
               </label>
-              {q?.provider != provider.id ? (
-                q?.provider == "hybrid" ? (
-                  <SecuritySettingsSwitchProviderDialog
-                    provider={provider.id}
-                    title={"Switch Provider to " + provider.id}
-                  >
-                    <button className=" text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all">
-                      {" "}
-                      Switch{" "}
-                    </button>
-                  </SecuritySettingsSwitchProviderDialog>
-                ) : (
-                  <button className=" text-xs font-semibold  text-primary hover:underline hover:scale-105 transition-all">
-                    {" "}
-                    Switch{" "}
-                  </button>
-                )
-              ) : (
-                <button className=" text-accent text-xs font-semibold ">
-                  {" "}
-                  Current{" "}
-                </button>
-              )}
+             <SwitchButtonRenderer provider={provider} currentProvider={q?.provider}/>
             </main>
           ))}
         </div>

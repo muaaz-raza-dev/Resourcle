@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
 
-export default function GoogleAuthButton() {
+export default function GoogleAuthButton({context}:{context?:("signin"|"signup")}) {
   const router = useRouter()
   async function onSuccess(res:CredentialResponse){
     if(res.credential){
@@ -21,7 +21,7 @@ export default function GoogleAuthButton() {
   return (
 
     <div className="w-full">
-    <GoogleLogin size={"large"}  onSuccess={onSuccess} onError={onError} />
+    <GoogleLogin  shape='rectangular' width={377} context={context||'signin'}  onSuccess={onSuccess} onError={onError} />
     </div>
   )
 }

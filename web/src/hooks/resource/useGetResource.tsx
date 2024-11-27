@@ -14,8 +14,7 @@ export default function useGetResource() {
         enabled:id!="",
         refetchOnWindowFocus:false,
         retry:3,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onError({response:{data:{message}},status}){
+        onError({response:{data:{message}}}){
             toast.error(message||"An error occured")
         }
     })

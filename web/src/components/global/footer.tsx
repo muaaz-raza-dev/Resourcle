@@ -34,8 +34,6 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy
             </Link>
-            <span className="hidden md:inline ">•</span>
-        
           </div>
 
   

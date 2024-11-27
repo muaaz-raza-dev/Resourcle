@@ -55,7 +55,7 @@ export default function LocalLoginForm() {
         </div>
           {form.formState.errors.password&& <p className="text-xs font-medium text-red-600">{form.formState.errors.password.message}</p>}
       </div>
-      <Button type="submit" className="w-full font-semibold mt-4 hover:bg-opacity-90 shadow  hover:opacity-90 transition-colors " disabled={isLoading}>
+      <Button type="submit" className="w-full bg-secondary-foreground font-semibold mt-4 hover:bg-opacity-90 hover:bg-secondary-foreground shadow  hover:opacity-90 transition-colors " disabled={isLoading}>
         {isLoading? <RequestLoader/>: 'Sign in'}
         
       </Button>

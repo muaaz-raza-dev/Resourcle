@@ -1,22 +1,14 @@
 import {IResource } from '@/types/Iresource'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import {Tooltip} from "antd"
 export default function ToolboxSelectResourceForm() {
-    const {getValues,setValue,setError,clearErrors,watch,formState:{errors}}= useFormContext<IResource>()
-    const content= watch("content")
+    const {getValues,setValue}= useFormContext<IResource>()
     const handleAddLinkGroup = () => {
         setValue("content", getValues("content")?.concat({label:"",links:[]}))
     }
-    useEffect(() => {
-      if(!content.length){
-        setError("content",{ type: 'required', message: 'Resource page without resource is trash' })
-      }
-      else {
-        clearErrors('content');
-      }
-    }, [content.length])
+    
 
 
   return (
@@ -27,7 +19,6 @@ export default function ToolboxSelectResourceForm() {
    <FaPlus/>
    </button>
     </Tooltip>
-    {errors.content&&<p className='text-red-500 text-sm'>*{errors.content?.message}</p>}
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import CreateResourcePage from '@/components/resource/create/create-resource-page'
+import CreateResourceForm from '@/components/resource/create/create-resource-form'
 import React from 'react'
 
 export default function ResourceCreatePage() {
@@ -8,6 +8,6 @@ export default function ResourceCreatePage() {
 
 
   return (
-<CreateResourcePage/>
+<CreateResourceForm/>
   )
 }        

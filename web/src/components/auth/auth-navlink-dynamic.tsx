@@ -1,7 +1,6 @@
 "use client";
 import { usePathname } from 'next/navigation';
 import React from 'react'
-import PrimaryButton from '../global/primary-button';
 import Link from 'next/link';
 
 export default function AuthNavLinksDynamic() {
@@ -18,9 +17,10 @@ export default function AuthNavLinksDynamic() {
         </p>
     
     <Link href={isSignIn?"/auth/signup":"/auth/signin"}>
-    <PrimaryButton>
+    <button className="px-5 py-1 rounded-md bg-secondary-foreground text-white text-sm font- 
+       hover:-translate-y-0.5   transition-transform border">
         {isSignIn? "Sign up" : "Sign in"}
-    </PrimaryButton>
+       </button>
     </Link>
 </div>
 )

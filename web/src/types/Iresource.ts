@@ -17,6 +17,9 @@ export interface IresourceContent{
 }
 export interface IResourceLink{
     title: string;
+    isUpvoted:boolean;
+    _id:string;
+    upvotes:number;
     url: string;
     description: string;
     isPaid: boolean;
@@ -39,8 +42,11 @@ export const defaultResource: IResource = {
 
 export const defaultResourceLink: IResourceLink = {
     title: '',
+    _id:"",
     url: '',
+    upvotes:0,
     description: '',
+    isUpvoted:false,
     isPaid: false,
     consumption_time: '',
     level_information: 'intermediate',

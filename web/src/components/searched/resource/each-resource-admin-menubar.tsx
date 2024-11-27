@@ -65,7 +65,8 @@ export default function EachResourceAdminMenubar({
             </div>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="justify-between text-sm py-2 font-semibold text-destructive">
+          <DropdownMenuItem className="justify-between text-sm py-2 font-semibold text-destructive"
+           onSelect={() => setdialogs((d) => ({ ...d, Delete: true }))}>
             Delete <FaTrash size={12} />
           </DropdownMenuItem>
         </DropdownMenuContent>

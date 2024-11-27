@@ -2,7 +2,6 @@
             
 import useGetResource from '@/hooks/resource/useGetResource';
 import { Separator } from '@/shadcn/components/ui/separator';
-import { Tooltip } from 'antd';
 import Image from 'next/image'
 import React, { useMemo } from 'react'
 
@@ -34,7 +33,7 @@ export default function ResourceHeader() {
       <p className='font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2'>{totalResources} resources</p>
       </div>
           {
-            data?.payload.tags.map(e=><Tooltip title="tags" className='border rounded-md   transition-transform p-1 px-2 hover:bg-muted text-xs font-semibold !bg-white text-primary ' key={e._id}># {e.name}</Tooltip>)
+            data?.payload.tags.map(e=><div  className='border rounded-md transition-transform p-1 px-2 hover:bg-muted text-xs font-semibold !bg-white text-primary ' key={e._id}># {e.name}</div>)
           }
           </div>
 

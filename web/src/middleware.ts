@@ -20,13 +20,15 @@ export function middleware(request: NextRequest,   ) {
   if(pathname == "/auth/verify-token" ||pathname == "/auth/forget-password"){
     return RequestOTPMiddleware(request)
   }
-  
+  if(pathname == "/edit"){
+  return NextResponse.redirect(new URL('/', request.url))
+  }
 
   return NextResponse.next()
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [...privateRoutes,"/auth/:path*","/settings/:path*"]
+  matcher: [...privateRoutes,"/auth/:path*","/settings/:path*","/edit"]
   
 }

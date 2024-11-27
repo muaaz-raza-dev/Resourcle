@@ -14,12 +14,12 @@ export default function TrendingTopics() {
   if(isLoading) return <TagsFeedLoader/>
   return (
     <>
-    <motion.section    {...fadeInUp}>
+    <motion.section  {...fadeInUp}>
     <HeadingComp text={"🔥Trending Topics"}/>
-    <div className="flex space-x-4 overflow-x-auto pb-4">
+    <div className="flex  overflow-x-auto pb-4 flex-wrap gap-2">
       {
       q?.map((tag, index) => (
-        <button key={index}  className="bg-secondary px-3 rounded-md py-1 text-sm  border-2 border-black font-bold hover:border-primary transition-colors">
+        <button key={index}  className="bg-secondary px-3 rounded-md  py-1 text-sm  border-2 border-black font-bold whitespace-nowrap hover:border-primary transition-colors">
           {tag.name}
         </button>
       ))}

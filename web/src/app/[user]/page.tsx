@@ -11,9 +11,9 @@ export default function ProfilePage() {
   if(isLoading) return <>loading</>
   if(error) return <>Error occured:</>
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <UserProfileBanner />
+    <main className="min-h-screen  mt-4">
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-4 lg:px-8 pb-8">
+      <UserProfileBanner />
       <UserProfileInformation/> 
       <UserProfileResourceTabs/>
       </section>

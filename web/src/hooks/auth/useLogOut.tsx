@@ -10,7 +10,7 @@ export default function useLogOut() {
         Cookie.remove(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)        
         logout()
         router.push("/")
-        toast.success("logged out successfully. See you again 🙌")
+        toast.success("logged out successfully. See you again ")
   }
   return LogOut
 }

@@ -13,17 +13,18 @@ export const metadata={
 }
 export default function page() {
   return (
-    <div className="min-h-[80vh] flex flex-col gap-8 items-center justify-center  overflow-hidden">
+    <div className="min-h-[80vh] w-screen flex flex-col gap-8 items-center justify-center  overflow-hidden">
       {/* Background */}
-      <span className="authBg h-[28rem]  w-screen absolute bottom-0 -z-20"></span> 
+
       <Card className="w-full max-w-md p-3 shadow-md ">
+        
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            Welcome back!
+          <CardTitle className="text-2xl font-bold text-center pb-0">
+            Just wating for you
           </CardTitle>
         </CardHeader>
           <CardContent className="space-y-3">
-           <GoogleAuthButton/> 
+           <GoogleAuthButton /> 
           <LocalLoginForm/>
         </CardContent>
       </Card>

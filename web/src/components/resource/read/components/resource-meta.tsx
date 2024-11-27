@@ -7,6 +7,7 @@ import useGetResource from '@/hooks/resource/useGetResource'
 import { Card, CardContent } from '@/shadcn/components/ui/card'
 import { Tooltip } from 'antd'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { FaEye } from 'react-icons/fa'
 import { FiShare2 } from 'react-icons/fi'
@@ -33,9 +34,11 @@ export default function ResourceMeta() {
           />
           <div className=''>
             <div className="flex gap-4">
+              <Link href={`/${q.publisher._id}`}>
             <h2 className="font-semibold">
            {q.publisher.name}
             </h2>
+            </Link>
             </div>
             <p className="text-sm text-muted-foreground">{q.publisher.headline}</p>
           </div>

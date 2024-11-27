@@ -23,10 +23,10 @@ export default function ActiveUsers() {
       <Card className="w-full max-w-full bg-transparent border-none shadow-none">
         <CardContent>
           <section className="flex flex-wrap justify-between gap-y-3">
-            {users?.slice(0, 4)?.map(({ user, top_posts, upvotes }) => (
+            {users?.slice(0, 4)?.map(({ user, upvotes }) => (
               <div
                 key={user._id}
-                className="flex items-center gap-3 py-4 w-[48%] bg-secondary px-5 rounded-md"
+                className="flex items-center gap-3 py-4 w-[48%] border-2 px-5 rounded-md"
               >
                 <Avatar className="h-10 w-10">
                   <AvatarImage
@@ -44,17 +44,14 @@ export default function ActiveUsers() {
                   <p className="text-sm text-muted-foreground">
                     {user.headline} 
                   </p>
+                  {upvotes?
                   <div className="flex gap-2 items-center text-xs ">
-
-                    <div  className="border p-0.5 rounded">
-                  Top Resources {top_posts}
-                    </div>
-                    <div  className="flex gap-1 items-center border p-0.5 rounded">
+                    <div  className="flex gap-1 items-center ">
                       <AiFillFire fill="rgb(249 115 22)" />
-
                   Upvotes {upvotes}
                    </div>
-                  </div>
+                  </div>:null
+                  }
                   
                 </div>
                 <div className="flex " />

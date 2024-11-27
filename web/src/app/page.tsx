@@ -1,7 +1,7 @@
 "use client";
 
-import Footer from "@/components/global/footer";
 import ActiveUsers from "@/components/landing page/sections/active-users";
+import { FAQSection } from "@/components/landing page/sections/faqs";
 import GetGithubStars from "@/components/landing page/sections/get-github-stars";
 import HeroSection from "@/components/landing page/sections/hero-section";
 import LovedResources from "@/components/landing page/sections/loved-resources";
@@ -18,8 +18,8 @@ export default function DeveloperRoadmaps() {
           <ActiveUsers />
         </div>
       </div>
+      <FAQSection/>
       <GetGithubStars />
-      <Footer/>
     </main>
   );
 }

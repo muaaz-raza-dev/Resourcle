@@ -18,7 +18,7 @@ export default function ProfileMenu() {
   return (
     <Sheet>
       <SheetTrigger>
-        <Image src={user?.picture || "/user.png"} alt="name" quality={100} className="rounded-full w-10 h-10 bg-secondary-foreground" width={20} height={20}/>
+        <Image src={user?.picture || "/user.png"} alt="name" quality={100} className="rounded-full w-8 h-8 bg-secondary-foreground" width={20} height={20}/>
       </SheetTrigger>
       <SheetContent className="!px-3">
         <SheetHeader>

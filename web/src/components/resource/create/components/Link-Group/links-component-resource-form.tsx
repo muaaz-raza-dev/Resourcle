@@ -81,14 +81,18 @@ export default function LinksComponentResourceForm({
                     </Tooltip>
 
                     }
+                    {
+                      link.level_information&&
+                      
                     <Tooltip title={"Level of information"}>
-
                     <div className="px-2 p-1 rounded-xl border-primary border font-semibold bg-white text-sm flex gap-2 items-center">
                       <ImBooks />
                       {link.level_information}
                     </div>
                     </Tooltip>
-                  </div>
+                    }
+                    
+                    </div>
 
                   <div className="flex gap-4 items-center">
                     <NewLinkDailogResourceForm
