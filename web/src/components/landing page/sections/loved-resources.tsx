@@ -18,14 +18,14 @@ export default function LovedResources() {
         {q?.map((resource, index) => (
           <section
             key={index}
-            className="bg-secondary border-gray-200  py-3  rounded-md px-3 hover:border-gray-500 border border-transparent transition-colors   w-[32%] "
+            className="bg-secondary-foreground  py-3 text-white  rounded-md px-3 transition-colors   lg:w-[32%] max-lg:w-[48%] max-md:w-[98%] "
           >
             <main
               
               className="flex flex-row gap-4  justify-between items-center h-max py-0   "
             >
               <Link  href={`/resource/${resource._id}`} >
-              <h2 className="font-semibold text-[0.9rem]  whitespace-pre-wrap ">
+              <h2 className=" text-[0.85rem] max-lg:text-[1rem] max-lg:font-semibold  whitespace-pre-wrap ">
                 {resource.title}
               </h2>
               </Link>
@@ -40,7 +40,7 @@ export default function LovedResources() {
 
         <Link
           href={"/resource/create"}
-          className="bg-secondary border-gray-700 py-3 hover:bg-white   rounded-md px-4 hover:border-black border border-dashed  transition-colors w-[32%]"
+          className="bg-secondary border-gray-700 py-3 hover:bg-white   rounded-md px-4 hover:border-black border border-dashed  transition-colors  lg:w-[32%] max-lg:w-[49%] max-md:w-[98%]"
         >
           <div className="flex flex-row   gap-2 items-center h-max py-0   ">
             <FaPlus overlineThickness={1} />

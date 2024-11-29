@@ -16,8 +16,9 @@ export default function UserProfileInformation() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+        className=''
       >
-        <Avatar className="w-32 h-32 border-4 border-white dark:border-gray-800 shadow-lg">
+        <Avatar className="w-32 h-32  dark:border-gray-800 shadow-lg">
           <AvatarImage src={q?.picture||"/user.png"} alt={q?.name} />
           <AvatarFallback><User className="w-16 h-16" /></AvatarFallback>
         </Avatar>

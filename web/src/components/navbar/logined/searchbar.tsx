@@ -38,7 +38,7 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="flex border gap-2 items-center pl-2 pr-2  w-[280px] rounded-md  whitespace-nowrap h-8 
+    <div className="flex border gap-2 items-center pl-2 pr-2  lg:w-[280px] max-lg:w-[180px]  rounded-md  whitespace-nowrap h-8 
     bg-white" onClick={()=>ref.current?.focus()}>
       <Search size={18} />
       <input

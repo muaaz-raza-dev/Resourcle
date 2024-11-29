@@ -9,6 +9,7 @@ import {SubmitHandler, useForm} from "react-hook-form"
 import useLoginLocal from "@/hooks/useLoginLocal";
 import RequestLoader from "../loader/request-loading";
 import clsx from "clsx";
+import Link from "next/link";
 interface iLocalLogin{
     email:string;
     password:string;
@@ -57,8 +58,12 @@ export default function LocalLoginForm() {
       </div>
       <Button type="submit" className="w-full bg-secondary-foreground font-semibold mt-4 hover:bg-opacity-90 hover:bg-secondary-foreground shadow  hover:opacity-90 transition-colors " disabled={isLoading}>
         {isLoading? <RequestLoader/>: 'Sign in'}
-        
       </Button>
+      <div className="flex justify-end">
+        <Link href="/auth/forget-password" className="font-semibold hover:underline">
+        Forgot password
+        </Link>        
+      </div>
     </form>
   );
 }
