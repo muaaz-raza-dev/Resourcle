@@ -1,0 +1,13 @@
+{
+  "name": "resourcin",
+  "version": "1.0.0",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "turbo run dev  --parallel",
+    "build": "turbo run build",
+    "start": "turbo run start"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  }
+}

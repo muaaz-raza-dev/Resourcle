@@ -1,1 +1,0 @@
-export type Iproviders =  "local" | "google" | "hybrid"

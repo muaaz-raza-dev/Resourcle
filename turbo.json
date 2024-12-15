@@ -1,0 +1,13 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "packageManager": "npm@10.8.3",
+    "dev": {
+      "cache": false
+    }
+  }
+}
