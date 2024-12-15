@@ -1,0 +1,55 @@
+Step 1: Project Overview
+In this step, you gather all the basic details about the project.
+
+Title (input)
+Status (radio/select: pending, completed, abandoned, planned)
+Category (input/select)
+Description (textarea)
+Step Name: Overview
+
+Step 2: Timeline
+Here you can ask the user for project dates and timelines.
+
+Dates (date picker for start_date and end_date)
+Timeline (add milestones with the option to add multiple):
+Milestone (input)
+Start date (date picker)
+End date (date picker)
+Status (radio/select: pending, completed)
+Step Name: Timeline
+
+Step 3:Features and Inspirations
+Ask about the problem being solved and any inspirations or solutions.
+
+Problem Solution (textarea)
+Inspirations (array of input fields, option to add multiple)
+Step Name: Problem & Solution
+
+Tags (array of input fields)
+Features (array of input fields)
+Step Name: Features & Tags
+
+Step 5: Media and Links
+Collect any visual media and links related to the project.
+
+Images:
+Format (radio: slider, singleton)
+Images (array of image URLs)
+Links (array of provider/link pairs, option to add multiple):
+Provider (input)
+Link (input)
+Step Name: Media & Links
+
+Step 6: Default Credentials
+Gather default credentials for demo access, if applicable.
+
+Default Credentials (array of key-value pairs where key is the field name and value is the credential)
+Step Name: Credentials
+
+Final Step: Review and Submit
+Provide a final step where users can review all the information before submitting.
+
+Show a summary of all the steps with the data input for each.
+Submit button.
+Step Name: Review & Submit
+
