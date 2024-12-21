@@ -28,9 +28,11 @@ export default function FilterbarSearched() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b pb-4">
+            {!isLoading&& 
           <div className="text-muted-foreground">
             <span className="font-semibold text-foreground">{total}</span> resource(s) found
           </div>
+            }
           <div className="flex items-center gap-4">
           <Select disabled={isLoading} value={sort} onValueChange={HandleSortChange}>
   <SelectTrigger className="min-w-[180px] border ring-offset-transparent outline-none ">

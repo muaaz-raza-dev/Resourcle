@@ -10,12 +10,13 @@ import ResourceNotFoundPage from '@/app/resource/[id]/not-found';
 export default function ResourcesPage() {
   const {data,isLoading,error} = useGetResource({hitApi:true});
   if(isLoading) return <ResourceLoader/>
-  if(error) <ResourceNotFoundPage/>
+  if(error) return <ResourceNotFoundPage/>
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex flex-col gap-2 container mx-auto px-8 py-6">
           <ResourceHeader />
           <ResourceMeta/>
+          <ResourceSearchBar/>
         {  data?.payload.content.map(e=><ResourceEachLinkGroup key={e.label} data={e}/>)  }
       </main>
     </div>

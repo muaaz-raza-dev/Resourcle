@@ -1,6 +1,5 @@
 import React from 'react'
 import { BackgroundBeams } from "@/shadcn/components/ui/background-beams";
-import { TextGenerateEffect } from "@/shadcn/components/ui/text-generate-effect";
 import {motion} from "framer-motion"
 import { Search } from "lucide-react";
 export default function HeroSection() {
@@ -27,12 +26,20 @@ export default function HeroSection() {
     Your Place for Organized, High-Quality Resources. 
     </h1>
   </motion.h1>
-  <TextGenerateEffect
-      words={`resourcera.sh is a community effort to share resource , guides and other educational content
-      to help guide users in picking up a path and guide their learnings.`}
-      className="!text-white pb-4"
-      duration={0.2}
-    />
+  <motion.p
+    initial={{ opacity: 0, x: 10 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.1,
+      ease: "easeInOut",
+    }}
+    className="text-center text-lg font-medium  text-gray-600 tracking-tight mt-4"
+  >
+    Resourcin is a community effort to share resources, guides, and other educational content
+    to help guide users in picking up a path and guide their learnings.
+  </motion.p>
+  
+      
     </div>
   )
 }
