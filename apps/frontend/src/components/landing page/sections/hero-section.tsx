@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 export default function HeroSection() {
   return (
     <div className="w-full relative overflow-hidden center flex-col ">
-    <BackgroundBeams   />
+        <BackgroundBeams    />
     <button className="border border-dashed border-accent font-semibold center gap-2 text-accent rounded-md px-3 py-1 ">
       <div className="flex  items-center text-black gap-1 ">
         <Search size={15}/>

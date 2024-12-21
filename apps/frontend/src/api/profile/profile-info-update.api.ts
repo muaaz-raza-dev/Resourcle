@@ -1,6 +1,6 @@
 import { Axios } from "@/lib/Axios"
 import { IuserProfile } from "@/types/IuserProfile"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 const UpdateProfileInfoApi = async (payload:Omit<IuserProfile,"username">) => {
     const response = await Axios.put<{payload:IuserProfile}>(
         "/profile/update", 

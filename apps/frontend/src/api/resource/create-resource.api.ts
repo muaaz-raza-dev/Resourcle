@@ -1,6 +1,6 @@
 import { Axios } from "@/lib/Axios"
 import { IResource } from "@/types/Iresource"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 const CreateResourceApi = async (payload:IResource) => {
     const response = await Axios.post(
         "/resource/new", 

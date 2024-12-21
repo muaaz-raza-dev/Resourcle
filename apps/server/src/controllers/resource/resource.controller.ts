@@ -3,28 +3,107 @@ import { IResource, Resource } from "../../models/resource.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { ValidateLogin } from "../../middlewares/Authenticate";
 import { SaveList } from "../../models/savelist.model";
-import mongoose, { Types } from "mongoose";
+import mongoose, {  Types } from "mongoose";
 import { Upvotes } from "../../models/upvote.model";
 import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js";
+import { ResourceLink } from "../../models/link.model";
 
 export default async function CreateResource(req: Request, res: Response): Promise<void> {
     const { payload }: { payload: IResource } = req.body;
+    let resourceId :null|Types.ObjectId= null;
     try {
-        delete payload._id
-        payload.publisher = req.userid?.toString() as string;
-        const resource = await Resource.create(payload)
-        let upvotesDoc = await Upvotes.findOne({ resource: resource._id })
-        if (!upvotesDoc) {
-            upvotesDoc = await Upvotes.create({ resource: resource._id })
+        // Validate required fields
+        if (!payload || !payload.title) {
+            res.status(400).json({
+                success: false,
+                message: "Title is required"
+            });
+            return;
         }
-        resource.upvotesDoc = upvotesDoc._id;
-        await Resource.findByIdAndUpdate(resource._id, { upvotesDoc: upvotesDoc._id });
-        res.status(201).send({ message: "Resource created successfully" });
+
+        delete payload._id;
+        if (!req.userid) {
+            res.status(401).json({
+                success: false, 
+                message: "Unauthorized"
+            });
+            return;
+        }
+
+        payload.publisher = req.userid.toString();
+        
+        // Create resource with initial empty content
+        const resource = await Resource.create({
+            ...payload,
+            content: [],
+            upvotes: 0
+        });
+        
+        resourceId = resource._id as Types.ObjectId;
+
+        // Create upvotes document
+        const upvotesDoc = await Upvotes.create({ 
+            resource: resourceId,
+            users: [],
+            content_votes: []
+        });
+
+        // Process content and create links
+        const updatedContent= await Promise.all(payload.content.map(async grp => {
+            const createdLinks = await Promise.all(grp.links.map(async (link) => {
+                const linkPayload = { ...link } as any;
+                delete linkPayload._id;
+                linkPayload.upvotes = 0;
+                linkPayload.resource = resourceId;
+                const newLink = await ResourceLink.create(linkPayload);
+                
+                // Add entry in upvotes content_votes array
+                // await Upvotes.findByIdAndUpdate(upvotesDoc._id, {
+                //     $push: {
+                //         content_votes: {
+                //             link_id: newLink._id,
+                //             users: []
+                //         }
+                //     }
+                // });
+                
+                return newLink._id;
+            }));
+            return {
+                label: grp.label,
+                links: createdLinks
+            };
+        }));
+
+        // Update resource with content and upvotes doc
+        await Resource.findByIdAndUpdate(resourceId, {
+            content: updatedContent,
+            upvotesDoc: upvotesDoc._id
+        });
+
+        res.status(201).json({ 
+            success: true,
+            message: "Resource created successfully",
+            resourceId
+        });
         return;
     }
     catch (err) {
-        console.log(err)
-        res.status(500).send({ message: "Internal server error" });
+        console.error('Error creating resource:', err);
+
+        // Clean up any partially created resources
+        if (resourceId) {
+            await Promise.all([
+                Resource.findByIdAndDelete(resourceId),
+                ResourceLink.deleteMany({ resource: resourceId }),
+                Upvotes.deleteMany({ resource: resourceId })
+            ]);
+        }
+
+        res.status(500).json({ 
+            success: false,
+            message: "Failed to create resource. Please try again." 
+        });
     }
 }
 
@@ -37,8 +116,17 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
 
         }
 
-        const resourceRaw = await Resource.findById(req.params.id).populate("tags upvotesDoc").
-        populate({ path: "publisher", select: "name picture headline" }).lean()
+        const resourceRaw = await Resource.findById(req.params.id)
+        .populate("tags")
+        .populate("upvotesDoc")
+        .populate({ path: "publisher", select: "name picture headline" })
+        .populate({
+            path: "content",
+            populate: {
+                path: "links"
+            }
+        })
+        .lean()
 
         if (!resourceRaw) {
             ErrorResponse(res, { status: 404, message: "Not found" })
@@ -70,7 +158,7 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
         }
     }
     catch (err) {
-
+        console.log(err)
         res.status(500).send({ message: "Internal server error" });
         return;
     }

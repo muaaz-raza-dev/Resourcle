@@ -3,23 +3,18 @@ import { SaveList } from "../models/savelist.model"
 import { IResource } from "../models/resource.model"
 import { Iupvote,  Upvotes } from "../models/upvote.model"
 import mongoose, { Types } from "mongoose"
+import { IResourceLink } from "../models/link.model"
+interface IResourceLinkType extends IResourceLink{
+     isUpvoted:boolean; 
+}
 interface IResourcePayload extends IResource{
+
 isSaved:boolean;
 _id:mongoose.Types.ObjectId;
 isUpvoted:boolean;
 content: Array<{
     label: string;
-    links:[{
-        _id:string
-        title: string;
-        url: string;
-        description: string;
-        isPaid: boolean;
-        consumption_time: string;
-        skill_level: string;
-        upvotes: number;
-        isUpvoted:boolean;
-    }];
+    links:IResourceLinkType[];
 }>;
 }
 

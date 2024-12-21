@@ -1,6 +1,6 @@
 import GetUserInfo from "@/api/global/user-info.api"
 import { useQuery } from "react-query"
-import Cookies from "../../../node_modules/@types/js-cookie"
+import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authAtom } from "@/state/auth.atom";

@@ -1,6 +1,6 @@
 import { Axios } from "@/lib/Axios"
 import { IResourceSearched } from "@/types/Isearched"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 
 
 const GetUserSavedResourcesApi = async (payload: { sort: "upvotes" | "createdAt", count: number ,userid:string}) => {

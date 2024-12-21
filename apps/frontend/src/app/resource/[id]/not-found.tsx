@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Button } from '@/shadcn/components/ui/button'
 import Link from 'next/link'
 import React from 'react'

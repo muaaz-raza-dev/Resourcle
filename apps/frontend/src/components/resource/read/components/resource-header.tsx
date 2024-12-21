@@ -6,17 +6,17 @@ import Image from 'next/image'
 import React, { useMemo } from 'react'
 
 export default function ResourceHeader() {
-  const {data} = useGetResource();
+  const {data} = useGetResource({hitApi:false});
   const totalResources = useMemo(()=>data?.payload.content.reduce((acc,elm)=>acc+elm.links.length,0),[data?.payload.content])
   return (
     <header>
       {data?.payload.banner&&
       <Image
-      src={"/banner.png"}
+      src={data.payload.banner}
       alt="Resource Library Banner"
       width={800}
       height={200}
-      className="w-full h-40 object-cover rounded-t-lg"
+      className="w-full h-40 object-contain mb-4 rounded-t-lg"
       />
     }
     <h1 className="text-5xl font-black text-center" >

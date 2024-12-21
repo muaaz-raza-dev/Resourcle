@@ -1,6 +1,6 @@
 import { Axios } from "@/lib/Axios"
 import { IResource } from "@/types/Iresource"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 
 type IresourceRemote = Omit<IResource, " banner" | "tags" | "publisher" |"isPrivate"> & {
     banner?: string, publisher: { name: string, _id: string, photo: string; headline: string },

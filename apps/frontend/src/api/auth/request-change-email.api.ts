@@ -1,5 +1,5 @@
 import { Axios } from "@/lib/Axios"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 const RequestChangeEmailApi = async(payload:{password:string;new_email:string}) => {
         const response = await Axios.post("/auth/request/change/email",payload,
                 {

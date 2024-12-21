@@ -3,7 +3,7 @@
 
 import { Axios } from "@/lib/Axios"
 import { Iproviders } from "@/types/Isecurity";
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 interface ISecurityInfo{
      provider:Iproviders;
       email:string;

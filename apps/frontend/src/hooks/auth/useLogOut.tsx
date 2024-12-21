@@ -1,6 +1,6 @@
 import { authAtom } from "@/state/auth.atom"
 import { useResetRecoilState } from "recoil"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 export default function useLogOut() {

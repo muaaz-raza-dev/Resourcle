@@ -14,7 +14,7 @@ import { FiShare2 } from 'react-icons/fi'
 
 export default function ResourceMeta() {
     
-  const {data} = useGetResource();
+  const {data} = useGetResource({hitApi:false});
   const {share,isSharing} = useShare();
   const q=  data?.payload;
   if(!q) return null

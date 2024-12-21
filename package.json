@@ -1,10 +1,13 @@
 {
   "name": "resourcin",
   "version": "1.0.0",
+  "packageManager": "npm@10.8.3",
   "workspaces": ["apps/*"],
   "scripts": {
     "dev": "turbo run dev  --parallel",
     "build": "turbo run build",
+    "start:frontend": "npm run start --workspace apps/frontend",
+    "start:server": "npm run start --workspace apps/server",
     "start": "turbo run start"
   },
   "devDependencies": {

@@ -16,26 +16,35 @@ export default function LovedResources() {
       <HeadingComp text={"❤️ Loved Resources"} />
       <div className="flex flex-wrap  gap-4 mb-4 w-full">
         {q?.map((resource, index) => (
-          <section
-            key={index}
-            className="bg-secondary-foreground  py-3 text-white  rounded-md px-3 transition-colors   lg:w-[32%] max-lg:w-[48%] max-md:w-[98%] "
-          >
-            <main
-              
-              className="flex flex-row gap-4  justify-between items-center h-max py-0   "
-            >
-              <Link  href={`/resource/${resource._id}`} >
-              <h2 className=" text-[0.85rem] max-lg:text-[1rem] max-lg:font-semibold  whitespace-pre-wrap ">
-                {resource.title}
-              </h2>
-              </Link>
-
-              <div className="flex gap-1 items-center">
-                <UpvoteBtn value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted}/>
-                <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
+          <motion.div
+          className="bg-gradient-to-br from-secondary to-secondary/80 rounded-lg shadow-lg overflow-hidden"
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.2 }}
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        >
+          <Link href={`/resource/${resource._id}`} className="block h-full">
+            <div className="p-6 flex flex-col h-full">
+              <h2 className="text-xl font-bold mb-2 text-primary">{resource.title}</h2>
+              <p className="text-muted-foreground mb-4 flex-grow">
+                {resource.description.slice(0, 100)}
+                {resource.description.length > 100 ? '...' : ''}
+              </p>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <UpvoteBtn value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted} />
+                  <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
+                </div>
+                <motion.div
+                  animate={{ x: isHovered ? 5 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronRightIcon className="w-5 h-5 text-primary" />
+                </motion.div>
               </div>
-            </main>
-          </section>
+            </div>
+          </Link>
+        </motion.div>
         ))}
 
         <Link

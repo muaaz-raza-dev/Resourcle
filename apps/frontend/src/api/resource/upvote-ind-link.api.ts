@@ -1,5 +1,5 @@
 import { Axios } from "@/lib/Axios"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 
 const UpvoteIndividualLinkApi = async(payload:{resource_id:string,link_id:string}) => {
         const response = await Axios.put(

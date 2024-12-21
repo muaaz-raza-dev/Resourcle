@@ -1,6 +1,6 @@
 import { Axios } from "@/lib/Axios"
 import { IuserProfile } from "@/types/IuserProfile"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 type  IuserProfileInformation = Omit<IuserProfile, "email"> 
 
 export default async function GetUserProfileInformationApi(userid:string) {

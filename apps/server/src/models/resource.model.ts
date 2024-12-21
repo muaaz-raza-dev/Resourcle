@@ -1,7 +1,8 @@
-import mongoose, { Query } from 'mongoose';
+import mongoose, { Query, Types } from 'mongoose';
 import { Iupvote } from './upvote.model';
 import { Iuser } from './user.model';
 import { Itags } from './tag.model';
+import { IResourceLink } from './link.model';
 
 const resourceSchema = new mongoose.Schema({
     title : {
@@ -29,15 +30,7 @@ const resourceSchema = new mongoose.Schema({
     content:[
         {
             label:String,
-            links:[{
-                title:String,
-                url:String,
-                description:String,
-                isPaid:Boolean,
-                consumption_time:String,
-                level_infomation:String,
-                upvotes:Number
-            }]
+            links:{type:[Types.ObjectId],ref:"ResourceLink"}
         }
     ],
     isDeleted:{type:Boolean,default:false},
@@ -53,16 +46,7 @@ export interface IResource extends mongoose.Document {
     upvotes: number;
     content: Array<{
         label: string;
-        links:[{
-            _id:string
-            title: string;
-            url: string;
-            description: string;
-            isPaid: boolean;
-            consumption_time: string;
-            level_infomation: string;
-            upvotes: number;
-        }];
+        links:Types.ObjectId[] | IResourceLink[];
     }>;
     upvotesDoc:mongoose.Types.ObjectId | Iupvote,
     createdAt: Date;

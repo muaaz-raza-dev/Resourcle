@@ -1,7 +1,7 @@
 
 
 import { Axios } from "@/lib/Axios"
-import Cookies from "../../../node_modules/@types/js-cookie"
+import Cookies from "js-cookie"
 
 const validateLinkApi = async(link:string) => {
         const Secretkey  =process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY

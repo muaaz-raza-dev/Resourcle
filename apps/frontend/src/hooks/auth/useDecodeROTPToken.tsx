@@ -1,7 +1,7 @@
 
 import DecodeRequestOtpTokenApi from "@/api/auth/decode-request-otp-token.api"
 import { useQuery } from "react-query"
-import Cookie from "../../../node_modules/@types/js-cookie"
+import Cookie from "js-cookie"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
 const useDecodeROTPToken = ()=>{

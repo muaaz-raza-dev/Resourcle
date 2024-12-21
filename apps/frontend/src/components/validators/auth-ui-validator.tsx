@@ -2,7 +2,7 @@
 import useGetUserInfo from "@/hooks/global/useGetUserInfo";
 import React, { ReactNode, Suspense } from "react";
 import AppLoader from "../loader/app-loader";
-import Cookies from "../../../node_modules/@types/js-cookie"
+import Cookies from "js-cookie"
 const session_token = Cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY);
 
 export default function AuthUiValidator({ children }: { children: ReactNode }) {
