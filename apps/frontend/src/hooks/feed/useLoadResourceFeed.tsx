@@ -6,7 +6,7 @@ export default function useLoadResourceFeed() {
   return (
     useQuery({
         queryKey:["feed","resource"],
-        queryFn:()=>LoadResourceFeedApi(),
+        queryFn:LoadResourceFeedApi,
         enabled: true,
         refetchOnWindowFocus:false,
         retry:2,

@@ -9,14 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shadcn/components/ui/dialog";
-import { ImBooks } from "react-icons/im";
 import { IResource, IResourceLink } from "@/types/Iresource";
 import { FormProvider, SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { Button } from "@/shadcn/components/ui/button";
 import { Label } from "@/shadcn/components/ui/label";
 import { Input } from "@/shadcn/components/ui/input";
-import { Select } from "antd";
-import { FaClock} from "react-icons/fa";
+import {  Select } from "antd";
 import LinkInputResourceForm from "./link-input-resource-form";
 import { IoMdPricetags } from "react-icons/io";
 
@@ -25,15 +23,17 @@ export default function NewLinkDailogResourceForm({
   data,
   linkGroupIndex,
   linkIndex,
+  isEdit
 }: {
   children: ReactNode;
   linkGroupIndex: number;
   linkIndex: number;
   data?: IResourceLink;
+  isEdit?: boolean;
 }) {
   const ParentForm = useFormContext<IResource>();
   const [open, setopen] = useState(false);
-  const form = useForm<IResourceLink>({defaultValues: { level_information: "intermediate", isPaid: true, ...data },});
+  const form = useForm<IResourceLink>({ defaultValues: data });
   const {handleSubmit,register,watch,setValue,trigger,formState: { errors },} =form;
   const link = useState(data?true:false)
   const [isLinkValid ] =link
@@ -42,6 +42,13 @@ export default function NewLinkDailogResourceForm({
     if(!isLinkValid)return;
     const isValid = trigger();
     if (!isValid) return;
+
+    if(isEdit){
+      ParentForm.setValue(`content.${linkGroupIndex}.links.${linkIndex}`, data);
+      setopen(false);
+      return;
+    }
+
     if(ParentForm.getValues(`content.${linkGroupIndex}.links`).length<=linkIndex){
       ParentForm.setValue(`content.${linkGroupIndex}.links.${linkIndex}`, data);
     }
@@ -52,13 +59,14 @@ export default function NewLinkDailogResourceForm({
     }
     form.reset();
     setopen(false);
+    return;
   };
 
   return (
     <Dialog
       open={open}
       onOpenChange={(open) => {
-        if (open) setopen(true);
+        setopen(open);
       }}
     >
       <DialogTrigger className="center ">{children}</DialogTrigger>
@@ -77,7 +85,7 @@ export default function NewLinkDailogResourceForm({
             <Label className="font-semibold">Title of the link *</Label>
             <Input
               className="bg-white"
-              placeholder="Muaaz Raza's Post"
+              placeholder="The best portfolio"
               {...register("title", { required: "Title is required" })}
             />
             {errors.title && (
@@ -92,55 +100,32 @@ export default function NewLinkDailogResourceForm({
             <Label className="font-semibold">Short description</Label>
             <Input
               className="bg-white"
-              placeholder="This is the best portfolio ever"
+              placeholder="A short description of the link"
               {...register("description")}
               />
           </div>
 
           <section className="flex gap-2 w-full">
-            <div className="w-[32%]">
+            
+            <div className="w-full">
               <Label className="py-2 font-semibold flex gap-2 ">
-              Availability (Free/Paid)
+              Tags
               <IoMdPricetags />
               </Label>
-              <Select
-                options={[
-                  { value: false, label: "Free" },
-                  { value: true, label: "Paid / Premium" },
-                ]}
+              <Select 
+                mode="tags"
                 className="w-full h-9"
-                value={watch("isPaid")}
-                onSelect={(value: boolean) => setValue("isPaid", value)}
+                maxTagCount={3}
+                value={watch("tags")}
+                placeholder="Select appropriate tags"
+                onChange={(value: string[]) => setValue("tags", value)}
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
             </div>
 
-            <div className="w-[32%]">
-              <Label className="flex gap-2 py-2 font-semibold ">
-                Time to consume <FaClock />
-              </Label>
-              <Input
-                className="bg-white"
-                placeholder="24 hours"
-                {...register("consumption_time")}
-                />
-            </div>
+            
 
-            <div className="w-[32%]">
-              <Label className="flex gap-2 py-2 font-semibold"> Level of information <ImBooks />
-              </Label>
-              <Select
-                className="w-full h-9"
-                options={[
-                  { value: "intermediate", label: "Intermediate" },
-                  { value: "beginner", label: "Beginner" },
-                  { value: "advanced", label: "Advanced" },
-                ]}
-                value={watch("level_information")}
-                onSelect={(value: string) => setValue("level_information", value)}
-                getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                />
-            </div>
+            
           </section>
           <DialogFooter>
             <Button type="button" onClick={handleSubmit(onSubmit)}>Save</Button>

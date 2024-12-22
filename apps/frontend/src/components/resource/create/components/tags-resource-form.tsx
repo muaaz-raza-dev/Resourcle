@@ -25,11 +25,11 @@ export default function TagsResourceForm() {
     render={({field}) => (
         <FormItem className='w-full'>
           <FormControl className='w-full'>
-              <Select
-              className='w-full !placeholder:text-gray-700'
-              id='tags'
-              {...field}
-            placeholder='Tags which suit your resource'
+            <Select
+            {...field}
+            className='w-full !placeholder:text-gray-700'
+            id='tags'
+            placeholder='Tags for your resource'
             filterOption={false}
             mode='multiple'
             options= {tags.map(t=>({value:t._id,label:t.name}))} 

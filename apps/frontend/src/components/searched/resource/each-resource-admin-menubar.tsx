@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shadcn/components/ui/dropdown-menu";
+import Link from "next/link";
 import { useState } from "react";
 import { FaEdit, FaGlobe, FaLock, FaTrash } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -44,9 +45,11 @@ export default function EachResourceAdminMenubar({
         <DropdownMenuContent>
           <DropdownMenuLabel>Instant actions </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <Link href={`/resource/edit/${_id}`}>
           <DropdownMenuItem className="justify-between text-sm py-2 font-semibold">
             Edit <FaEdit size={12} />
           </DropdownMenuItem>
+            </Link>
           <DropdownMenuItem
             className="justify-between text-sm py-2 font-semibold"
             onSelect={() => setdialogs((d) => ({ ...d, privateSwitch: true }))}

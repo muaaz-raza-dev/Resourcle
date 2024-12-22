@@ -3,6 +3,10 @@ import React from 'react'
 import TagsResourceForm from './tags-resource-form'
 import RequestLoader from '@/components/loader/request-loading'
 import PublicPrivateSwitchResourceForm from './public-private-switch-resource-form'
+import { useFormContext } from 'react-hook-form'
+import { IResource } from '@/types/Iresource'
+import { useTrackChanges } from '@/hooks/utils/useTrackChanges'
+import { useFetchEditableResource } from '@/hooks/resource/useEditResource'
 
 export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;edit?:boolean}) {
   return (
@@ -10,10 +14,30 @@ export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;e
     <TagsResourceForm/>
     <div className="flex gap-4 self-end justify-end full">
     <PublicPrivateSwitchResourceForm/>
+    {
+      edit ? 
+      <UpdateButton isLoading={isLoading}/>
+      :
       <Button disabled={isLoading} type='submit' className='font-semibold  hover:brightness-1100 transition-all'>
-        { isLoading? <RequestLoader size='16' /> : !edit? 'Launch 🚀':" Update " }
+        { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
       </Button>
+    }
     </div>
     </footer>
+  )
+}
+
+
+function UpdateButton({isLoading}:{isLoading:boolean}){
+  const {isSuccess} = useFetchEditableResource(false)
+  const state  = useFormContext<IResource>()
+  const {changes,UpdateState} = useTrackChanges(state.getValues())
+  React.useEffect(() => {
+  if(isSuccess) UpdateState(state.getValues())
+  }, [isSuccess])
+  return (
+    <Button type='submit' className='font-semibold  hover:brightness-1100 transition-all' disabled={isLoading||!changes}>
+      { isLoading? <RequestLoader size='16' /> : 'Update'}
+    </Button>
   )
 }

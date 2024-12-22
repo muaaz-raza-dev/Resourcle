@@ -7,6 +7,7 @@ import Link from "next/link";
 import ResourceLoader from "../loader/resource-loader";
 import SaveBtn from "@/components/global/save-btn";
 import {motion} from "framer-motion"
+import moment from "moment";
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();
   const q = data?.payload;
@@ -18,15 +19,17 @@ export default function LovedResources() {
         {q?.map((resource, index) => (
           <motion.div
           key={index}
-          className="bg-gradient-to-br from-secondary to-secondary/80 rounded-lg shadow-lg w-[32%] flex overflow-hidden justify-between p-2 px-4 items-center border"
-          whileHover={{ scale: 1.03 }}
-          transition={{ duration: 0.2 }}
+          className="bg-gradient-to-br from-secondary to-secondary/80 rounded-lg shadow-lg w-full flex  justify-between py-4 px-4 items-center border"
+          whileHover={{ scale: 1.01 }}
+          transition={{ duration: 0.1 }}
         >
-          <div className="flex items-center gap-2 ">
-          <div className="w-2 h-2 rounded-full bg-accent"></div>
+          <div className="flex items-center w-max gap-2 ">
+          <div className="">
           <Link href={`/resource/${resource._id}`} className="">
-              <h2 className="text-sm font-semibold ">{resource.title}</h2>
+              <h2 className=" font-semibold whitespace-nowrap">{resource.title}</h2>
           </Link>
+          <p className="text-muted-foreground text-xs">{moment(resource.createdAt).fromNow()}</p>                  
+          </div>
           </div>
                 <motion.div
                   transition={{ duration: 0.2 }}

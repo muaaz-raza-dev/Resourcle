@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import 'react-loading-skeleton/dist/skeleton.css'
 import "./globals.css";
 import RecoilProvider from "@/components/providers/recoil-provider";
 import Navbar from "@/components/global/navbar";

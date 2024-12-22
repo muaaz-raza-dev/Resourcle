@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import { IResource, Resource } from "../../models/resource.model";
+import { IContentResource, IResource, Resource } from "../../models/resource.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { ValidateLogin } from "../../middlewares/Authenticate";
 import { SaveList } from "../../models/savelist.model";
 import mongoose, {  Types } from "mongoose";
 import { Upvotes } from "../../models/upvote.model";
 import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js";
-import { ResourceLink } from "../../models/link.model";
+import { IResourceLink, ResourceLink } from "../../models/link.model";
+import { CompareLink } from "../../functions/compareLinks.resource";
+import { ObjectId } from "mongoose";
 
 export default async function CreateResource(req: Request, res: Response): Promise<void> {
     const { payload }: { payload: IResource } = req.body;
@@ -126,7 +128,6 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
                 path: "links"
             }
         })
-        .lean()
 
         if (!resourceRaw) {
             ErrorResponse(res, { status: 404, message: "Not found" })
@@ -181,7 +182,7 @@ export async function GetFeedResources(req: Request, res: Response): Promise<voi
         }
 
         const resources = await Resource.find({ ...query, isPrivate: false }).sort("-upvotes -createdAt").populate("upvotesDoc")
-            .select("title upvotes upvotesDoc").limit(18).lean();
+            .select("title upvotes createdAt upvotesDoc").limit(18).lean();
         let payload = JSON.parse(JSON.stringify(resources))
 
         payload = resources.map((elm) => {
@@ -294,7 +295,8 @@ export async function UpvoteIndividualLink(req: Request, res: Response) {
 
 
 export async function EditResource(req: Request, res: Response) {
-    const {payload, resource_id}: {payload: IResource, resource_id: string} = req.body;
+    const {payload, resource_id}: {payload:( IResource & {content:{_id:ObjectId,label:string;links:IResourceLink[]}}), resource_id: string} = req.body;
+
     try {
         // Validate resource_id
         if (!mongoose.Types.ObjectId.isValid(resource_id)) {
@@ -302,7 +304,19 @@ export async function EditResource(req: Request, res: Response) {
             return;
         }
 
-        const resource = await Resource.findById(resource_id);
+        const resource = await Resource.findById(resource_id).populate({
+            path: "content",
+            populate: {
+                path: "links"
+            }
+        }) as (IResource & {
+            content: Array<{
+                _id: string;
+                label: string;
+                links: IResourceLink[];
+            }>;
+        }) | null;
+
         if (!resource) {
             ErrorResponse(res, {message: "Resource not found", status: 404});
             return;
@@ -336,12 +350,49 @@ export async function EditResource(req: Request, res: Response) {
             ErrorResponse(res, {message: "Title is required", status: 400});
             return;
         }
+        const updatedContent:IContentResource = [];
+        
+
+        for (const c of payload.content) {
+            const links = await Promise.all(c.links.map(async link => {
+                const linkPayload: Partial<IResourceLink> = { ...link };
+                delete linkPayload.upvotes;
+                delete linkPayload.upvotesDoc;
+                delete linkPayload.resource;
+
+                if (link._id) {
+                    const updatedLink = await ResourceLink.findByIdAndUpdate(
+                        link._id,
+                        { ...linkPayload, resource: resource_id },
+                        { new: true }
+                    );
+                    return updatedLink;
+                } else {
+                    const newLink = await ResourceLink.create({
+                        ...linkPayload,
+                        resource: resource_id
+                    });
+                    return newLink;
+                }
+            }));
+            updatedContent.push({ ...c, links: links.filter(link => link !== null) });
+        }
+        // Handle deleted links by marking them as isDeleted
+        for (const group of resource.content) {
+            const payloadGroup = payload.content.find(c => c._id.toString() == group._id.toString());
+            for (const link of group.links) {
+                if (!payloadGroup || !payloadGroup.links.some(pLink => pLink._id.toString() == link._id.toString())) {
+                    await ResourceLink.findByIdAndUpdate(link._id, { isDeleted: true });
+                }
+            }
+        }
 
         const updatedResource = await Resource.findByIdAndUpdate(
             resource_id,
-            EditedResource,
-            {new: true, runValidators: true}
+            {...payload, content: updatedContent},
+            { new: true }
         );
+    
 
         SuccessResponse(res, {
             message: "Resource updated successfully",
@@ -358,7 +409,12 @@ export async function EditResourceFetchResource(req: Request, res: Response) {
     try {
         const {id} = req.params;
 
-        const resource = await Resource.findById(id).select("-upvotes -upvotesDoc -views -isDeleted -createdAt -updatedAt").populate({path:"tags",select:"name"}) ;
+        const resource = await Resource.findById(id).select("-upvotes -upvotesDoc -views -isDeleted -createdAt -updatedAt").populate({path:"tags",select:"name"}).populate({
+            path: "content",
+            populate: {
+                path: "links"
+            }
+        }) ;
         
         if (!resource) {
             ErrorResponse(res, {message: "Resource not found", status: 404});

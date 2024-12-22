@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Config } from "tailwindcss"
-import flattenColorPalette  from "tailwindcss/lib/util/flattenColorPalette";
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 const config = {
   darkMode: ["class"],
   content: [
@@ -12,7 +12,7 @@ const config = {
   prefix: "",
   theme: {
   	container: {
-  		center: 'true',
+  		center: true,
   		padding: '2rem',
   		screens: {
   			'2xl': '1400px'
@@ -127,22 +127,7 @@ const config = {
   					transform: 'translate(-50%,-40%) scale(1)'
   				}
   			},
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			}
+  			
   		},
   		animation: {
   			shimmer: 'shimmer 2s linear infinite',
@@ -154,8 +139,6 @@ const config = {
   			fifth: 'moveInCircle 20s ease infinite',
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
@@ -163,16 +146,15 @@ const config = {
   plugins: [require("tailwindcss-animate"),addVariablesForColors],
 } satisfies Config
 
-
 function addVariablesForColors({ addBase, theme }: any) {
-  const allColors = flattenColorPalette(theme("colors"));
-  const newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
- 
-  addBase({
-    ":root": newVars,
-  });
-}
+	const allColors = flattenColorPalette(theme("colors"));
+	const newVars = Object.fromEntries(
+	  Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+	);
+   
+	addBase({
+	  ":root": newVars,
+	});
+  }
 
 export default config

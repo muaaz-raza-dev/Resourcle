@@ -8,10 +8,9 @@ const resourceLinkSchema = new mongoose.Schema({
                 title:String,
                 url:String,
                 description:String,
-                isPaid:Boolean,
-                consumption_time:String,
-                level_infomation:String,
+                isDeleted:Boolean,
                 upvotes:Number,
+                tags:[String],
                 upvotesDoc:{type:mongoose.Types.ObjectId,ref:"Upvotes"},
 }, { timestamps: true });
 
@@ -19,13 +18,12 @@ const resourceLinkSchema = new mongoose.Schema({
 
 export interface IResourceLink extends mongoose.Document {
             resource:string|IResource;
-            _id:string
+            _id:Types.ObjectId;
+            isDeleted:boolean;
             title: string;
+            tags:string[];
             url: string;
             description: string;
-            isPaid: boolean;
-            consumption_time: string;
-            level_infomation: string;
             upvotes: number;
             upvotesDoc:Iupvote|string;
 }

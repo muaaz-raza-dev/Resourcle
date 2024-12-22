@@ -19,7 +19,7 @@ const useEditResource = () => {
     });
 };
 
-export const useFetchEditableResource = (enabled:boolean,reset:(payload:IResource)=>void) => {
+export const useFetchEditableResource = (enabled:boolean,reset?:(payload:IResource)=>void) => {
   const setTags = useSetRecoilState(searchedTagsAtom)
   const id = useParams().id as string ;
   return useQuery({
@@ -28,7 +28,7 @@ export const useFetchEditableResource = (enabled:boolean,reset:(payload:IResourc
     staleTime: 1000 * 60 * 5, 
     enabled:enabled&&!!id,
     onSuccess: ({payload}) =>{
-       reset(payload)
+       reset?.(payload)
       setTags(payload.tagObjects)
     },
     queryFn: () => FetchResourceTobeEdit(id||""),

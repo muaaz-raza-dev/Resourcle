@@ -8,11 +8,11 @@ interface IResourceLinkType extends IResourceLink{
      isUpvoted:boolean; 
 }
 interface IResourcePayload extends IResource{
-
-isSaved:boolean;
-_id:mongoose.Types.ObjectId;
-isUpvoted:boolean;
+    isSaved:boolean;
+    _id:string;
+    isUpvoted:boolean;
 content: Array<{
+_id:Types.ObjectId;
     label: string;
     links:IResourceLinkType[];
 }>;

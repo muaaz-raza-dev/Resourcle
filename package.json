@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "packageManager": "npm@10.8.3",
   "workspaces": ["apps/*"],
+  "private":true,
   "scripts": {
     "dev": "turbo run dev  --parallel",
     "build": "turbo run build",
     "start:frontend": "npm run start --workspace apps/frontend",
     "start:server": "npm run start --workspace apps/server",
+    "start:util-server": "npm run start --workspace apps/util-server",
     "start": "turbo run start"
   },
   "devDependencies": {

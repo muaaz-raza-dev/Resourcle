@@ -11,12 +11,14 @@ import { LuLogOut } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
 import useLogOut from "@/hooks/auth/useLogOut";
+import { useState } from "react";
 
 export default function ProfileMenu() {
+  const [open, setopen] = useState(false)
   const { user } = useRecoilValue(authAtom);
   const LogOut = useLogOut()
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={(o)=>setopen(o)} >
       <SheetTrigger>
         <Image src={user?.picture || "/user.png"} alt="name" quality={100} className="rounded-full w-8 h-8 bg-secondary-foreground" width={20} height={20}/>
       </SheetTrigger>
@@ -32,12 +34,12 @@ export default function ProfileMenu() {
             </div>
           </div>
         </SheetHeader>
-        <section className="flex flex-col my-4 gap-1">
-        <Link href={`/${user?._id}`} className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md" >
+        <section className="flex flex-col my-4 gap-1" >
+        <Link href={`/${user?._id}`} className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md" onClick={()=>setopen(false)}>
             <User className="text-gray-600" size={20}/>
             <p className="text-sm font-semibold text-gray-700 ">Your profile</p>
         </Link>
-    <Link href={"/settings/personal-info"}>
+    <Link href={"/settings/personal-info"} onClick={()=>setopen(false)}>
         <button className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md" >
             <Cog className="text-gray-600" size={20}/>
             <p className="text-sm font-semibold text-gray-700 ">Settings</p>

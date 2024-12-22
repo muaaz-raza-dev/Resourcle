@@ -44,10 +44,7 @@ export interface IResource extends mongoose.Document {
     tags: mongoose.Types.ObjectId[]|Itags[];
     publisher: string | Iuser;
     upvotes: number;
-    content: Array<{
-        label: string;
-        links:Types.ObjectId[] | IResourceLink[];
-    }>;
+    content:IContentResource;
     upvotesDoc:mongoose.Types.ObjectId | Iupvote,
     createdAt: Date;
     isDeleted:boolean,
@@ -58,5 +55,6 @@ resourceSchema.pre(/^find/,function (this: Query<any, any>, next) {
     this.where({ isDeleted: false });
     next();
 });
+export type IContentResource  =    Array<{_id:Types.ObjectId;label: string;links:Types.ObjectId[] | IResourceLink[];}>
   
 export const Resource = mongoose.model<IResource>('resource', resourceSchema);

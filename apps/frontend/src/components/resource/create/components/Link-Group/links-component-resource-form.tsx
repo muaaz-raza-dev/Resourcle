@@ -1,11 +1,9 @@
 import React from "react";
-import { FaClock, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import NewLinkDailogResourceForm from "./new-link-dailog-resource-form";
 import { useFormContext } from "react-hook-form";
 import { IResource } from "@/types/Iresource";
 import { Tooltip } from "antd";
-import { IoMdPricetags } from "react-icons/io";
-import { ImBooks } from "react-icons/im";
 export default function LinksComponentResourceForm({
   index,
 }: {
@@ -27,7 +25,7 @@ export default function LinksComponentResourceForm({
           
         <h1 className="text font-semibold">No links </h1>
           <NewLinkDailogResourceForm linkGroupIndex={index} linkIndex={0}>
-            <button type="button" className="text-primary bg-secondary font-bold rounded-md h-full aspect-square  center">
+            <button type="button" className=" bg-secondary font-bold rounded-md h-full p-2 aspect-square  center">
               <FaPlus />
             </button>
           </NewLinkDailogResourceForm>
@@ -49,7 +47,7 @@ export default function LinksComponentResourceForm({
                   linkGroupIndex={index}
                   linkIndex={i + 1}
                 >
-                  <button type="button" className=" text-primary bg-secondary font-bold text-sm rounded-md h-full aspect-square  center">
+                  <button type="button" className="  bg-secondary font-bold text-sm rounded-md p-2 h-full aspect-square  center">
                     <FaPlus />
                   </button>
                 </NewLinkDailogResourceForm>
@@ -64,33 +62,18 @@ export default function LinksComponentResourceForm({
                     <div className="flex gap-4">
                     
                   <div className="flex gap-2">
-                    <Tooltip title={"Availablity (Free/Paid)"}>
-                    <div className="px-2 p-1 rounded-xl border-primary border bg-white font-semibold text-sm flex gap-2 items-center">
-                      <IoMdPricetags />
-                      {link.isPaid ? "Premium" : "Free"}
-                    </div>
-                    </Tooltip>
 
                     {
-                    link.consumption_time&&
-                    <Tooltip title={"Time to consume"}>
-
-                    <div className="px-2 p-1 rounded-xl border-primary border bg-white font-semibold text-sm flex gap-2 items-center">
-                      <FaClock /> {link.consumption_time}
-                    </div>
-                    </Tooltip>
-
+                      link.tags.map((tag, i) => {
+                        return (
+                            <div key={i+tag} className="px-2 p-1 rounded-xl border-primary border bg-white font-semibold text-sm flex gap-2 items-center">
+                              <p>{tag}</p>
+                            </div>
+                        );
+                      })
                     }
-                    {
-                      link.level_information&&
-                      
-                    <Tooltip title={"Level of information"}>
-                    <div className="px-2 p-1 rounded-xl border-primary border font-semibold bg-white text-sm flex gap-2 items-center">
-                      <ImBooks />
-                      {link.level_information}
-                    </div>
-                    </Tooltip>
-                    }
+
+                    
                     
                     </div>
 
@@ -99,13 +82,13 @@ export default function LinksComponentResourceForm({
                       data={link}
                       linkGroupIndex={index}
                       linkIndex={i}
+                      isEdit
                     >
-                      <Tooltip title="Edit link information">
-                        <button type="button" className="">
+                      <Tooltip title="Edit link details">
                           <FaEdit size={20} />
-                        </button>
                       </Tooltip>
                     </NewLinkDailogResourceForm>
+
                     <Tooltip title="Delete link">
                       <button type="button" onClick={() => DeleteLink(i)}>
                         <FaTrash className="text-destructive" />

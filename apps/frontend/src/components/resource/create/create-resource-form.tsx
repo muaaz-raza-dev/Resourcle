@@ -11,10 +11,11 @@ import UploadImageCloudinary from "@/lib/upload-cloudinary";
 import useCreateResource from "@/hooks/resource/useCreateResource";
 import useEditResource, { useFetchEditableResource } from "@/hooks/resource/useEditResource";
 import ResourceLoader from "@/components/landing page/loader/resource-loader";
+import NotFoundRenderer from "@/components/global/not-found-renderer";
 
 export default function CreateResourceForm({edit}:{edit?:boolean}) {
   const methods = useForm<IResource>({ defaultValues: defaultResource });
-  const {isLoading:isFetching} = useFetchEditableResource(edit||false,methods.reset)
+  const {isLoading:isFetching,isError} = useFetchEditableResource(edit||false,methods.reset)
   const { isLoading, mutateAsync: mutate } = useCreateResource();
   const {isLoading:isUpdating,mutateAsync:update} = useEditResource();
   const [uplaoding,setUploading] = useState(false) 
@@ -53,11 +54,12 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
   };
   if(edit && isFetching) return <ResourceLoader/>
   return (
+    <NotFoundRenderer isLoading={edit?isFetching:false} isError={edit?isError:false}>
     <section className="max-w-5xl mx-auto m-4 ">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <section className="flex flex-col gap-2 mb-24">
-          <BannerResourceForm />
+          <BannerResourceForm edit={edit} />
           <TitleDescriptionResournceForm />
           <ContentResourceForm />
           <ToolboxSelectResourceForm />
@@ -66,5 +68,6 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
         </form>
       </FormProvider>
     </section>
+    </NotFoundRenderer>
   );
 }
