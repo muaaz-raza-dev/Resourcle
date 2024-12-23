@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IresourceCollection, ResourceCollection } from "../../models/resource-collection.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { ResourceLink } from "../../models/link.model";
+import { Types } from "mongoose";
 
 export async function GetResourceCollection(req:Request,res:Response){
     const {id} = req.params;
@@ -63,5 +64,53 @@ else{
     SuccessResponse(res,{payload})
     return ;
 }
-
 }
+
+export async function GetCollectionMetaDetails(req:Request,res:Response){
+    const {id:collectionId} = req.params;
+    const collection = await ResourceCollection.findOne({user:req.userid,_id:collectionId})
+    if(!collection){
+      ErrorResponse(res,{message:"Invalid credentials",status:401})
+      return;
+    }
+    else{
+        const collection = await ResourceCollection.findById(collectionId).select("name updatedAt")
+        const collectionMeta = await ResourceCollection.aggregate([
+            {
+              $lookup: {
+                from: "resourcelinks",
+                localField: "links",
+                foreignField: "_id",
+                as: "links"
+              }
+            },
+            {
+              $unwind: {
+                path: "$links",
+                preserveNullAndEmptyArrays: true
+              }
+            },
+            {
+              $group: {
+                _id: "$links.resource", // Grouping by resource
+                resourcesCount: { $sum: 1 }, // Count documents per resource
+              }
+            },
+            {$group: {
+              _id: null,
+              totalResource: {
+                $sum: 1
+              },
+              totalLinks:{
+                $sum: "$resourcesCount"
+              }
+            
+            }},
+            {$project: {
+              "_id":0
+            }}
+          ])
+          SuccessResponse(res,{payload:{...collectionMeta[0],...collection?.toObject()}})
+    }
+
+    }

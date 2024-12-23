@@ -4,7 +4,7 @@ import Cookie from "js-cookie"
 type  IuserProfileInformation = Omit<IuserProfile, "email"> 
 export type ResourceCollectionsPayload = {name:string,links:number;_id:string}
 export default async function GetUserProfileInformationApi(userid:string) {
-        const response = await Axios.get<{payload:{user:IuserProfileInformation,ResourceCollections:ResourceCollectionsPayload[]}}>(
+        const response = await Axios.get<{payload:{user:IuserProfileInformation,resourceCollections:ResourceCollectionsPayload[]}}>(
             "/profile/user/"+userid, 
             {headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } }
             )

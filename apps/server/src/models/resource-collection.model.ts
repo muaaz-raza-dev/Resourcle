@@ -8,7 +8,6 @@ const ResourceDiarySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-        unique: true,
     },
     links: {
         type:[mongoose.Schema.Types.ObjectId],

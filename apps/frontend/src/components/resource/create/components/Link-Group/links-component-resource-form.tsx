@@ -64,7 +64,7 @@ export default function LinksComponentResourceForm({
                   <div className="flex gap-2">
 
                     {
-                      link.tags.map((tag, i) => {
+                      link.tags?.map((tag, i) => {
                         return (
                             <div key={i+tag} className="px-2 p-1 rounded-xl border-primary border bg-white font-semibold text-sm flex gap-2 items-center">
                               <p>{tag}</p>
