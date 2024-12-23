@@ -43,6 +43,8 @@ export default function UserProfileResourceTabs() {
               <TabsContent value="saved" className="mt-6">
               <UserProfileSavedResources/>
               </TabsContent>
+              
+              
             </motion.div>
           </AnimatePresence>
     </Tabs>

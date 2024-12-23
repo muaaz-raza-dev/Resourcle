@@ -7,6 +7,7 @@ import resourceRoute from "./routes/resource.route"
 import profileRoute from "./routes/profile.route"
 import usersRoute from "./routes/users.route"
 import upvotesRoute from "./routes/upvotes.route"
+import ResourceCollectionRoute from "./routes/resource-collection.route"
 import express from 'express';
 import cors from 'cors';
 import { dbConnection } from './db.js';
@@ -31,6 +32,7 @@ app.use("/api/v1/resource",resourceRoute );
 app.use("/api/v1/profile", profileRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/upvotes",upvotesRoute)
+app.use("/api/v1/resoruceCollection",ResourceCollectionRoute)
 
 dbConnection().then(_=>{
 app.listen(PORT, () => {

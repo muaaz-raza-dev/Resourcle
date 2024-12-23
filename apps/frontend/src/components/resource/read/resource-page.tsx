@@ -13,7 +13,7 @@ import { ResourceSearchBarAtom } from '@/state/resource-link-searchbar.atom';
 export default function ResourcesPage() {
   const {isLoading,error} = useGetResource({hitApi:true});
   const {filtered} = useRecoilValue(ResourceSearchBarAtom)
-    if(isLoading) return <ResourceLoader/>
+  if(isLoading) return <ResourceLoader/>
   if(error) return <ResourceNotFoundPage/>
   return (
     <div className="min-h-screen flex flex-col">

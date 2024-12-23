@@ -9,6 +9,7 @@ import { Upvotes } from "../../models/upvote.model";
 import bcrpyt from "bcryptjs"
 import { OAuth2Client } from "google-auth-library";
 import moment from "moment";
+import { ResourceCollection } from "../../models/resource-collection.model";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function GetProfileInfoController(req: Request, res: Response) {
     try {
@@ -92,7 +93,13 @@ export async function GetUserProfileInfoController(req: Request, res: Response) 
             ErrorResponse(res, { message: "User not found", status: 404 });
             return;
         }
-        SuccessResponse(res, { payload: user_details });
+        const resourceCollections = await ResourceCollection.find({user:user_details._id}).select("links name");
+        const resourceCollectionsWithLength = resourceCollections.map(collection => ({
+            ...collection.toObject(),
+            links: collection.links.length
+        }));
+
+        SuccessResponse(res, { payload: {user:user_details,resourceCollections:resourceCollectionsWithLength}, });
         return;
     }
     catch (error) {

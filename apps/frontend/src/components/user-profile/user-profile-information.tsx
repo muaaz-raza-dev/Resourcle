@@ -8,7 +8,7 @@ import useGetUserProfileInfomartion from '@/hooks/user-profile/useGetUserInfomar
 import Link from 'next/link'
 export default function UserProfileInformation() {
   const {data}  = useGetUserProfileInfomartion({hitApi:false})
-  const q= data?.payload
+  const q= data?.payload.user
   return (
     <div className="relative flex items-center gap-3 mx-auto ">
     <div className="flex flex-col sm:flex-row items-center gap-4 self-start">

@@ -18,9 +18,11 @@ export default function ResourceEachLinkUpvote({link_id,resource_id,upvotes,isUp
     <button onClick={handleUpvote} className={clsx(`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2`,isLoading&&"animate-pulse",upvoted?"!bg-secondary-foreground":"bg-white")}>
         <FaCaretUp fill={upvoted?"white":"black"}  fontSize={14}/> 
     </button>
+    {count&&
     <p className='text-muted-foreground'>
     {count} upvotes
     </p>
+    }
     </div>
   )
 }
