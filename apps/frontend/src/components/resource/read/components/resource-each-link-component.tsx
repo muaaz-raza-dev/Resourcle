@@ -56,7 +56,7 @@ export default function ResourceEachLinkComponent({
       <div className="flex gap-2">
         {resource.tags.map((tag) => {
           return (
-            <Badge variant="secondary" className="!mr-x2text-sm" key={tag}>
+            <Badge variant="secondary" className="!mr-2 text-sm" key={tag}>
               {tag}
             </Badge>
           );

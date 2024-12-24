@@ -60,7 +60,7 @@ export default function LocalLoginForm() {
         {isLoading? <RequestLoader/>: 'Sign in'}
       </Button>
       <div className="flex justify-end">
-        <Link href="/auth/forget-password" className="font-semibold hover:underline">
+        <Link href="/auth/forget-password" className="font-semibold hover:underline text-sm">
         Forgot password
         </Link>        
       </div>

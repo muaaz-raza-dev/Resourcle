@@ -2,17 +2,10 @@ import { Request, Response } from "express";
 import { IresourceCollection, ResourceCollection } from "../../models/resource-collection.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { ResourceLink } from "../../models/link.model";
-import { Types } from "mongoose";
+import {Types } from "mongoose"
 
-export async function GetResourceCollection(req:Request,res:Response){
-    const {id} = req.params;
-    const Diary = await ResourceCollection.findById(id).populate("links");
-    if(!Diary || Diary.user.toString()!=req.userid?.toString()){
-        ErrorResponse(res,{message:"Invalid credentails",status:401})
-        return;
-    }
-    SuccessResponse(res,{payload:Diary})
-}
+
+
 interface IsaveResourceRequestBody{
     collections:(IresourceCollection&{isCollected:boolean})[];
     link_id:string
@@ -32,15 +25,15 @@ export async function SaveResourceToCollection(req:Request<{},{},IsaveResourceRe
 }
 
 export async function RemoveLinkFromResourceCollection(req:Request,res:Response){
-    const {ResourceLinkId,collectionId} = req.body;
+    const {linkId,collectionId} = req.body;
     const Diary = await ResourceCollection.findById(collectionId)
-    if(!ResourceLinkId || !collectionId || !Diary || Diary.user.toString()!=req.userid?.toString()) {
+    if(!linkId || !collectionId || !Diary || Diary.user.toString()!=req.userid?.toString()) {
         ErrorResponse(res,{message:"Invalid credentials",status:401})
         return;
     }
     await ResourceCollection.findByIdAndUpdate(
         {user:req.userid},
-        {$pull:{links:ResourceLinkId}},
+        {$pull:{links:linkId}},
     )
     SuccessResponse(res,{message:"Resource deleted to diary"})
 }
@@ -113,4 +106,62 @@ export async function GetCollectionMetaDetails(req:Request,res:Response){
           SuccessResponse(res,{payload:{...collectionMeta[0],...collection?.toObject()}})
     }
 
+}
+
+export async function GetResourceCollectionLinks(req:Request,res:Response){
+  // count > 0 
+  const {id,count} = req.body;
+  const limit = process.env.Collection_links_limit || 25
+  const Collecion = await ResourceCollection.findById(id).populate({
+    path: 'links',
+    options: {
+      sort: { updatedAt: -1 }, // Sort the links by updatedAt in descending order
+      limit:  +limit , // Limit the number of links to be populated
+      skip:(+count-1)*(+limit)
+    },
+    populate: { path: "resource", select: "publisher" ,populate:{path:"publisher",select:"name"} } 
+  }).select("links user");
+  
+  if(!Collecion || Collecion.user.toString()!=req.userid?.toString()){
+      ErrorResponse(res,{message:"Invalid credentails",status:401})
+      return;
+  }
+  SuccessResponse(res,{payload:Collecion.links})
+}
+
+
+
+export async function SearchResourceCollectionLinks(req:Request,res:Response){
+  const {query,collectionId} = req.body;
+  if(!query ||!collectionId){
+    ErrorResponse(res,{message:"Invalid credentials",status:401})
+    return;
+  }
+  const isCollection = await ResourceCollection.exists({user: req.userid,_id: collectionId})
+  if(!isCollection){
+    ErrorResponse(res,{message:"Invalid credentials",status:401})
+    return;
+  }
+  const Collection = await ResourceCollection.findById(collectionId).populate({
+    path: 'links', // Populate the 'links' field
+    match: {
+        $or: [
+            { title: { $regex: query, $options: 'i' } },
+            { url: { $regex: query, $options: 'i' } }
+        ]
+    },
+    populate: {
+        path: 'resource',
+        select:"publisher",
+        populate:{
+          path:"publisher",
+          select:"name"
+        }
     }
+})
+if (!Collection) {
+  ErrorResponse(res,{message:"No link found",status:404})
+    return;
+}
+  SuccessResponse(res,{payload:Collection.links})
+}

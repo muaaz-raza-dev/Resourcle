@@ -37,10 +37,10 @@ export default function EachResourceComponent({
             />
           </Link>
         )}
-        <div className="flex-1 p-4 flex flex-col justify-between">
+        <div className="flex-1 p-3 flex flex-col justify-between">
           <CardContent className="p-0">
             <div className="flex items-center gap-1">
-              <Avatar>
+              <Avatar className="w-6 h-6">
                 <AvatarImage src={resource?.publisher?.picture} />
                 <AvatarFallback className="bg-primary text-white font-semibold center w-full h-full">
                   {resource?.publisher?.name.slice(0, 2).toUpperCase()}
@@ -64,10 +64,10 @@ export default function EachResourceComponent({
               )}
             </div>
             <Link href={"/resource/" + resource?._id}>
-              <h2 className="text-xl font-bold ">{resource?.title}</h2>
+              <h2 className="text-2xl font-bold mt-2">{resource?.title}</h2>
             </Link>
           </CardContent>
-          <CardFooter className="p-0 justify-between items-center">
+          <CardFooter className="p-0 justify-between items-end">
             <div className="flex items-center space-x-3  text-sm text-muted-foreground">
               <span className="flex items-center  text-primary  text-xs font-semibold">
                 <LinkIcon className="h-4 w-4 mr-1 font-medium text-primary" />

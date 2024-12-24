@@ -37,7 +37,7 @@ export async function GoogleLoginController(req: Request, res: Response) {
 
         const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", { expiresIn: "30d" })
         res.cookie(cookie_key, token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) })
-        .json({ token, message: "Logged in successfully!" })
+        .json({ token, message: "Logged in successfully!",payload:user })
         return ;
 
     }

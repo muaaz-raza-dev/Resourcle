@@ -2,10 +2,10 @@
 import { Separator } from '@/shadcn/components/ui/separator'
 import React from 'react'
 import ResourceCollectionSearchBar from './resource-collection-searchBar'
-import ResoureCollectionResourceCard from './resoure-collection-resource-card'
 import ResourceCollectionMeta from './resource-collection-meta'
 import useGetResouceCollectionMeta from '@/hooks/resource-collection/useGetResourceCollectionMeta'
 import ResourceLoader from '../landing page/loader/resource-loader'
+import ResourceCollectionLinks from './resource-collection-links'
 
 export default function ResourceCollectionPage() {
   const {data,isLoading} = useGetResouceCollectionMeta()
@@ -21,14 +21,10 @@ export default function ResourceCollectionPage() {
           </p>
           <Separator className='my-2 w-[20%] mx-auto' />
         </header>
-    <ResourceCollectionMeta/>
     <ResourceCollectionSearchBar />
-    <section className='flex flex-wrap gap-4  mx-auto w-full h-max'>
-        <ResoureCollectionResourceCard/>
-        <ResoureCollectionResourceCard/>
-        <ResoureCollectionResourceCard/>
-        <ResoureCollectionResourceCard/>
-    </section>
+    <ResourceCollectionMeta/>
+    <ResourceCollectionLinks/>
+    
     </div>
     </div>
   )
