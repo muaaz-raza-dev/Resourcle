@@ -26,6 +26,7 @@ export default function SaveBtn({
     setIsSaved(!isSaved);
     try {
       await mutateAsync(id);
+      
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       setIsSaved(previousState);
@@ -40,7 +41,7 @@ export default function SaveBtn({
         <FaBookmark
           size={size || 18}
           className={clsx(
-            "h-4 w-4 mr-1 hover:text-black transition-colors",
+            "max-md:h-[1.2rem] max-md:w-[1.2rem] mr-1 hover:text-black transition-colors",
             isLoading && "animate- hover:!text-black",
             isSaved && "!text-black"
           )}
@@ -53,9 +54,8 @@ export default function SaveBtn({
       <Button
         onClick={handleSave}
         disabled={isLoading}
-        variant="outline"
         className={clsx(
-          "ml-auto hover:bg-secondary text-sm",
+          "ml-auto hover:bg-secondary text-sm bg-secondary",
           isSaved &&
             "bg-secondary-foreground  hover:bg-secondary-foreground hover:text-white text-white"
         )}
@@ -65,7 +65,7 @@ export default function SaveBtn({
         ) : (
           <>
             <FaBookmark
-              className=" mr-1"
+              className=" mr-1 !w-4 !h-4 "
               size={size || 14}
               fill={isSaved ? "white" : "#2F2F2F"}
             />

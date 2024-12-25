@@ -1,10 +1,11 @@
 import { Request, Response } from "express"
 import { ValidateLogin } from "../../middlewares/Authenticate";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { Resource } from "../../models/resource.model";
-import { Types } from "mongoose";
+import { IResource, Resource } from "../../models/resource.model";
+import { ObjectId, Types } from "mongoose";
 import { PopulateResources } from "../../functions/populate-resources";
 import { SaveList } from "../../models/savelist.model";
+import { ResourceCollection } from "../../models/resource-collection.model";
 export async function GetUserResource(req: Request, res: Response) {
     const { count, sort, isPrivate, userid } = req.body;
     if (isPrivate) {
@@ -47,13 +48,19 @@ export async function SwitchVisiblityResource(req: Request, res: Response) {
     const { id } = req.body;
     try {
 
-        const resource = await Resource.findById(id).select("_id publisher isPrivate")
+        const resource = await Resource.findById(id).select("_id publisher isPrivate content")
         if (!resource || resource.publisher.toString() != req.userid?.toString()) {
             ErrorResponse(res, { message: "Invalid Id", status: 403 })
             return;
         }
         await Resource.findByIdAndUpdate(id, { isPrivate: !resource.isPrivate })
+
+        //Also Delete from the resource collection
+        const links = resource.content.flatMap(e => e.links.map(link => link.toString()))
+        await ResourceCollection.updateMany({links: {$in: links}}, {$pull: {links: {$in: links}}})
+
         SuccessResponse(res, { payload: { isPrivate: !resource.isPrivate } });
+
         return;
     }
     catch (err) {

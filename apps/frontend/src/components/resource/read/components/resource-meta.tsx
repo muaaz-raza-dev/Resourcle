@@ -22,11 +22,12 @@ export default function ResourceMeta() {
     <Card>
 
     <CardContent className='flex flex-col items-start w-full py-4 gap-2 bg-transparent'>
-    <div className="flex justify-between gap-4 w-full">
-      <div className="flex items-start gap-4 w-max  ">
-        <div className="flex items-center gap-2 ">
+    <div className="flex justify-between max-md:flex-col gap-4 w-full">
+      <div className="flex items-start gap-4 w-max max-md:justify-between max-md:items-center max-md:w-full ">
+        <div className="flex items-center gap-2  max-md:w-full ">
+          
             <Image
-            src={q.publisher.photo||"/user.png"}
+            src={q.publisher.picture||"/user.png"}
             alt={q.publisher.name||"Picture"}
             width={40}
             height={40}
@@ -43,25 +44,28 @@ export default function ResourceMeta() {
             <p className="text-sm text-muted-foreground">{q.publisher.headline}</p>
           </div>
         </div>
-        
+            <Link href={`/${q.publisher._id}`} className="text-xs text-white max-md:block md:hidden transition-colors duration-200 
+                bg-secondary-foreground hover:bg-primary-dark rounded-md py-1 px-4">
+                   Profile
+            </Link>
       </div>
       <div className="flex  justify-between items-center">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center w-full max-md:justify-between gap-2">
             <div className="flex gap-2">
             <Tooltip title="upvotes">
           <UpvoteBtn size={20} id={q._id} value={q.upvotes} isUpvoted={q.isUpvoted} />
           </Tooltip>
           <Tooltip title="views" className='flex gap-1 font-semibold text-xs items-center '>
-            {q.views} <FaEye size={18} />
+            {q.views} <FaEye className='text-muted-foreground ' size={18} />
           </Tooltip>
           </div>
           <div className="flex gap-1 border-l pl-2">
           <Tooltip title="upvotes">
-          <SaveBtn size={24} minimal id={q._id}  isSaved={q.isSaved} />
+          <SaveBtn size={18} minimal id={q._id}  isSaved={q.isSaved} />
           </Tooltip>
           <Tooltip title="share">
         <button onClick={()=>share({title:q.title,text:q.description,})}>
-          {isSharing ? <RequestLoader size='18' color='gray'/>:  <FiShare2  size={18} />}
+          {isSharing ? <RequestLoader size='18' color='gray'/>:  <FiShare2  size={16} className=''/>}
         </button>
         </Tooltip>
         </div>

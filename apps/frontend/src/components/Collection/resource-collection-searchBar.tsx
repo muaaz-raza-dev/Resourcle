@@ -17,7 +17,7 @@ export default function ResourceCollectionSearchBar() {
   }, 800)
 
   return (
-    <div className="w-full max-md:w-[90%]  mx-auto space-y-2 white rounded-md">
+    <div className="w-full max-md:w-full  mx-auto space-y-2 white rounded-md">
           <div className=" flex justify-between items-center border rounded-md px-4 bg-white ">
             <Search className=" h-4 w-4 text-muted-foreground" />
             <Input 

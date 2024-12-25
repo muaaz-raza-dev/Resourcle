@@ -15,6 +15,7 @@ namespace NodeJS {
   NEXT_PUBLIC_SEARCH_LIMIT:number;
   NEXT_PUBLIC_SERVER_URI:string;
   NEXT_PUBLIC_UTIL_SERVER_URI:string;
+  NEXT_PUBLIC_Collection_limit:string;
   }
 
 }

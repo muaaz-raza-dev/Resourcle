@@ -19,8 +19,9 @@ export function FAQSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4"
+        className="container relative mx-auto px-4"
       >
+          
         <motion.h2 
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -44,20 +45,14 @@ export function FAQSection() {
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
               >
                 <AccordionItem value={`item-${index}`} className="border border-primary/20 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <AccordionTrigger className="text-left text-lg font-semibold p-6 bg-white hover:bg-primary/10 transition-colors duration-300">
+                  <AccordionTrigger className="text-left text-lg font-semibold p-6 bg-white hover:no-underline hover:bg-primary/10 transition-colors duration-300">
                     <span>{faq.question}</span>
                   </AccordionTrigger>
                   <AccordionContent className="bg-white">
                     <AnimatePresence>
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="p-6 text-gray-600"
-                      >
+                      <div className="p-6 text-gray-600">
                         {faq.answer}
-                      </motion.div>
+                      </div>
                     </AnimatePresence>
                   </AccordionContent>
                 </AccordionItem>

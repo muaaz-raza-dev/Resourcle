@@ -5,7 +5,7 @@ import { FaGithub } from "react-icons/fa";
 
 export default function GetGithubStars() {
   return (
-    <section className="relative  min-h-[40vh]  center mt-8">
+    <section className="relative  min-h-[40vh]  center my-4">
       <Spotlight
         className="-top-40 right-0 md:right-60 md:-top-20"
         fill="black"
@@ -15,12 +15,13 @@ export default function GetGithubStars() {
         className="-top-40 right-0 md:left-60 md:-top-20 "
         fill="green"
       />
+     
 
-      <div className="z-50 inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-4  text-3xl text-center md:text-4xl lg:text-7xl">
-        <p className="bg-clip-text h-max  text-transparent drop-shadow-2xl bg-gradient-to-b from-black/90 to-black/80">
+      <div className="z-50 inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-4  text-4xl text-center md:text-5xl lg:text-7xl">
+        <p className="bg-clip-text h-max py-4  text-transparent  drop-shadow-2xl bg-gradient-to-b from-black/90 to-black/80">
           Actively Maintained
         </p>
-        <p className="text-lg font-medium">
+        <p className="text-lg font-medium max-md:font-normal max-md:text-sm">
           We are always improving our content, adding new resources and adding
           features to enhance your experience.
         </p>

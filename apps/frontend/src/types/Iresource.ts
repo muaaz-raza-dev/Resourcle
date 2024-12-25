@@ -12,7 +12,7 @@ export interface IResource  {
 }
 
 export interface IresourceContent{
-    _id:string;
+    _id?:string;
     label: string;
     links:IResourceLink[];
 }

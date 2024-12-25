@@ -24,7 +24,7 @@ import RequestLoader from "../loader/request-loading";
 
 export default function ResoureCollectionEachResource({data}:{data:IcollectedResourceLink}) {
   return (
-    <Card className="flex flex-col !w-[49%] py-3 gap-1 justify-between">
+    <Card className="flex flex-col w-[49%] py-3 gap-1 justify-between max-md:w-full">
       <CardHeader className="flex flex-col gap-1 py-0">
         <div className="flex flex-col ">
           <Link
@@ -53,7 +53,7 @@ export default function ResoureCollectionEachResource({data}:{data:IcollectedRes
         </div>
       </CardHeader>
 
-      <CardFooter className="flex items-center justify-between py-0 gap-4 ">
+      <CardFooter className="flex items-center justify-between py-0 gap-4 max-md:flex-col-reverse max-md:items-start max-md:gap-1">
         <div className="text-xs font-medium p-1 rounded">
           Collected from{" "}
           <Link href={`/resource/${data.resource._id}`} className="font-bold underline ">
@@ -64,7 +64,7 @@ export default function ResoureCollectionEachResource({data}:{data:IcollectedRes
             {data.resource.publisher.name}
           </Link>
         </div>
-        <section className="flex gap-1 text-xs items-center">
+        <section className="flex gap-1 text-xs items-center ">
           <div className="gap-1 text-muted-foreground flex text-sm items-center">
             <p className="text-xs">{data.upvotes||"No upvotes "} </p>
             <AiFillFire

@@ -20,7 +20,7 @@ export default function ConfirmDialog({
   resource_title,
   state: [State, setState],
 }: {
-  title: string;
+  title?: string;
   resource_title:string;
   _id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,8 +38,7 @@ export default function ConfirmDialog({
   const handleOpenChange = (isOpen: boolean) => {
     if (!isLoading) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setState((e:any) => ({ ...e, privateSwitch: isOpen }));
-
+        setState((e:any) => ({ ...e, Delete: isOpen }));
       }
     }
   
@@ -47,7 +46,7 @@ export default function ConfirmDialog({
     <AlertDialog open={State} onOpenChange={handleOpenChange} >
       <AlertDialogContent >
         <AlertDialogHeader>
-          <AlertDialogTitle>{title} . Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{title} Are you absolutely sure?</AlertDialogTitle>
           <p className="underline text-sm font-semibold ">{resource_title} </p>
           <AlertDialogDescription>
             {description ||

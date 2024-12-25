@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function ProfileSkeletonLoader() {
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto my-4">
       {/* Banner Skeleton */}
       <div className="relative h-52 bg-gradient-to-r from-secondary-foreground to-primary  rounded-lg overflow-hidden">
         <motion.div

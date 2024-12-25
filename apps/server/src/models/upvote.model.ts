@@ -11,7 +11,7 @@ const UpvoteSchema = new mongoose.Schema({
         ref: 'User',
     },
     content_votes:{type:Array<{
-        link_id:mongoose.Types.ObjectId,
+        link_id:{type:mongoose.Types.ObjectId,ref:"ResourceLink"},
         users:Array<{type:mongoose.Types.ObjectId,ref:"User"}>,
     }>,default:[]},
     createdAt: {

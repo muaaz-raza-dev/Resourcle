@@ -16,7 +16,8 @@ const pathname = usePathname();
 if(RouteValidator(pathname,["/auth/*"])) return null;
 
 return (
-  <nav className="  z-[100]">
+  <nav className=" ">
+       
       <div className="max-w-7xl mx-auto max-md:px-2 max-lg:px-4 lg:px-8  ">
         <div className="flex justify-between items-center h-16 navbar-bg mt-2 px-8 max-md:px-2 max-lg:px-4 lg:px-8  ">
           <div className="flex items-center">

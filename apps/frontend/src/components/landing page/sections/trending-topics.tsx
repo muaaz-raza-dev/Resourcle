@@ -12,6 +12,7 @@ export default function TrendingTopics() {
   const {data,isLoading}  = useLoadTagsFeed()
   const q = data?.payload
   if(isLoading) return <TagsFeedLoader/>
+  if(!q||q.length==0) return null
   return (
     <>
     <motion.section  {...fadeInUp}>

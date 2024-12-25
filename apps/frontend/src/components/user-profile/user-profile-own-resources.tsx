@@ -21,10 +21,7 @@ export default function UserProfileOwnResources() {
       {isLoading ? <RequestLoader/>:
       total < ((count+1)*countPerRequest) ?
       <p className="text-muted-foreground text-sm">
-        {total==0?
-         "No resource is published yet":
-        "You've reached the end of the resources."
-        }
+        {total==0 && "No resource is published yet"}
       </p>
       :<LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />
       }

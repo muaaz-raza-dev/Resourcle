@@ -4,7 +4,7 @@ import { SearchedSortOptions } from "@/state/search-resource.atom";
 import { UserProfileResourceAtom } from "@/state/user-profile-resource.atom";
 import { Select } from "antd";
 import React, { useEffect } from "react";
-import { FaGlobe, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { useRecoilState, useRecoilValue } from "recoil";
 import RequestLoader from "../loader/request-loading";
 import { authAtom } from "@/state/auth.atom";
@@ -20,9 +20,9 @@ export default function UserProfileResourcesFilterbar() {
   }, []);
 
   return (
-    <header className="flex justify-between">
-      <p className="text-muted-foreground">{total} resources</p>
-      <section className="flex gap-4">
+    <header className="flex justify-between max-md:flex-col-reverse">
+      <p className="text-muted-foreground max-md:text-xs text-sm">{total} resources</p>
+      <section className="flex gap-4 max-md:justify-between ">
         <SwitchPublicOperatorComp />
         <SortResourceOperatorComp />
       </section>
@@ -46,9 +46,9 @@ function SortResourceOperatorComp() {
     mutate({ sort: value });
   }
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 md:items-center ">
     <Select
-      className="w-[120px]"
+      className="w-[120px] max-md:text-sm"
       options={[
         { value: "createdAt", label: "recent" },
         { label: "popular", value: "upvotes" },
@@ -79,9 +79,9 @@ function SwitchPublicOperatorComp() {
 
   return (
     <div className="flex gap-3 items-center">
-      <div className=" text-xs flex items-center gap-1">
+      {/* <div className=" text-xs flex items-center gap-1">
         <FaGlobe /> Public
-      </div>
+      </div> */}
       <Switch
         checked={isPrivate}
         onCheckedChange={handlePublicPrivateOptionChange}

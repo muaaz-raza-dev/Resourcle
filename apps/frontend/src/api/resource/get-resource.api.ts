@@ -3,7 +3,7 @@ import { IResource } from "@/types/Iresource"
 import Cookie from "js-cookie"
 
 export type IresourceRemote = Omit<IResource, " banner" | "tags" | "publisher" |"isPrivate"> & {
-    banner?: string, publisher: { name: string, _id: string, photo: string; headline: string },
+    banner?: string, publisher: { name: string, _id: string, picture: string; headline: string },
     tags: { name: string, _id: string }[];
     isUpvoted:boolean;
     isSaved:boolean;

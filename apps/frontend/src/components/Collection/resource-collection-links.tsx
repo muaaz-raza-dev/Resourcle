@@ -1,6 +1,6 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useRecoilState } from "recoil";
+import { useRecoilState} from "recoil";
 import { ResourceCollectionAtom } from "@/state/resource-collection.atom";
 import Skeleton from "react-loading-skeleton";
 import useGetCollectionLinks from "@/hooks/resource-collection/useGetCollectionLinks";
@@ -16,7 +16,7 @@ export default function ResourceCollectionLinks() {
     mutate({ count: state.count, id });
   };
   React.useEffect(() => {
-    fetchData();
+    mutate({ count:1, id });
   }, []);
 
   return (
@@ -26,21 +26,14 @@ export default function ResourceCollectionLinks() {
       hasMore={state.total >= state.count * +limit}
       className="flex flex-wrap gap-4   w-full h-max"
       loader={<Loader />}
-      endMessage={
-        <p
-          style={{ textAlign: "center" }}
-          className="py-8 w-full text-muted-foreground text-sm "
-        >
-          You have seen it all
-        </p>
-      }
+    
     >
       {state.iterable.map((e, i) => (
         <ResoureCollectionEachResource key={i} data={e} />
       ))}
       {state.iterable.length==0 &&
       <div className="w-full text-center py-8 text-muted-foreground text-sm">
-        No Resource
+        No resource collected 
       </div>
       }
       {isLoading && <Loader />}

@@ -2,11 +2,11 @@ const name = process.env.NEXT_PUBLIC_NAME
 export const faqs = [
     {
       question: `What is ${name}?`,
-      answer: "[Platform Name] is a community-driven platform where users share and discover valuable resources by posting and voting on links. It’s designed to help everyone find curated, high-quality content."
+      answer: `${name} is a community-driven platform where users share and discover valuable resources by posting and voting on links. It’s designed to help everyone find curated, high-quality content.`
     },
     {
       question: "How do I share a resource?",
-      answer: "Simply create an account, click the 'Share Resource' button, and paste the link along with a short description. Your resource will then be visible to the community for voting and feedback."
+      answer: "Simply create an account, click the 'Create Resource' button, and paste the link along with a short description. Your resource will then be visible to the community for voting and feedback."
     },
     {
       question: "How do I find resources?",

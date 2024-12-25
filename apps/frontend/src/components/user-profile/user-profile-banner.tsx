@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function UserProfileBanner() {
   const {data}  = useGetUserProfileInfomartion({hitApi:false})
-  const q= data?.payload.user
+  const q= data?.payload
   return (
     <div className="relative h-48 w-full mb-4 overflow-hidden bg-gradient-to-r border-none from-secondary-foreground to-primary rounded-md ">
     {/* Animated circles */}

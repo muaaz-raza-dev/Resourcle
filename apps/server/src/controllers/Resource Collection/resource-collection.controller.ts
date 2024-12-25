@@ -165,3 +165,27 @@ if (!Collection) {
 }
   SuccessResponse(res,{payload:Collection.links})
 }
+
+
+export async function CreateResourceCollection(req:Request,res:Response){
+  const collectionLimit = parseInt(process.env.Collection_limit || '3', 10);
+  const { payload } = req.body;
+  const totalCollections = await ResourceCollection.countDocuments({ user: req.userid });
+  if (totalCollections >= collectionLimit) {
+    ErrorResponse(res, { message: "Limit exceeded", status: 403 });
+    return;
+  } else {
+    await ResourceCollection.create({ ...payload, user: req.userid });
+    SuccessResponse(res, { message: "Collection created successfully" });
+  }
+}
+
+export async function GetUserCollectionsList(req:Request,res:Response){
+  const resourceCollections = await ResourceCollection.find({user:req.userid}).select("links name");
+  const resourceCollectionsWithLength = resourceCollections.map(collection => ({
+      ...collection.toObject(),
+      links: collection.links.length
+  }));
+  SuccessResponse(res,{payload:resourceCollectionsWithLength})
+
+}

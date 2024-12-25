@@ -36,8 +36,7 @@ export default function EachResourceAdminMenubar({
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            variant={"outline"}
-            className="ml-auto hover:bg-secondary text-sm"
+            className="ml-auto hover:bg-secondary text-black text-sm bg-secondary"
           >
             <SlOptionsVertical />
           </Button>
@@ -46,31 +45,33 @@ export default function EachResourceAdminMenubar({
           <DropdownMenuLabel>Instant actions </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <Link href={`/resource/edit/${_id}`}>
-          <DropdownMenuItem className="justify-between text-sm py-2 font-semibold">
-            Edit <FaEdit size={12} />
+          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold">
+             <FaEdit size={12} />
+            Edit
           </DropdownMenuItem>
             </Link>
           <DropdownMenuItem
             className="justify-between text-sm py-2 font-semibold"
             onSelect={() => setdialogs((d) => ({ ...d, privateSwitch: true }))}
           >
-            <div className="flex justify-between items-center gap-3">
-              Switch to{" "}
-              {isPrivate ? (
+            <div className="flex items-center gap-2">
+            {isPrivate ? <FaGlobe size={12} /> :<FaLock size={12} /> }
+              Switch to {isPrivate ? (
                 <>
-                  public <FaGlobe size={12} />
+                  public 
                 </>
               ) : (
                 <>
-                  private <FaLock size={12} />
+                  private 
                 </>
               )}
             </div>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="justify-between text-sm py-2 font-semibold text-destructive"
+          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold hover:text-destructive text-destructive"
            onSelect={() => setdialogs((d) => ({ ...d, Delete: true }))}>
-            Delete <FaTrash size={12} />
+             <FaTrash size={12} />
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -96,7 +97,6 @@ export default function EachResourceAdminMenubar({
           state={[dialogs.Delete, setdialogs]}
           _id={_id}
           resource_title={title}
-          title={``}
         />
       )}
     </>

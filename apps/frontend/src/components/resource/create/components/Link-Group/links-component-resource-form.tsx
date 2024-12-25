@@ -66,7 +66,7 @@ export default function LinksComponentResourceForm({
                     {
                       link.tags?.map((tag, i) => {
                         return (
-                            <div key={i+tag} className="px-2 p-1 rounded-xl border-primary border bg-white font-semibold text-sm flex gap-2 items-center">
+                            <div key={i+tag} className="px-2 p-1 rounded-md  border  font-semibold text-sm flex gap-2 items-center">
                               <p>{tag}</p>
                             </div>
                         );

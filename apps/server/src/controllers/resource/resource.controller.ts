@@ -9,6 +9,7 @@ import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-
 import { IResourceLink, ResourceLink } from "../../models/link.model";
 import { CompareLink } from "../../functions/compareLinks.resource";
 import { ObjectId } from "mongoose";
+import { ResourceCollection } from "../../models/resource-collection.model";
 
 export default async function CreateResource(req: Request, res: Response): Promise<void> {
     const { payload }: { payload: IResource } = req.body;
@@ -232,7 +233,7 @@ export async function UpvoteIndividualLink(req: Request, res: Response) {
     try {
         const resource = await Resource.findOne({
             _id: resource_id,
-            "content.links._id": link_id
+            "content.links": link_id
         }).select("upvotesDoc")
 
         if (!resource) {
@@ -260,11 +261,7 @@ export async function UpvoteIndividualLink(req: Request, res: Response) {
 
         let query: Record<string, any> = { [!isUpvoted?'$addToSet':"$pull"]: {  "content_votes.$.users": new mongoose.Types.ObjectId(req.userid) }}    
 
-        await Resource.findOneAndUpdate(
-                { _id: resource_id },
-                { $set: { "content.$[].links.$[link].upvotes": totalUpvotes+(isUpvoted?-1:1 )} },
-                { arrayFilters: [{ "link._id": new mongoose.Types.ObjectId(link_id) }] }
-        );
+        await ResourceLink.findByIdAndUpdate(link_id,{upvotes:totalUpvotes+(isUpvoted?-1:1 )})
         
         if (LinkUpvoteDoc==-1) {
             await Upvotes.findByIdAndUpdate(resource.upvotesDoc,
@@ -378,14 +375,18 @@ export async function EditResource(req: Request, res: Response) {
             updatedContent.push({ ...c, links: links.filter(link => link !== null) });
         }
         // Handle deleted links by marking them as isDeleted
+        const deleted = []
         for (const group of resource.content) {
             const payloadGroup = payload.content.find(c => c._id.toString() == group._id.toString());
             for (const link of group.links) {
                 if (!payloadGroup || !payloadGroup.links.some(pLink => pLink._id.toString() == link._id.toString())) {
                     await ResourceLink.findByIdAndUpdate(link._id, { isDeleted: true });
+                    deleted.push(link._id)
                 }
             }
         }
+        //Also Delete from the resource collection
+        await ResourceCollection.updateMany({links: {$in: deleted}}, {$pull: {links: {$in: deleted}}})
 
         const updatedResource = await Resource.findByIdAndUpdate(
             resource_id,

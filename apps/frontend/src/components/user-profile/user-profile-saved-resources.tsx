@@ -36,7 +36,7 @@ export default function UserProfileSavedResources() {
           <RequestLoader />
         ) : total < (count + 1) * countPerRequest ? (
           <p className="text-muted-foreground text-sm">
-            {total==0?"No resource is published yet": "You've reached the end of the saved resources." }
+            {total==0&&"No resource is published yet" }
           </p>
         ) : (
         <LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />

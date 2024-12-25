@@ -20,7 +20,9 @@ export default function ResourcesPage() {
       <main className="flex-grow flex flex-col gap-2 container mx-auto px-8 py-6">
           <ResourceHeader />
           <ResourceMeta/>
+          <section className='mt-4'>
           <ResourceSearchbar/>
+          </section>
         {  filtered.map(e=><ResourceEachLinkGroup key={e.label} data={e}/>)  }
         {filtered.length === 0 && <p className="text-center text-gray-700 font-semibold">No resources found</p>}
       </main>

@@ -14,6 +14,7 @@ import {
 import { Checkbox } from "antd";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { BsCollectionFill } from "react-icons/bs";
 import { MdAddLink } from "react-icons/md";
 
 export default function ResourceEachLinkCollectButton({
@@ -26,7 +27,7 @@ export default function ResourceEachLinkCollectButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="flex gap-2 border-l min-w-12 justify-end font-semibold items-center text-xs pl-2">
+        <div className="flex gap-2  justify-end font-semibold items-center text-xs ">
           <button
             className={`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2`}
           >
@@ -104,6 +105,7 @@ function EachCollectionItem({
             onChange(collection._id, e.target.checked);
           }}
         />
+    <BsCollectionFill  className="w-3 h-3"/>
         <span className="font-semibold">{collection.name}</span>
       </div>
       <Badge variant={"secondary"} className=" mr-2  ">

@@ -16,10 +16,10 @@ export default function ResourceEachLinkGroup({
 }) {
   const resource_id = (useParams().id || "" ) as string
   return (
-    <Card className="mb-6">
-      <CardHeader className="pb-3 pt-5">
-        <div className="flex justify-between items-center">
-        <CardTitle className="text-xl ">{data.label}</CardTitle>
+    <Card className="">
+      <CardHeader className="pb-0 pt-5">
+        <div className="flex justify-between border-b pb-2 items-center">
+        <CardTitle className="text-xl font-bold ">{data.label}</CardTitle>
         <p className="text-sm font-semibold">{data.links.length} links</p>
         </div>
       </CardHeader>

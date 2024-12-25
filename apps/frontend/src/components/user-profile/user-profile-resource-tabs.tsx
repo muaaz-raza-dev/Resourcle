@@ -21,7 +21,7 @@ export default function UserProfileResourceTabs() {
      window.history.replaceState({},"",`${window.location.pathname}?${searchParams}`);
   }
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-5">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-5 ">
       <UserProfileResourceNavbar/>
       <AnimatePresence mode="wait">
             <motion.div

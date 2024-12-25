@@ -93,13 +93,9 @@ export async function GetUserProfileInfoController(req: Request, res: Response) 
             ErrorResponse(res, { message: "User not found", status: 404 });
             return;
         }
-        const resourceCollections = await ResourceCollection.find({user:user_details._id}).select("links name");
-        const resourceCollectionsWithLength = resourceCollections.map(collection => ({
-            ...collection.toObject(),
-            links: collection.links.length
-        }));
 
-        SuccessResponse(res, { payload: {user:user_details,resourceCollections:resourceCollectionsWithLength}, });
+
+        SuccessResponse(res, { payload: user_details, });
         return;
     }
     catch (error) {
