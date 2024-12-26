@@ -14,7 +14,7 @@ export default function LovedResources() {
   if (isLoading) return <ResourceLoader />;
   return (
     <>
-      <HeadingComp text={"❤️ Loved Resources"} />
+      <HeadingComp text={"Top Resources"} />
       <div className="flex flex-wrap  gap-4 mb-4 w-full">
         {q?.map((resource, index) => (
           <motion.div

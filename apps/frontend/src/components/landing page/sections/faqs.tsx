@@ -9,27 +9,23 @@ import {
   AccordionTrigger,
 } from "@/shadcn/components/ui/accordion"
 import { faqs } from '@/data/faqs-landing.data'
+import HeadingComp from '../components/heading-comp'
 
 
 
 export function FAQSection() {
   return (
-    <section className="py-14 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+    <section className=" w-full  py-8  ">
+
+      <HeadingComp text='Frequently Asked Questions'/>
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="container relative mx-auto px-4"
+        className="  mx-auto px-4"
       >
           
-        <motion.h2 
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 100 }}
-          className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-secondary-foreground to-black/70"
-        >
-          Frequently Asked Questions
-        </motion.h2>
+      
         <motion.div 
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

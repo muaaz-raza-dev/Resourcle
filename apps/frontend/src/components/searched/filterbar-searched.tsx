@@ -21,26 +21,26 @@ export default function FilterbarSearched() {
       <div className="space-y-8">
         <div className="space-y-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{search}</h1>
-          <p className="text-lg font-medium text-muted-foreground">
+          <p className=" md:font-medium text-muted-foreground">
             Search all the specific keywords to get the better results
           </p>
           
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b pb-4">
+        <div className="flex  justify-between items-center gap-4 border-b pb-4">
             {!isLoading&& 
           <div className="text-muted-foreground">
-            <span className="font-semibold text-foreground">{total}</span> resource(s) found
+            <span className="font-semibold max-md:text-sm text-foreground">{total}</span> resource(s) found
           </div>
             }
           <div className="flex items-center gap-4">
           <Select disabled={isLoading} value={sort} onValueChange={HandleSortChange}>
-  <SelectTrigger className="min-w-[180px] border ring-offset-transparent outline-none ">
+  <SelectTrigger className="md:min-w-[180px] max-md:w-[130px] border border-border ring-offset-transparent outline-none ">
     <SelectValue className="hover:!bg-slate-300" />
   </SelectTrigger>
   <SelectContent align="end">
-    <SelectItem value="upvotes" className="hover:!bg-slate-300">Most Upvoted</SelectItem>
-    <SelectItem value="createdAt" className="hover:!bg-slate-300">Recent</SelectItem>
+    <SelectItem value="upvotes" className="hover:!bg-muted-foreground">Most Upvoted</SelectItem>
+    <SelectItem value="createdAt" className="hover:!bg-muted-foreground">Recent</SelectItem>
   </SelectContent>
 </Select>
 

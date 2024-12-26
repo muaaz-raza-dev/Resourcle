@@ -6,7 +6,6 @@ import TagsFeedLoader from "@/components/landing page/loader/tag-loader";
 import { FAQSection } from "@/components/landing page/sections/faqs";
 import GetGithubStars from "@/components/landing page/sections/get-github-stars";
 import HeroSection from "@/components/landing page/sections/hero-section";
-import { Spotlight } from '@/shadcn/components/ui/spotlight';
 const LovedResources = lazy(() =>import('@/components/landing page/sections/loved-resources'));
 const ActiveUsers = lazy(() =>import('@/components/landing page/sections/active-users'));
 const TrendingTopics = lazy(() =>import('@/components/landing page/sections/trending-topics'));
@@ -14,7 +13,6 @@ const TrendingTopics = lazy(() =>import('@/components/landing page/sections/tren
 export default function DeveloperRoadmaps() {
   return (
     <main>
-      <Spotlight className="  md:left-60 md:top-20 " fill="#FF6600" />
       <div className="min-h-screen  p-8 ">
         <div className="lg:max-w-4xl   mx-auto ">
 
@@ -28,10 +26,10 @@ export default function DeveloperRoadmaps() {
           <Suspense fallback={<ResourceLoader/>}>
           <ActiveUsers />
           </Suspense>
-        </div>
-      </div>
       <FAQSection/>
       <GetGithubStars />
+        </div>
+      </div>
     </main>
   );
 }

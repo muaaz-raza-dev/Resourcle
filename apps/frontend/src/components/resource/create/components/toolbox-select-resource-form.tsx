@@ -13,8 +13,8 @@ export default function ToolboxSelectResourceForm() {
 
   return (
     <section className='w-full center flex-col gap-4'>
-   <Tooltip title={"Add Link Group"}>
-   <button type='button' className='px-4 py-2 rounded-md bg-secondary hover:bg-primary hover:text-white transition-colors'
+   <Tooltip title={"Add resource group"}>
+   <button type='button' className='px-4 py-2 rounded-md bg-secondary text-primary     transition-colors'
    onClick={handleAddLinkGroup}>
    <FaPlus/>
    </button>

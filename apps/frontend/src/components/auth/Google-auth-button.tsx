@@ -24,8 +24,8 @@ export default function GoogleAuthButton({context}:{context?:("signin"|"signup")
   }
   return (
 
-    <div className="w-full">
-    <GoogleLogin  shape='rectangular' width={377} context={context||'signin'}  onSuccess={onSuccess} onError={onError} />
+    <div className="w-full center">
+    <GoogleLogin  shape='rectangular'  text='continue_with' type='icon' size='large' onSuccess={onSuccess} onError={onError} />
     </div>
   )
 }

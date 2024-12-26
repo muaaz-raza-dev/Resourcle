@@ -1,23 +1,18 @@
+import { BackgroundBeams } from "@/shadcn/components/ui/background-beams";
 import { Spotlight } from "@/shadcn/components/ui/spotlight";
+
 import Link from "next/link";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 
 export default function GetGithubStars() {
   return (
-    <section className="relative  min-h-[40vh]  center my-4">
-      <Spotlight
-        className="-top-40 right-0 md:right-60 md:-top-20"
-        fill="black"
-      />
-
-      <Spotlight
-        className="-top-40 right-0 md:left-60 md:-top-20 "
-        fill="green"
-      />
-     
-
-      <div className="z-50 inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-4  text-4xl text-center md:text-5xl lg:text-7xl">
+    <section className="relative  navbar-bg    overflow-hidden backdrop-blur-md py-12   center mt-8">
+          
+          <Spotlight fill="green"/>
+          <Spotlight fill="white" className="left-20"/>
+      <div className="z-50 relative inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-8  text-4xl text-center md:text-5xl lg:text-7xl">
+          <BackgroundBeams />
         <p className="bg-clip-text h-max py-4  text-transparent  drop-shadow-2xl bg-gradient-to-b from-black/90 to-black/80">
           Actively Maintained
         </p>

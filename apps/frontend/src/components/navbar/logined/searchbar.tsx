@@ -15,7 +15,8 @@ export default function Searchbar() {
   useEffect(() => {
     setinput(searchTerm || "");
   }, [searchTerm]);
-  useHotkeys('shift+k', () =>ref?.current?.focus())
+  useHotkeys('ctrl+k', (e) =>{e.preventDefault();setinput(i=>i);ref?.current?.focus();})
+
   function HandleSearch(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key == "Enter") {
       if (location.pathname.includes("/search")) {
@@ -31,6 +32,10 @@ export default function Searchbar() {
         push(`/search/?search=${input}`);
       }
     }
+    else if(event.key=="Escape") {
+      ref?.current?.blur()
+    }
+    console.log(event.key)
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

@@ -16,7 +16,7 @@ export default function ResourceSearchbar() {
       value={input}
       onChange={(e)=>{setInput(e.target.value);debounced(e.target.value)}}
         type="text"
-        placeholder="Search blog posts..."
+        placeholder="Search resource based on thier name and url"
         className="w-full pl-10 pr-4 py-2 text-gray-800 bg-white border rounded-md focus:outline-none"
       />
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

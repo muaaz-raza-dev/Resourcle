@@ -10,19 +10,20 @@ import { useFetchEditableResource } from '@/hooks/resource/useEditResource'
 
 export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;edit?:boolean}) {
   return (
-    <footer  className='  max-w-5xl pr-6 border-t h-max  flex justify-between gap-4 py-2 pb-4'>
+    <footer  className='  max-w-5xl border-t h-max  flex justify-between gap-4 py-4  flex-col'>
     <TagsResourceForm/>
-    <div className="flex gap-4 self-end justify-end full">
     <PublicPrivateSwitchResourceForm/>
+    
     {
       edit ? 
       <UpdateButton isLoading={isLoading}/>
       :
-      <Button disabled={isLoading} type='submit' className='font-semibold  hover:brightness-1100 transition-all'>
+      <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground transition-all'>
         { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
       </Button>
     }
-    </div>
+            
+    
     </footer>
   )
 }
@@ -36,7 +37,7 @@ function UpdateButton({isLoading}:{isLoading:boolean}){
   if(isSuccess) UpdateState(state.getValues())
   }, [isSuccess])
   return (
-    <Button type='submit' className='font-semibold  hover:brightness-1100 transition-all' disabled={isLoading||!changes}>
+    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground hover:brightness-1100 transition-all' disabled={isLoading||!changes}>
       { isLoading? <RequestLoader size='16' /> : 'Update'}
     </Button>
   )

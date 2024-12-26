@@ -19,7 +19,7 @@ _id:Types.ObjectId;
 }
 
 export async function UpvoteAndSavedPopulator(req:Request,{resource,resourceRaw,isNestedUpvote}:{resourceRaw:IResource,resource:IResourcePayload,isNestedUpvote?:boolean}){
-    resource.views=resourceRaw.views.length
+    resource.views=resourceRaw.views?.length
     if(!req.userid){
         resource.isSaved = false
         resource.isUpvoted =false
@@ -28,7 +28,7 @@ export async function UpvoteAndSavedPopulator(req:Request,{resource,resourceRaw,
     const userBookmarks =(await SaveList.findOne({ user: req.userid }).select("resource").lean())?.resource||[]
     const upvotedUsersList = resourceRaw.upvotesDoc as Iupvote
     resource.isSaved = userBookmarks.some(rs=>rs.toString()==resource._id.toString())
-    resource.isUpvoted = upvotedUsersList.users.some((user:Types.ObjectId)=>user.toString()==req.userid?.toString())
+    resource.isUpvoted = upvotedUsersList?.users.some((user:Types.ObjectId)=>user.toString()==req.userid?.toString())
     if(isNestedUpvote){
         const content_upvotes = await Upvotes.aggregate([
             {$match:{_id:new mongoose.Types.ObjectId(resourceRaw.upvotesDoc._id)}},

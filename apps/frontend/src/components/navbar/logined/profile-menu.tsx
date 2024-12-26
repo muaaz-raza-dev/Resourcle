@@ -7,18 +7,17 @@ import {
 import { useRecoilValue } from "recoil";
 import { authAtom } from "@/state/auth.atom";
 import { Cog, User } from "lucide-react";
-import { LuLogOut } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
-import useLogOut from "@/hooks/auth/useLogOut";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { BsCollectionFill } from "react-icons/bs";
+import LogoutDialog from "./logout-dialog";
 
 export default function ProfileMenu() {
   const [open, setopen] = useState(false)
   const { user } = useRecoilValue(authAtom);
-  const LogOut = useLogOut()
+  
   return (
     <Sheet open={open} onOpenChange={(o)=>setopen(o)} >
       <SheetTrigger>
@@ -60,10 +59,7 @@ export default function ProfileMenu() {
 
         <div className="bg-gray-500 w-full h-[1px] my-1"></div>
 
-        <button onClick={LogOut} className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md" >
-            <LuLogOut className="text-gray-600" size={20}/>
-            <p className="text-sm font-semibold text-gray-700 ">Log out</p>
-        </button>
+      <LogoutDialog/>
 
         </section>
       </SheetContent>

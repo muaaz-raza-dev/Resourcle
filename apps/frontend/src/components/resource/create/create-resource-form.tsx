@@ -55,10 +55,10 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
   if(edit && isFetching) return <ResourceLoader/>
   return (
     <NotFoundRenderer isLoading={edit?isFetching:false} isError={edit?isError:false}>
-    <section className="max-w-5xl mx-auto m-4 ">
+    <section className="max-w-5xl mx-auto m-4 p-4">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <section className="flex flex-col gap-2 mb-24">
+          <section className="flex flex-col gap-2 mb-10">
           <BannerResourceForm edit={edit} />
           <TitleDescriptionResournceForm />
           <ContentResourceForm />

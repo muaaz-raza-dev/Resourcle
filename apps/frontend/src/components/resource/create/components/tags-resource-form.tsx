@@ -18,7 +18,7 @@ export default function TagsResourceForm() {
         },800)
   const tags = useRecoilValue(searchedTagsAtom)
   return (
-    <section className='w-1/2'>
+    <section className='w-full'>
     <FormField
     control={methods.control}
     name="tags"
@@ -29,7 +29,7 @@ export default function TagsResourceForm() {
             {...field}
             className='w-full !placeholder:text-gray-700'
             id='tags'
-            placeholder='Tags for your resource'
+            placeholder='select suitable tags'
             filterOption={false}
             mode='multiple'
             options= {tags.map(t=>({value:t._id,label:t.name}))} 

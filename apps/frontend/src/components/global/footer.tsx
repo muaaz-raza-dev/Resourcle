@@ -3,10 +3,14 @@ import { Mail, Youtube, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-secondary-foreground text-slate-200 py-12 px-4">
+    <>
+    
+    <footer className=" overflow-hidden bg-secondary-foreground text-slate-200 py-12 ">
+
     <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        {/* Left Column */}
+      <div className=" mb-8">
+        
+        
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-bold text-white">Resourcera</h2>
@@ -57,5 +61,6 @@ export default function Footer() {
       </div>
     </div>
   </footer>
+  </>
   )
 }

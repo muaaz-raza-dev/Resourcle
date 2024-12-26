@@ -11,33 +11,38 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shadcn/components/ui/dialog";
-import { Checkbox } from "antd";
+import { authAtom } from "@/state/auth.atom";
+import useProtectAuthorisedEvents from "@/utils/authorised-event-protector";
+import { Checkbox, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsCollectionFill } from "react-icons/bs";
 import { MdAddLink } from "react-icons/md";
+import { useRecoilValue } from "recoil";
 
 export default function ResourceEachLinkCollectButton({
   link_id,
 }: {
   link_id: string;
 }) {
+  const {isLogined} = useRecoilValue(authAtom)
   const [open, setOpen] = React.useState(false);
 
+  if(!isLogined)return null
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="flex gap-2  justify-end font-semibold items-center text-xs ">
+        <Tooltip title="Add link to resource collection" className="flex gap-2  justify-end font-semibold items-center text-xs ">
           <button
             className={`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2`}
           >
             <MdAddLink fontSize={14} />
           </button>
-        </div>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[395px]">
         <DialogHeader>
-          <DialogTitle>Resource Collections </DialogTitle>
+          <DialogTitle>Choose collections to add into </DialogTitle>
         </DialogHeader>
         <CollectionList id={link_id} setOpen={setOpen}     />
       </DialogContent>
@@ -48,16 +53,22 @@ export default function ResourceEachLinkCollectButton({
 function CollectionList({ id,setOpen }: { id: string;setOpen:React.Dispatch<React.SetStateAction<boolean>> }) {
   const [state, setState] = useState<ResourceCollectionwrtLinkPayload[]>([]);
   const { isLoading: isFetching,data } = useGetCollectionsWrtLink(id,setState);
+  const authorize = useProtectAuthorisedEvents()
   useEffect(() => {
     if(data){
       setState(data.payload)
     }
   }, [data])
   const { mutateAsync, isLoading } = useCollectResourceLink();
+  
   async function handleCollect() {
     await mutateAsync({ link_id: id, collections: state });
-    setOpen(false)
     toast.success("Link added to collections");
+    setOpen(false)
+  }
+ function Proceed(){
+
+authorize(handleCollect)
   }
   function handleCollection(collectionId: string, isCollected: boolean) {
     setState((prev) =>
@@ -68,6 +79,7 @@ function CollectionList({ id,setOpen }: { id: string;setOpen:React.Dispatch<Reac
       )
     );
   }
+
   if (isFetching) {
     return (
       <div className="center">
@@ -84,7 +96,7 @@ function CollectionList({ id,setOpen }: { id: string;setOpen:React.Dispatch<Reac
           onChange={handleCollection}
         />
       ))}
-      <Button onClick={handleCollect}> {!isLoading?"Confirm":<RequestLoader  size="16"/>} </Button>
+      <Button onClick={Proceed}> {!isLoading?"Confirm":<RequestLoader  size="16"/>} </Button>
     </>
   );
 }

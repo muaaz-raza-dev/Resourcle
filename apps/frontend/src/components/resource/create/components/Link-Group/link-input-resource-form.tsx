@@ -17,11 +17,10 @@ export default function LinkInputResourceForm({
   const {
     register,
     formState: { errors },
+    getValues
   } = useFormContext<IResourceLink>();
   const { mutate, isLoading } = useValidateLink(setisValid);
-  const { onChange: onUrlChange, ...rest } = register("url", {
-    required: "url is required",
-  });
+  const { onChange: onUrlChange, ...rest } = register("url", {required: "url is required",});
   const debounced = useDebouncedCallback((value) => {
     const isLocalValid =
       /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(value);
@@ -34,11 +33,11 @@ export default function LinkInputResourceForm({
 
   return (
     <div className="">
-      <Label className="font-semibold">URL *</Label>
+      <Label className="font-semibold text-sm">URL *</Label>
       <div className="flex gap-2 items-center">
         <Input
           type="url"
-          className="bg-white"
+          className="bg-white placeholder:text-muted-foreground"
           placeholder="https://muaaz.dev"
           onChange={(e) => {
             debounced(e.target.value);
@@ -46,15 +45,23 @@ export default function LinkInputResourceForm({
           }}
           {...rest}
         />
-        {isLoading && <RequestLoader size="18" />}
       </div>
       
 
-      {(!isValid||errors.url) ? (
+      { 
+      !getValues("url")?
+      null
+      :
+      isLoading?
+       <RequestLoader size="18" />
+      :
+
+      (!isValid||errors.url) ? (
         <span className="text-red-500 text-xs">Link is not valid</span>
       ) : (
         <span className="text-green-600 text-xs">Link is valid</span>
-      )}
+      )
+    }
     </div>
   );
 }

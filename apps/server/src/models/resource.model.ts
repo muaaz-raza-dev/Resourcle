@@ -42,7 +42,7 @@ export interface IResource extends mongoose.Document {
     views: any;
     title: string;
     tags: mongoose.Types.ObjectId[]|Itags[];
-    publisher: mongoose.Types.Object | Iuser;
+    publisher: mongoose.Types.ObjectId | Iuser;
     upvotes: number;
     content:IContentResource;
     upvotesDoc:mongoose.Types.ObjectId | Iupvote,

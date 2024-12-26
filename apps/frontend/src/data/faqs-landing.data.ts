@@ -14,7 +14,7 @@ export const faqs = [
     },
     {
       question: "How does voting work?",
-      answer: "Users can upvote or downvote resources based on their quality and relevance. Resources with the most upvotes rise to the top, making it easier to discover the best content."
+      answer: "Users can upvote resources based on their quality and relevance. Resources with the most upvotes rise to the top, making it easier to discover the best content."
     },
     {
       question: "Is my account required to participate?",

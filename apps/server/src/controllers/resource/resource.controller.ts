@@ -33,7 +33,7 @@ export default async function CreateResource(req: Request, res: Response): Promi
             return;
         }
 
-        payload.publisher = req.userid.toString();
+        payload.publisher = req.userid as any;
         
         // Create resource with initial empty content
         const resource = await Resource.create({
@@ -118,18 +118,80 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
             return;
 
         }
+        const query = 
+        [
+            { $match: {_id:new Types.ObjectId(req.params.id) }},
+            {
+                $lookup: {
+                    from: "tags",
+                    localField: "tags",
+                    foreignField: "_id",
+                    as: "tags"
+                }
+            },
+              {$unwind: {
+                path: "$tags",
+                preserveNullAndEmptyArrays: true
+              }},
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "publisher",
+                    foreignField: "_id",
+                    pipeline:[
+                        { $project: { name: 1, _id:1,picture:1,headline:1 } }
+                    ],
+                    as: "publisher"
+                }
+            },
+            {$unwind:"$publisher"},
+          
+            {
+                $lookup: {
+                    from: "upvotes",
+                    localField: "upvotesDoc",
+                    foreignField: "_id",
+                    as: "upvotesDoc"
+                }
+            },
+            {$unwind:"$upvotesDoc"},
+            { $unwind: "$content" },
+            {
+                $lookup: {
+                    from: "resourcelinks",
+                    localField: "content.links",
+                    foreignField: "_id",
+                    as: "content.links"
+                }
+            },
+            {
+                $addFields: {
+                    "content.links": { $sortArray: { input: "$content.links", sortBy: { upvotes: -1 } } }
+                }
+            },
+            {
+                $group:{
+                    _id:"$_id",
+                    content: { $push: "$content" },
+                    tags: { $first: "$tags" },
+                    upvotesDoc: { $first: "$upvotesDoc" },
+                    publisher: { $first: "$publisher" },
+                    createdAt: { $first: "$createdAt" },
+                    updatedAt: { $first: "$updatedAt" },
+                    upvotes: { $first: "$upvotes" },
+                    title: { $first: "$title" },
+                    views: { $first: "$views" },
 
-        const resourceRaw = await Resource.findById(req.params.id)
-        .populate("tags")
-        .populate("upvotesDoc")
-        .populate({ path: "publisher", select: "name picture headline" })
-        .populate({
-            path: "content",
-            populate: {
-                path: "links"
+                }
+            },
+            {
+                $addFields: {
+                    tags: { $ifNull: ["$tags", []] }
+                }
             }
-        })
-
+   ]
+        const populatedResource = await Resource.aggregate(  query   );
+       const resourceRaw = populatedResource[0] as IResource;
         if (!resourceRaw) {
             ErrorResponse(res, { status: 404, message: "Not found" })
             return;

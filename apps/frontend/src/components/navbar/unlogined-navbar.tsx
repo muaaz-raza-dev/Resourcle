@@ -8,8 +8,9 @@ export default function UnLoginedNavbar() {
       <Searchbar />
       <div className="flex gap-2 ">
 
-      <Link href={"/auth/signup"}>
-       <button className="px-5 py-1 rounded-md bg-primary-foreground text-secondary-foreground text-sm font-semibold 
+      <Link href={"/auth/signup"} className="       max-md:hidden ">
+       <button className="px-5 py-1 rounded-md bg-primary-foreground text-secondary-foreground text-sm font-semibold
+       max-md:hidden 
        hover:opacity-95 transition-colors border">
       Sign up 
        </button>

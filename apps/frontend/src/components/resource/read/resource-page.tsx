@@ -17,7 +17,7 @@ export default function ResourcesPage() {
   if(error) return <ResourceNotFoundPage/>
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow flex flex-col gap-2 container mx-auto px-8 py-6">
+      <main className="flex-grow flex flex-col gap-2 container mx-auto md:px-8 max-md:px-2 py-6">
           <ResourceHeader />
           <ResourceMeta/>
           <section className='mt-4'>

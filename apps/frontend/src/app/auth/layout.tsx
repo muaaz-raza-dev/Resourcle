@@ -11,7 +11,7 @@ export default function AuthLayout({children}:{children:ReactNode}) {
         <Link href="/" className="flex-shrink-0 flex items-center">
               <Image height={50} width={50} src="/logo/logo-transparent.svg" alt="Logo" />
             </Link>
-            <h1 className="font-bold text-2xl  text-secondary-foreground ">Resourcera</h1>
+            <h1 className="font-bold text-2xl max-md:hidden text-secondary-foreground ">Resourcera</h1>
         </div>
     <AuthNavLinksDynamic />
       </nav>

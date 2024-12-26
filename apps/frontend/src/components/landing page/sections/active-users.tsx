@@ -21,7 +21,7 @@ export default function ActiveUsers() {
   
   return (
     <>
-      <HeadingComp text={"🙌 Top Contributers"} />
+      <HeadingComp text={" Top Contributers"} />
       <Card className="w-full max-w-full bg-transparent border-none shadow-none">
         <CardContent>
           <section className="flex flex-wrap justify-between gap-y-3">

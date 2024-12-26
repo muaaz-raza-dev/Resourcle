@@ -1,10 +1,18 @@
 import { Badge } from "@/shadcn/components/ui/badge";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/shadcn/components/ui/popover";
+
 import { IResourceLink } from "@/types/Iresource";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import ResourceEachLinkUpvote from "./resource-each-link-upvote";
 import ResourceEachLinkCollectButton from "./resource-each-link-collect-button";
+import { Tooltip } from "antd";
+import useScreenSizeTracker from "@/hooks/global/useScreenSizeTracker";
 
 export default function ResourceEachLinkComponent({
   data: resource,
@@ -15,7 +23,6 @@ export default function ResourceEachLinkComponent({
   resource_id: string;
   index: number;
 }) {
-  const [isMinimal, setIsMinimal] = useState(true);
   return (
     <li
       key={resource.url}
@@ -36,12 +43,6 @@ export default function ResourceEachLinkComponent({
               >
                 {resource.title}
               </Link>
-              <button
-                className="md:hidden"
-                onClick={() => setIsMinimal((s) => !s)}
-              >
-                <CaretSortIcon fontSize={20} />
-              </button>
             </div>
             <Link
               href={resource.url}
@@ -51,48 +52,87 @@ export default function ResourceEachLinkComponent({
             >
               {resource.url}
             </Link>
-            <button
-              className="max-md:hidden"
-              onClick={() => setIsMinimal((s) => !s)}
-            >
+          </div>
+        </div>
+      </div>
+      <ScreeenSizeBasedLayout resource_id={resource_id} data={resource} />
+    </li>
+  );
+}
+
+function ScreeenSizeBasedLayout({
+  data: resource,
+  resource_id,
+}: {
+  data: IResourceLink;
+  resource_id: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const size = useScreenSizeTracker();
+  return (
+    <div className="flex gap-2   max-md:justify-between ">
+      <Popover  open={open} onOpenChange={setOpen}>
+        <PopoverTrigger>
+          <Tooltip title="Details">
+            <button className="`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2">
               <CaretSortIcon fontSize={20} />
             </button>
-          </div>
-          {!isMinimal && (
-            <>
-              <p className="text-muted-foreground text-xs">
-                {resource.description || "no description"}
+          </Tooltip>
+        </PopoverTrigger>
+        <PopoverContent side="bottom" align="center">
+          <p className="text-muted-foreground text-xs">
+            {resource.description || "no description"}
+          </p>
+          {resource.tags.length ? (
+            <div className="flex gap-2 mt-2">
+              {resource.tags.map((tag) => {
+                return (
+                  <Badge
+                    variant="secondary"
+                    className="text-xs font-normal "
+                    key={tag}
+                  >
+                    {tag}
+                  </Badge>
+                );
+              })}
+            </div>
+          ) : null}
+          {size == "sm" && (
+            <div className="flex justify-between flex-col  mt-4 gap-4 w-full border-t  t py-2">
+              <div className="flex justify-between items-center">
+              <p className=" text-center text-sm font-semibold">
+              Add to collection
               </p>
-              {resource.tags.length ? (
-                <div className="flex gap-2 mt-2">
-                  {resource.tags.map((tag) => {
-                    return (
-                      <Badge
-                        variant="secondary"
-                        className="text-xs font-normal "
-                        key={tag}
-                      >
-                        {tag}
-                      </Badge>
-                    );
-                  })}
+              <ResourceEachLinkCollectButton link_id={resource._id} />
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-center text-sm font-semibold"> 
+                Upvotes
+                </p>
+              <ResourceEachLinkUpvote
+                link_id={resource._id}
+                resource_id={resource_id}
+                upvotes={resource.upvotes}
+                isUpvoted={resource.isUpvoted}
+                />
                 </div>
-              ) : null}
-            </>
+            </div>
           )}
-        </div>
-      </div>
-      <div className="flex gap-2   max-md:justify-between ">
-        <div className="flex gap-2">
-          <ResourceEachLinkCollectButton link_id={resource._id} />
-          <ResourceEachLinkUpvote
-            link_id={resource._id}
-            resource_id={resource_id}
-            upvotes={resource.upvotes}
-            isUpvoted={resource.isUpvoted}
-          />
-        </div>
-      </div>
-    </li>
+        </PopoverContent>
+      </Popover>
+      {size == "md" ||
+        (size == "lg" && (
+          <div className="flex gap-2">
+            <ResourceEachLinkCollectButton link_id={resource._id} />
+            <ResourceEachLinkUpvote
+              link_id={resource._id}
+              resource_id={resource_id}
+              upvotes={resource.upvotes}
+              isUpvoted={resource.isUpvoted}
+            />
+          </div>
+        ))}
+    </div>
   );
 }

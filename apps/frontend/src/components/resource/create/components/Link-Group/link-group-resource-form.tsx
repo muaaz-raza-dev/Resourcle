@@ -20,8 +20,8 @@ function LinkGroupResourceForm({ index }: { index: number }) {
     <div className="w-full rounded-md p-2 flex flex-col border-2 py-4 gap-4">
       <header className="flex justify-between rounded-md w-full">
         <GroupLabelInput index={index} />
-        <div className="flex gap-2 ">
-          <div className="rounded-xl px-2 p-1 items-center border-2 border-accent bg-orange-50 flex gap-1 font-semibold text-sm">
+        <div className="flex gap-1 ">
+          <div className="rounded-md p-2 items-center bg-secondary  flex gap-1 font-semibold text-sm">
             <FaLink size={12} />{" "}
             {form.watch(`content.${index}.links`)?.length}
           </div>
@@ -30,15 +30,15 @@ function LinkGroupResourceForm({ index }: { index: number }) {
             className="rounded-md px-2 p-1 hover:bg-secondary transition-colors"
             onClick={() => setCollapse((e) => !e)}
           >
-            {collapse ? <BsArrowsExpand size={20} /> : <BsArrowsCollapse size={20} />}
+            {collapse ? <BsArrowsExpand  className="w-5 h-5" /> : <BsArrowsCollapse className="w-5 h-5" />}
           </button>
 
           <button
             type="button"
-            className="rounded-md p-1 hover:bg-secondary text-destructive"
+            className="rounded-md p-1  text-destructive"
             onClick={DeleteLinkGroup}
           >
-            <FaTrash />
+            <FaTrash className="w-4 h-4" />
           </button>
         </div>
       </header>
@@ -60,8 +60,8 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
         <>
         <input
           {...field}
-          className="text-xl px-2 h-max rounded-md border-none w-full outline-none font-bold placeholder:text-gray-400 bg-transparent"
-          placeholder="Youtube videos links"
+          className="text-xl px-2 h-max rounded-md border-none w-full max-md:font-medium outline-none font-bold placeholder:text-gray-400 bg-transparent"
+          placeholder="Youtube podcasts"
           />
           {fieldState.error?.message&& <span className="text-red-500">{fieldState.error?.message}</span>}
           </>

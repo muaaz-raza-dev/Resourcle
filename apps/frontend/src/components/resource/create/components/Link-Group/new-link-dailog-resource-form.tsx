@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -72,7 +71,7 @@ export default function NewLinkDailogResourceForm({
       <DialogTrigger className="center ">{children}</DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Create your link</DialogTitle>
+          <DialogTitle>Link details</DialogTitle>
           <DialogDescription>
             Customize your link for the users and assign clear description and
             title.
@@ -82,10 +81,10 @@ export default function NewLinkDailogResourceForm({
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <div className="">
-            <Label className="font-semibold">Title of the link *</Label>
+            <Label className="font-semibold text-sm">Title *</Label>
             <Input
-              className="bg-white"
-              placeholder="The best portfolio"
+              className="bg-white placeholder:text-muted-foreground"
+              placeholder="Netflix Engineering blogs"
               {...register("title", { required: "Title is required" })}
             />
             {errors.title && (
@@ -97,10 +96,10 @@ export default function NewLinkDailogResourceForm({
          <LinkInputResourceForm state={link}/>
 
           <div className="">
-            <Label className="font-semibold">Short description</Label>
+            <Label className="font-semibold text-sm">Description</Label>
             <Input
-              className="bg-white"
-              placeholder="A short description of the link"
+              className="bg-white placeholder:text-muted-foreground"
+              placeholder="A short and concise description"
               {...register("description")}
               />
           </div>
@@ -114,26 +113,17 @@ export default function NewLinkDailogResourceForm({
               </Label>
               <Select 
                 mode="tags"
-                className="w-full h-9"
+                className="w-full h-9 text-sm placeholder:!text-muted-foreground"
                 maxTagCount={3}
                 value={watch("tags")}
-                placeholder="Select appropriate tags"
+                placeholder="assign appropriate tags"
                 onChange={(value: string[]) => setValue("tags", value)}
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
             </div>
-
-            
-
-            
           </section>
-          <DialogFooter>
+          <DialogFooter className="mt-3">
             <Button type="button" onClick={handleSubmit(onSubmit)}>Save</Button>
-            <DialogClose onClick={() => setopen(false)}>
-              <Button variant="secondary" type="button">
-                Close
-              </Button>
-            </DialogClose>
           </DialogFooter>
         </form>
                 </FormProvider>

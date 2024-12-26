@@ -1,11 +1,13 @@
 
 import GetCollectionWithRespectToLink, { ResourceCollectionwrtLinkPayload } from "@/api/resource-collection/get-collections-wrt-link.api"
+import { authAtom } from "@/state/auth.atom"
 import toast from "react-hot-toast"
 import { useQuery } from "react-query"
+import { useRecoilValue } from "recoil"
 
 const useGetCollectionsWrtLink = (linkId:string,setState?:React.Dispatch<React.SetStateAction<ResourceCollectionwrtLinkPayload[]>>)=>{
-
-    return useQuery({queryKey:["Resource Collection",linkId],queryFn:()=>GetCollectionWithRespectToLink(linkId),
+    const {isLogined} = useRecoilValue(authAtom)
+    return useQuery({queryKey:["Resource Collection",linkId],enabled:isLogined,queryFn:()=>GetCollectionWithRespectToLink(linkId),
         onSuccess(data){
             setState?.(data.payload)
         },

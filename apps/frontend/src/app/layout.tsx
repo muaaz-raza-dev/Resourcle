@@ -36,10 +36,10 @@ export default function RootLayout({
         <AuthUiValidator>
         <Navbar/>
         {children}
+        <Footer/>
         </AuthUiValidator>
         </QueryClientsProvider>
         </RecoilProvider>
-        <Footer/>
         </GoogleOAuthProvider>
       </body>
     </html>
