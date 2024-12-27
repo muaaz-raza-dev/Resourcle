@@ -134,6 +134,7 @@ export default function SecuritySettingsPasswordSection() {
         </FormProvider>
         <div className="flex justify-end">
           {data?.payload.email?
+          data?.payload.provider == "google" ? null :
           <SecurityAccountForgetPasswordBtn email={data.payload.email}/>:null
           }
         </div>

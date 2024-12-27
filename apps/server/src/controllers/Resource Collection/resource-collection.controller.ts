@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { IresourceCollection, ResourceCollection } from "../../models/resource-collection.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { ResourceLink } from "../../models/link.model";
-import {Types } from "mongoose"
+import { Types } from "mongoose";
 
 
 
@@ -26,16 +26,26 @@ export async function SaveResourceToCollection(req:Request<{},{},IsaveResourceRe
 
 export async function RemoveLinkFromResourceCollection(req:Request,res:Response){
     const {linkId,collectionId} = req.body;
-    const Diary = await ResourceCollection.findById(collectionId)
-    if(!linkId || !collectionId || !Diary || Diary.user.toString()!=req.userid?.toString()) {
+    try{
+      if(!collectionId || !Types.ObjectId.isValid(collectionId)){
         ErrorResponse(res,{message:"Invalid credentials",status:401})
         return;
-    }
-    await ResourceCollection.findByIdAndUpdate(
-        {user:req.userid},
+      }
+      const Collection = await ResourceCollection.findOne({_id:collectionId,user:req.userid})
+      if(!linkId || !collectionId || !Collection ) {
+        ErrorResponse(res,{message:"Invalid credentials",status:401})
+        return;
+      }
+      await ResourceCollection.findByIdAndUpdate(
+        collectionId,
         {$pull:{links:linkId}},
     )
-    SuccessResponse(res,{message:"Resource deleted to diary"})
+    SuccessResponse(res,{message:"Resource deleted "})
+  }
+  catch(err){
+    console.log(err)
+    ErrorResponse(res,{message:"Internal server error",status:501})
+  }
 }
 
 

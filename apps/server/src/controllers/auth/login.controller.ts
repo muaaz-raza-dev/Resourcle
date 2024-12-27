@@ -5,6 +5,7 @@ import { ErrorResponse } from "../../utils/responsehandler";
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../../utils/tokens";
 import { isValidPassword } from "../../utils/PasswordValidator";
+import { nanoid } from "nanoid";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const cookie_key= process.env.SESSION_COOKIE_KEY
 export async function GoogleLoginController(req: Request, res: Response) {
@@ -20,7 +21,7 @@ export async function GoogleLoginController(req: Request, res: Response) {
             ErrorResponse(res, { message: "Invalid Credentials", status: 403 }) 
             return ;
         }
-        let user = await User.findOne({ email: payload.email })
+        let user = await User.findOne({ email: payload.email,isDeleted:false })
 
         if(user){
         if(user?.isDeleted) {
@@ -32,7 +33,7 @@ export async function GoogleLoginController(req: Request, res: Response) {
             return ;
         }
     }
-        const payloadToStore = { name: payload?.name, email: payload?.email, email_verified: payload?.email_verified, picture: payload?.picture, user_provider_id: payload?.sub, provider: "google" }
+        const payloadToStore = { name: payload?.name, email: payload?.email, email_verified: payload?.email_verified, picture: payload?.picture, user_provider_id: payload?.sub, provider: "google",username:nanoid(8) }
         if (!user) { user = await User.create(payloadToStore) }
 
         const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", { expiresIn: "30d" })

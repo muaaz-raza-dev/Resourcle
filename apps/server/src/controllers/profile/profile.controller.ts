@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../../models/user.model";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { SaveList } from "../../models/savelist.model";
-import { Types } from "mongoose"
+import mongoose, { Types } from "mongoose"
 import { isValidObjectId } from "../../utils/ObjectIdValidator";
 import { Resource } from "../../models/resource.model";
 import { Upvotes } from "../../models/upvote.model";
@@ -10,6 +10,7 @@ import bcrpyt from "bcryptjs"
 import { OAuth2Client } from "google-auth-library";
 import moment from "moment";
 import { ResourceCollection } from "../../models/resource-collection.model";
+import { ResourceLink } from "../../models/link.model";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function GetProfileInfoController(req: Request, res: Response) {
     try {
@@ -124,25 +125,58 @@ export async function ValidateUsername(req: Request, res: Response) {
     }
 }
 
-// posts deleted
-// upvotes deleted
+// resource delete
+// upvotes delete
+// collections delete
+// savelist delete
+
+
 
 export async function DeleteAccount(req: Request, res: Response) {
     const { password } = req.body
-    if (!req.details.password) {
-        ErrorResponse(res, { message: "Set up your password first", status: 401 });
-        return;
-    }
-    const isValid = await bcrpyt.compare(password, req.details.password)
-    if (!isValid) {
-        ErrorResponse(res, { message: "Invalid credentials", status: 401 });
-        return;
-    }
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try{
 
-    await Resource.updateMany({ publisher: req.userid }, { $set: { isDeleted: true } });
-    await Upvotes.updateMany({ user: req.userid }, { $pull: { user: req.userid } })
-    SuccessResponse(res, { message: "You're officialy out from our platform" })
+        if (!req.details.password) {
+            session.abortTransaction()
+            ErrorResponse(res, { message: "Set up your password first", status: 401 });
+            return;
+        }
+        const isValid = await bcrpyt.compare(password, req.details.password)
+        if (!isValid) {
+            session.abortTransaction()
+            ErrorResponse(res, { message: "Invalid credentials", status: 401 });
+            return;
+        }
+        // remove user resource
+        const all_resource_ids =(await Resource.find({publisher:req.userid}).select("_id")).map(e=>e._id)
+        await Resource.updateMany({ publisher: req.userid }, { $set: { isDeleted: true } });
 
+        //removing all the upvotes by this user
+        const all_upvoted_resource = (await Upvotes.find({$or:[{users:req.userid},{content_votes:{$elemMatch: {users: req.userid}}}],}).select("resource")).map(e=>e.resource)
+        await Resource.updateMany({ _id: { $in: all_upvoted_resource } }, { $inc: { upvotes: -1 } })
+        await Upvotes.updateMany({  resource:{$in:all_upvoted_resource} }, { $pull: { users: req.userid,'content_votes.$[].users': req.userid  },     } )
+
+        const all_links_ids = (await ResourceLink.find({resource:{$in:all_resource_ids}}).select("_id")).map(e=>e._id)
+        await ResourceLink.updateMany({resource:{$in:all_resource_ids}},{isDeleted:true});
+        await ResourceCollection.deleteMany({user:req.userid})
+        await ResourceCollection.updateMany({links:{$in:all_links_ids}},{$pullAll:{links:all_links_ids}})
+        await SaveList.deleteMany({user:req.userid})
+        
+        await User.findByIdAndUpdate(req.userid, { isDeleted: true, deletedAt: new Date() })
+        SuccessResponse(res, { message: "Account deleted successfully" })
+
+    }
+    catch(err){
+        console.log(err)
+        session.abortTransaction()
+        ErrorResponse(res,{message:"Somthing went wrong. Try again later"})
+        return ;
+    }
+    finally{
+        await session.endSession()
+    }
 
 }
 

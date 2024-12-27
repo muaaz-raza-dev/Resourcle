@@ -36,7 +36,7 @@ app.use("/api/v1/resoruceCollection",ResourceCollectionRoute)
 
 dbConnection().then(_=>{
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Primary server is running on http://localhost:${PORT}`);
 })
 }
 )

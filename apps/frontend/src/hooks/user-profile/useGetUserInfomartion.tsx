@@ -10,7 +10,8 @@ export default function useGetUserProfileInfomartion({hitApi}:{hitApi?:boolean})
         queryFn: () => GetUserProfileInformationApi(userid),
         enabled: !!userid||hitApi,
         refetchOnWindowFocus: false,
-        refetchInterval: 60 * 60 * 1000, // 1 hour
+        refetchOnMount:true,
+       staleTime:1000*60*60*5
     })
   )
 }

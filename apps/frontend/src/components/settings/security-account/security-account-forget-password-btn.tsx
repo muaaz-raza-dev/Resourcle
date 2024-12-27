@@ -1,6 +1,6 @@
 import useRequestForgetPassword from "@/hooks/auth/useRequestForgetPassword";
 import React from "react";
-import Cookie from "../js-cookie"
+import Cookie from "js-cookie"
 import { useRouter } from "next/navigation";
 import RequestLoader from "@/components/loader/request-loading";
 export default function SecurityAccountForgetPasswordBtn({email}:{email:string}) {

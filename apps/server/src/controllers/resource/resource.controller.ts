@@ -270,13 +270,28 @@ export async function GetFeedResources(req: Request, res: Response): Promise<voi
 
 export async function DeleteResource(req: Request, res: Response) {
     const { id } = req.body;
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
-        if (!id || id.length != 24) {
+        if (!id || id.length != 24 ) {
+            await session.abortTransaction();
             ErrorResponse(res, { message: "Invalid id", status: 403 })
             return;
         }
-        const resource = await Resource.findByIdAndUpdate(id, { isDeleted: true });
+        const resource = await Resource.findOne({_id:id,publisher:req.userid})
+        if(!resource){
+            await session.abortTransaction();
+            ErrorResponse(res, { message: "Invalid credentials", status: 403 })
+            return;
+        }
+        await Resource.findByIdAndUpdate(id, { isDeleted: true });
+        const resourceLinksIds = resource.content.flatMap(e=>e.links.map(l=>l._id))
+        await ResourceLink.updateMany({resource:resource?._id},{isDeleted:true});
+        await ResourceCollection.updateMany({links:{$in:resourceLinksIds}},{$pullAll:{links:resourceLinksIds}})
+        await session.commitTransaction();
+
         if (!resource) {
+            await session.abortTransaction();
             ErrorResponse(res, { message: "Not found", status: 404 })
             return;
         }
@@ -284,6 +299,11 @@ export async function DeleteResource(req: Request, res: Response) {
 
     }
     catch (err) {
+        await session.abortTransaction();
+        ErrorResponse(res, { message: "An error occured . Try again later", status: 404 })
+    }
+    finally{
+        await session.endSession();
 
     }
 }

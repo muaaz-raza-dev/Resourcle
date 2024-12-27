@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     email: {
       type: String,
       required: true,
-      unique: true,  // Ensure email is unique across all users
       lowercase: true,
       trim: true,
     },
@@ -42,7 +41,8 @@ const userSchema = new mongoose.Schema({
     reset_token:String,
     reset_token_expiration:Date,
     reset_verification:{type:Boolean,default:false}, // For password reset verification
-    change_email_token:String
+    change_email_token:String,
+    deletedAt:Date,
   },{timestamps:true});
 
   export interface Iuser {
@@ -61,6 +61,7 @@ const userSchema = new mongoose.Schema({
       url: string;
     }>;
     about?: string;
+    deletedAt:string;
     createdAt: Date;
     updatedAt: Date;
     reset_token_expiration?:Date;

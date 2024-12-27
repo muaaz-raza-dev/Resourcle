@@ -31,11 +31,11 @@ export default function ProfileForm() {
     mutate(payload);
   };
   return (
-    <div className="max-w-2xl px-6 space-y-8">
+    <div className="md:max-w-2xl max-w-full md:px-4 max-md:px-0 space-y-8">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-          <Card className="bg-transparent shadow-none border-none rounded-none">
-            <CardHeader>
+          <Card className="bg-transparent px-0 shadow-none border-none rounded-none">
+            <CardHeader className="">
               <div className="flex justify-between ">
                 <div className="">
                 <CardTitle className="text-2xl font-bold">Profile</CardTitle>
@@ -81,20 +81,20 @@ export default function ProfileForm() {
                 <Textarea
                   id="about"
                   rows={5}
-                  className="resize-none"
+                  className="resize-none border-border"
                   placeholder="Tell the community about yourself, your goals, and your ambitions."
                   {...methods.register("about")}
                 />
               </div>
               <ProfileFormUsername />
-            </CardContent>
-          </Card>
         <Separator/>
           <ProfilePhoto />
           <ProfileLinkField />
-          <section className="flex w-full justify-end">
+          <section className="flex w-full mb-5 ">
             <ProfileFormSubmit isLoading={isLoading} />
           </section>
+            </CardContent>
+          </Card>
         </form>
       </FormProvider>
     </div>

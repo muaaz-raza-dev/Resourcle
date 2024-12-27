@@ -43,10 +43,10 @@ export default function ProfileFormUsername() {
         <Link
           href={uri + "/" + username_remote}
           target="_blank"
-          className="p-0.5 px-4 hover:underline rounded border-primary border text-xs font-semibold"
+          className="p-0.5 px-2 hover:underline rounded shadow-sm border text-xs font-semibold "
         >
           {uri}/
-          <span className="font-bold text-primary">{username_remote}</span>
+          <span className=" text-primary">{username_remote}</span>
         </Link>
         }
       </div>
@@ -65,7 +65,7 @@ export default function ProfileFormUsername() {
         ) : data ? (
           data?.payload.isAvailable ? (
             <Tooltip title="Username is available" placement="top">
-              <FaCheckCircle className="text-green-600" />
+              <FaCheckCircle className="text-primary" />
             </Tooltip>
           ) : (
             <Tooltip title="Username is taken">
@@ -75,12 +75,7 @@ export default function ProfileFormUsername() {
         ) : null}
         <Button
           type="button"
-          disabled={
-            isLoading ||
-            !data ||
-            !data.payload.isAvailable ||
-            username_remote == username
-          }
+          disabled={isLoading ||  !data || !data.payload.isAvailable || username_remote == username}
           onClick={UpdateUsername}
         >
           {isUpdating ? <RequestLoader size="16" /> : "Update"}

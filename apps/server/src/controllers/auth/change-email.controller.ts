@@ -18,7 +18,7 @@ interface ChangeEmailToken {
 export async function RequestChangeEmailController(req: Request, res: Response) {
     const { new_email, password }: { new_email: string; password: string } = req.body;
     try {
-        const is_email_existed = await User.findOne({email:new_email})
+        const is_email_existed = await User.findOne({email:new_email, isDeleted: false})
         if(is_email_existed){
             ErrorResponse(res, { message: "Email already exists", status: 409 })
             return;
@@ -45,7 +45,7 @@ export async function RequestChangeEmailController(req: Request, res: Response) 
         const uniqueIdentifier = nanoid(8);
         const AccessToken = await jwt.sign({ email: user.email, uniqueIdentifier, new_email: new_email }, JWT_SECRET)
         await User.findByIdAndUpdate(req.userid, { change_email_token: uniqueIdentifier })
-        const verificationLink = `${process.env.APP_URL}/verify-email/${AccessToken}`
+        const verificationLink = `${process.env.APP_URL}/auth/verify-email?token=${AccessToken}`
         await SendMail(receiver, GenerateVerificationEmailTemplate(receiver, verificationLink),"Verify your email address")
         SuccessResponse(res, { message: "Verification link sent to your email" })
     }
@@ -60,8 +60,7 @@ export async function VerifyChangeEmailToken(req: Request, res: Response) {
     const { token } = req.body;
     try {
         const decodeToken = await jwt.verify(token, JWT_SECRET) as ChangeEmailToken;
-
-        if (!decodeToken || decodeToken.email != req.details.email) {
+        if (!decodeToken || decodeToken.email == req.details.email) {
             ErrorResponse(res, { message: "Invalid request", status: 403 })
             return;
         }

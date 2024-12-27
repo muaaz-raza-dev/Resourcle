@@ -9,7 +9,7 @@ export default function SecuritySettingsProviderInfoDialog() {
   return (
     <Dialog >
         <DialogTrigger asChild>
-        <Button variant="outline" size="icon" >
+        <Button variant="outline" size="icon" className='bg-transparent border-border hover:bg-border transition-colors' >
     <HelpCircle className="h-4 w-4" />
     <span className="sr-only">How it works</span>
   </Button>

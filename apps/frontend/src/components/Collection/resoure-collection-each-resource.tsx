@@ -65,7 +65,7 @@ export default function ResoureCollectionEachResource({data}:{data:IcollectedRes
           </Link>
         </div>
         <section className="flex gap-1 text-xs items-center ">
-          <div className="gap-1 text-muted-foreground flex text-sm items-center">
+          <div className="gap-1 text-muted-foreground flex text-sm items-end">
             <p className="text-xs">{data.upvotes||"No upvotes "} </p>
             <AiFillFire
               fill="rgb(249 115 22)"

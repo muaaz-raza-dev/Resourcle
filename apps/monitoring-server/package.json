@@ -4,9 +4,10 @@
   "type": "module",
   "main": "src/server.ts",
   "scripts": {
-  "dev": "nodemon --exec tsx src/server.ts"
+    "dev": "nodemon --exec tsx src/server.ts"
   },
   "dependencies": {
+    "amqplib": "^0.10.5",
     "fastify": "^4.29.0"
   },
   "keywords": [],

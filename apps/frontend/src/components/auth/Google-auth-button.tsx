@@ -1,22 +1,18 @@
 "use client"
-import LoginWithGoogle from '@/api/auth/login-google.api'
-import { authAtom } from '@/state/auth.atom'
+import useGoogleLogin from '@/hooks/auth/useGoogleLogin'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { useSetRecoilState } from 'recoil'
+import RequestLoader from '../loader/request-loading'
 
-export default function GoogleAuthButton({context}:{context?:("signin"|"signup")}) {
-  const router = useRouter()
-  const setState = useSetRecoilState(authAtom)
+
+export default function GoogleAuthButton() {
+  const {mutate,isLoading} = useGoogleLogin()
   async function onSuccess(res:CredentialResponse){
     if(res.credential){
-      const data = await LoginWithGoogle(res.credential)
-      setState(e=>({...e,isLogined:true,user:data.payload}))
-      toast.success("Logged in successfully")
-      router.push("/")
-    }
+        mutate(res.credential)
+        
+}
   }
 
   function onError(){
@@ -24,8 +20,11 @@ export default function GoogleAuthButton({context}:{context?:("signin"|"signup")
   }
   return (
 
-    <div className="w-full center">
+    <div className="w-full center flex-col gap-2">
     <GoogleLogin  shape='rectangular'  text='continue_with' type='icon' size='large' onSuccess={onSuccess} onError={onError} />
+      {
+        isLoading && <RequestLoader/>
+      }
     </div>
   )
 }

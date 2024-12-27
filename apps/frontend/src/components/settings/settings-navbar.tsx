@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {  FileText, Lock,  Info } from 'lucide-react'
+import {  FileText, Lock } from 'lucide-react'
 import { cn } from "@/shadcn/lib/utils"
 
 export default function SettingsNavbar() {
@@ -18,16 +18,12 @@ export default function SettingsNavbar() {
       href: "/settings/account",
       icon: Lock
     },
-    {
-      title: "About",
-      href: "/settings/about",
-      icon: Info
-    }
+    
   ]
 
   return (
     
-      <div className="w-64 space-y-1  flex flex-col border-r">
+      <div className="w-64 max-md:w-full  space-y-1 max-md:gap-4 flex md:flex-col max-md:py-4 md:border-r max-md:border-b px-2">
         
       {menuItems.map((item) => {
         const isActive = pathname === item.href
@@ -39,11 +35,11 @@ export default function SettingsNavbar() {
               "flex items-center gap-3 font-semibold rounded-lg px-5 py-2  transition-colors",
               isActive 
                 ? "bg-green-50 text-primary" 
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                : "text-gray-600 max-md:bg-border hover:bg-gray-100 hover:text-gray-900"
             )}
           >
             <item.icon className="h-4 w-4" />
-            <span>{item.title}</span>
+            <span className="max-[350px]:hidden">{item.title}</span>
           </Link>
         )
       })}

@@ -100,7 +100,9 @@ export default function SecuritySettingsProvidersSection() {
                   {provider.name}
                 </span>
               </label>
+              <div className="center">
              <SwitchButtonRenderer provider={provider} currentProvider={q?.provider}/>
+              </div>
             </main>
           ))}
         </div>
