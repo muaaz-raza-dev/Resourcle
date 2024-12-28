@@ -26,7 +26,7 @@ export default function RequestOTP() {
           </CardDescription>
         </CardHeader>
           <CardContent className="">
-            <Input placeholder='Email address or username' className="w-full" value={email} onChange={({target:{value}})=>setEmail(value)}/>
+            <Input placeholder='Email address or username'  type="email" className="w-full" value={email} onChange={({target:{value}})=>setEmail(value)}/>
       <Button className='w-full mt-2' disabled={!email||isLoading} onClick={HandleSendResetLink}> 
         {isLoading?  <RequestLoader size='22'/> : 'Send reset link'}
       </Button>

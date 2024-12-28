@@ -20,7 +20,7 @@ export default function UserProfileOwnResources() {
       <div className="center">
       {isLoading ? <RequestLoader/>:
       total < ((count+1)*countPerRequest) ?
-      <p className="text-muted-foreground text-sm">
+      <p className="text-muted-foreground text-sm my-8">
         {total==0 && "No resource is published yet"}
       </p>
       :<LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />

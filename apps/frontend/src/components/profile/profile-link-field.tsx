@@ -29,14 +29,15 @@ export default function ProfileLinkField() {
 
 const EachLinkInput = React.memo(
     function EachLinkInput({ index }: { index: number }) {
-    const {control,setValue,getValues,formState} = useFormContext<IuserProfile>()
+    const {control,setValue,getValues,formState,} = useFormContext<IuserProfile>()
     const removeLink = useCallback(() => {
         setValue("links", getValues("links")?.filter((_, i) => i !== index));
+        
       }, [index, setValue, getValues]);
     return (
       
     <div  className="mb-4 flex items-center  w-full gap-3">
-         <div className="flex-1">
+      <div className="flex-1">
         <Label htmlFor={`link-name-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
           Label
         </Label>

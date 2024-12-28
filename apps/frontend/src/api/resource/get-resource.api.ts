@@ -16,4 +16,9 @@ const GetResourceApi = async (id: string) => {
     const response = await Axios.get<{ payload: IresourceRemote }>("/resource/d/" + id, { headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } })
     return response.data
 }
+
+export const GetResourceMetaInfoApi = async (id: string) => {
+    const response = await Axios.get<{ payload: {title:string;_id:string;description:string;banner:string} }>("/resource/d/meta/" + id, { headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } })
+    return response.data
+}
 export default GetResourceApi

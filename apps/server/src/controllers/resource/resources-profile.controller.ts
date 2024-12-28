@@ -2,38 +2,61 @@ import { Request, Response } from "express"
 import { ValidateLogin } from "../../middlewares/Authenticate";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 import { IResource, Resource } from "../../models/resource.model";
-import { ObjectId, Types } from "mongoose";
+import { isValidObjectId, ObjectId, Types } from "mongoose";
 import { PopulateResources } from "../../functions/populate-resources";
 import { SaveList } from "../../models/savelist.model";
 import { ResourceCollection } from "../../models/resource-collection.model";
+import GetQueryObjectUsernameOrId from "../../functions/query-username-or-id";
+import { User } from "../../models/user.model";
 export async function GetUserResource(req: Request, res: Response) {
     const { count, sort, isPrivate, userid } = req.body;
+    try{
+    const query = GetQueryObjectUsernameOrId(userid)
+    const user = (await User.findOne({...query,isDeleted:false}).select("_id"))
+    const publisherId  = user?._id
+    if(!publisherId){
+        ErrorResponse(res, { status: 404, message: "User not found" })
+        return
+    }
     if (isPrivate) {
         const isLogined = await ValidateLogin(req)
-        if (!isLogined || req.userid?.toString() != userid) {
+        if (!isLogined || req.userid?.toString() != publisherId) {
             ErrorResponse(res, { status: 403, message: "Unauthorized" })
             return
         }
-        const totalResource = await Resource.countDocuments({ publisher: userid, isPrivate:true })
-        const resources = await PopulateResources(req, { query: [{ $match: { publisher: new Types.ObjectId(userid), isPrivate: true } }], sort, count, isLogined: true, allowPrivate: true })
+        const totalResource = await Resource.countDocuments({ publisher:publisherId, isPrivate:true })
+        const resources = await PopulateResources(req, { query: [{ $match: { publisher: new Types.ObjectId(publisherId), isPrivate: true } }], sort, count, isLogined: true, allowPrivate: true })
         SuccessResponse(res, { payload: { total: totalResource, resources } })
         return
     }
     else {
-        const totalResource = await Resource.countDocuments({ publisher: userid, isPrivate: false })
-        const resources = await PopulateResources(req, { query: [{ $match: { publisher: new Types.ObjectId(userid) } }], sort, count, })
+        const totalResource = await Resource.countDocuments({ publisher:publisherId, isPrivate: false })
+        const resources = await PopulateResources(req, { query: [{ $match: { publisher: new Types.ObjectId(publisherId) } }], sort, count, })
         SuccessResponse(res, { payload: { total: totalResource, resources } })
         return
     }
 }
+catch(err){
+    console.log(err)
+    ErrorResponse(res,{message:"Internal server error"})
+    return
+}
+}
 
 export async function SavedResources(req: Request, res: Response) {
     const { count, sort, userid } = req.body;
-    let saved = await SaveList.findOne({ user: userid })
+    const query = GetQueryObjectUsernameOrId(userid)
+    const user = (await User.findOne({ ...query,isDeleted: false }).select("_id"))
+    const FilteredUserId = user?._id
+    if(!FilteredUserId){
+        ErrorResponse(res, { status: 404, message: "User not found" })
+        return;
+    }
+    let saved = await SaveList.findOne({ user: FilteredUserId })
     let totalResource = 0;
     let resources = [];
     if (!saved) {
-        saved = await SaveList.create({ user: userid, resource: [] })
+        saved = await SaveList.create({ user: FilteredUserId, resource: [] })
     }
     else {
         totalResource = await Resource.countDocuments({ _id: { $in: saved.resource } })

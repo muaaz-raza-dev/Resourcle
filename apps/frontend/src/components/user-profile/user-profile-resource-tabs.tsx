@@ -35,7 +35,7 @@ export default function UserProfileResourceTabs() {
 
               <TabsContent value="resource" className="mt-6" >
                 <UserProfileResourcesFilterbar/>
-                <div className="flex flex-col mt-2  gap-2">
+                <div className="flex flex-col mt-4  gap-2">
                   <UserProfileOwnResources/>
                 </div>
               </TabsContent>

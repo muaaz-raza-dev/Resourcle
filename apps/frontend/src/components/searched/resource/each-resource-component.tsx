@@ -48,9 +48,11 @@ export default function EachResourceComponent({
                   {resource?.publisher?.name.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
+              <Link href={`/u/${resource.publisher._id}`}>
               <p className="font-semibold text-sm pl-1">
                 {resource?.publisher?.name}
               </p>
+              </Link>
               <Dot />
               <span className="text-sm text-gray-500">
                 {moment(resource?.createdAt).fromNow()}

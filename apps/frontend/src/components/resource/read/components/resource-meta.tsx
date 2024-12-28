@@ -25,7 +25,7 @@ export default function ResourceMeta() {
               <Image src={q.publisher.picture || "/user.png"} alt={q.publisher.name || "Picture"} width={40} height={40} className="rounded-full"/>
               <div className="">
                 <div className="flex gap-4">
-                  <Link href={`/${q.publisher._id}`}>
+                  <Link href={`/u/${q.publisher._id}`}>
                     <h2 className="font-semibold">{q.publisher.name}</h2>
                   </Link>
                 </div>
@@ -35,7 +35,7 @@ export default function ResourceMeta() {
               </div>
             </div>
             <Link
-              href={`/${q.publisher._id}`}
+              href={`/u/${q.publisher._id}`}
               className="text-xs text-white max-md:block md:hidden transition-colors duration-200 
                 bg-secondary-foreground hover:bg-primary-dark rounded-md py-1 px-4"
             >

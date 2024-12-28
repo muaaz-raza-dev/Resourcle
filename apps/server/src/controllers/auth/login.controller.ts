@@ -21,13 +21,9 @@ export async function GoogleLoginController(req: Request, res: Response) {
             ErrorResponse(res, { message: "Invalid Credentials", status: 403 }) 
             return ;
         }
-        let user = await User.findOne({ email: payload.email,isDeleted:false })
-
+        let user = await User.findOne({ email: payload.email,isDeleted:false }).select("-links")
+      
         if(user){
-        if(user?.isDeleted) {
-            ErrorResponse(res, { message: "Invalid Credentials", status: 403 })
-            return ;
-        }
         if(user?.provider=="local"){
             ErrorResponse(res, { message: "Invalid Credentials", status: 403 })
             return ;

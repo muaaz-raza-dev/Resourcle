@@ -228,6 +228,15 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
     }
 
 }
+export async function GetResourceMetaDetails(req: Request, res: Response): Promise<void> {
+    if (!req.params.id || !Types.ObjectId.isValid(req.params.id)) {
+        ErrorResponse(res, { status: 404, message: "Invalid Id" })
+        return;
+
+    }
+    const resource = await Resource.findOne({_id:req.params.id,isPrivate:false}).select("_id title description banner")
+    SuccessResponse(res,{payload:resource})
+}
 
 export async function GetFeedResources(req: Request, res: Response): Promise<void> {
     try {

@@ -1,10 +1,18 @@
 import Fastify from 'fastify';
+import { PushToQueue } from './send';
 
 const fastify = Fastify();
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
+  PushToQueue() 
   return { hello: 'world' };
+
+});
+fastify.get('/messages', async (request, reply) => {
+  PushToQueue() 
+  return { messages: 'recieved' };
+
 });
 
 // Run the server

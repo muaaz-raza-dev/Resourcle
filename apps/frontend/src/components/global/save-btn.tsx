@@ -1,3 +1,4 @@
+"use client";
 import useSaveResource from "@/hooks/resource/useSaveResource";
 import { Button } from "@/shadcn/components/ui/button";
 import clsx from "clsx";

@@ -23,17 +23,19 @@ export default function UserProfileInformation() {
         </Avatar>
       </motion.div>
     </div>
-      <div className="sm:mt-0">
-        <h1 className="text-3xl max-md:text-2xl font-bold text-gray-900 dark:text-gray-100">{q?.name}</h1>
-        <p className="text-lg font-medium  ">{q?.username}</p>
-        <p className="text-muted-foreground max-md:text-sm">{q?.about}</p>
-        <div className="flex gap-2 flex-wrap">
+      <div className="sm:mt-2 ">
+        <p className="text-muted-foreground leading-none text-sm">{q?.username}</p>
+        <h1 className="text-3xl max-md:text-2xl font-bold leading-none text-gray-900 dark:text-gray-100">{q?.name}</h1>
+        <p className="text-muted-foreground text-base max-md:text-sm">{q?.about}</p>
+        <div className="flex gap-2 flex-wrap mt-2">
           {
-            q?.links?.map(link=> <Link target='_blank' href={link.url} key={link.url} className="text-blue-500 cursor-pointer underline  rounded-md pr-2 text-sm">
-              <Tooltip title={link.url}>
+            q?.links?.map(link=> <Link target='_blank' href={link.url} key={link.url}  className="
+            inline-flex items-center px-4 py-1 text-xs font-normal text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+              <Tooltip placement='bottom' title={link.url}>
               {link.label}
               </Tooltip>
-              </Link>)
+              </Link>
+              )
           }
         </div>
       </div>

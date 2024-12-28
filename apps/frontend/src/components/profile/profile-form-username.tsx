@@ -41,7 +41,8 @@ export default function ProfileFormUsername() {
         </Label>
         {username_remote&&
         <Link
-          href={uri + "/" + username_remote}
+
+          href={uri + "/u/" + username_remote}
           target="_blank"
           className="p-0.5 px-2 hover:underline rounded shadow-sm border text-xs font-semibold "
         >

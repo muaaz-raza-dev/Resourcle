@@ -87,7 +87,7 @@ export default function ProfileForm() {
                 />
               </div>
               <ProfileFormUsername />
-        <Separator/>
+            <Separator/>
           <ProfilePhoto />
           <ProfileLinkField />
           <section className="flex w-full mb-5 ">

@@ -1,3 +1,4 @@
+"use client";
 import { dotPulse } from "ldrs";
 
 import React, { useEffect } from "react";

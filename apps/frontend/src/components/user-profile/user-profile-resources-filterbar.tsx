@@ -20,8 +20,8 @@ export default function UserProfileResourcesFilterbar() {
   }, []);
 
   return (
-    <header className="flex justify-between max-md:flex-col-reverse">
-      <p className="text-muted-foreground max-md:text-xs text-sm">{total} resources</p>
+    <header className="flex justify-between items-center">
+      <p className="text-muted-foreground  text-sm">{total} resources</p>
       <section className="flex gap-4 max-md:justify-between ">
         <SwitchPublicOperatorComp />
         <SortResourceOperatorComp />

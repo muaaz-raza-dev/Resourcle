@@ -1,3 +1,4 @@
+"use client";
 import useUpvoteResource from "@/hooks/upvote/useUpvoteResource";
 import clsx from "clsx";
 import React, { useState } from "react";

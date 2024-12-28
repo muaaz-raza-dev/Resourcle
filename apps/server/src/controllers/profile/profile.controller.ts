@@ -89,7 +89,7 @@ export async function GetUserProfileInfoController(req: Request, res: Response) 
         }
 
 
-        const user_details = await User.findOne(query).select("-password -user_provider_id -email -email_verified -provider -interest")
+        const user_details = await User.findOne({...query,isDeleted:false}).select("-password -user_provider_id -email -email_verified -provider -interest")
         if (!user_details) {
             ErrorResponse(res, { message: "User not found", status: 404 });
             return;

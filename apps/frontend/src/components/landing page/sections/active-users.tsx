@@ -56,7 +56,7 @@ export default function ActiveUsers() {
                 </div>
                 <div className="flex " />
                 
-                <Link href={`${user._id}`} className="text-xs text-white transition-colors duration-200 
+                <Link href={`/u/${user._id}`} className="text-xs text-white transition-colors duration-200 
                 bg-secondary-foreground hover:bg-primary-dark rounded-md py-1 px-4">
                    Profile
                 </Link>

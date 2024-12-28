@@ -35,8 +35,8 @@ export default function UserProfileSavedResources() {
         {isLoading ? (
           <RequestLoader />
         ) : total < (count + 1) * countPerRequest ? (
-          <p className="text-muted-foreground text-sm">
-            {total==0&&"No resource is published yet" }
+          <p className="text-muted-foreground text-sm my-8">
+            {total==0&&"No saved resource to display" }
           </p>
         ) : (
         <LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />

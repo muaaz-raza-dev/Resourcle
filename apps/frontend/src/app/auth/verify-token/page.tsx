@@ -18,7 +18,6 @@ import { Button } from "@/shadcn/components/ui/button";
 import useRequestForgetPassword from "@/hooks/auth/useRequestForgetPassword";
 import RequestLoader from "@/components/loader/request-loading";
 import useDecodeROTPToken from "@/hooks/auth/useDecodeROTPToken";
-import { Timer } from "lucide-react";
 import useVerifyOTP from "@/hooks/auth/useVerifyOTP";
 import { useSearchParams } from "next/navigation";
 
@@ -95,7 +94,7 @@ export default function VerifyOtpPage() {
             {isVerifying? <RequestLoader size="18"/> : "Verify OTP" }
           </Button>
           <div className="flex justify-start mt-2">
-            <div className="text-sm text-muted-foreground flex justify-between ">
+            <div className="text-sm text-muted-foreground w-full flex justify-center ">
               <button
                 onClick={handleResendOTP}
                 disabled={isLoading || isFetching || isVerifying}
@@ -103,7 +102,6 @@ export default function VerifyOtpPage() {
               >
                 {isLoading ? <RequestLoader size="16" /> : "  Resend OTP"}
               </button>
-              <Timer />
             </div>
           </div>
         </CardContent>

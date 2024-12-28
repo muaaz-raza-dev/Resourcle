@@ -36,7 +36,7 @@ export default function ProfileMenu() {
           </div>
         </SheetHeader>
         <section className="flex flex-col my-4 gap-1" >
-        <Link href={`/${user?._id}`} className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md border" onClick={()=>setopen(false)}>
+        <Link href={`/u/${user?._id}`} className="flex gap-2 items-center w-full py-2 px-2 hover:bg-secondary transition-colors rounded-md border" onClick={()=>setopen(false)}>
             <User className="text-gray-600" size={20}/>
             <p className="text-sm font-semibold text-gray-700 ">Your profile</p>
         </Link>

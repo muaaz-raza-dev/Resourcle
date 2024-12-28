@@ -87,9 +87,9 @@ export async function VerifyOTP(req: Request, res: Response) {
         ErrorResponse(res, { message: "Invalid OTP", status: 403 })
         return;
     }
-    await User.findByIdAndUpdate(user._id, { $unset: { reset_token: 1,}, $set: { reset_verification: true } });
+    const updated_user = await User.findByIdAndUpdate(user._id, { $unset: { reset_token: 1,}, $set: { reset_verification: true } },{new:true});
     const login_token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", { expiresIn: "30d" })
-    res.cookie(cookie_key, login_token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) }).json({ token:login_token, message: "You're Logged in !" })
+    res.cookie(cookie_key, login_token, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) }).json({ token:login_token, message: "You're Logged in !",payload:updated_user })
 }
 
 export async function VerifyOTPToken(req: Request, res: Response) {

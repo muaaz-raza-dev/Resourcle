@@ -1,5 +1,4 @@
 import { Button } from "@/shadcn/components/ui/button";
-import { Input } from "@/shadcn/components/ui/input";
 import {Input as InputAntd} from "antd";
 import { Label } from "@/shadcn/components/ui/label";
 import {
@@ -35,7 +34,7 @@ export default function SecuritySettingsPasswordSection() {
       provider: q?.provider || "hybrid",
     },
   });
-  const { register,watch,formState:{errors,isValid},handleSubmit,control,reset } = form
+  const { watch,formState:{errors,isValid},handleSubmit,control,reset } = form
   const new_password = watch("new_password"); // Watch the new_password field
   const onSumbit: SubmitHandler<IChangePasswordForm> = async(data) => {
       await mutate(data);
@@ -55,17 +54,26 @@ export default function SecuritySettingsPasswordSection() {
           {q?.provider != "google" && (
             <div className="space-y-2">
               <Label htmlFor="current-password">Current Password</Label>
-              <Input
-                {...register("current_password", {
-                  required:{ value:!q?.reset_verification,message:"Current password is required"},
-                })}
-                id="current-password"
-                type="password"
-                placeholder="Current password"
+              <Controller
+          name="current_password"
+          control={control}
+          defaultValue="" // Provide a default value to prevent uncontrolled component warning
+          rules={{
+            required:{ value:!q?.reset_verification,message:"Current password is required"}
+          }}
+          render={({field,formState})=>{
+            return<>
+              <InputAntd.Password
+              id="current-password"
+              type="password"
+              {...field} // Spread the field props
+              placeholder="Current password"
               />
-              {
-                  errors.current_password && <p className="text-red-500 text-sm">{errors.current_password.message}</p>
-              }
+            {
+              formState.errors.current_password && <p className="text-red-500 text-sm">{formState.errors.current_password.message}</p>
+            }
+            </>
+          }}/>
             </div>
           )}
 
