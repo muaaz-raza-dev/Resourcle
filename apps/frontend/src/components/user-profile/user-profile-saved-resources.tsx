@@ -34,13 +34,10 @@ export default function UserProfileSavedResources() {
       <div className="center">
         {isLoading ? (
           <RequestLoader />
-        ) : total < (count + 1) * countPerRequest ? (
+        ) : total > (count + 1) * countPerRequest  && (<LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />)}
           <p className="text-muted-foreground text-sm my-8">
             {total==0&&"No saved resource to display" }
           </p>
-        ) : (
-        <LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />
-        )}
       </div>
     </main>
   );

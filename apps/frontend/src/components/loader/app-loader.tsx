@@ -19,7 +19,7 @@ export default function AppLoader() {
       <l-ring
         size="80"
         stroke="10"
-        speed="2"
+        speed="1.3"
         color="#0b110b"
       ></l-ring>
     </main>

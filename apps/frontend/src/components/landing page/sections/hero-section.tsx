@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
+import SearchingAnimation from "./searching-animation";
 import { BackgroundBeams } from "@/shadcn/components/ui/background-beams";
 
 export default function HeroSection() {
   return (
     <div className="w-full relative overflow-hidden center mb-5 flex-col  ">
-      <BackgroundBeams  />
+      <BackgroundBeams/>
       <button className="border border-dashed border-accent font-semibold center gap-2 text-accent rounded-md px-3 py-1 ">
         <div className="flex  items-center text-black gap-1 ">
           <Search size={15} />
@@ -34,6 +35,9 @@ export default function HeroSection() {
         educational content to help guide users in picking up a path and guide
         their learnings.
       </motion.p>
+      <div className="mt-4 w-full">
+        <SearchingAnimation/>
+      </div>
     </div>
   );
 }

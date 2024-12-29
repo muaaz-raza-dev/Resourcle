@@ -29,7 +29,7 @@ export default function useGetUserResources() {
     onSuccess({ payload: { resources, total } }) {
       setValue((val) => ({
         ...val,
-        resources:{...val.resources, resources:{...val.resources.resources,[count]:resources},total },
+        resources:{...val.resources, resources:{...val.resources.resources,[val.resources.count]:resources},total },
       }));
     },
     onError({

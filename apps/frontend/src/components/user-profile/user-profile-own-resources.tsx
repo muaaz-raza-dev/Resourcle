@@ -11,7 +11,7 @@ export default function UserProfileOwnResources() {
   const [{resources: { resources, isLoading,total,count },},setState] = useRecoilState(UserProfileResourceAtom);
   const mutateObject=  useGetUserResources()
   const FlatResources = useMemo(() => Object.values(resources).flat(),[resources]);
-    const  OnFire=() => setState((s) => ({ ...s,resources: { ...s.resources, count: s.resources.count + 1, isLoading: true },})); 
+  const  OnFire=() => setState((s) => ({ ...s,resources: { ...s.resources, count: s.resources.count + 1, isLoading: true },})); 
   return (
     <>
       {FlatResources.map((resource,index) => (
@@ -19,12 +19,11 @@ export default function UserProfileOwnResources() {
       ))}
       <div className="center">
       {isLoading ? <RequestLoader/>:
-      total < ((count+1)*countPerRequest) ?
+      total > ((count+1)*countPerRequest) && <LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />
+      }
       <p className="text-muted-foreground text-sm my-8">
         {total==0 && "No resource is published yet"}
       </p>
-      :<LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />
-      }
       </div>
     </>
   );

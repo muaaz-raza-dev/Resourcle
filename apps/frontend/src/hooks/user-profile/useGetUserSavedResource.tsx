@@ -14,7 +14,7 @@ export default function useGetUserSavedResource() {
         ...prev,
         saved: {
           ...prev.saved,
-          resources: { ...prev.saved.resources, [count]: payload.resources },
+          resources: { ...prev.saved.resources, [prev.saved.count]: payload.resources },
           total: payload.total,
         },
       }));

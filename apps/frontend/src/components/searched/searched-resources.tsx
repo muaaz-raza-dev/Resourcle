@@ -28,7 +28,7 @@ export default function SearchedResources({
       ) : (
         FlatResources.length == 0 && <NotAvailableFallbackSearched />
       )}
-      {total > (count + 1) * ResourcesPerRequest ? <SearchedLoadMoreButton /> : null}
+      {total > (count+1 ) * ResourcesPerRequest ? <SearchedLoadMoreButton /> : null}
     </div>
   );
 }

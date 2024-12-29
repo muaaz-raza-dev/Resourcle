@@ -10,7 +10,6 @@ export default function useLoadResourceFeed() {
         refetchOnWindowFocus:false,
         refetchOnMount:true,
         retry:2,
-        staleTime: 1000 * 60 * 5, // 5 minutes
         onError({response:{data:{message}}}){
             toast.error(message||"An error occured")
         }

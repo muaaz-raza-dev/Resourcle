@@ -39,11 +39,8 @@ function SortResourceOperatorComp() {
   ] = useRecoilState(UserProfileResourceAtom);
   const { mutate,isLoading } = useGetUserResources();
   function handleSortOptionChange(value: SearchedSortOptions) {
-    setState((val) => ({
-      ...val,
-      resources: { ...val.resources, sort: value,isLoading:true },
-    }));
-    mutate({ sort: value });
+    setState((val) => ({...val,resources: {  ...val.resources,resources:{}, sort: value,isLoading:true ,count:0},}));
+    mutate({ sort: value,count:0 });
   }
   return (
     <div className="flex gap-2 md:items-center ">
@@ -70,9 +67,9 @@ function SwitchPublicOperatorComp() {
   function handlePublicPrivateOptionChange(value: boolean) {
     setState((val) => ({
       ...val,
-      resources: { ...val.resources, isPrivate: value ,isLoading:true},
+      resources: { ...val.resources,resources:{}, isPrivate: value ,isLoading:true,count:0},
     }));
-    mutate({ isPrivate: value });
+    mutate({ isPrivate: value,count:0 });
   }
   if(!isLogined||!user||userid!=user._id) return null; // only logged in users can switch between public and private resources
 

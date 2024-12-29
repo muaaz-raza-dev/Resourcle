@@ -5,6 +5,7 @@ import {
   SearchedSortOptions,
 } from "@/state/search-resource.atom";
 import { useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -30,7 +31,7 @@ export default function useSearchResource() {
     onSuccess({ payload: { resources, total } }) {
       setValue((val) => ({
         ...val,
-        resources: { ...val.resources, [count]: resources },
+        resources: { ...val.resources, [val.count]: resources },
         total,
       }));
     },
@@ -39,7 +40,7 @@ export default function useSearchResource() {
         data: { message },
       },
     }) {
-      console.error("Error creating resource", message);
+      toast.error(message)
     },
   });
 }

@@ -4,7 +4,7 @@ import { Resource } from "../models/resource.model";
 import { SaveList } from "../models/savelist.model";
 import { ValidateLogin } from "../middlewares/Authenticate";
 import { PipelineStage } from "mongoose";
-
+const resource_limit = process.env.NEXT_PUBLIC_RESOURCE_LIMIT || 10
 export async function PopulateResources(
   req: Request,
   {
@@ -130,8 +130,8 @@ export async function PopulateResources(
         "publisher.picture": 1,
       },
     },
-    { $skip: count * 10 },
-    { $limit: 10 },
+    { $skip: count * (+resource_limit)  },
+    { $limit:  +resource_limit},
   ]);
   return resources;
 }
