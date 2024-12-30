@@ -4,8 +4,9 @@
   "type": "module",
   "main": "src/server.ts",
   "scripts": {
-    "dev": "nodemon --exec tsx src/server.ts",
-    "start": "nodemon --exec tsx src/server.ts"
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec tsx src/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
