@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useId, useMemo } from "react";
+import React, { useId } from "react";
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
@@ -80,6 +80,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                   enable: false,
                   mode: "repulse",
                 },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 resize: true as any,
               },
               modes: {

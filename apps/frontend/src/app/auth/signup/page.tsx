@@ -35,7 +35,7 @@ export default function SignupPage() {
           <span className="bg-background px-2 text-muted-foreground">Or</span>
         </div>
       </div>
-          <GoogleAuthButton context="signup"/> 
+          <GoogleAuthButton /> 
         </CardContent>
       </Card>
       <div className=" text-center text-muted text-sm font-medium">

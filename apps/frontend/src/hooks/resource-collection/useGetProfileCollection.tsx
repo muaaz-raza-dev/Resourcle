@@ -1,6 +1,5 @@
 import GetResourceCollectionsApi from '@/api/resource-collection/get-resoruce-collections.api';
 import { authAtom } from '@/state/auth.atom';
-import { useParams } from 'next/navigation'
 import { useQuery } from 'react-query'
 import { useRecoilValue } from 'recoil';
 import useGetUserProfileInfomartion from '../user-profile/useGetUserInfomartion';

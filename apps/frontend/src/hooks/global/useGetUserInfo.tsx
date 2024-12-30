@@ -17,7 +17,7 @@ export default function useGetUserInfo() {
         retry:2,
         staleTime:1000*60*5 ,
         onSuccess({payload}){
-            setAuthState({isLogined:true,user:payload})
+            setAuthState(e=>({...e,isLogined:true,user:payload}))
         },
         onError(){
             resetAuthState()
