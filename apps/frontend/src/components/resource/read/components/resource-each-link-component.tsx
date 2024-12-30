@@ -13,6 +13,7 @@ import ResourceEachLinkUpvote from "./resource-each-link-upvote";
 import ResourceEachLinkCollectButton from "./resource-each-link-collect-button";
 import { Tooltip } from "antd";
 import useScreenSizeTracker from "@/hooks/global/useScreenSizeTracker";
+import { LinkPreview } from "@/shadcn/components/ui/link-preview";
 
 export default function ResourceEachLinkComponent({
   data: resource,
@@ -35,21 +36,23 @@ export default function ResourceEachLinkComponent({
         <div className="">
           <div className="flex md:gap-2 md:items-center max-md:flex-col">
             <div className="flex gap-2 items-center ">
+              <LinkPreview quality={100}  url={resource.url} >
               <Link
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className=" font-semibold md:border-r pr-2"
-              >
+                >
                 {resource.title}
               </Link>
+              </LinkPreview>
             </div>
             <Link
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
               className="text-sm text-wrap  max-md:text-xs text-primary underline py-0 leading-tight"
-            >
+              >
               {resource.url}
             </Link>
           </div>

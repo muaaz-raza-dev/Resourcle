@@ -63,6 +63,7 @@ export default function ActiveUsers() {
               </div>
             ))}
           </section>
+          {data?.payload&& data?.payload.length>5&&
           <section className="center py-4 gap-2 font-semibold">
             <AnimatedTooltip
               items={users
@@ -73,8 +74,8 @@ export default function ActiveUsers() {
                   id: i,
                 }))||[]}
             ></AnimatedTooltip>
-            { users && (users?.length-8) > 0 && <p>+{users?.length-8} more</p>}
           </section>
+            }
         </CardContent>
       </Card>
     </>

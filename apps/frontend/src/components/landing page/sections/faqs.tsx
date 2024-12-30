@@ -18,10 +18,7 @@ export function FAQSection() {
     <section className=" w-full  py-8  ">
 
       <HeadingComp text='Frequently Asked Questions'/>
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+      <div 
         className="  mx-auto px-4"
       >
           
@@ -57,7 +54,7 @@ export function FAQSection() {
           </Accordion>
         </motion.div>
       
-      </motion.div>
+      </div>
     </section>
   )
 }

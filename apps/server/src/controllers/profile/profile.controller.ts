@@ -185,7 +185,7 @@ export async function DeleteAccount(req: Request, res: Response) {
       { resource: { $in: all_upvoted_resource } },
       { $pull: { users: req.userid, "content_votes.$[].users": req.userid } },
     );
-
+    await Resource.updateMany({ views: { $in: req.userid } }, { $pull: { views: req.userid } });
     const all_links_ids = (
       await ResourceLink.find({ resource: { $in: all_resource_ids } }).select(
         "_id",
@@ -207,6 +207,7 @@ export async function DeleteAccount(req: Request, res: Response) {
       deletedAt: new Date(),
     });
     SuccessResponse(res, { message: "Account deleted successfully" });
+
   } catch (err) {
     console.log(err);
     session.abortTransaction();
