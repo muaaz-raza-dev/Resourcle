@@ -4,7 +4,7 @@ import { Resource } from "../models/resource.model";
 import { SaveList } from "../models/savelist.model";
 import { ValidateLogin } from "../middlewares/Authenticate";
 import { PipelineStage } from "mongoose";
-const resource_limit = process.env.NEXT_PUBLIC_RESOURCE_LIMIT || 10
+const resource_limit = process.env.NEXT_PUBLIC_RESOURCE_LIMIT || 10;
 export async function PopulateResources(
   req: Request,
   {
@@ -19,7 +19,7 @@ export async function PopulateResources(
     count: number;
     isLogined?: boolean;
     allowPrivate?: boolean;
-  }
+  },
 ) {
   if (!isLogined) {
     await ValidateLogin(req);
@@ -53,7 +53,7 @@ export async function PopulateResources(
         title: 1,
         createdAt: 1,
         upvotes: 1,
-        banner:1,
+        banner: 1,
         isSaved: 1,
         publisher: 1,
         isOwned: 1,
@@ -118,7 +118,7 @@ export async function PopulateResources(
         title: 1,
         createdAt: 1,
         upvotes: 1,
-        banner:1,
+        banner: 1,
         isSaved: 1,
         isUpvoted: 1,
         views: 1,
@@ -130,8 +130,8 @@ export async function PopulateResources(
         "publisher.picture": 1,
       },
     },
-    { $skip: count * (+resource_limit)  },
-    { $limit:  +resource_limit},
+    { $skip: count * +resource_limit },
+    { $limit: +resource_limit },
   ]);
   return resources;
 }

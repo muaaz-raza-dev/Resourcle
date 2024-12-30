@@ -1,6 +1,9 @@
-
-export function GenerateHTMLTemplate(receiver:{username:string;email:string},OTP:string,authToken?:string,){
-return `
+export function GenerateHTMLTemplate(
+  receiver: { username: string; email: string },
+  OTP: string,
+  authToken?: string,
+) {
+  return `
 <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
 <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <p style="color: #555555;">Dear <strong>${receiver.username || ""}</strong>,</p>
@@ -29,5 +32,5 @@ return `
         <p style="color: #999999; font-size: 12px; text-align: center; margin-top: 30px;">Note: Please do not reply directly to this email, as this inbox is not monitored. For assistance, use the contact details provided above.</p>
     </div>
 </body>
-`
+`;
 }

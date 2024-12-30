@@ -1,10 +1,6 @@
-#**Resourcle**
+# Resourcle
 Resourle is the community driven resource link sharing platform for everyone
 
-# Introduction
-This project is a web application that enables users to share, organize, and access resource links through an upvote-based ranking system. Users can save, manage, and share their favorite resources with ease.
-
-Want to ease your users into it with some fancy marketing pages? You can enable a **[Landing Page](https://docs.readme.com/main/docs/landing-page)**, and write as much HTML as you want to make it look like your brand.
 
 ***
 
@@ -22,7 +18,7 @@ Want to ease your users into it with some fancy marketing pages? You can enable 
 
 # 📑 Demo
 
-Upcoming ...
+Coming soon ...
 
 ***
 
@@ -113,10 +109,20 @@ npm run dev
 ```Text bash
 cd apps/util-server
 npm run dev
-
 ```
 
-## Step 5: Access the Application
+## Step 5: Seed database 
+
+The project includes a database seeder script for fresh start, run it after starting the backend:
+
+```Text bash
+cd apps/server
+npm run seed
+```
+
+<br />
+
+## Step 6: Access the Application
 
 Once the servers are running:
 

@@ -1,5 +1,5 @@
 {
-  "name": "resourcin-server",
+  "name": "resourcle-server",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -7,6 +7,10 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "dev": "nodemon --exec tsx src/index.ts",
+    "seed": "tsx src/seeder.ts",
+    "lint": "eslint \"src/**/*.{ts,js}\"",
+    "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
+    "format": "prettier --write 'src/**/*.{js,ts,md}'",
     "build": "tsc"
   },
   "author": "",
@@ -27,6 +31,7 @@
     "nodemailer": "^6.9.16"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -35,7 +40,15 @@
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.7.2",
     "@types/nodemailer": "^6.4.16",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.18.2"
   }
 }

@@ -1,14 +1,20 @@
+# Ignore node_modules folder in all directories
 **/node_modules/
+
+# Ignore .env files but not .env.example
 *.env
+!*.env.example
+
 # Log files
 logs
 *.log
 npm-debug.log*
 
-# Build output
+# Build output for Next.js
 .next/
 
 # OS generated files
 *.swp
-.turbo
 
+# Turborepo build artifacts
+.turbo
