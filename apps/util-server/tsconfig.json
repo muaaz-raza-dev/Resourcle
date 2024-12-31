@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",                            // Specify ECMAScript target
+      "module": "ESNext",                            // Use ESNext module system
+      "lib": ["ESNext"],                             // Include latest JS features
+      "moduleResolution": "node",                   // Resolve modules like Node.js
+      "outDir": "./dist",                            // Output directory
+      "rootDir": "./src",                            // Root directory for TypeScript files
+      "strict": true,                                // Enable strict type checking
+      "esModuleInterop": true,                       // Support CommonJS modules
+      "skipLibCheck": true,                          // Skip type checks on library files
+      "forceConsistentCasingInFileNames": true       // Enforce consistent file naming
+    },
+    "include": ["src"],                              // Include files in the src directory
+    "exclude": ["node_modules", "dist"]             // Exclude generated and dependency files
+}
+  
