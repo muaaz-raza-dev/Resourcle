@@ -1,5 +1,3 @@
-
-
 import  { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import {RequestOTPMiddleware} from "@/middleware/request-otp.middleware"
@@ -10,7 +8,13 @@ export function middleware(request: NextRequest,   ) {
   const { pathname } = request.nextUrl
   const isPrivateRoute = privateRoutes.includes(pathname)
   const isAuthRestrictedRoute = AuthProtectedRoutes.some(route => pathname==route)
-  const userSessionCookie = request.cookies.get(Cookie_key)
+  if (pathname.startsWith('/favicon.ico') || pathname.startsWith('/_next/static')) {
+    return NextResponse.next();
+}
+
+const userSessionCookie = request.cookies.get(Cookie_key)
+console.log('Request cookies:', request.cookies);
+console.log('Cookie key:', Cookie_key);
   if (isPrivateRoute && !userSessionCookie) {
     return NextResponse.redirect(new URL('/', request.url))
   }
