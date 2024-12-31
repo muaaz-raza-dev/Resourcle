@@ -18,8 +18,8 @@ export default function ActiveUsers() {
   const { isLoading, data } = useLoadUsersFeed();
   if (isLoading) return <ResourceLoader />;
   const users = data?.payload;
-  
-  return (
+    if(!users||!users?.length) return null
+    return (
     <>
       <HeadingComp text={" Top Contributers"} />
       <Card className="w-full max-w-full bg-transparent border-none shadow-none">

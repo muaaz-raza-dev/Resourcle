@@ -14,8 +14,40 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 
 export const metadata: Metadata = {
-  title: "Resourcin",
+  title: "Resourcle - Discover, Share, and Collaborate on Resources",
+  description: "Resourcle is a community-driven platform for discovering, sharing, and collaborating on valuable resources, from articles to tools, with a focus on knowledge sharing.",
+  keywords: "resource sharing, community platform, discover resources, knowledge sharing, collaborate on resources, educational resources, online resources, resource links",
+  authors: [{name:"Muaaz Raza",url:"https://linkedin.com/in/muaaz-raza"}],
+  // Open Graph (Facebook) metadata
+  openGraph: {
+    type: "website",
+    url: "https://resourcle.vercel.app",
+    title: "Resourcle - Discover, Share, and Collaborate on Resources",
+    description: "A community-driven platform where users can share, discover, and collaborate on educational resources and useful links.",
+    images: [
+      {
+        url: "https://resourcle.vercel.app/logo/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Resourcle logo",
+      },
+    ],
+    siteName: "Resourcle",
+  },
+  twitter: {
+    site: "@resourcleapp",
+    creator: "@resourcleapp",
+    title: "Resourcle - Discover, Share, and Collaborate on Resources",
+    description: "Join Resourcle, a community-driven platform for discovering, sharing, and collaborating on educational and valuable resources.",
+    images: "https://resourcle.vercel.app/logo/logo.png",
+    card: "summary_large_image",  // Use large image for better visibility
+  },
+
+  // Additional metadata for advanced SEO
+  robots: "index, follow",  // Allow search engines to index and follow links
+
 };
+
 
 export default function RootLayout({
   children,

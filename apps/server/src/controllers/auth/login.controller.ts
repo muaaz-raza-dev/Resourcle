@@ -84,9 +84,8 @@ export async function LocaleLoginController(req: Request, res: Response) {
       })
       .json({ token, message: "Logged in successfully!" });
     return;
-  } catch (error) {
+  } catch () {
     res.status(403).json({ message: "Internal server error." });
-
     return;
   }
 }

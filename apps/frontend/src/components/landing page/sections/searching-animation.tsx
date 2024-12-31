@@ -28,10 +28,10 @@ const words = [
 
 export default function SearchingAnimation() {
   return (
-    <div className=" mx-auto text-base  font-semibold bg-secondary w-max min-w-3xl border  rounded-md px-4 center drop-shadow-2xl  flex gap-2 items-end py-2">
+    <div className=" mx-auto text-base max-md:text-sm  font-semibold bg-secondary w-max min-w-3xl border  rounded-md px-4 center drop-shadow-2xl  flex gap-2 items-end py-2">
       <Search size={14}/>
       <div className="flex">
-        <p>
+        <p className='max-md:hidden'>
       Searching for
         </p>
        <FlipWords  words={words} className='text-accent'/>

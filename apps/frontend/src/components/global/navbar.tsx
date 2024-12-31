@@ -24,7 +24,7 @@ return (
             <Link href="/" className="flex-shrink-0 flex items-center">
               <Image height={50} width={50}  src="/logo/logo-transparent.svg" alt="Logo" priority={false} />
             </Link>
-            <h1 className="font-bold text-2xl max-lg:hidden  text-secondary-foreground ">Resourcera</h1>
+            <h1 className="font-bold text-2xl max-lg:hidden  text-secondary-foreground ">{process.env.NEXT_PUBLIC_NAME}</h1>
           </div>
           {
             isLogined?  <LoginedNavbar/> :  <UnLoginedNavbar/> 

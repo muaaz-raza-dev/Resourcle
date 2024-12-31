@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Mail, Youtube, Twitter } from "lucide-react"
+import { Mail,  Twitter, Instagram } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -29,7 +29,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Copyright and Links */}
           <div className="flex flex-wrap items-center gap-4 text-sm">
-            <span>© Resourcera</span>
+            <span> Resourcle</span>
             <span className="hidden md:inline ">•</span>
             <Link href="/terms" className="hover:text-white transition-colors">
               Terms
@@ -44,15 +44,15 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex items-center gap-4">
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="mailto:yourssharky@gmail.com" className="hover:text-white transition-colors">
               <Mail className="h-5 w-5" />
               <span className="sr-only">Email</span>
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
-              <Youtube className="h-5 w-5" />
+            <Link href="https://www.instagram.com/muaaz_the_developer/" className="hover:text-white transition-colors">
+              <Instagram className="h-5 w-5" />
               <span className="sr-only">YouTube</span>
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="https://x.com/MuaazRazaDev" className="hover:text-white transition-colors">
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
             </Link>
