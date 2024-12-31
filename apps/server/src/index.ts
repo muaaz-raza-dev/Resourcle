@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: ["https://resourcle.vercel.app", "http://localhost:3000"],
     credentials: true,
-  }),
+  })
 );
 
 // Route for the home page

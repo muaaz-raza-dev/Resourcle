@@ -84,7 +84,8 @@ export async function LocaleLoginController(req: Request, res: Response) {
       })
       .json({ token, message: "Logged in successfully!" });
     return;
-  } catch () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
     res.status(403).json({ message: "Internal server error." });
     return;
   }
