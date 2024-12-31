@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../utils/tokens.js";
 import { nanoid } from "nanoid";
-const cookie_key = process.env.SESSION_COOKIE_KEY;
+// const cookie_key = process.env.SESSION_COOKIE_KEY;
 export const RegisterLocal = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   try {
@@ -26,9 +26,9 @@ export const RegisterLocal = async (req: Request, res: Response) => {
       expiresIn: "30d",
     });
     res
-      .cookie(cookie_key, token, {
-        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      })
+      // .cookie(cookie_key, token, {
+      //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      // })
       .json({ token, message: "Registered and logined successful!",payload:user });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

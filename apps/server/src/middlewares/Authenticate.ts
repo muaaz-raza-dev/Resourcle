@@ -9,10 +9,10 @@ export async function Authenticate(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const token = req.cookies[process.env.SESSION_COOKIE_KEY];
+    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split("")[1]
     if (!token) {
-      ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
-      return;
+        ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
+        return;
     }
     const decodedToken = jwt.verify(token, JWT_SECRET) as { user_id: string };
     if (!decodedToken || !decodedToken.user_id) {
@@ -38,7 +38,7 @@ export async function Authenticate(
 
 export async function ValidateLogin(req: Request) {
   try {
-    const token = req.cookies[process.env.SESSION_COOKIE_KEY];
+    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split("")[1]
     if (!token) {
       return false;
     }

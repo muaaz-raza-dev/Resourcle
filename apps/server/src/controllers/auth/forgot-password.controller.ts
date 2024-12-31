@@ -7,8 +7,8 @@ import { nanoid } from "nanoid";
 import { SendMail } from "../../utils/Mailer.js";
 import jwt from "jsonwebtoken";
 import { GenerateHTMLTemplate } from "../../templates/otp.mail.js";
-const cookie_key = process.env.SESSION_COOKIE_KEY;
-const ForgotCookieKey = process.env.REQUESTED_OTP_COOKIE_KEY;
+// const cookie_key = process.env.SESSION_COOKIE_KEY;
+// const ForgotCookieKey = process.env.REQUESTED_OTP_COOKIE_KEY;
 const JWT_SECRET = process.env.JWT_SECRET;
 export async function RequestForgotPassword(req: Request, res: Response) {
   const { email } = req.body;
@@ -61,9 +61,9 @@ export async function RequestForgotPassword(req: Request, res: Response) {
 
     const forgotKeyToken = jwt.sign({ email: user.email }, JWT_SECRET);
     res
-      .cookie(ForgotCookieKey, forgotKeyToken, {
-        expires: new Date(expirationTime),
-      })
+      // .cookie(ForgotCookieKey, forgotKeyToken, {
+      //   expires: new Date(expirationTime),
+      // })
       .json({ message: "Password reset link sent to your email",token:forgotKeyToken });
   } catch (err) {
     console.log(err);
@@ -107,9 +107,9 @@ export async function VerifyOTP(req: Request, res: Response) {
     expiresIn: "30d",
   });
   res
-    .cookie(cookie_key, login_token, {
-      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-    })
+    // .cookie(cookie_key, login_token, {
+    //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    // })
     .json({
       token: login_token,
       message: "You're Logged in !",
@@ -127,7 +127,6 @@ export async function VerifyOTPToken(req: Request, res: Response) {
     const user = await User.findOne({ _id: decodedToken?.userId }).select(
       "reset_token reset_token_expiration",
     );
-    console.log(user);
     if (!user || !user.reset_token) {
       ErrorResponse(res, { message: "Invalid Request", status: 403 });
       return;
@@ -146,9 +145,9 @@ export async function VerifyOTPToken(req: Request, res: Response) {
       expiresIn: "30d",
     });
     res
-      .cookie(cookie_key, login_token, {
-        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      })
+      // .cookie(cookie_key, login_token, {
+      //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      // })
       .json({ login_token, message: "You're Logged in !" });
   } catch (err) {
     ErrorResponse(res, { message: "Invalid Request", status: 403 });

@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../utils/tokens.js";
 export const getUserInfoController = async (req: Request, res: Response) => {
   try {
-    const token = req.cookies[process.env.SESSION_COOKIE_KEY];
+    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split("")[1]
     if (!token) {
       ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
       return;
