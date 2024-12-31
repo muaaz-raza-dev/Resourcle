@@ -18,7 +18,7 @@ fastify.register(utilsRoutes , { prefix: '/api/utils' });
 // Run the server
 const start = async () => {
   try {
-    await fastify.listen({ port: 4000, host: '0.0.0.0' });
+    await fastify.listen({ port: process.env.PORT||4000 });
     console.log('Util Server listening at http://localhost:4000');
   } catch (err) {
     console.error(err);
