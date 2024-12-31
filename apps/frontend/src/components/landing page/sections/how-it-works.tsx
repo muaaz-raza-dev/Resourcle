@@ -37,7 +37,7 @@ export default function HowItWorks() {
         </div>
       </div>
     </div>
-          <div className='leading-snug bg-secondary px-4 p-2 border text-sm rounded-md font-medium text-muted-foreground '>
+          <div className='leading-snug bg-secondary px-4 p-2 border text-sm rounded-md  text-muted-foreground '>
             <b>Good practice : </b> If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
             </div>
   </section>

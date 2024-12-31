@@ -23,8 +23,8 @@ export default function SettingsNavbar() {
 
   return (
     
-      <div className="w-64 max-md:w-full  space-y-1 max-md:gap-4 flex md:flex-col max-md:py-4 md:border-r max-md:border-b px-2">
-        
+      <div className="w-64 max-md:w-full md:mt-4  space-y-1 max-md:gap-4 flex md:flex-col max-md:py-4 md:border-r max-md:border-b px-7">
+  <h2 className="font-semibold text-lg">Settings</h2>        
       {menuItems.map((item) => {
         const isActive = pathname === item.href
         return (
@@ -32,7 +32,7 @@ export default function SettingsNavbar() {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-3 font-semibold rounded-lg px-5 py-2  transition-colors",
+              "flex items-center gap-3 font-semibold rounded-lg  py-2  transition-colors",
               isActive 
                 ? "bg-green-50 text-primary" 
                 : "text-gray-600 max-md:bg-border hover:bg-gray-100 hover:text-gray-900"

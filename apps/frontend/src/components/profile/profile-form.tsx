@@ -20,6 +20,7 @@ import {
   CardTitle,
 } from "@/shadcn/components/ui/card";
 import { Separator } from "@/shadcn/components/ui/separator";
+import ProfileFormInformationLoader from "./profile-form-info-loader";
 export default function ProfileForm() {
   const methods = useForm<IuserProfile>({
     defaultValues: async () => (await GetProfileInfoApi()).payload,
@@ -30,6 +31,7 @@ export default function ProfileForm() {
     delete payload.username;
     mutate(payload);
   };
+  if(methods.formState.isLoading){ return <ProfileFormInformationLoader/>}
   return (
     <div className="md:max-w-2xl max-w-full md:px-4 max-md:px-0 space-y-8">
       <FormProvider {...methods}>

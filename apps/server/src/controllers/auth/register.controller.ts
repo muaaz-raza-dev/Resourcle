@@ -29,8 +29,9 @@ export const RegisterLocal = async (req: Request, res: Response) => {
       .cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       })
-      .json({ token, message: "Registered and logined successful!" });
+      .json({ token, message: "Registered and logined successful!",payload:user });
     return;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     ErrorResponse(res, { message: "Internal server error", status: 500 });
     return;

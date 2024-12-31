@@ -23,7 +23,7 @@ export default function GoogleAuthButton() {
     <div className="w-full center flex-col gap-2">
     <GoogleLogin  shape='rectangular'  text='continue_with' type='icon' size='large' onSuccess={onSuccess} onError={onError} />
       {
-        isLoading && <RequestLoader/>
+        isLoading && <RequestLoader size='14'/>
       }
     </div>
   )

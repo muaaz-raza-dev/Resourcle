@@ -44,11 +44,11 @@ export async function RequestForgotPassword(req: Request, res: Response) {
 
     const authToken = jwt.sign(
       { userId: user._id, otp: OTP }, // Payload
-      JWT_SECRET, // Use constant instead of accessing env directly
-      { expiresIn: "1h" }, // Use consistent time format
+      JWT_SECRET, // constant instead of accessing env directly
+      { expiresIn: "1h" }, // consistent time format
     );
 
-    // Use consistent time format (3600000 = 1 hour in ms)
+    //  consistent time format (3600000 = 1 hour in ms)
     const expirationTime = Date.now() + 3600000;
 
     await User.findByIdAndUpdate(user._id, {
@@ -64,7 +64,7 @@ export async function RequestForgotPassword(req: Request, res: Response) {
       .cookie(ForgotCookieKey, forgotKeyToken, {
         expires: new Date(expirationTime),
       })
-      .json({ message: "Password reset link sent to your email" });
+      .json({ message: "Password reset link sent to your email",token:forgotKeyToken });
   } catch (err) {
     console.log(err);
     ErrorResponse(res, { message: "Internal server error ,Try again later !" });

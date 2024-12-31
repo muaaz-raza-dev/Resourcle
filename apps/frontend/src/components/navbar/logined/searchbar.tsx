@@ -1,4 +1,6 @@
+import RequestLoader from "@/components/loader/request-loading";
 import useSearchResource from "@/hooks/resource/useSearchResource";
+import clsx from "clsx";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState,useRef } from "react";
@@ -9,7 +11,7 @@ export default function Searchbar() {
   const searched = useSearchParams();
   const ref = useRef<HTMLInputElement|null>(null)
   const searchTerm = searched.get("search");
-  const { mutate } = useSearchResource();
+  const { mutate,isLoading } = useSearchResource();
   const { push } = useRouter();
 
   useEffect(() => {
@@ -52,11 +54,18 @@ export default function Searchbar() {
         onKeyDown={HandleSearch}
         placeholder="Search for anything "
         value={input || undefined}
+        disabled={isLoading}
         className="border-none outline-none w-full text-sm !bg-transparent"
       />
-      <div className="flex gap-1 border text-xs bg-secondary items-center px-1 rounded font-semibold">
-            <MdKeyboardCommandKey />
-            <span className="text-xs font-medium">K</span>
+      <div className={clsx("flex gap-1 border text-xs bg-secondary items-center px-1 rounded font-semibold ",isLoading&&"py-2")}>
+        {isLoading?
+        <RequestLoader size="12" />
+        :
+        <>
+              <MdKeyboardCommandKey />
+              <span className="text-xs font-medium">K</span>  
+        </>
+              }
       </div>
 
     </div>

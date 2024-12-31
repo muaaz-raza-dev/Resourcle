@@ -82,7 +82,7 @@ export async function LocaleLoginController(req: Request, res: Response) {
       .cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       })
-      .json({ token, message: "Logged in successfully!" });
+      .json({ token, message: "Logged in successfully!",payload:user });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {

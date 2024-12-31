@@ -19,7 +19,7 @@ export default function UserProfileBanner() {
       <div className="text-4xl font-bold text-white text-shadow flex gap-2">
         I am <h2 className='bg-white/40 text-white '> {q?.name}</h2>
       </div>
-      <p className='text-gray-300 font-semibold animate-pulse'>{q?.headline}.</p>
+      <p className='text-gray-300 font-semibold animate-pulse'>{q?.headline||"No headline to display here"}.</p>
     </div>
   </div>
 
