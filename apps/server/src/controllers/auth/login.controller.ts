@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { OAuth2Client } from "google-auth-library";
-import { User } from "../../models/user.model";
-import { ErrorResponse } from "../../utils/responsehandler";
+import { User } from "../../models/user.model.js";
+import { ErrorResponse } from "../../utils/responsehandler.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../utils/tokens";
-import { isValidPassword } from "../../utils/PasswordValidator";
+import { JWT_SECRET } from "../../utils/tokens.js";
+import { isValidPassword } from "../../utils/PasswordValidator.js";
 import { nanoid } from "nanoid";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const cookie_key = process.env.SESSION_COOKIE_KEY;

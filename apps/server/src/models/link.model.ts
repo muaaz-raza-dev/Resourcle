@@ -1,6 +1,6 @@
 import mongoose, { Types } from "mongoose";
-import { IResource } from "./resource.model";
-import { Iupvote } from "./upvote.model";
+import { IResource } from "./resource.model.js";
+import { Iupvote } from "./upvote.model.js";
 
 const resourceLinkSchema = new mongoose.Schema(
   {

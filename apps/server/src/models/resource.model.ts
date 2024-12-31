@@ -1,8 +1,8 @@
 import mongoose, { Query, Types } from "mongoose";
-import { Iupvote } from "./upvote.model";
-import { Iuser } from "./user.model";
-import { Itags } from "./tag.model";
-import { IResourceLink } from "./link.model";
+import { Iupvote } from "./upvote.model.js";
+import { Iuser } from "./user.model.js";
+import { Itags } from "./tag.model.js";
+import { IResourceLink } from "./link.model.js";
 
 const resourceSchema = new mongoose.Schema(
   {

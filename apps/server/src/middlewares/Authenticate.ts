@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { ErrorResponse } from "../utils/responsehandler";
+import { ErrorResponse } from "../utils/responsehandler.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils/tokens";
-import { User } from "../models/user.model";
+import { JWT_SECRET } from "../utils/tokens.js";
+import { User } from "../models/user.model.js";
 export async function Authenticate(
   req: Request,
   res: Response,

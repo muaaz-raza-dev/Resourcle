@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Itags, Tags } from "../../models/tag.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { Resource } from "../../models/resource.model";
+import { Itags, Tags } from "../../models/tag.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { Resource } from "../../models/resource.model.js";
 
 export default async function SearchTags(req: Request, res: Response) {
   const { q } = req.body;

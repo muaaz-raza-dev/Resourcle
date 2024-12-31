@@ -1,9 +1,9 @@
 import { Request } from "express";
-import { SaveList } from "../models/savelist.model";
-import { IResource } from "../models/resource.model";
-import { Iupvote, Upvotes } from "../models/upvote.model";
+import { SaveList } from "../models/savelist.model.js";
+import { IResource } from "../models/resource.model.js";
+import { Iupvote, Upvotes } from "../models/upvote.model.js";
 import mongoose, { Types } from "mongoose";
-import { IResourceLink } from "../models/link.model";
+import { IResourceLink } from "../models/link.model.js";
 interface IResourceLinkType extends IResourceLink {
   isUpvoted: boolean;
 }

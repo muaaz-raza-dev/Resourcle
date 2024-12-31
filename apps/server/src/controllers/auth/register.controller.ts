@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ErrorResponse } from "../../utils/responsehandler";
-import { User } from "../../models/user.model";
+import { ErrorResponse } from "../../utils/responsehandler.js";
+import { User } from "../../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../utils/tokens";
+import { JWT_SECRET } from "../../utils/tokens.js";
 import { nanoid } from "nanoid";
 const cookie_key = process.env.SESSION_COOKIE_KEY;
 export const RegisterLocal = async (req: Request, res: Response) => {

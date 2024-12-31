@@ -1,5 +1,5 @@
 import express from "express";
-import { Authenticate } from "../middlewares/Authenticate";
+import { Authenticate } from "../middlewares/Authenticate.js";
 import {
   CreateResourceCollection,
   GetCollectionMetaDetails,
@@ -9,7 +9,7 @@ import {
   RemoveLinkFromResourceCollection,
   SaveResourceToCollection,
   SearchResourceCollectionLinks,
-} from "../controllers/Resource Collection/resource-collection.controller";
+} from "../controllers/Resource Collection/resource-collection.controller.js";
 
 const router = express.Router();
 

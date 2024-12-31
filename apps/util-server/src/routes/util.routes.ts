@@ -1,6 +1,6 @@
 // routes/userRoutes.ts
 import { FastifyInstance } from 'fastify';
-import { LinkValidator } from '../contollers/link-validator';
+import { LinkValidator } from '../contollers/link-validator.js';
 
 interface UserResponse {
   message: string;

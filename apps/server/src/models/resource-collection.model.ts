@@ -1,6 +1,6 @@
 import mongoose, { Types } from "mongoose";
-import { IResourceLink } from "./link.model";
-import { Iuser } from "./user.model";
+import { IResourceLink } from "./link.model.js";
+import { Iuser } from "./user.model.js";
 
 const ResourceDiarySchema = new mongoose.Schema(
   {

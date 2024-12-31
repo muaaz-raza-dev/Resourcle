@@ -10,8 +10,8 @@ import {
   SaveResourceInfoController,
   UpdateProfileInfoController,
   ValidateUsername,
-} from "../controllers/profile/profile.controller";
-import { Authenticate } from "../middlewares/Authenticate";
+} from "../controllers/profile/profile.controller.js";
+import { Authenticate } from "../middlewares/Authenticate.js";
 
 const router = express.Router();
 

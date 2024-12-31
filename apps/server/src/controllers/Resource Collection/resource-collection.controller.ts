@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import {
   IresourceCollection,
   ResourceCollection,
-} from "../../models/resource-collection.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { ResourceLink } from "../../models/link.model";
+} from "../../models/resource-collection.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { ResourceLink } from "../../models/link.model.js";
 import { Types } from "mongoose";
 
 interface IsaveResourceRequestBody {

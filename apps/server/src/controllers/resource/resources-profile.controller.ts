@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { ValidateLogin } from "../../middlewares/Authenticate";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { IResource, Resource } from "../../models/resource.model";
-import { isValidObjectId, ObjectId, Types } from "mongoose";
-import { PopulateResources } from "../../functions/populate-resources";
-import { SaveList } from "../../models/savelist.model";
-import { ResourceCollection } from "../../models/resource-collection.model";
-import GetQueryObjectUsernameOrId from "../../functions/query-username-or-id";
-import { User } from "../../models/user.model";
+import { ValidateLogin } from "../../middlewares/Authenticate.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { Resource } from "../../models/resource.model.js";
+import { Types } from "mongoose";
+import { PopulateResources } from "../../functions/populate-resources.js";
+import { SaveList } from "../../models/savelist.model.js";
+import { ResourceCollection } from "../../models/resource-collection.model.js";
+import GetQueryObjectUsernameOrId from "../../functions/query-username-or-id.js";
+import { User } from "../../models/user.model.js";
 export async function GetUserResource(req: Request, res: Response) {
   const { count, sort, isPrivate, userid } = req.body;
   try {

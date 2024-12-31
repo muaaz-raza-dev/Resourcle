@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { Resource } from "../../models/resource.model";
-import { SuccessResponse } from "../../utils/responsehandler";
-import { ValidateLogin } from "../../middlewares/Authenticate";
-import { PopulateResources } from "../../functions/populate-resources";
+import { Resource } from "../../models/resource.model.js";
+import { SuccessResponse } from "../../utils/responsehandler.js";
+import { ValidateLogin } from "../../middlewares/Authenticate.js";
+import { PopulateResources } from "../../functions/populate-resources.js";
 
 export default async function ResourceSearchController(
   req: Request,

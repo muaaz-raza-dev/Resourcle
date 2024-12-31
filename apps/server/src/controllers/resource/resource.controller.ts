@@ -3,17 +3,16 @@ import {
   IContentResource,
   IResource,
   Resource,
-} from "../../models/resource.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { ValidateLogin } from "../../middlewares/Authenticate";
-import { SaveList } from "../../models/savelist.model";
+} from "../../models/resource.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { ValidateLogin } from "../../middlewares/Authenticate.js";
+import { SaveList } from "../../models/savelist.model.js";
 import mongoose, { Types } from "mongoose";
-import { Upvotes } from "../../models/upvote.model";
-import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js";
-import { IResourceLink, ResourceLink } from "../../models/link.model";
-import { CompareLink } from "../../functions/compareLinks.resource";
+import { Upvotes } from "../../models/upvote.model.js";
+import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js.js";
+import { IResourceLink, ResourceLink } from "../../models/link.model.js";
 import { ObjectId } from "mongoose";
-import { ResourceCollection } from "../../models/resource-collection.model";
+import { ResourceCollection } from "../../models/resource-collection.model.js";
 
 export default async function CreateResource(
   req: Request,

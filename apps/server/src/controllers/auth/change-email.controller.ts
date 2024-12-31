@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
 import bcrypt from "bcryptjs";
-import { SendMail } from "../../utils/Mailer";
-import { User } from "../../models/user.model";
-import { GenerateVerificationEmailTemplate } from "../../templates/verify-email.mail";
+import { SendMail } from "../../utils/Mailer.js";
+import { User } from "../../models/user.model.js";
+import { GenerateVerificationEmailTemplate } from "../../templates/verify-email.mail.js";
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;

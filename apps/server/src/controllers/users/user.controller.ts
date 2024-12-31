@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Resource } from "../../models/resource.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
+import { Resource } from "../../models/resource.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
 interface ItopUser {
   upvotes: number;
   top_posts: number;

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { User } from "../../models/user.model";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { User } from "../../models/user.model.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../utils/tokens";
+import { JWT_SECRET } from "../../utils/tokens.js";
 export const getUserInfoController = async (req: Request, res: Response) => {
   try {
     const token = req.cookies[process.env.SESSION_COOKIE_KEY];

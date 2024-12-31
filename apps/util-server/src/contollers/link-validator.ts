@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import fetch from "node-fetch";
-import { ErrorResponse, SuccessResponse } from "../utils/responseHandler";
+import { ErrorResponse, SuccessResponse } from "../utils/responseHandler.js";
 export async function LinkValidator(request: FastifyRequest<{ Body: {link:string} }>, reply: FastifyReply){
     try{
         const {link}=request.body;

@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import { User } from "../../models/user.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { SaveList } from "../../models/savelist.model";
+import { User } from "../../models/user.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { SaveList } from "../../models/savelist.model.js";
 import mongoose, { Types } from "mongoose";
-import { isValidObjectId } from "../../utils/ObjectIdValidator";
-import { Resource } from "../../models/resource.model";
-import { Upvotes } from "../../models/upvote.model";
+import { isValidObjectId } from "../../utils/ObjectIdValidator.js";
+import { Resource } from "../../models/resource.model.js";
+import { Upvotes } from "../../models/upvote.model.js";
 import bcrpyt from "bcryptjs";
 import { OAuth2Client } from "google-auth-library";
 import moment from "moment";
-import { ResourceCollection } from "../../models/resource-collection.model";
-import { ResourceLink } from "../../models/link.model";
+import { ResourceCollection } from "../../models/resource-collection.model.js";
+import { ResourceLink } from "../../models/link.model.js";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function GetProfileInfoController(req: Request, res: Response) {
   try {

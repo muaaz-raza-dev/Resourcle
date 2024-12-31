@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import moment from "moment";
-import { User } from "../../models/user.model";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
+import { User } from "../../models/user.model.js";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
-import { SendMail } from "../../utils/Mailer";
+import { SendMail } from "../../utils/Mailer.js";
 import jwt from "jsonwebtoken";
-import { GenerateHTMLTemplate } from "../../templates/otp.mail";
+import { GenerateHTMLTemplate } from "../../templates/otp.mail.js";
 const cookie_key = process.env.SESSION_COOKIE_KEY;
 const ForgotCookieKey = process.env.REQUESTED_OTP_COOKIE_KEY;
 const JWT_SECRET = process.env.JWT_SECRET;

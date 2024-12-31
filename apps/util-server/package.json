@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon --exec tsx src/index.ts",
+    "dev": "nodemon --exec tsx src/server.ts",
     "build": "tsc"
   },
   "dependencies": {

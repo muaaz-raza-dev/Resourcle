@@ -1,4 +1,4 @@
-import { IResourceLink } from "../models/link.model";
+import { IResourceLink } from "../models/link.model.js";
 
 export function CompareLink(
   remoteLink: IResourceLink,

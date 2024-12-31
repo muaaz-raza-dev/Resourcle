@@ -1,8 +1,8 @@
 import { Request } from "express";
 import { Types } from "mongoose";
-import { Resource } from "../models/resource.model";
-import { SaveList } from "../models/savelist.model";
-import { ValidateLogin } from "../middlewares/Authenticate";
+import { Resource } from "../models/resource.model.js";
+import { SaveList } from "../models/savelist.model.js";
+import { ValidateLogin } from "../middlewares/Authenticate.js";
 import { PipelineStage } from "mongoose";
 const resource_limit = process.env.NEXT_PUBLIC_RESOURCE_LIMIT || 10;
 export async function PopulateResources(

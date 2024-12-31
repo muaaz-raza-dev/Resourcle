@@ -1,10 +1,10 @@
-import { ResourceLink } from "./models/link.model";
-import { ResourceCollection } from "./models/resource-collection.model";
-import { Resource } from "./models/resource.model";
-import { SaveList } from "./models/savelist.model";
-import { Tags } from "./models/tag.model";
-import { Upvotes } from "./models/upvote.model";
-import { User } from "./models/user.model";
+import { ResourceLink } from "./models/link.model.js";
+import { ResourceCollection } from "./models/resource-collection.model.js";
+import { Resource } from "./models/resource.model.js";
+import { SaveList } from "./models/savelist.model.js";
+import { Tags } from "./models/tag.model.js";
+import { Upvotes } from "./models/upvote.model.js";
+import { User } from "./models/user.model.js";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 dotenv.config();

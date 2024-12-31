@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
-import { Upvotes } from "../../models/upvote.model";
-import { Resource } from "../../models/resource.model";
+import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import { Upvotes } from "../../models/upvote.model.js";
+import { Resource } from "../../models/resource.model.js";
 
 export default async function UpvoteResourceController(
   req: Request,

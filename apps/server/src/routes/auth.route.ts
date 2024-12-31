@@ -3,20 +3,20 @@ import { Router } from "express";
 import {
   GoogleLoginController,
   LocaleLoginController,
-} from "../controllers/auth/login.controller";
-import { RegisterLocal } from "../controllers/auth/register.controller";
-import { getUserInfoController } from "../controllers/auth/info.controller";
+} from "../controllers/auth/login.controller.js";
+import { RegisterLocal } from "../controllers/auth/register.controller.js";
+import { getUserInfoController } from "../controllers/auth/info.controller.js";
 import {
   DecodeRequestOTPToken,
   RequestForgotPassword,
   VerifyOTP,
   VerifyOTPToken,
-} from "../controllers/auth/forgot-password.controller";
+} from "../controllers/auth/forgot-password.controller.js";
 import {
   RequestChangeEmailController,
   VerifyChangeEmailToken,
-} from "../controllers/auth/change-email.controller";
-import { Authenticate } from "../middlewares/Authenticate";
+} from "../controllers/auth/change-email.controller.js";
+import { Authenticate } from "../middlewares/Authenticate.js";
 const router: Router = express.Router();
 
 router.post("/login/google", GoogleLoginController);

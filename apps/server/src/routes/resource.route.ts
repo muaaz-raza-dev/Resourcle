@@ -7,14 +7,14 @@ import CreateResource, {
   UpvoteIndividualLink,
   EditResourceFetchResource,
   GetResourceMetaDetails,
-} from "../controllers/resource/resource.controller";
-import { Authenticate } from "../middlewares/Authenticate";
-import ResourceSearchController from "../controllers/resource/resource.search.controller";
+} from "../controllers/resource/resource.controller.js";
+import { Authenticate } from "../middlewares/Authenticate.js";
+import ResourceSearchController from "../controllers/resource/resource.search.controller.js";
 import {
   GetUserResource,
   SavedResources,
   SwitchVisiblityResource,
-} from "../controllers/resource/resources-profile.controller";
+} from "../controllers/resource/resources-profile.controller.js";
 
 const router = express.Router();
 
