@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["https://resourcle.vercel.app", "http://localhost:3000  "],
+    origin: ["https://resourcle.vercel.app", "http://localhost:3000"],
     credentials: true,
   }),
 );
@@ -36,14 +36,19 @@ app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/upvotes", upvotesRoute);
 app.use("/api/v1/resoruceCollection", ResourceCollectionRoute);
 
-try {
-  // Ensure the database connection is established before starting the server
-  await dbConnection();
-  app.listen(PORT, () => {
+const startServer = async () => {
+  try {
+    // Ensure the database connection is established before starting the server
+    await dbConnection();
+    app.listen(PORT, () => {
       console.log(`Primary server is running on http://localhost:${PORT}`);
-  });
-} catch (err) {
-  console.error("Failed to start the server:", err);
-  console.error("Stack trace:", err);
-  process.exit(1); // Exit with a failure code
-}
+    });
+  } catch (err) {
+    console.error("Failed to start the server:", err);
+    console.error("Stack trace:", err);
+    process.exit(1); // Exit with a failure code
+  }
+};
+
+// Start the server
+startServer();
