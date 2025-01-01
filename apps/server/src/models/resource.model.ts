@@ -46,6 +46,7 @@ export interface IResource extends mongoose.Document {
   tags: mongoose.Types.ObjectId[] | Itags[];
   publisher: mongoose.Types.ObjectId | Iuser;
   upvotes: number;
+  description?:string;
   content: IContentResource;
   upvotesDoc: mongoose.Types.ObjectId | Iupvote;
   createdAt: Date;

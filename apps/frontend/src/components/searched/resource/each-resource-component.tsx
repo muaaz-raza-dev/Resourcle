@@ -24,20 +24,20 @@ export default function EachResourceComponent({
     <Card key={resource?._id} className="overflow-hidden px-4 py-2 ">
       <div className="flex flex-col   sm:flex-row ">
         <div className="center ">
-          {/* {resource?.banner && ( */}
+          {resource?.banner && (
             <Link
               href={`/resource/${resource?._id}`}
               className=" relative w-full sm:w-28 sm:h-28 rounded-md bg-secondary"
             >
               <Image
-                src={resource?.banner || "/user.png"}
+                src={resource?.banner }
                 alt={resource?.title}
                 layout="fill"
                 objectFit="contain"
                 className="rounded-md"
               />
             </Link>
-          {/* )} */}
+           )} 
         </div>
         <div className="flex-1 p-3 flex flex-col justify-between">
           <CardContent className="p-0">
