@@ -1,13 +1,12 @@
 import Fastify from 'fastify';
 import utilsRoutes from './routes/util.routes.js';
-import cors from '@fastify/cors'
+import cors, { FastifyCorsOptions } from '@fastify/cors'
 const fastify = Fastify();
-const corsOptions = {
-  origin: ["https://resourcle.vercel.app","http://localhost:3000"], // Allows all origins. You can specify an array or function for specific origins
+const corsOptions:FastifyCorsOptions = {
+  origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
   credentials: true, // Allow cookies to be sent with requests (if needed)
-  maxAge: 86400 // Cache preflight request results for 24 hours
 };
-fastify.register(cors, corsOptions);
+fastify.register(cors,corsOptions );
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
