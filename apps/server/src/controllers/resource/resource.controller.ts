@@ -20,26 +20,20 @@ export default async function CreateResource(
 ): Promise<void> {
   const { payload }: { payload: IResource } = req.body;
   let resourceId: null | Types.ObjectId = null;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     // Validate required fields
     if (!payload || !payload.title) {
-      res.status(400).json({
-        success: false,
-        message: "Title is required",
-      });
-      return;
+      return res.status(400).json({ success: false, message: "Title is required" });
     }
 
     delete payload._id;
     if (!req.userid) {
-      res.status(401).json({
-        success: false,
-        message: "Unauthorized",
-      });
-      return;
+      return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
-    payload.publisher = req.userid as any;
+    payload.publisher = new Types.ObjectId(req.userid) ;
 
     // Create resource with initial empty content
     const resource = await Resource.create({
@@ -62,29 +56,15 @@ export default async function CreateResource(
       payload.content.map(async (grp) => {
         const createdLinks = await Promise.all(
           grp.links.map(async (link) => {
-            const linkPayload = { ...link } as any;
+            const linkPayload = { ...link } as any ;
             delete linkPayload._id;
             linkPayload.upvotes = 0;
             linkPayload.resource = resourceId;
             const newLink = await ResourceLink.create(linkPayload);
-
-            // Add entry in upvotes content_votes array
-            // await Upvotes.findByIdAndUpdate(upvotesDoc._id, {
-            //     $push: {
-            //         content_votes: {
-            //             link_id: newLink._id,
-            //             users: []
-            //         }
-            //     }
-            // });
-
             return newLink._id;
           }),
         );
-        return {
-          label: grp.label,
-          links: createdLinks,
-        };
+        return { label: grp.label, links: createdLinks };
       }),
     );
 
@@ -94,6 +74,7 @@ export default async function CreateResource(
       upvotesDoc: upvotesDoc._id,
     });
 
+    await session.commitTransaction();
     res.status(201).json({
       success: true,
       message: "Resource created successfully",
@@ -102,7 +83,7 @@ export default async function CreateResource(
     return;
   } catch (err) {
     console.error("Error creating resource:", err);
-
+    await session.abortTransaction();
     // Clean up any partially created resources
     if (resourceId) {
       await Promise.all([
@@ -111,11 +92,12 @@ export default async function CreateResource(
         Upvotes.deleteMany({ resource: resourceId }),
       ]);
     }
-
     res.status(500).json({
       success: false,
       message: "Failed to create resource. Please try again.",
     });
+  } finally {
+    session.endSession();
   }
 }
 
