@@ -9,7 +9,7 @@ export async function Authenticate(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split("")[1]
+    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split(" ")[1]
     if (!token) {
         ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
         return;
@@ -38,7 +38,7 @@ export async function Authenticate(
 
 export async function ValidateLogin(req: Request) {
   try {
-    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split("")[1]
+    const token = req.cookies[process.env.SESSION_COOKIE_KEY] || req.headers["authorization"]?.split(" ")[1]
     if (!token) {
       return false;
     }
