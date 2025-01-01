@@ -36,9 +36,7 @@ export async function UpvoteAndSavedPopulator(
     resource.isUpvoted = false;
     return resource;
   }
-  const userBookmarks =
-    (await SaveList.findOne({ user: req.userid }).select("resource").lean())
-      ?.resource || [];
+  const userBookmarks = (await SaveList.findOne({ user: req.userid }).select("resource").lean())?.resource || [];
   const upvotedUsersList = resourceRaw.upvotesDoc as Iupvote;
   resource.isSaved = userBookmarks.some(
     (rs) => rs.toString() == resource._id.toString(),

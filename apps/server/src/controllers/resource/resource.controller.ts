@@ -166,6 +166,7 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
           _id: "$_id",
           content: { $push: "$content" },
           tags: { $first: "$tags" },
+          description: { $first: "$description" },
           upvotesDoc: { $first: "$upvotesDoc" },
           publisher: { $first: "$publisher" },
           createdAt: { $first: "$createdAt" },

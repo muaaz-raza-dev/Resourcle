@@ -16,8 +16,6 @@ const useShare = () => {
     setIsSharing(true);
     try {
       if (navigator.share) {
-        // Native Web Share API
-        console.log(url,title,text)
         await navigator.share({ title, text, url });
       } else if (navigator.clipboard) {
         // Fallback to copy-to-clipboard
