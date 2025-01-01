@@ -20,8 +20,8 @@ export default function FilterbarSearched() {
       <div className="container px-4 py-6 md:py-8 mx-auto">
       <div className="space-y-8">
         <div className="space-y-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{search}</h1>
-          <p className=" md:font-medium text-muted-foreground">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{search}</h1>
+          <p className=" md:font-medium text-sm text-muted-foreground">
             Search all the specific keywords to get the better results
           </p>
           

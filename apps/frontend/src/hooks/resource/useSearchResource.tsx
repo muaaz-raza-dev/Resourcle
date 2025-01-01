@@ -28,12 +28,18 @@ export default function useSearchResource() {
         sort: directPayload?.sort || sortP || "upvotes",
       })
     },
+    onMutate(){
+      setValue((val) => ({...val, isLoading:true }));
+    },
     onSuccess({ payload: { resources, total } }) {
       setValue((val) => ({
         ...val,
         resources: { ...val.resources, [val.count]: resources },
         total,
       }));
+    },
+    onSettled(){
+      setValue((val) => ({...val, isLoading:false }));
     },
     onError({
       response: {

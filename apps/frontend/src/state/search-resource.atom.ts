@@ -5,9 +5,10 @@ interface IsearchedResource{
     total:number;
     sort:SearchedSortOptions
     resources:{[key:string]: IResourceSearched[]};
+    isLoading:boolean;
 }
 export type SearchedSortOptions = "upvotes"|"createdAt"
 export const searchedResourcesAtom = atom<IsearchedResource>({
   key: 'searched-resource',
-  default: {count:0,total:0,resources:{},sort:"upvotes"},
+  default: {count:0,total:0,resources:{},sort:"upvotes",isLoading:false},
 });

@@ -32,6 +32,7 @@ export default function ProfileForm() {
     mutate(payload);
   };
   if(methods.formState.isLoading){ return <ProfileFormInformationLoader/>}
+
   return (
     <div className="md:max-w-2xl max-w-full md:px-4 max-md:px-0 space-y-8">
       <FormProvider {...methods}>
@@ -45,7 +46,7 @@ export default function ProfileForm() {
                 Create your skill profile to showcase your skills.
               </CardDescription>
                 </div>
-                <Link href={`/${methods.getValues("_id")}`}>
+                <Link href={`/u/${methods.getValues("_id")}`}>
                   <Button
                     variant="ghost"
                     className="hover:bg-transparent hover:underline hover:text-primary transition-colors"

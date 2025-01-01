@@ -39,9 +39,9 @@ export default function LinksComponentResourceForm({
 
                 <div className="flex justify-between bg-secondary hover:rounded transition-all w-full rounded-md p-3">
               
-                  <div className="flex max-md:flex-col md:items-center md:gap-4">
-                    <h1 className="font-bold cursor-default text-lg hover:text-primary transition-colors">{link.title}</h1>
-                    <a href={link.url} target="_blank" className="text-primary underline">{link.url}</a>
+                  <div className="flex max-md:flex-col md:items-center md:gap-2">
+                    <h2 className=" cursor-default text-base font-medium transition-colors">{link.title}</h2>
+                    <a href={link.url} target="_blank" className="text-primary text-sm border-l px-1">{link.url}</a>
                   </div>
               
                 

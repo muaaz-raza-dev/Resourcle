@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function ProfileFormInformationLoader() {
   return (
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col w-full">
           <main className="flex-grow flex items-center justify-center">
           <div className="text-center">
             <Loader2 className="h-16 w-16 animate-spin text-primary mx-auto mb-4" />

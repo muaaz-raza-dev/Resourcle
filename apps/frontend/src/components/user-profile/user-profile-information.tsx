@@ -28,7 +28,7 @@ export default function UserProfileInformation() {
         <p className="text-muted-foreground leading-none text-sm">{q?.username}</p>
         </Tooltip>
         <h1 className="text-3xl max-md:text-2xl font-bold leading-none text-gray-900 dark:text-gray-100">{q?.name}</h1>
-        <p className="text-muted-foreground text-base max-md:text-sm">{q?.about||"No about to display here"}</p>
+        <p className="text-muted-foreground text-base leading-tight max-md:text-sm">{q?.about||"No about to display here"}</p>
         <div className="flex gap-2 flex-wrap mt-2">
           {
             q?.links?.map(link=> <Link target='_blank' href={link.url} key={link.url}  className="

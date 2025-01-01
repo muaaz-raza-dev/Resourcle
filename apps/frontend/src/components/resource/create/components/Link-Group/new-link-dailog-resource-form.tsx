@@ -16,6 +16,7 @@ import { Input } from "@/shadcn/components/ui/input";
 import {  Select } from "antd";
 import LinkInputResourceForm from "./link-input-resource-form";
 import { IoMdPricetags } from "react-icons/io";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shadcn/components/ui/form";
 
 export default function NewLinkDailogResourceForm({
   children,
@@ -33,7 +34,7 @@ export default function NewLinkDailogResourceForm({
   const ParentForm = useFormContext<IResource>();
   const [open, setopen] = useState(false);
   const form = useForm<IResourceLink>({ defaultValues: data });
-  const {handleSubmit,register,watch,setValue,trigger,formState: { errors },} =form;
+  const {handleSubmit,register,watch,setValue,trigger,} =form;
   const link = useState(data?true:false)
   const [isLinkValid ] =link
   const onSubmit: SubmitHandler<IResourceLink> = (data,event) => {
@@ -80,19 +81,37 @@ export default function NewLinkDailogResourceForm({
         <FormProvider {...form}>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-          <div className="">
-            <Label className="font-semibold text-sm">Title *</Label>
-            <Input
+       
+            <FormField
+      control={form.control}
+      name="title"
+      rules={{required:"*Title is required",maxLength:{value:50,message:"Title should be less than 50 characters"}}}
+      render={({field}) => (
+        <FormItem>
+          <FormLabel className="py-0">
+          <div className="flex justify-between w-full">
+          <Label className="font-semibold " htmlFor="title">Title *</Label>
+          <p className="text-muted-foreground text-xs">{field.value?.length||0}/50</p>
+          </div>
+          </FormLabel>
+          <FormControl>
+          <Input
+              {...field}
+            id="title"
+            maxLength={50}
               className="bg-white placeholder:text-muted-foreground"
               placeholder="Netflix Engineering blogs"
-              {...register("title", { required: "Title is required" })}
+              autoFocus
             />
-            {errors.title && (
-              <span className="text-red-500 text-xs">
-                {errors.title.message}
-              </span>
-            )}
-          </div>
+           </FormControl>
+          <FormDescription  />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+           
+        
+         
          <LinkInputResourceForm state={link}/>
 
           <div className="">

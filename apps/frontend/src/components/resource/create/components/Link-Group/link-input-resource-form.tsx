@@ -38,7 +38,7 @@ export default function LinkInputResourceForm({
         <Input
           type="url"
           className="bg-white placeholder:text-muted-foreground"
-          placeholder="https://muaaz.dev"
+          placeholder="https://netflixtechblog.com"
           onChange={(e) => {
             debounced(e.target.value);
             onUrlChange(e);

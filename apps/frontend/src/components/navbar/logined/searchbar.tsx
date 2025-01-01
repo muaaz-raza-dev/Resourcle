@@ -1,19 +1,21 @@
 import RequestLoader from "@/components/loader/request-loading";
 import useSearchResource from "@/hooks/resource/useSearchResource";
+import { searchedResourcesAtom } from "@/state/search-resource.atom";
 import clsx from "clsx";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState,useRef } from "react";
 import { useHotkeys } from 'react-hotkeys-hook'
 import { MdKeyboardCommandKey } from "react-icons/md";
+import {  useRecoilValue } from "recoil";
 export default function Searchbar() {
   const [input, setinput] = useState("");
   const searched = useSearchParams();
   const ref = useRef<HTMLInputElement|null>(null)
   const searchTerm = searched.get("search");
-  const { mutate,isLoading } = useSearchResource();
+  const { mutate } = useSearchResource();
   const { push } = useRouter();
-
+  const {isLoading}= useRecoilValue(searchedResourcesAtom);
   useEffect(() => {
     setinput(searchTerm || "");
   }, [searchTerm]);
@@ -31,13 +33,13 @@ export default function Searchbar() {
         );
         mutate({search:input});
       } else {
+        mutate({search:input});
         push(`/search/?search=${input}`);
       }
     }
     else if(event.key=="Escape") {
       ref?.current?.blur()
     }
-    console.log(event.key)
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
