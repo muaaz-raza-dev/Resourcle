@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test": "next dev --experimental-https",
     "start": "next start",
     "lint": "next lint"
   },
