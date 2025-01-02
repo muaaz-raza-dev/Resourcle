@@ -6,13 +6,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shadcn/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useState } from "react";
-import { FaEdit, FaGlobe, FaLock, FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { FaGlobe, FaLock, FaTrash } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
 
 export default function EachResourceAdminMenubar({
@@ -36,22 +35,20 @@ export default function EachResourceAdminMenubar({
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            className="ml-auto hover:bg-secondary text-black text-sm bg-secondary"
+            className="ml-auto hover:bg-secondary text-black border focus:outline-none  text-sm bg-secondary shadow-none"
           >
             <SlOptionsVertical />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Instant actions </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+        <DropdownMenuContent className="gap-1 flex-col flex">
           <Link href={`/resource/edit/${_id}`}>
-          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold">
-             <FaEdit size={12} />
+          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold border">
+          <MdEdit size={14}/>
             Edit
           </DropdownMenuItem>
             </Link>
           <DropdownMenuItem
-            className="justify-between text-sm py-2 font-semibold"
+            className="justify-between text-sm py-2 font-semibold border"
             onSelect={() => setdialogs((d) => ({ ...d, privateSwitch: true }))}
           >
             <div className="flex items-center gap-2">
@@ -68,7 +65,7 @@ export default function EachResourceAdminMenubar({
             </div>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold hover:text-destructive text-destructive"
+          <DropdownMenuItem className="gap-2 text-sm py-2 font-semibold hover:text-destructive text-destructive border"
            onSelect={() => setdialogs((d) => ({ ...d, Delete: true }))}>
              <FaTrash size={12} />
             Delete

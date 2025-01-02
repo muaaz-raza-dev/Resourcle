@@ -18,7 +18,5 @@ export interface ITagFeed {
 
 
 export interface IUserFeed {
-    upvotes: number;
-    top_posts: number;
     user: { name: string; headline: string; _id: string; picture: string }
 }

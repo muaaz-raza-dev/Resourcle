@@ -50,7 +50,7 @@ export default function UpvoteBtn({
     >
       <p className="font-semibold">{state.upvotes}</p>
       {state.isUpvoted ? (
-        <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-ping transition-all")}  
+        <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-pulse transition-all")}  
         size={size || 18} />
       ) : (
         <AiOutlineFire

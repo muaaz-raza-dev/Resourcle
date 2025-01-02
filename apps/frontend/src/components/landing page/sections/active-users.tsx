@@ -11,8 +11,7 @@ import { AnimatedTooltip } from "@/shadcn/components/ui/animated-tooltip";
 import useLoadUsersFeed from "@/hooks/feed/useLoadUserFeed";
 import ResourceLoader from "../loader/resource-loader";
 import Link from "next/link";
-import { AiFillFire } from "react-icons/ai";
-import { Tooltip } from "antd";
+
 
 export default function ActiveUsers() {
   const { isLoading, data } = useLoadUsersFeed();
@@ -22,18 +21,18 @@ export default function ActiveUsers() {
     return (
     <>
       <HeadingComp text={" Top Contributers"} />
-      <Card className="w-full max-w-full bg-transparent border-none shadow-none">
-        <CardContent>
+      <Card className="w-full max-w-full bg-transparent border-none shadow-none px-0">
+        <CardContent className="p-0">
           <section className="flex flex-wrap justify-between gap-y-3">
-            {users?.slice(0, 4)?.map(({ user, upvotes }) => (
+            {users?.slice(0, 4)?.map(({ user }) => (
               <div
                 key={user._id}
-                className="flex items-center gap-3 py-4 lg:w-[48%] max-lg:w-[98%] border-2 px-5 rounded-md"
+                className="flex items-center gap-3 py-4 lg:w-[48%] max-lg:w-full border-2 px-5 rounded-md"
               >
-                <Avatar className="h-10 w-10">
+                <Avatar className="h-12 w-12  ">
                   <AvatarImage
                     src={user.picture || "/user.png"}
-                    alt={user.name}
+                    alt={user.name} 
                   />
                   <AvatarFallback className="bg-secondary-foreground text-white font-semibold">
                     {user.name.slice(0, 2).toUpperCase()}
@@ -43,15 +42,10 @@ export default function ActiveUsers() {
                   <p className="text-sm font-semibold leading-none">
                     {user.name}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs max-md:text-sm leading-tight text-muted-foreground">
                     {user.headline} 
                   </p>
-                  {upvotes?
-                    <Tooltip title="Upvotes" className="flex font-bold  items-center gap-1 text-xs">
-                      <AiFillFire fill="rgb(249 115 22)" />
-                  {upvotes}
-                  </Tooltip>:null
-                  }
+                 
                   
                 </div>
                 <div className="flex " />

@@ -29,7 +29,7 @@ export default function HeroSection() {
         }}
         className="text-center text-lg font-medium max-md:text-sm text-gray-600 tracking-tight mt-2"
       >
-        Resourcin is a community effort to share resources, guides, and other
+        Resourcle is a community driven effort to share resources, guides, and other
         educational content to help guide users in picking up a path and guide
         their learnings.
       </motion.p>

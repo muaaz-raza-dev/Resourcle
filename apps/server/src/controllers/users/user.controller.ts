@@ -18,7 +18,6 @@ export default async function GetTopUsers(
       {
         $group: {
           _id: "$publisher",
-          upvotes: { $sum: "$upvotes" },
         },
       },
       {
@@ -42,7 +41,6 @@ export default async function GetTopUsers(
           "user.headline": 1,
           "user.picture": 1,
           "user.email": 1,
-          upvotes: 1,
         },
       },
     ]);

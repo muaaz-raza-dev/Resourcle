@@ -11,7 +11,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 import ResourceEachLinkUpvote from "./resource-each-link-upvote";
 import ResourceEachLinkCollectButton from "./resource-each-link-collect-button";
-import { Tooltip } from "antd";
 import useScreenSizeTracker from "@/hooks/global/useScreenSizeTracker";
 import { LinkPreview } from "@/shadcn/components/ui/link-preview";
 
@@ -76,18 +75,16 @@ function ScreeenSizeBasedLayout({
     <div className="flex gap-2   max-md:justify-between ">
       <Popover  open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
-          <Tooltip title="Details">
             <button className="`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2">
               <CaretSortIcon fontSize={20} />
             </button>
-          </Tooltip>
         </PopoverTrigger>
         <PopoverContent side="bottom" align="center">
           <p className="text-muted-foreground text-xs">
             {resource.description || "no description"}
           </p>
           {resource.tags.length ? (
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 flex-wrap mt-2">
               {resource.tags.map((tag) => {
                 return (
                   <Badge

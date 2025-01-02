@@ -11,7 +11,7 @@ export default function ResourceCollectionLinks() {
   const id = useParams().id as string;
   const [state] = useRecoilState(ResourceCollectionAtom);
   const limit = process.env.Collection_links_limit || 25;
-  const { mutate, isLoading } = useGetCollectionLinks();
+  const { mutate, isLoading ,isSuccess} = useGetCollectionLinks();
   const fetchData = () => {
     mutate({ count: state.count, id });
   };
@@ -31,7 +31,7 @@ export default function ResourceCollectionLinks() {
       {state.iterable.map((e, i) => (
         <ResoureCollectionEachResource key={i} data={e} />
       ))}
-      {state.iterable.length==0 &&
+      {isSuccess && state.iterable.length==0 &&
       <div className="w-full text-center py-8 text-muted-foreground text-sm">
         No resource collected 
       </div>

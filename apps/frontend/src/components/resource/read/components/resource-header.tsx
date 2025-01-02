@@ -19,7 +19,7 @@ export default function ResourceHeader() {
       className="w-full h-40 object-contain mb-4 rounded-t-lg"
       />
     }
-    <h1 className="text-5xl font-black text-center" >
+    <h1 className="text-5xl max-md:text-4xl font-black text-center" >
       {data?.payload.title}
    </h1>
     <p className="text-muted-foreground text-center pt-2">

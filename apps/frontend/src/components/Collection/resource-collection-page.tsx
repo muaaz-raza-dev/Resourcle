@@ -4,7 +4,7 @@ import React from 'react'
 import ResourceCollectionSearchBar from './resource-collection-searchBar'
 import ResourceCollectionMeta from './resource-collection-meta'
 import useGetResouceCollectionMeta from '@/hooks/resource-collection/useGetResourceCollectionMeta'
-import ResourceLoader from '../landing page/loader/resource-loader'
+import  { CollectionLoader } from '../landing page/loader/resource-loader'
 import ResourceCollectionLinks from './resource-collection-links'
 import ResourceCollectionList from './resource-collection-list'
 
@@ -16,7 +16,7 @@ export default function ResourceCollectionPage() {
       <div className="container px-4 py-6 md:py-8 flex flex-col gap-4 max-w-6xl">
       <ResourceCollectionList/>
       {isLoading ?
-       <ResourceLoader/>
+       <CollectionLoader/>
       :
       <>
       <header className=" text-center py-4">

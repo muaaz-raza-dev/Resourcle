@@ -13,7 +13,7 @@ export default function Footer() {
         
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-bold text-white">Resourcera</h2>
+            <h2 className="text-2xl font-bold text-white">Resourcle</h2>
             <Link href={"https://www.linkedin.com/in/muaaz-raza/"} target="_blank" className="bg-primary text-white text-sm px-2 py-0.5 rounded">@muaaz-raza</Link>
           </div>
           <p className="text-slate-200 max-w-md">
@@ -44,15 +44,15 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex items-center gap-4">
-            <Link href="mailto:yourssharky@gmail.com" className="hover:text-white transition-colors">
+            <Link target="_blank" href="mailto:yourssharky@gmail.com" className="hover:text-white transition-colors">
               <Mail className="h-5 w-5" />
               <span className="sr-only">Email</span>
             </Link>
-            <Link href="https://www.instagram.com/muaaz_the_developer/" className="hover:text-white transition-colors">
+            <Link  href="https://www.instagram.com/muaaz_the_developer/" className="hover:text-white transition-colors">
               <Instagram className="h-5 w-5" />
               <span className="sr-only">YouTube</span>
             </Link>
-            <Link href="https://x.com/MuaazRazaDev" className="hover:text-white transition-colors">
+            <Link target="_blank" href="https://x.com/MuaazRazaDev" className="hover:text-white transition-colors">
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
             </Link>

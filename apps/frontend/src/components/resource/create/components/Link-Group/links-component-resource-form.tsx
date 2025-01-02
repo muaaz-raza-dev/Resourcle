@@ -8,7 +8,6 @@ import {  FaPlus, FaRegEdit, FaTrash } from "react-icons/fa";
 import NewLinkDailogResourceForm from "./new-link-dailog-resource-form";
 import { useFormContext } from "react-hook-form";
 import { IResource, IResourceLink } from "@/types/Iresource";
-import { Tooltip } from "antd";
 import { Badge } from "@/shadcn/components/ui/badge";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 export default function LinksComponentResourceForm({
@@ -70,11 +69,9 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
   return (
     <Popover  open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
-          <Tooltip title="Details">
             <button type="button" className="`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2">
               <CaretSortIcon fontSize={22} />
             </button>
-          </Tooltip>
         </PopoverTrigger>
         <PopoverContent side="bottom" align="center">
           <a href={link.url} target="_blank" className="text-primary underline">{link.url}</a>
@@ -82,7 +79,7 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
             {link.description || "no description"}
           </p>
           {link?.tags?.length ? (
-            <div className="flex gap-2 my-2">
+            <div className="flex gap-2 my-2 flex-wrap">
               {link.tags.map((tag) => {
                 return (
                   <Badge
@@ -99,17 +96,17 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
       
       <div className="flex gap-2 flex-col pt-4 border-t">
 
-<div className="flex justify-between w-full ">
-<p className="text-sm">Edit link details</p>
 <NewLinkDailogResourceForm
   data={link}
   linkGroupIndex={index}
   linkIndex={link_index}
   isEdit
 >
+  <div className="flex justify-between w-full ">
+  <p className="text-sm">Edit link details</p>
       <FaRegEdit  className="w-4 h-4" />
-</NewLinkDailogResourceForm>
   </div>
+</NewLinkDailogResourceForm>
 <button type="button" onClick={() => DeleteLink(link_index)} className="flex justify-between w-full">
   <p className="text-sm">Delete link</p>  
     <FaTrash className="text-destructive" />

@@ -68,7 +68,7 @@
 }
 
 
-/* @font-face {
+ @font-face {
   font-family: 'Segoe UI';
   src: url('/public/fonts/SegoeUI-BoldItalic.eot');
   src: local('Segoe UI Bold Italic'), local('SegoeUI-BoldItalic'),
@@ -138,7 +138,7 @@
       url('/public/fonts/SegoeUI-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
-} */
+} 
 
 
 
