@@ -16,7 +16,7 @@ export default function UserProfileResourcesFilterbar() {
     resources: { total },
   } = useRecoilValue(UserProfileResourceAtom);
   useEffect(() => {
-    if(total==0)mutate(undefined);
+    mutate(undefined);
   }, []);
 
   return (

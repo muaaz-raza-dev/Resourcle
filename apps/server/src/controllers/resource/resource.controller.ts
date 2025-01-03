@@ -24,8 +24,9 @@ export default async function CreateResource(
   session.startTransaction();
   try {
     // Validate required fields
-    if (!payload || !payload.title) {
-      return res.status(400).json({ success: false, message: "Title is required" });
+    if (!payload || !payload.title || !payload.content.length ||payload.content) {
+      res.status(400).json({ success: false, message: "Content is missing" });
+      return ;
     }
 
     delete payload._id;
@@ -135,7 +136,6 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
         },
       },
       { $unwind: "$publisher" },
-
       {
         $lookup: {
           from: "upvotes",
@@ -145,7 +145,19 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
         },
       },
       { $unwind: "$upvotesDoc" },
-      { $unwind: "$content" },
+      {
+        $unwind: {
+          path: "$content",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: {
+          "content.links": {
+            $ifNull: ["$content.links", []],
+          },
+        },
+      },
       {
         $lookup: {
           from: "resourcelinks",
@@ -157,7 +169,11 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
       {
         $addFields: {
           "content.links": {
-            $sortArray: { input: "$content.links", sortBy: { upvotes: -1 } },
+            $cond: {
+              if: { $not: ["$content.links"] },
+              then: [],
+              else: { $sortArray: { input: "$content.links", sortBy: { upvotes: -1 } } },
+            },
           },
         },
       },
@@ -182,10 +198,11 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
         },
       },
     ];
+    
     const populatedResource = await Resource.aggregate(query);
     const resourceRaw = populatedResource[0] as IResource;
     if (!resourceRaw) {
-      ErrorResponse(res, { status: 404, message: "Not found" });
+      ErrorResponse(res, { status: 404, message: "Resource not found" });
       return;
     }
     const resource = JSON.parse(JSON.stringify(resourceRaw));

@@ -233,6 +233,11 @@ export async function GetUserCollectionsList(req: Request, res: Response) {
   const resourceCollections = await ResourceCollection.find({
     user: req.userid,
   }).select("links name");
+  if(resourceCollections&&!resourceCollections.length){
+    const new_resource = await ResourceCollection.create({user:req.userid})
+    SuccessResponse(res, { payload: [{...new_resource.toObject(), links:0 }] })
+    return;
+  }
   const resourceCollectionsWithLength = resourceCollections.map(
     (collection) => ({
       ...collection.toObject(),

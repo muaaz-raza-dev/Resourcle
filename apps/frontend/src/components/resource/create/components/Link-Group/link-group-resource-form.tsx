@@ -1,5 +1,5 @@
 import React, { useState, memo } from "react";
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller,  } from "react-hook-form";
 import { FaLink, FaTrash } from "react-icons/fa";
 import { BsArrowsCollapse, BsArrowsExpand } from "react-icons/bs";
 import LinksComponentResourceForm from "./links-component-resource-form";
@@ -44,6 +44,7 @@ function LinkGroupResourceForm({ index }: { index: number }) {
       </header>
 
       {!collapse && <LinksComponentResourceForm index={index} />}
+
     </div>
   );
 }
@@ -57,14 +58,14 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
       name={`content.${index}.label`}
       rules={{ required: "Label of the link group is required" }}
       render={({ field, fieldState }) => (
-        <>
+        <div>
         <input
           {...field}
           className="text-xl px-2 h-max rounded-md border-none w-full max-md:font-medium outline-none font-bold placeholder:text-gray-400 bg-transparent"
           placeholder="Youtube podcasts"
           />
-          {fieldState.error?.message&& <span className="text-red-500">{fieldState.error?.message}</span>}
-          </>
+          {fieldState.error?.message&& <span className="text-red-500 px-2 text-xs">{fieldState.error?.message}</span>}
+          </div>
       )}
     />
   );

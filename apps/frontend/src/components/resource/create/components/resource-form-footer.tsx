@@ -9,11 +9,13 @@ import { useTrackChanges } from '@/hooks/utils/useTrackChanges'
 import { useFetchEditableResource } from '@/hooks/resource/useEditResource'
 
 export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;edit?:boolean}) {
+  const {watch} = useFormContext<IResource>()
+  const content = watch("content")
   return (
     <footer  className='  max-w-5xl border-t h-max  flex justify-between gap-4 py-4  flex-col'>
     <TagsResourceForm/>
     <PublicPrivateSwitchResourceForm/>
-    
+        
     {
       edit ? 
       <UpdateButton isLoading={isLoading}/>
@@ -22,8 +24,13 @@ export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;e
         { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
       </Button>
     }
-            
+    {
+      !content.length&&
+    <p className="text-orange-400 text-sm text-center">
+    Link is required to launch a resource
+      </p>        
     
+    }
     </footer>
   )
 }

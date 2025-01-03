@@ -12,6 +12,7 @@ import useCreateResource from "@/hooks/resource/useCreateResource";
 import useEditResource, { useFetchEditableResource } from "@/hooks/resource/useEditResource";
 import ResourceLoader from "@/components/landing page/loader/resource-loader";
 import NotFoundRenderer from "@/components/global/not-found-renderer";
+import toast from "react-hot-toast";
 
 export default function CreateResourceForm({edit}:{edit?:boolean}) {
   const methods = useForm<IResource>({ defaultValues: defaultResource });
@@ -28,6 +29,11 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
     }
   }
   const onSubmit: SubmitHandler<IResource> = async (data) => {
+    const isValid = data.content.length && data.content.every((content) => content.links.length);
+    if(!isValid){ 
+      toast.error("Atleast one link is required");
+      return;
+    }
     if (data.banner && typeof data.banner != "string") {
       setUploading(true);
       try{

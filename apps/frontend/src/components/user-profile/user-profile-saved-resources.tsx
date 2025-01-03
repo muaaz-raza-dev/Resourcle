@@ -16,7 +16,7 @@ export default function UserProfileSavedResources() {
     [resources]
   );
   useEffect(() => {
-    if (!total) mutateObject.mutate(undefined);
+     mutateObject.mutate(undefined);
   }, []);
 
   function OnFire() {

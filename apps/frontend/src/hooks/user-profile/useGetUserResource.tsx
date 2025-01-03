@@ -12,7 +12,7 @@ export default function useGetUserResources() {
   const [{ resources:{count, sort: sortP,isPrivate} },setValue] = useRecoilState(UserProfileResourceAtom);
   const userid  = useParams().user as string
   return useMutation({
-    mutationKey: ["User",  sortP],
+    mutationKey: ["User",  sortP,userid,count],
     mutationFn: (directPayload?: {
       search ?: string;
       sort?: SearchedSortOptions;

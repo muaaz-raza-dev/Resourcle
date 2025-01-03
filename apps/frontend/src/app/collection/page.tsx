@@ -8,8 +8,8 @@ export default function Page() {
     const { data, isLoading } = useGetResourceCollections({enabled:true});
     const {push} = useRouter()
     useEffect(() => {
-      if(data?.payload){
-        push(`/collection/${data?.payload[0]._id}`)
+      if(data?.payload && data.payload.length > 0){
+        push(`/collection/${data?.payload[0]?._id}`)
       }
     }, [isLoading])
   return (
