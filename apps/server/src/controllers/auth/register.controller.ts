@@ -5,14 +5,29 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../utils/tokens.js";
 import { nanoid } from "nanoid";
+import passwordValidator from 'password-validator';
 // const cookie_key = process.env.SESSION_COOKIE_KEY;
+const schema = new passwordValidator();
+schema.is().min(8)                        // Minimum length 8
+       .is().max(20)                      // Maximum length 20
+       .has().uppercase()                 // Must have uppercase letters
+       .has().lowercase()                 // Must have lowercase letters
+       .has().digits()                    // Must have digits
+       .has().not().spaces()              // Cannot contain spaces
+       .has().symbols();
 export const RegisterLocal = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   try {
+    // Add rules
     // Check if email is already registered
     let user = await User.findOne({ email });
     if (user) {
       ErrorResponse(res, { message: "Email already exists", status: 400 });
+      return;
+    }
+    const isValidPassword = schema.validate(password)
+    if (!isValidPassword) {
+      ErrorResponse(res, { message: "Password does not meet the requirements", status: 400 });
       return;
     }
     const hashedPassword = await bcrypt.hash(password, 10);

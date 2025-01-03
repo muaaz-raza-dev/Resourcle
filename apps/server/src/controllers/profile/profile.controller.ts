@@ -11,6 +11,7 @@ import { OAuth2Client } from "google-auth-library";
 import moment from "moment";
 import { ResourceCollection } from "../../models/resource-collection.model.js";
 import { ResourceLink } from "../../models/link.model.js";
+import PasswordValidator from "password-validator";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function GetProfileInfoController(req: Request, res: Response) {
   try {
@@ -32,6 +33,17 @@ export async function GetProfileInfoController(req: Request, res: Response) {
 export async function UpdateProfileInfoController(req: Request, res: Response) {
   try {
     const { name, links, about, headline, picture, username } = req.body;
+    
+    const usernameschema = new PasswordValidator();
+       usernameschema.is().min(5)                    // Minimum length 5
+         .is().max(15)                  // Maximum length 15
+         .has().not().spaces()          // Cannot contain spaces
+         .has(/^[a-zA-Z0-9_]+$/)
+         const isValid = usernameschema.validate(username)
+         if(req.details.username != username&&!isValid){
+           ErrorResponse(res, { message: "Username should be between 5 to 15 characters long, should not contain spaces, and should only contain alphanumeric characters and symbols.", status: 400 });
+           return;
+         }
     const user_details = await User.findByIdAndUpdate(
       req.userid,
       { name, links, about, headline, picture, username },
@@ -112,11 +124,12 @@ export async function GetUserProfileInfoController(
     return;
   }
 }
-
 export async function ValidateUsername(req: Request, res: Response) {
+  
   try {
     const { username } = req.body;
     const user = await User.findOne({ username }).select("_id");
+
     if (!user) {
       SuccessResponse(res, {
         message: "username available",

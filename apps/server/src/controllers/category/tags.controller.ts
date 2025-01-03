@@ -81,18 +81,3 @@ export async function TrendingTags(req: Request, res: Response) {
     return;
   }
 }
-
-export async function CreateTags(req:Request,res:Response){
-  try{
-
-    const {tags}= req.body;
-    for (const tag of tags) {
-      await Tags.create({name:tag});
-    }
-  SuccessResponse(res, { message: "Tags created successfully" });
-  }
-  catch(err){
-    
-    ErrorResponse(res,{message:"SOmething went wrong. You may repeat some of it",error:err})
-  }
-}
