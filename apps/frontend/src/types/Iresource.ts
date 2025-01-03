@@ -34,7 +34,7 @@ export const defaultResource: IResource = {
     publisher: '',
     upvotes: 0,
     banner:"",
-    content: [],
+    content: [{label:"",links:[]}],
     createdAt: new Date(),
     updatedAt: new Date()
 };

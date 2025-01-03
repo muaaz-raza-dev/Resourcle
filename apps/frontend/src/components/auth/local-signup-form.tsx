@@ -19,6 +19,21 @@ export default function LocalSignUpForm() {
   const formSubmit: SubmitHandler<IlocalSignup> = (data) => {
     signup(data);
   };
+  const passwordValidation = (value: string) => {
+    if(value.includes(" ")){
+      return "password should not contain space"
+    }
+    if(!/[A-Z]/.test(value)){
+      return "password should contain at least one uppercase letter"
+    }
+    if(!/[a-z]/.test(value)){
+      return "password should contain at least one lowercase letter"
+    }
+    if(!/[0-9]/.test(value)){
+      return "password should contain at least one number"
+  }
+  return true 
+  }
   return (
     <form
       onSubmit={form.handleSubmit(formSubmit)}
@@ -31,8 +46,8 @@ export default function LocalSignUpForm() {
         <div className="border group rounded-lg flex gap-1 items-center px-2 ">
           <User className="text-muted-foreground" size={22} />
           <Input
-            {...form.register("name", { required: "Name is required" })}
-            id="email"
+            {...form.register("name", { required: "Name is required", minLength: { value: 3, message: "minimum 3 character is required" } })}
+            id="name"
             placeholder="Enter your full name"
             className="border-none  outline-none ring-0 focus:outline-none focus:border-no placeholder:text-sm"
           />
@@ -50,7 +65,12 @@ export default function LocalSignUpForm() {
         <div className="border group rounded-lg flex gap-1 items-center px-2 ">
           <Mail className="text-muted-foreground" size={22} />
           <Input
-            {...form.register("email", { required: "email is required" })}
+            {...form.register("email", { required: "email is required" ,
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Invalid email address",
+              }
+            })}
             id="email"
             type="email"
             placeholder="Enter your work email"
@@ -76,7 +96,8 @@ export default function LocalSignUpForm() {
                 value: 8,
                 message: "minimum 8 character is required",
               },
-            })}
+              validate: passwordValidation
+           })}
             placeholder="Choose strong password"
           />
         </div>

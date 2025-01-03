@@ -27,16 +27,18 @@ export default function ResourceHeader() {
     </p>
     <Separator className='my-2 w-[40%] mx-auto' />
 
-    <div className="flex gap-2 justify-between flex-wrap">
+    <div className="flex gap-2 justify-between  flex-wrap">
       <div className="flex gap-2" >
-      <p className='font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2'>{data?.payload.content.length} resource bundles</p>
+      <p className='font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2'>{data?.payload.content.length} resource groups</p>
       <p className='font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2'>{totalResources} resources</p>
       </div>
+      <div className="flex gap-2 flex-wrap">
+
           {
             data?.payload.tags.map(e=><div  className='border rounded-md transition-transform p-1 px-2 hover:bg-muted text-xs font-semibold !bg-white text-primary ' key={e._id}># {e.name}</div>)
           }
           </div>
-
+          </div>
   </header>
   )
 }

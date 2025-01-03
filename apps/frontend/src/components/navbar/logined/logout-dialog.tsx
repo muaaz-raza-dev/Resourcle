@@ -23,14 +23,14 @@ export default function LogoutDialog() {
     </AlertDialogTrigger>
     <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle>Do you really want to log out 🤔?</AlertDialogTitle>
+        <AlertDialogTitle>Do you want to log out ?</AlertDialogTitle>
         <AlertDialogDescription>
         To ensure the security of your login and prevent accidental logout, please confirm your action. If you are certain, proceed. We look forward to welcoming you back
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel className="border-none bg-secondary">Cancel</AlertDialogCancel>
-        <AlertDialogAction onClick={LogOut}>Sure</AlertDialogAction>
+        <AlertDialogCancel className=" border hover:bg-border">Cancel</AlertDialogCancel>
+        <AlertDialogAction className="bg-secondary-foreground hover:bg-secondary-foreground/90" onClick={LogOut}>Confirm</AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>

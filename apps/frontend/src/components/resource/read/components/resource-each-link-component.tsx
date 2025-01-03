@@ -100,12 +100,9 @@ function ScreeenSizeBasedLayout({
           ) : null}
           {size == "sm" && (
             <div className="flex justify-between flex-col  mt-4 gap-4 w-full border-t  t py-2">
-              <div className="flex justify-between items-center">
-              <p className=" text-center text-sm font-semibold">
-              Add to collection
-              </p>
+              
               <ResourceEachLinkCollectButton link_id={resource._id} />
-              </div>
+              
               <div className="flex justify-between items-center">
                 <p className="text-center text-sm font-semibold"> 
                 Upvotes

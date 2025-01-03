@@ -14,6 +14,7 @@ import ResourceLoader from "@/components/landing page/loader/resource-loader";
 import NotFoundRenderer from "@/components/global/not-found-renderer";
 import toast from "react-hot-toast";
 
+
 export default function CreateResourceForm({edit}:{edit?:boolean}) {
   const methods = useForm<IResource>({ defaultValues: defaultResource });
   const {isLoading:isFetching,isError} = useFetchEditableResource(edit||false,methods.reset)

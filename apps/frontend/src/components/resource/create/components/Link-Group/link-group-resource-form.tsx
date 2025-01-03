@@ -17,8 +17,8 @@ function LinkGroupResourceForm({ index }: { index: number }) {
   }
 
   return (
-    <div className="w-full rounded-md p-2 flex flex-col border-2 py-4 gap-4">
-      <header className="flex justify-between rounded-md w-full">
+    <div className="w-full rounded-md  flex flex-col  gap-4 ">
+      <header className="flex justify-between items-center py-2 sm:px-2 w-full border-b ">
         <GroupLabelInput index={index} />
         <div className="flex gap-1 ">
           <div className="rounded-md p-2 items-center bg-secondary  flex gap-1 font-semibold text-sm">
@@ -61,8 +61,8 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
         <div>
         <input
           {...field}
-          className="text-xl px-2 h-max rounded-md border-none w-full max-md:font-medium outline-none font-bold placeholder:text-gray-400 bg-transparent"
-          placeholder="Youtube podcasts"
+          className=" h-max rounded-md placeholder:font-semibold border-none w-full max-md:font-medium outline-none font-medium placeholder:text-gray-400 bg-transparent"
+          placeholder="Label the link group"
           />
           {fieldState.error?.message&& <span className="text-red-500 px-2 text-xs">{fieldState.error?.message}</span>}
           </div>

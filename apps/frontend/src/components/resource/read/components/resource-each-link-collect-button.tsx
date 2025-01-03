@@ -32,6 +32,11 @@ export default function ResourceEachLinkCollectButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
+      <div className="flex justify-between items-center">
+              <p className=" text-center text-sm font-semibold">
+              Add to collection
+              </p>
+              </div>
         <Tooltip title="Add link to resource collection" className="flex gap-2  justify-end font-semibold items-center text-xs ">
           <button
             className={`relative aspect-square  text-xs font-semibold  h-8 hover:bg-border transition-colors  border rounded-md p-1 px-2`}

@@ -32,7 +32,7 @@ export default function TitleDescriptionResournceForm() {
           <FormLabel />
           <FormControl>
           <input {...field}
-           className='text-2xl max-md:text-xl  border-none w-full outline-none  resize-none   focus:outline-none  font-bold placeholder:text-gray-400 bg-transparent text-wrap '
+           className='text-2xl max-md:text-xl  border-none w-full outline-none  resize-none   focus:outline-none  font-semibold placeholder:text-gray-400 bg-transparent text-wrap '
            placeholder='Title of the resource'  autoFocus/>
            </FormControl>
           <FormDescription />
@@ -49,7 +49,7 @@ export default function TitleDescriptionResournceForm() {
           <FormLabel />
           <FormControl className='h-max'>
           <textarea {...field}
-          className='text-lg max-md:text-base border-none  resize-none w-full min-h-[80px]  focus:outline-none outline-none  py-0 font-medium placeholder:text-gray-400 bg-transparent '
+          className='text-lg max-md:text-base border-none  resize-none w-full min-h-[40px]  focus:outline-none outline-none  py-0 font-medium placeholder:text-gray-400 bg-transparent '
             placeholder='Description of the resource' ref={descriptionRef}/>
            </FormControl>
           <FormDescription />

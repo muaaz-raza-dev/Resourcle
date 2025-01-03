@@ -2,8 +2,8 @@ import useValidateUsername from "@/hooks/profile/useValidateUsername";
 import { Input } from "@/shadcn/components/ui/input";
 import { Label } from "@/shadcn/components/ui/label";
 import { IuserProfile } from "@/types/IuserProfile";
-import React, { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
 import RequestLoader from "../loader/request-loading";
 import { FaBan, FaCheckCircle } from "react-icons/fa";
@@ -15,19 +15,21 @@ const uri = process.env.NEXT_PUBLIC_URL;
 export default function ProfileFormUsername() {
   const methods = useFormContext<IuserProfile>();
   const username_remote = methods.watch("username") || "";
-  const [username, setUsername] = useState("");
-  useEffect(() => setUsername(username_remote), [username_remote]);
+  const form = useForm<{username:string}>({defaultValues:{username:username_remote}});
+  useEffect(() => form.setValue("username",username_remote), [username_remote]);
   const { data, isLoading, mutate } = useValidateUsername();
-  const debounced = useDebouncedCallback((val) => {
-    if (val && username_remote != val) {
+  const debounced = useDebouncedCallback(async(val) => {
+    const isValid =await form.trigger("username");
+    if (val && username_remote != val&&isValid) {
       mutate(val);
     }
   }, 500);
   const { mutate: update, isLoading: isUpdating } = useUpdateProfileUsername();
 
-  function UpdateUsername() {
-    if (data?.payload.isAvailable) {
-      update(username);
+  async function UpdateUsername() {
+    const isValid =await form.trigger("username");
+    if (data?.payload.isAvailable&&isValid) {
+      update(form.getValues("username"));
     }
   }
   return (
@@ -54,12 +56,11 @@ export default function ProfileFormUsername() {
       <div className="flex gap-2 items-center">
         <Input
           id="username"
-          value={username}
-          onChange={({ target: { value } }) => {
-            setUsername(value);
-            debounced(value);
-          }}
-          placeholder="username"
+          {
+            ...form.register("username", {required:"Username is required",minLength:{value:3,message:"minimum 3 character is required"},
+            pattern:{value:/^[a-zA-Z0-9_]+$/,message:"username should contain only alphabets, numbers and underscore"}})
+          }
+          onChange={(e) => {form.register("username").onChange(e); debounced(e.target.value)}}
         />
         {isLoading ? (
           <RequestLoader size="16" />
@@ -76,7 +77,7 @@ export default function ProfileFormUsername() {
         ) : null}
         <Button
           type="button"
-          disabled={isLoading ||  !data || !data.payload.isAvailable || username_remote == username}
+          disabled={isLoading ||  !data || !data.payload.isAvailable || username_remote == form.watch("username")||!form.formState.isValid}
           onClick={UpdateUsername}
         >
           {isUpdating ? <RequestLoader size="16" /> : "Update"}
