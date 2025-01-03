@@ -24,7 +24,7 @@ export default async function CreateResource(
   session.startTransaction();
   try {
     // Validate required fields
-    if (!payload || !payload.title || !payload.content.length ||payload.content) {
+    if (!payload || !payload.title || !payload.content.length || !payload.content) {
       res.status(400).json({ success: false, message: "Content is missing" });
       return ;
     }
