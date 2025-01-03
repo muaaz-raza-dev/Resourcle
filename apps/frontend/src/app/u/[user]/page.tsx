@@ -13,8 +13,8 @@ export default function ProfilePage() {
   return (
     <NotFoundRenderer isError={isError}  isLoading={isLoading} Loader={<ProfileSkeletonLoader/>} errorMessage={" We couldn't find the user you're looking for. They may have been deleted or never existed. "} >
     <main className="min-h-screen  mt-4">
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-4 lg:px-8 pb-8">
       <UserProfileBanner />
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-4 lg:px-8 pb-8">
       <UserProfileInformation/> 
       <UserProfileResourceTabs/>
       </section>
