@@ -19,6 +19,9 @@ export default function useGetUserSavedResource() {
         },
       }));
     },
+    onMutate(){
+      setValue((prev) => ({...prev,saved:{...prev.saved,isLoading:true}}))
+    },
     onSettled(){
       setValue((prev) => ({...prev,saved:{...prev.saved,isLoading:false}}))
     }

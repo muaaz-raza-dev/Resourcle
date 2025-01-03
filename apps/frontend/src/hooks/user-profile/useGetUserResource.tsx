@@ -39,6 +39,9 @@ export default function useGetUserResources() {
     }) {
       console.error("Error creating resource", message);
     },
+    onMutate(){
+      setValue(val=>({...val,resources:{...val.resources,isLoading:true}}))
+    },
     onSettled() {
       setValue(val=>({...val,resources:{...val.resources,isLoading:false}}))
     },
