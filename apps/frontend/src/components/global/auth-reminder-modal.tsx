@@ -12,6 +12,7 @@ import {
 import Link from "next/link"
 import { useRecoilState } from "recoil"
 import { authAtom } from "@/state/auth.atom"
+import Image from "next/image"
 
 export default function AuthReminderModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -29,17 +30,20 @@ export default function AuthReminderModal() {
     <Dialog open={isOpen} onOpenChange={handleChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Join our community</DialogTitle>
-          <DialogDescription>
+          <div className="center flex-col">
+                        <Image height={100} width={100}  src="/logo/logo.svg" alt="Logo" priority={false} />
+          </div>
+          <DialogTitle className="mt-4 text-center font-semibold">Few seconds to login <b>Resourcle</b> </DialogTitle>
+          <DialogDescription className="text-center">
             Log in or sign up to access all resources and features.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col sm:flex-row justify-center gap-4 py-4">
-          <Button asChild className="w-full sm:w-auto">
-            <Link href="/login">Log In</Link>
+        <div className="flex flex-col  justify-center gap-2 ">
+          <Button  className="w-full bg-secondary-foreground hover:bg-secondary-foreground/90  font-semibold ">
+            <Link href="/login"> Log In</Link>
           </Button>
-          <Button asChild variant="secondary" className="w-full sm:w-auto">
-            <Link href="/signup">Sign Up</Link>
+          <Button  variant="secondary" className="bg-accent font-semibold text-white hover:bg-accent/90">
+            <Link href="/signup">Sign up</Link>
           </Button>
         </div>
       </DialogContent>

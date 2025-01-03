@@ -181,6 +181,7 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
         $group: {
           _id: "$_id",
           content: { $push: "$content" },
+          banner: { $first: "$banner" },
           tags: { $addToSet: "$tags" },
           description: { $first: "$description" },
           upvotesDoc: { $first: "$upvotesDoc" },
