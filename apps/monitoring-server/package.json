@@ -7,7 +7,7 @@
     "dev": "nodemon --exec tsx src/server.ts"
   },
   "dependencies": {
-    "amqplib": "^0.10.5",
+    "@fastify/cors": "^10.0.2",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
@@ -19,7 +19,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/amqplib": "^0.10.6",
     "@types/node": "^22.10.2",
     "tsx": "^4.19.1",
     "typescript": "^5.7.2"
