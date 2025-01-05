@@ -1,8 +1,8 @@
 import Fastify from 'fastify';
-import { dbConnection } from './db';
+import { dbConnection } from './db.js';
 import {config} from "dotenv"
-import loginRoutes from './routes/login.routes';
-import TrackRoutes from './routes/track.routes';
+import loginRoutes from './routes/login.routes.js';
+import TrackRoutes from './routes/track.routes.js';
 import cors, { FastifyCorsOptions } from '@fastify/cors'
 config();
 const fastify = Fastify();

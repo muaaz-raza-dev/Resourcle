@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { LoginAdmin } from '../controllers/login.controller';
+import { LoginAdmin } from '../controllers/login.controller.js';
 
 interface UserResponse {
   message: string;

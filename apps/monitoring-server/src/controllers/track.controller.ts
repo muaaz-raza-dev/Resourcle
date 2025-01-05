@@ -1,7 +1,7 @@
 import axios from "axios";
 import  { FastifyReply, FastifyRequest } from "fastify";
-import { SuccessResponse } from "../responseHandler";
-import { UserReport } from "../models/user-report.model";
+import { SuccessResponse } from "../responseHandler.js";
+import { UserReport } from "../models/user-report.model.js";
 
 export async function TrackUserVisits(req:FastifyRequest,res:FastifyReply){
 let user = await UserReport.findOne({ip:req.ip}).select("_id")

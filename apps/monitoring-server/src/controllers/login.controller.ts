@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { Admins } from "../models/user.model";
-import { ErrorResponse, SuccessResponse } from "../responseHandler";
+import { Admins } from "../models/user.model.js";
+import { ErrorResponse, SuccessResponse } from "../responseHandler.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 const jwt_secret = process.env.JWT_SECRET as string;

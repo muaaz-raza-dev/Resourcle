@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ErrorResponse } from "../responseHandler";
+import { ErrorResponse } from "../responseHandler.js";
 import jwt from "jsonwebtoken";
-import { Admins } from "../models/user.model";
+import { Admins } from "../models/user.model.js";
 const jwt_secret = process.env.JWT_SECRET as string;
 async function Authenticate(req: FastifyRequest, res: FastifyReply,   next: () => void) {
     const token = req.headers['token'] as string;

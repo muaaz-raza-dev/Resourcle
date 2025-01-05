@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { TrackUserProfileVisits, TrackUserResourceVisit, TrackUserVisits } from '../controllers/track.controller';
+import { TrackUserProfileVisits, TrackUserResourceVisit, TrackUserVisits } from '../controllers/track.controller.js';
 
 interface UserResponse {
   message: string;
