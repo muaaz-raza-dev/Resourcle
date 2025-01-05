@@ -1,6 +1,10 @@
 import Fastify from 'fastify';
+import { config } from 'dotenv';
 import utilsRoutes from './routes/util.routes.js';
 import cors, { FastifyCorsOptions } from '@fastify/cors'
+
+import { dbConnection } from './db.js';
+config();
 const fastify = Fastify();
 const corsOptions:FastifyCorsOptions = {
   origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
@@ -14,6 +18,7 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.register(utilsRoutes , { prefix: '/api/utils' });
+
 // Run the server
 const port = +(process.env.PORT||4000) || 4000
 const start = async () => {

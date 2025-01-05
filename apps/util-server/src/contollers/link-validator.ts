@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import fetch from "node-fetch";
 import { ErrorResponse, SuccessResponse } from "../utils/responseHandler.js";
-export async function LinkValidator(request: FastifyRequest<{ Body: {link:string} }>, reply: FastifyReply){
+export async function LinkValidator(request: FastifyRequest<{ Body: {link:string} }>, reply: FastifyReply,){
     try{
         const {link}=request.body;
         const response = await fetch(link,{method:"HEAD"})

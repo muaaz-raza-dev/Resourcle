@@ -1,25 +1,26 @@
 import Fastify from 'fastify';
-import { PushToQueue } from './send';
-
+import { dbConnection } from './db';
+import {config} from "dotenv"
+import loginRoutes from './routes/login.routes';
+import TrackRoutes from './routes/track.routes';
+import cors, { FastifyCorsOptions } from '@fastify/cors'
+config();
 const fastify = Fastify();
+const corsOptions:FastifyCorsOptions = {
+  origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
+  credentials: true, // Allow cookies to be sent with requests (if needed)
+};
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  PushToQueue() 
-  return { hello: 'world' };
 
-});
-fastify.get('/messages', async (request, reply) => {
-  PushToQueue() 
-  return { messages: 'recieved' };
-
-});
-
+fastify.register(cors,corsOptions );
+fastify.register(loginRoutes , { prefix: '/api/auth' });
+fastify.register(TrackRoutes , { prefix: '/api/activity' });
 // Run the server
 const start = async () => {
   try {
-    await fastify.listen({ port: 4000, host: '0.0.0.0' });
-    console.log('Server listening at http://localhost:4000');
+    await dbConnection()
+    await fastify.listen({ port: 6969, host: '0.0.0.0' });
+    console.log('Server listening at http://localhost:6969');
   } catch (err) {
     console.error(err);
     process.exit(1);

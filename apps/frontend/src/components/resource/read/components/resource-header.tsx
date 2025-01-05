@@ -1,11 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import useGetResource from "@/hooks/resource/useGetResource";
+import useTrackUserProfileVisit from "@/hooks/user-activity/useTrackUserProfileVisit";
 import { Separator } from "@/shadcn/components/ui/separator";
 import Image from "next/image";
 import React, { useMemo } from "react";
 
 export default function ResourceHeader() {
+  useTrackUserProfileVisit()
   const { data } = useGetResource({ hitApi: false });
   const totalResources = useMemo(
     () => data?.payload.content.reduce((acc, elm) => acc + elm.links.length, 0),

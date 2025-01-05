@@ -43,7 +43,6 @@ export default function ProfileFormUsername() {
         </Label>
         {username_remote&&
         <Link
-
           href={uri + "/u/" + username_remote}
           target="_blank"
           className="p-0.5 px-2 hover:underline rounded shadow-sm border text-xs font-semibold "
@@ -54,6 +53,9 @@ export default function ProfileFormUsername() {
         }
       </div>
       <div className="flex gap-2 items-center">
+        <div className="">
+
+        
         <Input
           id="username"
           {
@@ -62,6 +64,8 @@ export default function ProfileFormUsername() {
           }
           onChange={(e) => {form.register("username").onChange(e); debounced(e.target.value)}}
         />
+        <span className="text-xs text-destructive">{form.formState.errors.username?.message}</span>
+        </div>
         {isLoading ? (
           <RequestLoader size="16" />
         ) : data ? (
