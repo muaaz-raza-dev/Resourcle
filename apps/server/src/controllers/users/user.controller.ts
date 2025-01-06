@@ -40,7 +40,6 @@ export default async function GetTopUsers(
           "user._id": 1,
           "user.headline": 1,
           "user.picture": 1,
-          "user.email": 1,
         },
       },
     ]);

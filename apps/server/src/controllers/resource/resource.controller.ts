@@ -13,6 +13,7 @@ import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-
 import { IResourceLink, ResourceLink } from "../../models/link.model.js";
 import { ObjectId } from "mongoose";
 import { ResourceCollection } from "../../models/resource-collection.model.js";
+import redis from "../../redis-server.js";
 
 export default async function CreateResource(
   req: Request,
@@ -269,34 +270,33 @@ export async function GetFeedResources(
     const saveList: { resource: Types.ObjectId[] } = { resource: [] };
 
     if (isLogined) {
-      if (req.details.interest?.length) {
-        query.tags = { $in: req.details.interest };
-      }
-      const IndivdualPlaylist =
-        (await SaveList.findOne({ user: req.userid })
-          .select("resource -_id")
-          .lean()) || null;
-      if (IndivdualPlaylist) {
-        saveList.resource = IndivdualPlaylist.resource;
-      }
+      const IndivdualPlaylist = (await SaveList.findOne({ user: req.userid }).select("resource -_id").lean()) ;
+        saveList.resource = IndivdualPlaylist?.resource||[];
     }
 
-    const resources = await Resource.find({ ...query, isPrivate: false })
+    const ChachedResources = await redis.get("resourcle:resource-feed")
+    let resources: IResource[] = []
+    
+    if(!ChachedResources){
+      resources = await Resource.find({ ...query, isPrivate: false })
       .sort("-upvotes -createdAt")
-      .populate("upvotesDoc")
+      .limit(15)
+      .populate({path:"upvotesDoc",select:"users _id"})
       .select("title upvotes createdAt upvotesDoc")
-      .limit(18)
       .lean();
+      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*3)
+    }
+    else{
+      resources = JSON.parse(ChachedResources)
+    }
+
     let payload = JSON.parse(JSON.stringify(resources));
 
     payload = resources.map((elm) => {
       return {
         ...elm,
-        isSaved: isLogined
-          ? saveList?.resource?.some((r) => r.toString() == elm._id.toString())
-          : false,
-        ...(isLogined
-          ? elm.upvotesDoc && "users" in elm.upvotesDoc
+        isSaved: isLogined ? saveList?.resource?.some((r) => r.toString() == elm._id.toString()): false,
+        ...(isLogined ? elm.upvotesDoc && "users" in elm.upvotesDoc 
             ? {
                 isUpvoted: elm.upvotesDoc.users.some(
                   (id) => id.toString() == req.userid?.toString(),
@@ -306,6 +306,7 @@ export async function GetFeedResources(
           : { isUpvoted: false }),
       };
     });
+
     SuccessResponse(res, { payload });
     return;
   } catch (err) {

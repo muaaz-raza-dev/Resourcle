@@ -5,7 +5,8 @@ import loginRoutes from './routes/login.routes.js';
 import TrackRoutes from './routes/track.routes.js';
 import cors, { FastifyCorsOptions } from '@fastify/cors'
 config();
-const fastify = Fastify();
+const fastify = Fastify({trustProxy:true});
+
 const corsOptions:FastifyCorsOptions = {
   origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
   credentials: true, // Allow cookies to be sent with requests (if needed)
@@ -23,7 +24,6 @@ const start = async () => {
     console.log('Server listening at http://localhost:6969');
   } catch (err) {
     console.error(err);
-    process.exit(1);
   }
 };
 

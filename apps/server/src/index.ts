@@ -12,6 +12,9 @@ import cors from "cors";
 import { dbConnection } from "./db.js";
 import cookieParser from "cookie-parser";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import redis  from "./redis-server.js"
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());

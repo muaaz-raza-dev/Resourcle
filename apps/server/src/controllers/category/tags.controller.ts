@@ -31,16 +31,12 @@ export async function TrendingTags(req: Request, res: Response) {
   try {
     const resources: ItrendingTagPayload[] = await Resource.aggregate([
       {
-        $unwind: {
-          path: "$tags",
-          preserveNullAndEmptyArrays: false,
-        },
+        $sort: {upvotes:-1},
       },
       {
-        $project: {
-          tags: 1,
-        },
+        $limit: 30,
       },
+      {$project:{"tags":1}},
       {
         $lookup: {
           from: "tags",
@@ -49,22 +45,22 @@ export async function TrendingTags(req: Request, res: Response) {
           as: "tags",
         },
       },
-
+      {
+        $unwind: {
+          path: "$tags",
+          preserveNullAndEmptyArrays: false,
+        },
+      },
       {
         $group: {
-          _id: "$tags",
+          _id: "$tags._id",
           total: {
             $sum: 1,
           },
           name: { $first: "$tags.name" },
         },
       },
-      {
-        $unwind: {
-          path: "$name",
-          preserveNullAndEmptyArrays: false,
-        },
-      },
+
       {
         $sort: {
           total: -1,
@@ -76,7 +72,9 @@ export async function TrendingTags(req: Request, res: Response) {
     ]);
     SuccessResponse(res, { payload: resources });
     return;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
+    console.log(err)
     ErrorResponse(res, { message: "Internal server error" });
     return;
   }

@@ -53,6 +53,7 @@ export interface IResource extends mongoose.Document {
   isDeleted: boolean;
   updatedAt: Date;
   isPrivate: boolean;
+  _id:mongoose.Types.ObjectId
 }
 resourceSchema.pre(/^find/, function (this: Query<any, any>, next) {
   this.where({ isDeleted: false });

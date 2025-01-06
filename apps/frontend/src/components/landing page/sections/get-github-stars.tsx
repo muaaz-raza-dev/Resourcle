@@ -13,7 +13,7 @@ export default function GetGithubStars() {
         <h2 className="bg-clip-text h-max py-4  text-transparent  drop-shadow-2xl bg-gradient-to-b from-black/90 to-black/80">
           Actively Maintained
         </h2>
-        <p className="text-lg font-medium max-md:font-normal max-md:text-sm">
+        <p className="text-lg font-semibold max-md:font-normal max-md:text-sm">
           We are always improving our content, adding new resources and adding
           features to enhance your experience.
         </p>
