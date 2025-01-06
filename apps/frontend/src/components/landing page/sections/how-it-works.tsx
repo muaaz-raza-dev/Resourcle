@@ -20,7 +20,7 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section className="py-8 ">
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto  py-8">
              <HeadingComp text='How it works'/>
       <div className="flex flex-wrap">
         <div className="space-y-4">
@@ -37,8 +37,11 @@ export default function HowItWorks() {
         </div>
       </div>
     </div>
-          <div className='leading-snug bg-secondary px-4 p-2 border text-sm rounded-md  text-muted-foreground '>
-            <b>Good practice : </b> If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
+          <div className='leading-snug bg-secondary  px-4 p-2 border text-sm rounded-md   flex flex-col gap-1'>
+            <h2 className='text-accent bg-secondary-foreground shadow-md px-4 w-max py-1 rounded-md  font-semibold inline'>Good practice </h2>
+            <p className='font-semibold text-sm tracking-tight '>
+             If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
+            </p>
             </div>
   </section>
   )

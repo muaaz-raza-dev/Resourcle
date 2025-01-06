@@ -7,11 +7,10 @@ export default function useLoadTagsFeed() {
   return (
     useQuery({
         queryKey:["feed","tags"],
-        queryFn:()=>LoadTagFeedApi(),
-        enabled: true,
+        queryFn:LoadTagFeedApi,
         refetchOnWindowFocus:false,
         retry:2,
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime:Infinity, // 5 minutes
         onError({response:{data:{message}}}){
             toast.error(message||"An error occured")
         }
