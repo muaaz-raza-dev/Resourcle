@@ -7,7 +7,7 @@ import { JWT_SECRET } from "../../utils/tokens.js";
 import { isValidPassword } from "../../utils/PasswordValidator.js";
 import { nanoid } from "nanoid";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-// const cookie_key = process.env.SESSION_COOKIE_KEY;
+const cookie_key = process.env.SESSION_COOKIE_KEY;
 export async function GoogleLoginController(req: Request, res: Response) {
   const { id_token } = req.body;
   try {
@@ -49,9 +49,9 @@ export async function GoogleLoginController(req: Request, res: Response) {
       expiresIn: "30d",
     });
     res
-      // .cookie(cookie_key, token, {
-      //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      // })
+      .cookie(cookie_key, token, {
+        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      })
       .json({ token, message: "Logged in successfully!", payload: user });
     return;
   } catch (error) {
@@ -79,9 +79,9 @@ export async function LocaleLoginController(req: Request, res: Response) {
       expiresIn: "30d",
     });
     res
-      // .cookie(cookie_key, token, {
-      //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      // })
+      .cookie(cookie_key, token, {
+        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      })
       .json({ token, message: "Logged in successfully!",payload:user });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

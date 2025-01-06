@@ -8,7 +8,7 @@ config();
 const fastify = Fastify({trustProxy:true});
 
 const corsOptions:FastifyCorsOptions = {
-  origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
+  origin: ["https://resourcle.com","http://localhost:3000"], 
   credentials: true, // Allow cookies to be sent with requests (if needed)
 };
 
