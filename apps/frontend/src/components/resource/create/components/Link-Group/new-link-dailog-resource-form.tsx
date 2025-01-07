@@ -34,7 +34,7 @@ export default function NewLinkDailogResourceForm({
   const ParentForm = useFormContext<IResource>();
   const [open, setopen] = useState(false);
   const form = useForm<IResourceLink>({ defaultValues: data });
-  const {handleSubmit,register,watch,setValue,trigger,} =form;
+  const {handleSubmit,watch,setValue,trigger,} =form;
   const link = useState(data?true:false)
   const [isLinkValid ] =link
   const onSubmit: SubmitHandler<IResourceLink> = (data,event) => {
@@ -81,8 +81,9 @@ export default function NewLinkDailogResourceForm({
         <FormProvider {...form}>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-       
-            <FormField
+        <LinkInputResourceForm state={link}/>
+
+        <FormField
       control={form.control}
       name="title"
       rules={{required:"*Title is required",maxLength:{value:50,message:"Title should be less than 50 characters"}}}
@@ -90,7 +91,7 @@ export default function NewLinkDailogResourceForm({
         <FormItem>
           <FormLabel className="py-0">
           <div className="flex justify-between w-full">
-          <Label className="font-semibold " htmlFor="title">Title *</Label>
+          <Label className="font-semibold my-1" htmlFor="title">Title *</Label>
           <p className="text-muted-foreground text-xs">{field.value?.length||0}/50</p>
           </div>
           </FormLabel>
@@ -101,7 +102,6 @@ export default function NewLinkDailogResourceForm({
             maxLength={50}
               className="bg-white placeholder:text-muted-foreground"
               placeholder="Netflix Engineering blogs"
-              autoFocus
             />
            </FormControl>
           <FormDescription  />
@@ -112,16 +112,33 @@ export default function NewLinkDailogResourceForm({
            
         
          
-         <LinkInputResourceForm state={link}/>
-
-          <div className="">
-            <Label className="font-semibold text-sm">Description</Label>
-            <Input
-              className="bg-white placeholder:text-muted-foreground"
-              placeholder="A short and concise description"
-              {...register("description")}
-              />
+           <FormField
+      control={form.control}
+      name="description"
+      rules={{maxLength:{value:120,message:"Title should be less than 50 characters"}}}
+      render={({field}) => (
+        <FormItem>
+          <FormLabel className="py-0">
+          <div className="flex justify-between w-full">
+          <Label className="font-semibold my-1" htmlFor="description">Description </Label>
+          <p className="text-muted-foreground text-xs">{field.value?.length||0}/120</p>
           </div>
+          </FormLabel>
+          <FormControl>
+          <Input
+              {...field}
+              placeholder="A short and concise description"
+            id="description"
+            maxLength={120}
+              className="bg-white placeholder:text-muted-foreground"
+            />
+           </FormControl>
+          <FormDescription  />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
 
           <section className="flex gap-2 w-full">
             
@@ -142,7 +159,7 @@ export default function NewLinkDailogResourceForm({
             </div>
           </section>
           <DialogFooter className="mt-3">
-            <Button type="button" onClick={handleSubmit(onSubmit)}>Save</Button>
+            <Button type="button" className="w-full hover:bg-secondary-foreground/90 transition-colors bg-secondary-foreground" onClick={handleSubmit(onSubmit)}>Save</Button>
           </DialogFooter>
         </form>
                 </FormProvider>

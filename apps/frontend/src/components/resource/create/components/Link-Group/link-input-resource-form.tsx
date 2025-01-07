@@ -3,6 +3,7 @@ import useValidateLink from "@/hooks/utils/useValidateLink";
 import { Input } from "@/shadcn/components/ui/input";
 import { IResourceLink } from "@/types/Iresource";
 import { Label } from "@radix-ui/react-label";
+import clsx from "clsx";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
@@ -33,16 +34,17 @@ export default function LinkInputResourceForm({
 
   return (
     <div className="">
-      <Label className="font-semibold text-sm">URL *</Label>
+      <Label className="font-semibold text-sm my-1">URL *</Label>
       <div className="flex gap-2 items-center">
         <Input
           type="url"
-          className="bg-white placeholder:text-muted-foreground"
+          className={"bg-white placeholder:text-muted-foreground"}
           placeholder="https://netflixtechblog.com"
           onChange={(e) => {
             debounced(e.target.value);
             onUrlChange(e);
           }}
+          autoFocus
           {...rest}
         />
       </div>
@@ -58,8 +60,7 @@ export default function LinkInputResourceForm({
 
       (!isValid||errors.url) ? (
         <span className="text-red-500 text-xs">Link is not valid</span>
-      ) : (
-        <span className="text-green-600 text-xs">Link is valid</span>
+      ) : (null
       )
     }
     </div>

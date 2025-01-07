@@ -42,7 +42,7 @@ export default function SaveBtn({
         <FaBookmark
           size={size || 18}
           className={clsx(
-            "max-md:h-[1.2rem] max-md:w-[1.2rem] mr-1 hover:text-black transition-colors",
+            "max-md:h-[1.2rem] max-md:w-[1.2rem] mr-1  hover:text-black transition-colors",
             isLoading && "animate- hover:!text-black",
             isSaved && "!text-black"
           )}
@@ -56,7 +56,7 @@ export default function SaveBtn({
         onClick={handleSave}
         disabled={isLoading}
         className={clsx(
-          "ml-auto hover:bg-secondary text-sm bg-secondary",
+          "ml-auto hover:bg-secondary text-sm bg-secondary shadow-none border",
           isSaved &&
             "bg-secondary-foreground  hover:bg-secondary-foreground hover:text-white text-white"
         )}

@@ -20,7 +20,7 @@ export default function UserProfileInformation() {
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
         className=''
       >
-        <Avatar className="w-32 h-32 max-md:w-16 max-md:h-16 aspect-square  dark:border-gray-800 shadow-lg">
+        <Avatar className="w-32 h-32 max-md:w-16 max-md:h-16 aspect-square  dark:border-gray-800 ">
           <AvatarImage src={q?.picture||"/user.png"} alt={q?.name} />
           <AvatarFallback><User className="w-16 h-16" /></AvatarFallback>
         </Avatar>

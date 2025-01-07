@@ -7,6 +7,7 @@ import RequestLoader from "../loader/request-loading";
 import useGetUserSavedResource from "@/hooks/user-profile/useGetUserSavedResource";
 import { UseMutationResult } from "react-query";
 import { Button } from "@/shadcn/components/ui/button";
+import UserProfileResourceLoader from "./user-profile-resource-loader";
 const countPerRequest = +process.env.NEXT_PUBLIC_SEARCH_LIMIT || 10;
 export default function UserProfileSavedResources() { 
   const [{saved: { resources, total, count, isLoading },},setState,] = useRecoilState(UserProfileResourceAtom);
@@ -33,11 +34,16 @@ export default function UserProfileSavedResources() {
       ))}
       <div className="center">
         {isLoading ? (
-          <RequestLoader />
+        <UserProfileResourceLoader/>
         ) : total > (count + 1) * countPerRequest  && (<LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />)}
-          <p className="text-muted-foreground text-sm my-8">
-            {total==0&&"No saved resource to display" }
-          </p>
+        {
+          !isLoading&&total==0 &&(
+            <p className="text-muted-foreground text-sm my-8">
+              No saved resource to display
+            </p>
+          )
+        }
+          
       </div>
     </main>
   );
@@ -60,7 +66,7 @@ export function LoadMoreButton({
 
   return (
     <Button
-      className=" my-4 mx-auto"
+      className=" my-4 mx-auto font-semibold"
       variant={"secondary"}
       onClick={handleLoadMore}
       disabled={mutateObject.isLoading}

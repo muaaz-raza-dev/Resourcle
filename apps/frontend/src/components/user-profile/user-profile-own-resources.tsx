@@ -3,9 +3,9 @@ import { UserProfileResourceAtom } from "@/state/user-profile-resource.atom";
 import React, { useMemo } from "react";
 import { useRecoilState } from "recoil";
 import EachResourceComponent from "../searched/resource/each-resource-component";
-import RequestLoader from "../loader/request-loading";
 import { LoadMoreButton } from "./user-profile-saved-resources";
 import useGetUserResources from "@/hooks/user-profile/useGetUserResource";
+import UserProfileResourceLoader from "./user-profile-resource-loader";
 const countPerRequest  =+process.env.NEXT_PUBLIC_SEARCH_LIMIT||10;
 export default function UserProfileOwnResources() {
   const [{resources: { resources, total,count,isLoading },},setState] = useRecoilState(UserProfileResourceAtom);
@@ -18,10 +18,10 @@ export default function UserProfileOwnResources() {
         <EachResourceComponent index={index} key={resource._id} resource={resource} />
       ))}
       <div className="center">
-      {isLoading ? <RequestLoader/>:
+      {isLoading ? <UserProfileResourceLoader/>:
       total > ((count+1)*countPerRequest) && <LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />
       }
-      {!isLoading&&
+      {!isLoading &&
       <p className="text-muted-foreground text-sm my-8">
         {total==0 && "No resource is published yet"}
       </p>

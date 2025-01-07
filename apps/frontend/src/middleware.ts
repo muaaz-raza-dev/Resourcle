@@ -2,7 +2,7 @@ import  { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import {RequestOTPMiddleware} from "@/middleware/request-otp.middleware"
 const Cookie_key = process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY 
-const privateRoutes= ["/profile","/settings","/collection","/settings/account","/settings/personal-info"]
+const privateRoutes= ["/profile","/settings","/collection","/settings/account","/settings/personal-info","/resource/create","/resource/edit"]
 const AuthProtectedRoutes = ["/auth/signin","/auth/signup"]
 export function middleware(request: NextRequest,   ) {
   const { pathname } = request.nextUrl

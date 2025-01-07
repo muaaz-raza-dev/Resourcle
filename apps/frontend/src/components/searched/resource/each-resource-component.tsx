@@ -44,7 +44,7 @@ export default function EachResourceComponent({
             <div className="flex items-center gap-1">
               <Avatar className="w-6 h-6">
                 <AvatarImage src={resource?.publisher?.picture} />
-                <AvatarFallback className="bg-primary text-white font-semibold center w-full h-full">
+                <AvatarFallback className="bg-secondary-foreground text-white font-semibold center w-full h-full">
                   {resource?.publisher?.name.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>

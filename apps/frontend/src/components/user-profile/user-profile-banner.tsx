@@ -7,7 +7,7 @@ export default function UserProfileBanner() {
   const {data}  = useGetUserProfileInfomartion({hitApi:false})
   const q= data?.payload
   return (
-    <div className="relative h-48 w-full mb-4 overflow-hidden bg-gradient-to-r border-none from-secondary-foreground to-primary rounded-md ">
+    <div className="relative h-48 w-full mb-4 overflow-hidden bg-gradient-to-r border-none from-secondary-foreground to-primary  ">
     {/* Animated circles */}
     <div className="absolute top-3/4 right-3/4 h-8 w-8 rounded-full bg-white opacity-10 animate-bounce"></div>
     <div className="absolute top-1/4 left-1/4 h-16 w-16 rounded-full bg-white opacity-10 animate-pulse"></div>
@@ -21,7 +21,9 @@ export default function UserProfileBanner() {
       <div className="text-4xl font-bold text-white text-shadow flex gap-2">
         I am <h2 className='bg-white/40 text-white '> {q?.name}</h2>
       </div>
-      <p className='text-gray-300 font-semibold animate-pulse'>{q?.headline||"No headline to display here"}.</p>
+      {q?.headline?
+      <p className='text-gray-300 font-semibold animate-pulse'>{q?.headline}.</p> : null
+      }
     </div>
   </div>
 

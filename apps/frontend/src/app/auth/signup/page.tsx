@@ -8,10 +8,32 @@ import {
 import GoogleAuthButton from "@/components/auth/Google-auth-button";
 import LocalSignupForm from "@/components/auth/local-signup-form";
 import Link from "next/link";
-export const metadata = {
-    title: 'Signup',
-    description: 'Sign up page for colabra.',
-  };
+import { Metadata } from "next";
+export const metadata: Metadata  = {
+  title: "Sign Up | Resourcle",
+  description: "Create your Resourcle account to save, organize, and manage all your favorite links effortlessly in one place. Join the ultimate resource bookmarking platform today.",
+  keywords: [
+    "Resourcle sign up",
+    "create Resourcle account",
+    "register Resourcle",
+    "sign up resource manager",
+    "bookmarking platform registration"
+  ],
+  robots: "index, nofollow",
+  openGraph: {
+    title: "Sign Up | Resourcle",
+    description: "Join Resourcle and start organizing your favorite links effortlessly. Sign up for free and manage your bookmarks like a pro.",
+    url: "https://resourcle.com/auth/signup",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Sign Up | Resourcle",
+    description: "Sign up for Resourcle today and start managing your favorite links in a secure and organized way.",
+  },
+};
+
+
 export default function SignupPage() {
   return (
     <>

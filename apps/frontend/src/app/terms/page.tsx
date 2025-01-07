@@ -1,6 +1,34 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shadcn/components/ui/card"
 import { terms } from "./terms"
-const name = process.env.NEXT_PUBLIC_NAME
+import { Metadata } from "next";
+const name = process.env.NEXT_PUBLIC_NAME;
+
+export const metadata: Metadata  = {
+  title: "Terms and Conditions - Resourcle",
+  description: "Read the terms of service for Resourcle, the ultimate platform to save and manage your favorite links in one place. Learn about your rights, responsibilities, and our policies to ensure a safe and efficient user experience.",
+  keywords: [
+    "Resourcle terms of service",
+    "terms and conditions",
+    "platform policies",
+    "user agreement",
+    "link management platform",
+    "resource bookmarking terms"
+  ],
+  robots: "index, follow",
+
+  openGraph: {
+    title: "Terms of Service | Resource Diary",
+    description: "Explore our terms of service to understand how to use Resource Diary responsibly and effectively. Your go-to platform for managing and organizing favorite links.",
+    url: "https://resourcle.com/terms",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms of Service | Resource Diary",
+    description: "Discover the guidelines and policies for using Resource Diary, your favorite link management platform.",
+  },
+};
+
 export default function TermsOfService() {
   return (
     <div className="max-w-4xl mx-auto p-0">

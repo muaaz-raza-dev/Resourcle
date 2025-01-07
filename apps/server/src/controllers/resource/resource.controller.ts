@@ -274,7 +274,7 @@ export async function GetFeedResources(
         saveList.resource = IndivdualPlaylist?.resource||[];
     }
 
-    const ChachedResources = await redis.get("resourcle:resource-feed")
+    const ChachedResources = await redis?.get("resourcle:resource-feed")
     let resources: IResource[] = []
     
     if(!ChachedResources){

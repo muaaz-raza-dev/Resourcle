@@ -12,21 +12,21 @@ import { useParams } from "next/navigation";
 
 export default function UserProfileResourcesFilterbar() {
   const { mutate } = useGetUserResources();
-  const {
-    resources: { total },
-  } = useRecoilValue(UserProfileResourceAtom);
+  const { resources: { total }} = useRecoilValue(UserProfileResourceAtom);
   useEffect(() => {
     mutate(undefined);
   }, []);
 
   return (
-    <header className="flex justify-between items-center">
-      <p className="text-muted-foreground  text-sm">{total} resources</p>
-      <section className="flex gap-4 max-md:justify-between ">
+    <>
         <SwitchPublicOperatorComp />
+    <header className="flex justify-between items-center">
+      <p className="text-muted-foreground  text-sm">{total} resource(s)</p>
+      <section className="flex gap-4 max-md:justify-between ">
         <SortResourceOperatorComp />
       </section>
     </header>
+    </>
   );
 }
 
@@ -46,6 +46,7 @@ function SortResourceOperatorComp() {
     <div className="flex gap-2 md:items-center ">
     <Select
       className="w-[120px] max-md:text-sm"
+      disabled={isLoading}
       options={[
         { value: "createdAt", label: "recent" },
         { label: "popular", value: "upvotes" },
@@ -53,7 +54,6 @@ function SortResourceOperatorComp() {
       onChange={handleSortOptionChange}
       value={sort}
       />
-      {isLoading? <RequestLoader size="18"/>:null}
       </div>
   );
 }
@@ -75,18 +75,20 @@ function SwitchPublicOperatorComp() {
 
 
   return (
-    <div className="flex gap-3 items-center">
-      {/* <div className=" text-xs flex items-center gap-1">
-        <FaGlobe /> Public
-      </div> */}
+    <div className="flex gap-3 items-center w-full justify-between border rounded-md p-2 mb-2">
+      <div className="">
+      <div className="  flex items-center gap-2 text-sm font-semibold ">
+        <FaLock /> Private Resources
+      {isLoading? <RequestLoader size="18" />:null}
+      </div>
+ 
+      </div>
+  
       <Switch
+      disabled={isLoading}
         checked={isPrivate}
         onCheckedChange={handlePublicPrivateOptionChange}
       />
-      <div className=" text-xs flex items-center gap-1">
-        <FaLock /> Private
-      </div>
-      {isLoading? <RequestLoader size="18"/>:null}
     </div>
   );
 }

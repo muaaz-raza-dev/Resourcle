@@ -8,9 +8,31 @@ import {
 import GoogleAuthButton from "@/components/auth/Google-auth-button";
 import LocalLoginForm from "@/components/auth/local-login-form";
 import Link from "next/link";
-export const metadata={
-  title:"Signin"
-}
+import { Metadata } from "next";
+export const metadata: Metadata  = {
+  title: "Sign In - Resourcle",
+  description: "Log in to your Resourcle account to effortlessly organize and manage all your favorite links in one place. Secure access for seamless resource management.",
+  keywords: [
+    "Resourcle sign in",
+    "Resourcle login",
+    "account access Resourcle",
+    "sign in resource manager",
+    "bookmarking platform login"
+  ],
+  robots: "index, nofollow",
+  openGraph: {
+    title: "Sign In - Resourcle",
+    description: "Access your Resourcle account securely to manage your saved links and bookmarks in a streamlined way.",
+    url: "https://resourcle.com/auth/signin",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Sign In - Resourcle",
+    description: "Securely log in to your Resourcle account to manage your favorite links and bookmarks.",
+  },
+};
+
 export default function page() {
   return (
     <div className="min-h-[80vh] w-screen flex flex-col gap-8 items-center justify-center  overflow-hidden">

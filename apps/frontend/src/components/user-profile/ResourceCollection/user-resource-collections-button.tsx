@@ -17,7 +17,7 @@ export default function UserResourceCollectionsButton() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
     <DialogTrigger disabled={isLoading} asChild>
-      <button disabled={isLoading} className='flex gap-2  py-2 font-semibold w-max items-center justify-center whitespace-nowrap rounded-md px-3   text-sm  ring-offset-background transition-all  bg-secondary ' >
+      <button disabled={isLoading} className='flex gap-2  py-2 font-semibold hover:bg-white transition-colors w-max items-center justify-center whitespace-nowrap rounded-md px-3   text-sm  ring-offset-background transition-all border  bg-secondary ' >
         <BsCollectionFill   className="h-4 w-4" />
         {isLoading?  <RequestLoader size='14'/>  :
         <p className='max-sm:hidden'>
