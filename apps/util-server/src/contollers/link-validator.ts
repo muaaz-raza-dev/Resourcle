@@ -5,6 +5,7 @@ export async function LinkValidator(request: FastifyRequest<{ Body: {link:string
     try{
         const {link}=request.body;
         const response = await fetch(link,{method:"HEAD"})
+        console.log(response)
         if(!response.ok){
             ErrorResponse(reply,{message:"Link is not valid",status:404})
             return ;

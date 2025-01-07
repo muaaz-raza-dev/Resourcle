@@ -279,7 +279,8 @@ export async function GetFeedResources(
     
     if(!ChachedResources){
       resources = await Resource.find({ ...query, isPrivate: false })
-      .sort("-upvotes -createdAt")
+      .sort("-createdAt")
+      .sort("-upvotes")
       .limit(15)
       .populate({path:"upvotesDoc",select:"users _id"})
       .select("title upvotes createdAt upvotesDoc")
