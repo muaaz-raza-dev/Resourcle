@@ -61,7 +61,7 @@ export async function RequestChangeEmailController(
     await SendMail(
       receiver,
       GenerateVerificationEmailTemplate(receiver, verificationLink),
-      "Verify your email address",
+      "You requested to change your email address",
     );
     SuccessResponse(res, { message: "Verification link sent to your email" });
   } catch (error) {
@@ -105,6 +105,68 @@ export async function VerifyChangeEmailToken(req: Request, res: Response) {
         message: "Email verified successfully, you can now use this new email",
       });
     }
+  } catch (err) {
+    console.log(err);
+    ErrorResponse(res, { message: "Internal server error, try again later" });
+    return;
+  }
+}
+
+interface IverificationEmailPayload{
+  _id:string; //userid
+  code:string; //uniqueIdentifier
+}
+export async function RequestCurrentEmailConfirmation(req: Request, res: Response) {
+  try {
+    const user = await User.findById(req.userid).select("email_verification_code email name")
+    if(!user){
+      ErrorResponse(res,{message:"UnAuthorized",status:401})
+      return;
+    }
+    const token_payload ={_id:req.userid,code:user?.email_verification_code};
+    if(!user?.email_verification_code){
+      const random_code = nanoid(10)
+      token_payload.code=random_code
+    }
+    const token = jwt.sign(token_payload, JWT_SECRET, { expiresIn: "1hr" });
+    const verificationLink = `${process.env.APP_URL}/auth/verify-email?token=${token}`;
+    const reciever  = {username:user.name,email:user.email}
+    await SendMail(
+      reciever,
+      GenerateVerificationEmailTemplate(reciever, verificationLink),
+      "Verify your email address",
+    );
+    
+
+    SuccessResponse(res, { message: "Verification link sent to your email address. Verify it" });
+    
+  } catch (err) {
+    console.log(err);
+    ErrorResponse(res, { message: "Internal server error, try again later" });
+    return;
+  }
+}
+
+export async function VerifyCurrentEmailAddress(req: Request, res: Response) {
+  try {
+    const {token} = req.body
+    const decodeToken = jwt.verify(token,JWT_SECRET,) as IverificationEmailPayload;
+    if (!decodeToken) {
+      ErrorResponse(res, { message: "Invalid token. Re-verify your email address", status: 403 });
+      return;
+    }
+    const user = await User.findById(decodeToken._id).select("email_verification_code");
+    if (!user || !user.email_verification_code) {
+      ErrorResponse(res, { message: "Invalid request", status: 403 });
+      return;
+    }
+    if (decodeToken.code!=user.email_verification_code) {
+      ErrorResponse(res, { message: "Invalid token. Re-verify your email address", status: 403 });
+      return;
+    }
+    await User.findByIdAndUpdate(req.userid, {email_verified:true})
+    SuccessResponse(res, { message: "Your email is verfied successfuly !" });
+    
   } catch (err) {
     console.log(err);
     ErrorResponse(res, { message: "Internal server error, try again later" });

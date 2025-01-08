@@ -19,20 +19,27 @@ export default async function CreateResource(
   req: Request,
   res: Response,
 ): Promise<void> {
-  const { payload }: { payload: IResource } = req.body;
+  const {payload}: { payload:Omit<IResource,"_id">&{_id?:string} } = req.body;
   let resourceId: null | Types.ObjectId = null;
+  if(!req.details?.email_verified){
+    res.status(401).json({ success: false, message: "Verify your email before creating resource" });
+    return ;
+  }
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
+
     // Validate required fields
+    delete payload._id 
     if (!payload || !payload.title || !payload.content.length || !payload.content) {
       res.status(400).json({ success: false, message: "Content is missing" });
       return ;
     }
 
-    delete payload._id;
+   
     if (!req.userid) {
-      return res.status(401).json({ success: false, message: "Unauthorized" });
+      res.status(401).json({ success: false, message: "Unauthorized" });
+      return;
     }
 
     payload.publisher = new Types.ObjectId(req.userid) ;

@@ -31,7 +31,7 @@ export async function Authenticate(
     req.details = user;
     next();
   } catch (err) {
-    ErrorResponse(res, { message: "Internal server error", status: 401 });
+    ErrorResponse(res, { message: "Server is not responding try again later", status: 401 });
     return;
   }
 }

@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema(
     reset_token_expiration: Date,
     reset_verification: { type: Boolean, default: false }, // For password reset verification
     change_email_token: String,
+    email_verification_code:String,
     deletedAt: Date,
   },
   { timestamps: true },
@@ -70,5 +71,6 @@ export interface Iuser {
   reset_token?: string;
   reset_verification?: boolean;
   change_email_token?: string;
+  email_verification_code?:string;
 }
 export const User = mongoose.model<Iuser>("User", userSchema);

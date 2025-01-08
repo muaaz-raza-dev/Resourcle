@@ -61,10 +61,11 @@ export default function ActiveUsers() {
           <section className="center py-4 gap-2 font-semibold">
             <AnimatedTooltip
               items={users
-                ?.slice(4,8).map((e,i)=> ({
+                ?.slice(0,8).map((e,i)=> ({
                   name: e.user.name,
                   image: e.user.picture || "/user.png",
                   designation: e.user.headline,
+                  
                   id: i,
                 }))||[]}
             ></AnimatedTooltip>

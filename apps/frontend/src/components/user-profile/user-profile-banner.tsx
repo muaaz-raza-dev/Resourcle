@@ -18,7 +18,7 @@ export default function UserProfileBanner() {
     
     {/* Banner content */}
     <div className="flex h-full items-center justify-center flex-col">
-      <div className="text-4xl font-bold text-white text-shadow flex gap-2">
+      <div className="text-4xl max-md:text-2xl max-sm:text-xl font-bold text-white text-shadow flex gap-2">
         I am <h2 className='bg-white/40 text-white '> {q?.name}</h2>
       </div>
       {q?.headline?

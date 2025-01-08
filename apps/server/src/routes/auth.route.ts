@@ -14,7 +14,9 @@ import {
 } from "../controllers/auth/forgot-password.controller.js";
 import {
   RequestChangeEmailController,
+  RequestCurrentEmailConfirmation,
   VerifyChangeEmailToken,
+  VerifyCurrentEmailAddress,
 } from "../controllers/auth/change-email.controller.js";
 import { Authenticate } from "../middlewares/Authenticate.js";
 const router: Router = express.Router();
@@ -36,5 +38,9 @@ router.post(
   RequestChangeEmailController,
 );
 router.post("/change/email", Authenticate, VerifyChangeEmailToken);
+
+//Current Email verification
+router.post("/request/verify/email", Authenticate, RequestCurrentEmailConfirmation);
+router.post("/verify/email", Authenticate, VerifyCurrentEmailAddress);
 
 export default router;
