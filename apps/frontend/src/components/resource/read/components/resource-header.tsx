@@ -3,6 +3,7 @@
 import useGetResource from "@/hooks/resource/useGetResource";
 import useTrackUserResourceVisit from "@/hooks/user-activity/useTrackUserResourceVisit";
 import { Separator } from "@/shadcn/components/ui/separator";
+import moment from "moment";
 import Image from "next/image";
 import React, { useMemo } from "react";
 
@@ -30,6 +31,7 @@ export default function ResourceHeader() {
       <p className="text-muted-foreground text-center pt-2">
         {data?.payload.description}
       </p>
+      <p className="text-xs text-muted-foreground text-center">{moment(data?.payload.createdAt).fromNow()}</p>
       <Separator className="my-2 w-[40%] mx-auto" />
 
       <div className="flex gap-2 justify-between  flex-wrap">

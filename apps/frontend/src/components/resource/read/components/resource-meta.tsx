@@ -83,6 +83,7 @@ export default function ResourceMeta() {
             </div>
           </div>
         </div>
+        
       </CardContent>
     </Card>
   );

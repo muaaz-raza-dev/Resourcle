@@ -36,9 +36,9 @@ export const metadata: Metadata  = {
 export default function page() {
   return (
     
-    <div className="min-h-[80vh] flex flex-col gap-8 items-center justify-center  overflow-hidden">
+    <div className="min-h-[80vh] flex flex-col gap-8 items-center justify-center  overflow-hidden w-full">
 
-      <Card className="max-w-xl  p-3 shadow-md ">
+      <Card className="w-full max-w-md  p-3 shadow-md ">
         
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center pb-0">

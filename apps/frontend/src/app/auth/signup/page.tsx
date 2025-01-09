@@ -39,8 +39,6 @@ export default function SignupPage() {
     <>
        
     <div className="min-h-[80vh] flex flex-col gap-8 items-center justify-center  overflow-hidden">
-      {/* Background */}
-      <span className="authBg h-[28rem]  w-screen absolute bottom-0 -z-20"></span> 
       <Card className="w-full max-w-md p-3 shadow-md ">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center">

@@ -11,7 +11,7 @@ export default function ResourceLinkGroups() {
             {!filtered.length || (filtered.length==1&&!filtered[0].links.length) ?
             <div className='mt-6'>
             <h1 className='font-bold text-xl text-center'>No Links in resource</h1>
-             <p className="text-center text-muted-foreground text-sm  font-semibold">I agree , It is embarassing for a resource to have no links </p>
+             <p className="text-center text-muted-foreground text-sm  font-semibold">No Links here .I agree , It is embarassing for a resource to have no links .</p>
             </div>
              :
                filtered.map(e=><ResourceEachLinkGroup key={e.label} data={e}/>)  
