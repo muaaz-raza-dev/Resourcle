@@ -11,10 +11,11 @@ export default function AppLoader() {
     <main className="w-screen absolute top-0 left-0 bg-background z-[999]  h-screen center flex-col gap-5">
       <div className="flex-shrink-0 flex items-center">
         <Image
-          height={150}
-          width={150}
+          height={140}
+          width={140}
           src="/logo/logo-transparent.svg"
           alt="Logo"
+          quality={50}
         />
       </div>
 

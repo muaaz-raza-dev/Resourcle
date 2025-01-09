@@ -15,14 +15,11 @@ import HeadingComp from '../components/heading-comp'
 
 export function FAQSection() {
   return (
-    <section className=" w-full  py-8  ">
-
+    <>
+    <section className="  py-8  container overflow-hidden w-full">
       <HeadingComp text='Frequently Asked Questions'/>
-      <div 
-        className="  mx-auto px-4"
-      >
-          
-      
+
+      <div className="  mx-auto ">
         <motion.div 
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -56,6 +53,7 @@ export function FAQSection() {
       
       </div>
     </section>
+    </>
   )
 }
 

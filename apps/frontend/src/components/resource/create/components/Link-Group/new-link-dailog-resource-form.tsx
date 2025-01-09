@@ -151,6 +151,7 @@ export default function NewLinkDailogResourceForm({
                 mode="tags"
                 className="w-full h-9 text-sm placeholder:!text-muted-foreground"
                 maxTagCount={3}
+                
                 value={watch("tags")}
                 placeholder="assign appropriate tags"
                 onChange={(value: string[]) => setValue("tags", value)}

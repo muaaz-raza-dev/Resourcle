@@ -17,11 +17,11 @@ export default function ActiveUsers() {
   const { isLoading, data } = useLoadUsersFeed();
   if (isLoading) return <ResourceLoader />;
   const users = data?.payload;
-    if(!users||!users?.length) return null
+  if(!users||!users?.length) return null
     return (
     <>
+      <Card className="w-full max-w-full bg-transparent border-none shadow-none px-0 overflow-hidden">
       <HeadingComp text={" Top Contributers"} />
-      <Card className="w-full max-w-full bg-transparent border-none shadow-none px-0">
         <CardContent className="p-0">
           <section className="flex flex-wrap justify-between gap-y-3">
             {users?.slice(0, 4)?.map(({ user }) => (
@@ -61,12 +61,12 @@ export default function ActiveUsers() {
           <section className="center py-4 gap-2 font-semibold">
             <AnimatedTooltip
               items={users
-                ?.slice(0,8).map((e,i)=> ({
+                ?.slice(4,8).map((e,i)=> ({
                   name: e.user.name,
                   image: e.user.picture || "/user.png",
                   designation: e.user.headline,
-                  
                   id: i,
+                  link:`${location.href}/u/${e.user._id}`
                 }))||[]}
             ></AnimatedTooltip>
           </section>

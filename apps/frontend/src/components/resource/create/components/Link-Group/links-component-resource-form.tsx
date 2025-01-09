@@ -44,7 +44,7 @@ export default function LinksComponentResourceForm({
               
                   <div className="flex max-md:flex-col md:items-center md:gap-2">
                     <p className=" cursor-default text-sm font-semibold transition-colors">{link.title}</p>
-                    <a href={link.url} target="_blank" className="text-primary text-sm border-l px-3">{link.url}</a>
+                    <a href={link.url} target="_blank" className="text-primary text-sm border-l px-3 text-wrap">{link.url}</a>
                   </div>
               
                 
@@ -78,7 +78,11 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
             </button>
         </PopoverTrigger>
         <PopoverContent side="bottom" align="center">
-          <a href={link.url} target="_blank" className="text-primary underline">{link.url}</a>
+          <a href={link.url} target="_blank" className="text-primary underline text-wrap break-all  text-xs w-full">
+            <p>
+              {link.url}
+              </p>
+            </a>
           <p className="text-muted-foreground my-2 text-xs">
             {link.description || "no description"}
           </p>

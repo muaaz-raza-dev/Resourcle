@@ -50,7 +50,7 @@ export default function ResourceEachLinkComponent({
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-sm text-wrap  max-md:text-xs text-primary underline py-0 leading-tight"
+              className="text-sm text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
               >
               {resource.url}
             </Link>

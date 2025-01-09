@@ -13,9 +13,9 @@ export default function LovedResources() {
   const q = data?.payload;
   if (isLoading) return <ResourceLoader />;
   return (
-    <>
+    <section className="w-full overflow-hidden">
       <HeadingComp text={"Top Resources"} />
-      <div className="flex flex-wrap  gap-4 mb-4 w-full">
+      <div className="flex flex-wrap  gap-4 mb-4 w-full overflow-hidden">
         {q?.map((resource, index) => (
           <motion.div
           key={index}
@@ -52,6 +52,6 @@ export default function LovedResources() {
           </div>
         </Link>
       </div>
-    </>
+    </section>
   );
 }

@@ -7,7 +7,7 @@ export default function AuthNavLinksDynamic() {
   const pathname = usePathname()
   const  isSignIn = pathname.includes("signin") 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 w-full justify-end  items-center">
           <p className='font-semibold text-xs text-muted-foreground'>
             {
                 isSignIn?

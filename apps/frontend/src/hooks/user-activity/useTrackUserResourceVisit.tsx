@@ -5,6 +5,7 @@ import { useQuery } from "react-query"
 
 const useTrackUserResourceVisit = ()=>{
     const id = useParams().id as string;
+    console.log(useParams())
     return useQuery({
         queryKey:["track user profile visit",id],
         queryFn:()=>TrackUserResourceVisitsApi(id),

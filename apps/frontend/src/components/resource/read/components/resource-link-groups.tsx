@@ -6,7 +6,6 @@ import { ResourceSearchBarAtom } from '@/state/resource-link-searchbar.atom'
 
 export default function ResourceLinkGroups() {
     const {filtered} = useRecoilValue(ResourceSearchBarAtom)
-    console.log(filtered)
   return (
     <>
             {!filtered.length || (filtered.length==1&&!filtered[0].links.length) ?

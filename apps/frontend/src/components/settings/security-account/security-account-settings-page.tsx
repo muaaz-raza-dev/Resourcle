@@ -4,6 +4,7 @@ import SecuritySettingsPasswordSection from "./security-settings-password-sectio
 import SecuritySettingsEmailSection from "./security-settings-email-section";
 import SecuritySettingsProvidersSection from "./security-settings-providers-section";
 import DeleteAccountButton from "./delete-account-button";
+import SecurityAccountEmailVerificationSettings from "./security-account-email-verification-settings";
 export default function SecurityAccountSettingsPage() {
   return (
     <div className="max-w-2xl  ">
@@ -12,6 +13,8 @@ export default function SecurityAccountSettingsPage() {
     <SecuritySettingsEmailSection/>
     <Separator/>
     <SecuritySettingsProvidersSection/>
+    <Separator/>
+    <SecurityAccountEmailVerificationSettings/>
     <Separator/>
     <Card className="bg-transparent shadow-none border-none rounded-none">
       <CardHeader>

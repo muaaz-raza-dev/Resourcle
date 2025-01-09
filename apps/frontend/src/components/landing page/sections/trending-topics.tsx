@@ -15,7 +15,7 @@ export default function TrendingTopics() {
   if(!q||q.length==0) return null
   return (
     <>
-    <motion.section  {...fadeInUp}>
+    <motion.section  {...fadeInUp} className='w-full overflow-hidden '>
     <HeadingComp text={"Trending Tags"}/>
     <div className="flex  overflow-x-auto pb-4 flex-wrap gap-2">
       {
