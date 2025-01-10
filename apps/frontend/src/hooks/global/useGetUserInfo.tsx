@@ -4,6 +4,7 @@ import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authAtom } from "@/state/auth.atom";
+import toast from "react-hot-toast";
 export default function useGetUserInfo() {
      const session_token = Cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY);
      const router = useRouter();
@@ -19,7 +20,8 @@ export default function useGetUserInfo() {
         onSuccess({payload}){
             setAuthState(e=>({...e,isLogined:true,user:payload}))
         },
-        onError(){
+        onError({response:{data:{message}}}) {
+            toast.error(message)
             resetAuthState()
             Cookies.remove(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY);
             router.push("/auth/signin");

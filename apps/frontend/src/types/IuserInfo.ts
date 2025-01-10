@@ -4,11 +4,6 @@ export interface IUser{
     email: string;
     email_verified: boolean;
     picture: string;
-    provider: 'local' | 'google' | 'hybrid';
-    user_provider_id?: string;
-    password?: string;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 export interface IauthState{

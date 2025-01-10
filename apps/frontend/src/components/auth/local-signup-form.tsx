@@ -112,7 +112,7 @@ export default function LocalSignUpForm() {
         type="submit"
         className="w-full font-semibold mt-4 bg-accent hover:bg-accent shadow  hover:opacity-90 transition-colors "
         disabled={isLoading}>
-        {isLoading ? <RequestLoader /> : "Create account"}
+        {isLoading ? <RequestLoader dark/> : "Create account"}
       </Button>
     </form>
   );

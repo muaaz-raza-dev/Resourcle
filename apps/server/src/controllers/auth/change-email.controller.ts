@@ -6,6 +6,7 @@ import { User } from "../../models/user.model.js";
 import { GenerateVerificationEmailTemplate } from "../../templates/verify-email.mail.js";
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
+import moment from "moment";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Add this intetry{rface above the function
@@ -118,27 +119,31 @@ interface IverificationEmailPayload{
 }
 export async function RequestCurrentEmailConfirmation(req: Request, res: Response) {
   try {
-    const user = await User.findById(req.userid).select("email_verification_code email name")
+    const user = await User.findById(req.userid).select("email_verification email name")
     if(!user){
       ErrorResponse(res,{message:"UnAuthorized",status:401})
       return;
     }
-    const token_payload ={_id:req.userid,code:user?.email_verification_code};
-    if(!user?.email_verification_code){
-      const random_code = nanoid(10)
-      token_payload.code=random_code
+    const random_code = nanoid(10)
+    // 3 emails attempt in a day and each email will 
+    if(user.email_verification&& user.email_verification.attempts_today>=3){
+      ErrorResponse(res,{message:"You have exceed the limit . Try again tomorrow"})
+      return;
     }
+
+    const token_payload ={_id:req.userid,code:random_code};
     const token = jwt.sign(token_payload, JWT_SECRET, { expiresIn: "1hr" });
     const verificationLink = `${process.env.APP_URL}/auth/verify-email?token=${token}`;
     const reciever  = {username:user.name,email:user.email}
+    const previous_attempts = user.email_verification?.attempts_today ?? 0
+    await User.findByIdAndUpdate(req.userid,{email_verification:{code:random_code,last_attempt:new Date(),attempts_today:previous_attempts+1}})
+
     await SendMail(
       reciever,
       GenerateVerificationEmailTemplate(reciever, verificationLink),
       "Verify your email address",
     );
-    
-
-    SuccessResponse(res, { message: "Verification link sent to your email address. Verify it" });
+    SuccessResponse(res, { message: "Verification link sent to your email address." });
     
   } catch (err) {
     console.log(err);

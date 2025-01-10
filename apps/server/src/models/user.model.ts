@@ -42,7 +42,12 @@ const userSchema = new mongoose.Schema(
     reset_token_expiration: Date,
     reset_verification: { type: Boolean, default: false }, // For password reset verification
     change_email_token: String,
-    email_verification_code:String,
+    email_verification:{
+      requested:Boolean,
+      last_attempt:Date,
+      code:String,
+      attempts_today:String
+    },
     deletedAt: Date,
   },
   { timestamps: true },
@@ -71,6 +76,10 @@ export interface Iuser {
   reset_token?: string;
   reset_verification?: boolean;
   change_email_token?: string;
-  email_verification_code?:string;
+  email_verification?:{
+    last_attempt:Date;
+    code:string;
+    attempts_today:number
+  }
 }
 export const User = mongoose.model<Iuser>("User", userSchema);

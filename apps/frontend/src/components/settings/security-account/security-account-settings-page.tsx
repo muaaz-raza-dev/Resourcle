@@ -12,9 +12,9 @@ export default function SecurityAccountSettingsPage() {
     <Separator/>
     <SecuritySettingsEmailSection/>
     <Separator/>
-    <SecuritySettingsProvidersSection/>
-    <Separator/>
     <SecurityAccountEmailVerificationSettings/>
+    <Separator/>
+    <SecuritySettingsProvidersSection/>
     <Separator/>
     <Card className="bg-transparent shadow-none border-none rounded-none">
       <CardHeader>

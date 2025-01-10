@@ -3,6 +3,7 @@ import { ErrorResponse } from "../utils/responsehandler.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils/tokens.js";
 import { User } from "../models/user.model.js";
+import { HandleJWTToken } from "../helpers/HandleJWTToken.js";
 export async function Authenticate(
   req: Request,
   res: Response,
@@ -14,7 +15,7 @@ export async function Authenticate(
         ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
         return;
     }
-    const decodedToken = jwt.verify(token, JWT_SECRET) as { user_id: string };
+    const {decodedToken}:{decodedToken?:{user_id:string}} = HandleJWTToken(token,res) ;
     if (!decodedToken || !decodedToken.user_id) {
       ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
       return;
@@ -30,6 +31,7 @@ export async function Authenticate(
     req.userid = decodedToken.user_id;
     req.details = user;
     next();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     ErrorResponse(res, { message: "Server is not responding try again later", status: 401 });
     return;
@@ -56,6 +58,7 @@ export async function ValidateLogin(req: Request) {
     req.userid = decodedToken.user_id;
     req.details = user;
     return true;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return false;
   }
