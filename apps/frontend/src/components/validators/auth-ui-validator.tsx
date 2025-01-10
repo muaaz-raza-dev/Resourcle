@@ -8,7 +8,7 @@ const session_token = Cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY);
 
 export default function AuthUiValidator({ children }: { children: ReactNode }) {
   const { isLoading ,isFetched} = useGetUserInfo();
-  // useTrackUserVisit();
+  useTrackUserVisit();
   if (session_token && (isLoading || !isFetched)){ return <AppLoader/>;}
   return( <Suspense fallback={<AppLoader/>}>{children}</Suspense>)
 }
