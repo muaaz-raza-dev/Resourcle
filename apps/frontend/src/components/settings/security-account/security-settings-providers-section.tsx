@@ -34,7 +34,7 @@ function SwitchButtonRenderer({currentProvider,provider}:{currentProvider:Provid
       provider={provider.id}
       title={"Switch Provider to " + provider.id}
     >
-      <button className=" text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all">
+      <button className=" text-xs font-semibold  hover:underline hover:scale-105 transition-all">
         {" "}
         Switch{" "}
       </button>
@@ -42,13 +42,13 @@ function SwitchButtonRenderer({currentProvider,provider}:{currentProvider:Provid
   }
   else if(currentProvider=="local"){
     return <GoogleAuthDialog  provider={provider.id}>
-     <button className=" text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all">
+     <button className=" text-xs font-semibold  hover:underline hover:scale-105 transition-all">
     Switch
   </button>
     </GoogleAuthDialog>
     }
     else if(currentProvider == "google"){
-      return <label className="text-xs font-semibold text-primary hover:underline hover:scale-105 transition-all" htmlFor="new-password">Switch</label>
+      return <label className="text-xs font-semibold  hover:underline hover:scale-105 transition-all" htmlFor="new-password">Switch</label>
     }
 }
 export default function SecuritySettingsProvidersSection() {

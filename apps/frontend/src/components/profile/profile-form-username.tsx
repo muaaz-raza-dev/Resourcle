@@ -6,8 +6,6 @@ import React, { useEffect } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
 import RequestLoader from "../loader/request-loading";
-import { FaBan, FaCheckCircle } from "react-icons/fa";
-import { Tooltip } from "antd";
 import { Button } from "@/shadcn/components/ui/button";
 import { useUpdateProfileUsername } from "@/hooks/profile/useUpdateProfileInfo";
 import Link from "next/link";
@@ -52,11 +50,12 @@ export default function ProfileFormUsername() {
         </Link>
         }
       </div>
-      <div className="flex gap-2 items-center">
-        <div className="">
+      <div className="flex gap-2 items-center w-full">
+        <div className="w-full">
 
         
         <Input
+        className="w-full"
           id="username"
           {
             ...form.register("username", {required:"Username is required",minLength:{value:3,message:"minimum 3 character is required"},
@@ -66,27 +65,24 @@ export default function ProfileFormUsername() {
         />
         <span className="text-xs text-destructive">{form.formState.errors.username?.message}</span>
         </div>
-        {isLoading ? (
-          <RequestLoader size="16" />
-        ) : data ? (
-          data?.payload.isAvailable ? (
-            <Tooltip title="Username is available" placement="top">
-              <FaCheckCircle className="text-primary" />
-            </Tooltip>
-          ) : (
-            <Tooltip title="Username is taken">
-              <FaBan className="text-destructive" />
-            </Tooltip>
-          )
-        ) : null}
         <Button
           type="button"
           disabled={isLoading ||  !data || !data.payload.isAvailable || username_remote == form.watch("username")||!form.formState.isValid}
           onClick={UpdateUsername}
-        >
+          >
           {isUpdating ? <RequestLoader size="16" /> : "Update"}
         </Button>
       </div>
+      <RequestLoader size="16" />
+          {isLoading ? (
+            <RequestLoader size="16" />
+          ) : data ? (
+            data?.payload.isAvailable ? (
+                <p className="text-green-600 text-xs"> Username is taken </p>
+            ) : (
+                <p className="text-destructive text-xs"> Username is taken </p>
+            )
+          ) : null}
     </div>
   );
 }

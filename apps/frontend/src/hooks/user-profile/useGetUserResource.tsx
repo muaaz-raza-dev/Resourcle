@@ -6,13 +6,21 @@ import {
 import { UserProfileResourceAtom } from "@/state/user-profile-resource.atom";
 import { useParams } from "next/navigation";
 import { useMutation } from "react-query";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
 export default function useGetUserResources() {
-  const [{ resources:{count, sort: sortP,isPrivate} },setValue] = useRecoilState(UserProfileResourceAtom);
+  const [{ resources:{count, sort: sortP,isPrivate,},userid:RecoiledUserId },setValue] = useRecoilState(UserProfileResourceAtom);
+  const resetState = useResetRecoilState(UserProfileResourceAtom)
   const userid  = useParams().user as string
   return useMutation({
     mutationKey: ["User",  sortP,userid,count],
+    onMutate:()=>{
+      if(RecoiledUserId!=userid){
+        resetState()
+      }
+      setValue(val=>({...val,resources:{...val.resources,isLoading:true,userid}}))
+      
+      },
     mutationFn: (directPayload?: {
       search ?: string;
       sort?: SearchedSortOptions;
@@ -39,11 +47,8 @@ export default function useGetUserResources() {
     }) {
       console.error("Error creating resource", message);
     },
-    onMutate(){
-      setValue(val=>({...val,resources:{...val.resources,isLoading:true}}))
-    },
     onSettled() {
-      setValue(val=>({...val,resources:{...val.resources,isLoading:false}}))
+      setValue(val=>({...val,resources:{...val.resources,isLoading:false,}}))
     },
   });
 }

@@ -17,5 +17,5 @@ const RedisConnection = ()=>{
     })
     return redis
 }
-const redis = null 
+const redis = RedisConnection()
 export default redis

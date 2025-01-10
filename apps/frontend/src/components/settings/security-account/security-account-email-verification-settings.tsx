@@ -22,7 +22,7 @@ export default function SecurityAccountEmailVerificationSettings() {
       <div className="">
         <h1 className='text-base font-semibold leading-tight'>{q.email}</h1>
           {q.email_verified?
-        <p className='text-muted-foreground text-xs text-green-600'>
+        <p className=' text-xs text-green-600'>
           Your email is verified
         </p>
         :

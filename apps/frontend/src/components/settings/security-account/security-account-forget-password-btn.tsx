@@ -16,7 +16,7 @@ export default function SecurityAccountForgetPasswordBtn({email}:{email:string})
     }
   }
   return (
-    <button disabled={isLoading} className="text-muted-foreground text-sm font-semibold hover:underline transition mt-2" 
+    <button disabled={isLoading} type="button" className="text-muted-foreground text-sm font-semibold hover:underline transition mt-2" 
     onClick={RequestOTP}>
         {
             isLoading? <RequestLoader size="16" /> : "Forget password"

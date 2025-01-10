@@ -1,5 +1,5 @@
 import { Response } from "express";
-import jwt, { JsonWebTokenError }  from "jsonwebtoken";
+import jwt  from "jsonwebtoken";
 import { ErrorResponse } from "../utils/responsehandler";
 
 const  secretKey =process.env.JWT_SECRET
@@ -14,12 +14,7 @@ export function HandleJWTToken (token:string,res:Response,secret=secretKey):{dec
             decodedToken = null
         }
         } catch (err) {
-           const error = err  as JsonWebTokenError
-    if (error.name === 'TokenExpiredError') {
-        response = ErrorResponse(res,{message:"Session Expired.",status:403})
-    } else {
-        response = ErrorResponse(res,{message:"Internal server error.",status:500})
-    }
+    response = ErrorResponse(res,{message:"Session Expired.",status:403})
     decodedToken = null
     }
     return {decodedToken,response}

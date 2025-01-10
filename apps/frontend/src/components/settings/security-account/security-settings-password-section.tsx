@@ -125,6 +125,7 @@ export default function SecuritySettingsPasswordSection() {
                   errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
               }
           </div>
+          <div className="flex justify-between">
           {q?.provider == "google" ? (
             <SecuritySettingsPasswordProviderSelectionModal  disabled={!isValid||isLoading}>
               <Button className="w-full " type="button" disabled={!isValid||isLoading} >
@@ -132,20 +133,21 @@ export default function SecuritySettingsPasswordSection() {
               </Button>
             </SecuritySettingsPasswordProviderSelectionModal>
           ) : (
-            <Button className="w-full " type="submit" disabled={isLoading}>
+            <div className="justify-end flex ">
+            <Button className=" w-max bg-secondary-foreground hover:bg-secondary-foreground/90" type="submit" disabled={isLoading}>
               {
                 isLoading? <RequestLoader size="22" /> : "Update password"
               }
             </Button>
+              </div>
           )}
-        </form>
-        </FormProvider>
-        <div className="flex justify-end">
           {data?.payload.email?
           data?.payload.provider == "google" ? null :
           <SecurityAccountForgetPasswordBtn email={data.payload.email}/>:null
           }
         </div>
+        </form>
+        </FormProvider>
       </CardContent>
     </Card>
   );

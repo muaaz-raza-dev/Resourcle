@@ -7,7 +7,7 @@ export function GenerateVerificationEmailTemplate(
   <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
           <p style="color: #555555;">Dear <strong>${receiver.username || ""}</strong>,</p>
           <p style="color: #555555;">Welcome to <strong>${process.env.APP_NAME}</strong>!</p>
-          <p style="color: #555555;">To complete your registration and start using your account, please verify your email address by clicking the button below:</p>
+          <p style="color: #555555;">To verify your email address , please verify your email address by clicking the button below:</p>
           
           <div style="text-align: center; margin: 20px 0;">
               <a href="${verificationLink}" style="display: inline-block; font-size: 16px; color: #ffffff; background-color: #007BFF; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Verify Email</a>

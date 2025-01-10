@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema(
       requested:Boolean,
       last_attempt:Date,
       code:String,
-      attempts_today:String
+      attempts_today:Number
     },
     deletedAt: Date,
   },

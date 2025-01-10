@@ -28,13 +28,16 @@ export default function UserProfileSavedResources() {
   }
   return (
     <main className="flex flex-col gap-2">
+      <UserProfileResourceLoader/>
       <p className="text-muted-foreground">{total} resources</p>
       {FlatResources.map((resource,index) => (
         <EachResourceComponent index={index} key={resource?._id} resource={resource} />
       ))}
-      <div className="center">
+      <div className="center w-full">
         {isLoading ? (
+          <div className="w-full">
         <UserProfileResourceLoader/>
+          </div>
         ) : total > (count + 1) * countPerRequest  && (<LoadMoreButton onFire={OnFire} count={count} mutateObject={mutateObject} />)}
         {
           !isLoading&&total==0 &&(

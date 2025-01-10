@@ -14,11 +14,14 @@ export default function UserProfileOwnResources() {
   const  OnFire=() => setState((s) => ({ ...s,resources: { ...s.resources, count: s.resources.count + 1, isLoading: true },})); 
   return (
     <>
+    
       {FlatResources.map((resource,index) => (
         <EachResourceComponent index={index} key={resource._id} resource={resource} />
       ))}
-      <div className="center">
-      {isLoading ? <UserProfileResourceLoader/>:
+      <div className="center w-full">
+      {isLoading ? <div className="w-full">
+        <UserProfileResourceLoader/> 
+      </div> :
       total > ((count+1)*countPerRequest) && <LoadMoreButton mutateObject={mutateObject } count={count} onFire={OnFire}  />
       }
       {!isLoading &&

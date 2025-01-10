@@ -1,4 +1,4 @@
-import { Badge } from "@/shadcn/components/ui/badge"
+import useRequestEmailVerification from "@/hooks/auth/useRequestEmailVerification"
 import { Button } from "@/shadcn/components/ui/button"
 import {
   Dialog,
@@ -8,33 +8,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shadcn/components/ui/dialog"
+import { useState } from "react"
+import { GiCancel } from "react-icons/gi";
 
 export default function SecurityAccountEmailVerificationTriggerDialog({email}:{email:string}) {
-
+  const [open,setOpen] = useState(false)
+  const {mutate,isLoading} = useRequestEmailVerification()
   return (
-    <Dialog >
+    <Dialog open={open} onOpenChange={(o)=>!isLoading&&setOpen(o)}>
       <DialogTrigger>
-        <Button variant={"outline"} className=" bg-background border-border shadow-none hover:bg-secondary">
-        Verify 
-        </Button>
+          <Button className='bg-red-100 hover:bg-red-200 border shadow-none '>
+                <GiCancel  className='text-red-800'/>
+              </Button> 
       </DialogTrigger>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle className="mt-4 text-center font-semibold"> Verify your email address </DialogTitle>
+        <DialogTitle className="mt-4 text-xl text-slate-900 text-center font-semibold"> Verify your email address </DialogTitle>
         <DialogDescription className=" "> 
-          <div className="flex items-center gap-1">
-          <p> We will send an email address to your email address </p> <Badge variant={"secondary"}> {email} </Badge>
+          <div >
+          <p> We will send an email address to your email address <span className="text-black inline"> {email} </span></p> 
           </div>
-          <p className="text-xs text-orange-700">
-            If this email is invalid or not in your use. You should change your email address
-          </p>
+       
         </DialogDescription>
       </DialogHeader>
       <div className="flex flex-col  justify-center gap-2 ">
-        <Button  className="w-full bg-secondary-foreground hover:bg-secondary-foreground/90  font-semibold ">
+        <Button  className="w-full bg-secondary-foreground hover:bg-secondary-foreground/90  font-semibold " onClick={()=>mutate()} disabled={isLoading}>
            Send email 
         </Button>
-        <div className="flex gap-1 "> <p>  0:30 </p> <button className="underline">Resend</button></div>
       </div>
     </DialogContent>
   </Dialog>

@@ -1,6 +1,6 @@
 "use client";
 import RequestLoader from "@/components/loader/request-loading";
-import useVerifyEmail from "@/hooks/auth/useVerifyEmail";
+import useVerifyEmailAndChange from "@/hooks/auth/useVerifyEmailAndChange";
 import { Button } from "@/shadcn/components/ui/button";
 import {
   Card,
@@ -14,9 +14,9 @@ import React, { useEffect } from "react";
 export default function Page() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token") as string;
-  const { mutate, isLoading, isSuccess, isError } = useVerifyEmail();
+  const { mutate, isLoading, isSuccess, isError } = useVerifyEmailAndChange();
   useEffect(() => {
-    if (token) mutate( token );
+    if (token) mutate({ token });
   }, [token]);
   return (
     <div className="min-h-[80vh] w-screen flex flex-col gap-8 items-center justify-center  overflow-hidden">
@@ -28,10 +28,12 @@ export default function Page() {
         </CardHeader>
         <CardContent className="text-center">
           {token ? (
-            null
+            isLoading ? (
+              "Verifying"
+            ) : null
           ) : (
             <p className="text-muted-foreground text-sm">
-              If you have requested to verify  your email address, a
+              If you have requested a change to your email address, a
               verification link may have been sent to your new email. Please
               check your inbox and click on the link to complete the
               verification process.
@@ -39,13 +41,12 @@ export default function Page() {
           )}
 
           {isLoading ? (
-            <div className="center">
             <RequestLoader size="30" />
-            </div>
           ) : isSuccess ? (
             <section>
               <div>Your email has been successfully verified</div>
               <Button variant={"secondary"} className="w-full mt-4">
+                {" "}
                 Go back home
               </Button>
             </section>

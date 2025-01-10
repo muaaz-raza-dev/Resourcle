@@ -7,6 +7,7 @@ import { GenerateVerificationEmailTemplate } from "../../templates/verify-email.
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 import moment from "moment";
+import { HandleJWTToken } from "../../helpers/HandleJWTToken.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Add this intetry{rface above the function
@@ -58,7 +59,7 @@ export async function RequestChangeEmailController(
     await User.findByIdAndUpdate(req.userid, {
       change_email_token: uniqueIdentifier,
     });
-    const verificationLink = `${process.env.APP_URL}/auth/verify-email?token=${AccessToken}`;
+    const verificationLink = `${process.env.APP_URL}/auth/change-email?token=${AccessToken}`;
     await SendMail(
       receiver,
       GenerateVerificationEmailTemplate(receiver, verificationLink),
@@ -126,16 +127,18 @@ export async function RequestCurrentEmailConfirmation(req: Request, res: Respons
     }
     const random_code = nanoid(10)
     // 3 emails attempt in a day and each email will 
-    if(user.email_verification&& user.email_verification.attempts_today>=3){
+    const isSameDay = user.email_verification ? moment().date() == moment(user.email_verification.last_attempt).date() : false;
+    if(user.email_verification && isSameDay   && user.email_verification.attempts_today >= 3){
       ErrorResponse(res,{message:"You have exceed the limit . Try again tomorrow"})
       return;
     }
 
     const token_payload ={_id:req.userid,code:random_code};
-    const token = jwt.sign(token_payload, JWT_SECRET, { expiresIn: "1hr" });
+    const token = jwt.sign(token_payload, JWT_SECRET, { expiresIn: "24hr" });
     const verificationLink = `${process.env.APP_URL}/auth/verify-email?token=${token}`;
     const reciever  = {username:user.name,email:user.email}
-    const previous_attempts = user.email_verification?.attempts_today ?? 0
+    //fetching and reseting attempts
+    const previous_attempts = isSameDay ? (user.email_verification?.attempts_today?? 0 ) : 0
     await User.findByIdAndUpdate(req.userid,{email_verification:{code:random_code,last_attempt:new Date(),attempts_today:previous_attempts+1}})
 
     await SendMail(
@@ -155,23 +158,23 @@ export async function RequestCurrentEmailConfirmation(req: Request, res: Respons
 export async function VerifyCurrentEmailAddress(req: Request, res: Response) {
   try {
     const {token} = req.body
-    const decodeToken = jwt.verify(token,JWT_SECRET,) as IverificationEmailPayload;
-    if (!decodeToken) {
-      ErrorResponse(res, { message: "Invalid token. Re-verify your email address", status: 403 });
+    const {decodedToken}:{decodedToken:IverificationEmailPayload} = HandleJWTToken(token,res) ;
+    if (!decodedToken) {
+      //response is tackled by handleJWTToken
       return;
     }
-    const user = await User.findById(decodeToken._id).select("email_verification_code");
-    if (!user || !user.email_verification_code) {
+    const user = await User.findById(decodedToken._id).select("email_verification");
+    if (!user || !user.email_verification ) {
       ErrorResponse(res, { message: "Invalid request", status: 403 });
       return;
     }
-    if (decodeToken.code!=user.email_verification_code) {
+    if (decodedToken.code!=user.email_verification.code) {
       ErrorResponse(res, { message: "Invalid token. Re-verify your email address", status: 403 });
       return;
     }
-    await User.findByIdAndUpdate(req.userid, {email_verified:true})
-    SuccessResponse(res, { message: "Your email is verfied successfuly !" });
+    await User.findByIdAndUpdate(req.userid, {$unset: {email_verification: ""}, email_verified: true})
     
+    SuccessResponse(res, { message: "Your email is verfied successfuly !" });
   } catch (err) {
     console.log(err);
     ErrorResponse(res, { message: "Internal server error, try again later" });

@@ -17,7 +17,6 @@ export async function Authenticate(
     }
     const {decodedToken}:{decodedToken?:{user_id:string}} = HandleJWTToken(token,res) ;
     if (!decodedToken || !decodedToken.user_id) {
-      ErrorResponse(res, { message: "Invalid Credentials", status: 401 });
       return;
     }
     const user = await User.findById(decodedToken.user_id).select(

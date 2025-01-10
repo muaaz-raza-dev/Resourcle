@@ -282,6 +282,7 @@ export async function GetFeedResources(
     }
 
     const ChachedResources = await redis?.get("resourcle:resource-feed")
+    console.log(ChachedResources)
     let resources: IResource[] = []
     
     if(!ChachedResources){

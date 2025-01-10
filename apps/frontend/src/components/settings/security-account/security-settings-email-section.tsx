@@ -47,7 +47,7 @@ export default function SecuritySettingsEmailSection() {
 <NewEmailTriggerButtonDialog new_email={newEmail} disabled={isDisabled}>
           <Button
           disabled={isDisabled}
-            className="w-full"
+            className="w-max bg-secondary-foreground hover:bg-secondary-foreground/90"
           >
             Send Verification Link
           </Button>
