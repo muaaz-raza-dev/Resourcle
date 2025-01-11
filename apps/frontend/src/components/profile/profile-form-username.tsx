@@ -73,7 +73,6 @@ export default function ProfileFormUsername() {
           {isUpdating ? <RequestLoader size="16" /> : "Update"}
         </Button>
       </div>
-      <RequestLoader size="16" />
           {isLoading ? (
             <RequestLoader size="16" />
           ) : data ? (

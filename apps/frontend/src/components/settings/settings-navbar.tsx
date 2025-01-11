@@ -24,9 +24,9 @@ export default function SettingsNavbar() {
 
   return (
     
-      <div className="w-64 max-md:w-full md:mt-4  space-y-1 max-md:gap-4 flex md:flex-col max-md:py-4 md:border-r max-md:border-b px-7">
+      <div className="w-64 max-md:w-full md:mt-4  space-y-1 max-md:gap-4 flex md:flex-col  max-md:py-4 md:border-r max-md:border-b px-7">
   <h2 className="font-semibold max-md:hidden text-lg ">Settings</h2>        
-  <Separator/>
+  <Separator className="max-md:hidden"/>
       {menuItems.map((item) => {
         const isActive = pathname === item.href
         return (

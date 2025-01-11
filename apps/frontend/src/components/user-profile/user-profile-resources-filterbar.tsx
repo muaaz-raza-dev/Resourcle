@@ -62,14 +62,14 @@ function SwitchPublicOperatorComp() {
   const {isLogined,user} = useRecoilValue(authAtom);
   
   const userid = useParams().user as string
-  const [ {resources: { isPrivate },},setState,] = useRecoilState(UserProfileResourceAtom);
-  const { mutate,isLoading } = useGetUserResources();
-  function handlePublicPrivateOptionChange(value: boolean) {
-    setState((val) => ({
-      ...val,
-      resources: { ...val.resources,resources:{}, isPrivate: value ,isLoading:true,count:0},
-    }));
-    mutate({ isPrivate: value,count:0 });
+  const [ {resources: { isPrivate },},setState] = useRecoilState(UserProfileResourceAtom);
+  const { mutateAsync,isLoading } = useGetUserResources();
+ async function handlePublicPrivateOptionChange(value: boolean) {
+   setState((val) => ({
+     ...val,
+     resources: { ...val.resources,resources:{}, isPrivate: value },
+   }));
+   await mutateAsync({ isPrivate: value,count:0 });
   }
   if(!isLogined||!user||userid!=user._id) return null; // only logged in users can switch between public and private resources
 
@@ -79,16 +79,17 @@ function SwitchPublicOperatorComp() {
       <div className="">
       <div className="  flex items-center gap-2 text-sm font-semibold ">
         <FaLock /> Private Resources
-      {isLoading? <RequestLoader size="18" />:null}
       </div>
  
       </div>
-  
+      <div className="  flex items-center gap-2 ">
+        {isLoading? <RequestLoader size="18" />:null}
       <Switch
       disabled={isLoading}
-        checked={isPrivate}
-        onCheckedChange={handlePublicPrivateOptionChange}
+      checked={isPrivate}
+      onCheckedChange={handlePublicPrivateOptionChange}
       />
+      </div>
     </div>
   );
 }
