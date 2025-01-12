@@ -1,6 +1,6 @@
 import { Response } from "express";
 import jwt  from "jsonwebtoken";
-import { ErrorResponse } from "../utils/responsehandler";
+import { ErrorResponse } from "../utils/responsehandler.js";
 
 const  secretKey =process.env.JWT_SECRET
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

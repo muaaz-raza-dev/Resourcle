@@ -1,6 +1,6 @@
 // routes/userRoutes.ts
 import { FastifyInstance } from 'fastify';
-import { GetResourceUrls } from '../contollers/resource.controller';
+import { GetResourceUrls } from '../contollers/resource.controller.js';
 
 interface UserResponse {
   message: string;
