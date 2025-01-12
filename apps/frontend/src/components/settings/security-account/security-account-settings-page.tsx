@@ -8,11 +8,11 @@ import SecurityAccountEmailVerificationSettings from "./security-account-email-v
 export default function SecurityAccountSettingsPage() {
   return (
     <div className="max-w-2xl  ">
-    <SecuritySettingsPasswordSection/>
+    <SecurityAccountEmailVerificationSettings/>
     <Separator/>
     <SecuritySettingsEmailSection/>
     <Separator/>
-    <SecurityAccountEmailVerificationSettings/>
+    <SecuritySettingsPasswordSection/>
     <Separator/>
     <SecuritySettingsProvidersSection/>
     <Separator/>

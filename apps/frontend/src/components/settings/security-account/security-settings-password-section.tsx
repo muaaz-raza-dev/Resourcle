@@ -16,6 +16,7 @@ import { FormProvider, useForm,SubmitHandler, Controller } from "react-hook-form
 import { Iproviders } from "@/types/Isecurity";
 import RequestLoader from "@/components/loader/request-loading";
 import SecurityAccountForgetPasswordBtn from "./security-account-forget-password-btn";
+import { passwordValidation } from "@/utils/validate-password";
 export interface IChangePasswordForm {
   current_password: string;
   new_password: string;
@@ -34,7 +35,7 @@ export default function SecuritySettingsPasswordSection() {
       provider: q?.provider || "hybrid",
     },
   });
-  const { watch,formState:{errors,isValid},handleSubmit,control,reset } = form
+  const { watch,formState:{errors,isValid},handleSubmit,control,reset,trigger } = form
   const new_password = watch("new_password"); // Watch the new_password field
   const onSumbit: SubmitHandler<IChangePasswordForm> = async(data) => {
       await mutate(data);
@@ -51,7 +52,7 @@ export default function SecuritySettingsPasswordSection() {
       <CardContent>
         <FormProvider {...form}>
         <form className="space-y-4" onSubmit={handleSubmit(onSumbit)}>
-          {q?.provider != "google" && (
+          {q?.provider != "google" && !q?.reset_verification && (
             <div className="space-y-2">
               <Label htmlFor="current-password">Current Password</Label>
               <Controller
@@ -89,6 +90,7 @@ export default function SecuritySettingsPasswordSection() {
               value: 8,
               message: "Password must be at least 8 characters",
             },
+            validate:passwordValidation
           }}
           render={({ field }) => (
             <InputAntd.Password
@@ -97,6 +99,7 @@ export default function SecuritySettingsPasswordSection() {
               placeholder="New password"
             />
           )}
+
         />
             {
                   errors.new_password && <p className="text-red-500 text-sm">{errors.new_password.message}</p>
@@ -128,7 +131,7 @@ export default function SecuritySettingsPasswordSection() {
           <div className="flex justify-between">
           {q?.provider == "google" ? (
             <SecuritySettingsPasswordProviderSelectionModal  disabled={!isValid||isLoading}>
-              <Button className="w-full " type="button" disabled={!isValid||isLoading} >
+              <Button className="w-full " onClick={()=>trigger()} type="button"  >
                 {q?.provider == "google" ? "Setup Password" : "Update Password"}
               </Button>
             </SecuritySettingsPasswordProviderSelectionModal>

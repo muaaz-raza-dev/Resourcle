@@ -33,12 +33,16 @@ export async function RequestChangeEmailController(
       return;
     }
 
-    const user = await User.findById(req.userid).select("name ");
+    const user = await User.findById(req.userid).select("name provider email");
     if (!user) {
       ErrorResponse(res, { message: "User not found", status: 404 });
       return;
     }
-    if (req.details.provider != "google") {
+    if(req.details.provider == "google"){
+      ErrorResponse(res, { message: "Setup your password first.", status: 401 });
+      return;
+    }
+    if (req.details.provider == "local") {
       const isValid = await bcrypt.compare(password, req.details.password);
       if (!isValid) {
         ErrorResponse(res, { message: "Invalid credentials", status: 401 });
@@ -53,7 +57,7 @@ export async function RequestChangeEmailController(
     const receiver = { username: user.name, email: new_email };
     const uniqueIdentifier = nanoid(8);
     const AccessToken = await jwt.sign(
-      { email: user.email, uniqueIdentifier, new_email: new_email },
+      { email: user.email, uniqueIdentifier, new_email: new_email, },
       JWT_SECRET,
     );
     await User.findByIdAndUpdate(req.userid, {
@@ -76,25 +80,22 @@ export async function RequestChangeEmailController(
 export async function VerifyChangeEmailToken(req: Request, res: Response) {
   const { token } = req.body;
   try {
-    const decodeToken = (await jwt.verify(
-      token,
-      JWT_SECRET,
-    )) as ChangeEmailToken;
-    if (!decodeToken || decodeToken.email == req.details.email) {
+    const decodeToken =  jwt.verify(token,JWT_SECRET) as ChangeEmailToken;
+    if (!decodeToken || decodeToken.email == decodeToken.new_email) {
       ErrorResponse(res, { message: "Invalid request", status: 403 });
       return;
     }
-    const user = await User.findById(req.userid).select("change_email_token");
+    const user = await User.findOne({email:decodeToken.email}).select("change_email_token");
     if (!user || !user.change_email_token) {
-      ErrorResponse(res, { message: "Invalid request", status: 403 });
+      ErrorResponse(res, { message: "Session Expired", status: 403 });
       return;
     }
 
     if (decodeToken.uniqueIdentifier != user.change_email_token) {
       ErrorResponse(res, { message: "Invalid request", status: 403 });
       return;
-    } else {
-      await User.findByIdAndUpdate(req.userid, {
+    } 
+      await User.findByIdAndUpdate(user._id, {
         email: decodeToken.new_email,
         email_verified: true,
         provider: "local",
@@ -106,7 +107,6 @@ export async function VerifyChangeEmailToken(req: Request, res: Response) {
       SuccessResponse(res, {
         message: "Email verified successfully, you can now use this new email",
       });
-    }
   } catch (err) {
     console.log(err);
     ErrorResponse(res, { message: "Internal server error, try again later" });

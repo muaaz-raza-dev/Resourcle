@@ -8,6 +8,7 @@ import { Button } from "@/shadcn/components/ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import RequestLoader from "../loader/request-loading";
 import useSignupLocal from "@/hooks/auth/useSignupLocal";
+import { passwordValidation } from "@/utils/validate-password";
 interface IlocalSignup {
   name: string;
   email: string;
@@ -19,21 +20,7 @@ export default function LocalSignUpForm() {
   const formSubmit: SubmitHandler<IlocalSignup> = (data) => {
     signup(data);
   };
-  const passwordValidation = (value: string) => {
-    if(value.includes(" ")){
-      return "password should not contain space"
-    }
-    if(!/[A-Z]/.test(value)){
-      return "password should contain at least one uppercase letter"
-    }
-    if(!/[a-z]/.test(value)){
-      return "password should contain at least one lowercase letter"
-    }
-    if(!/[0-9]/.test(value)){
-      return "password should contain at least one number"
-  }
-  return true 
-  }
+
   return (
     <form
       onSubmit={form.handleSubmit(formSubmit)}

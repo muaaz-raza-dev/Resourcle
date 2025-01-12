@@ -14,7 +14,7 @@ import React, { useEffect } from "react";
 export default function Page() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token") as string;
-  const { mutate, isLoading, isSuccess, isError } = useVerifyEmail();
+  const { mutate, isLoading, isSuccess, isError,error } = useVerifyEmail();
   useEffect(() => {
     if (token) mutate( token );
   }, [token]);
@@ -52,8 +52,7 @@ export default function Page() {
           ) : (
             isError && (
               <p className="text-destructive">
-                An error occurred while verifying your email. Please try again
-                later.
+          {error.response.data.message}
               </p>
             )
           )}

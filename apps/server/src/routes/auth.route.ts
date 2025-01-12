@@ -37,10 +37,10 @@ router.post(
   Authenticate,
   RequestChangeEmailController,
 );
-router.post("/change/email", Authenticate, VerifyChangeEmailToken);
+router.post("/change/email",  VerifyChangeEmailToken);
 
 //Current Email verification
 router.post("/request/verify/email", Authenticate, RequestCurrentEmailConfirmation);
-router.post("/verify/email", Authenticate, VerifyCurrentEmailAddress);
+router.post("/verify/email", VerifyCurrentEmailAddress);
 
 export default router;

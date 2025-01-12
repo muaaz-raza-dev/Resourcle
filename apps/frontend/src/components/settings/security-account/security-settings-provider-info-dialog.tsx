@@ -23,7 +23,7 @@ export default function SecuritySettingsProviderInfoDialog() {
           </p>
           <ul className="list-disc list-inside mt-2 space-y-1">
             
-            <li><strong>Google:</strong> Uses Google's services for data storage and processing.</li>
+            <li><strong>Google:</strong> Uses Google's services for your authentication.</li>
             <li><strong>Local:</strong> Stores and processes data on your local infrastructure.</li>
             <li><strong>Hybrid:</strong> Combines both Google and local resources for a customized solution.</li>
           </ul>
@@ -34,7 +34,7 @@ export default function SecuritySettingsProviderInfoDialog() {
         </DialogDescription>
       </DialogHeader>
       <DialogClose>
-      <Button className="mt-4 hover:bg-secondary transition-colors">Close</Button>
+      <Button variant={"secondary"} className="w-full hover:bg-secondary transition-colors">Close</Button>
       </DialogClose>
     </DialogContent>
   </Dialog>

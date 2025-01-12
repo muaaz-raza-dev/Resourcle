@@ -47,7 +47,7 @@ export default function SecuritySettingsPasswordProviderSelectionModal({children
               disabled={isLoading}
                 key={provider.id}
                 onClick={()=>SubmitPasswordAndProviderChange(provider.id)}
-                className="flex items-center justify-start gap-2 h-16 bg-secondary-foreground text-white hover:text-primary hover:bg-secondary-foreground"
+                className="flex items-center justify-start gap-2 h-16 bg-secondary-foreground text-white "
               >
                 { isLoading? (<RequestLoader size='16' />) :null }
                 {provider.icon}

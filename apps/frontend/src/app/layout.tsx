@@ -13,7 +13,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 export const metadata: Metadata = {
   title: "Resourcle",
   description: "Resourcle is a community-driven platform for discovering, sharing, and collaborating on valuable resources, from articles to tools, with a focus on knowledge sharing.",
-  keywords: "resource sharing, community platform, discover resources, knowledge sharing, collaborate on resources, educational resources, online resources, resource links",
+  keywords: `resource sharing, community platform, discover resources, knowledge sharing, collaborate on resources, educational resources, online resources, resource links, resource sharing platform, best educational resources, learning resources online, collaborate on knowledge, online resource collaboration, community-driven resource sharing, free educational tools, platform for resource links
+`,
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
   // Open Graph (Facebook) metadata
   openGraph: {

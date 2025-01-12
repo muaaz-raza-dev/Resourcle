@@ -4,6 +4,7 @@ import utilsRoutes from './routes/util.routes.js';
 import cors, { FastifyCorsOptions } from '@fastify/cors'
 
 import { dbConnection } from './db.js';
+import ResourceRoutes from './routes/resource.routes.js';
 config();
 const fastify = Fastify();
 const corsOptions:FastifyCorsOptions = {
@@ -18,11 +19,13 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.register(utilsRoutes , { prefix: '/api/utils' });
+fastify.register(ResourceRoutes , { prefix: '/api/resource' });
 
 // Run the server
 const port = +(process.env.PORT||4000) || 4000
 const start = async () => {
   try {
+    await dbConnection();
     await fastify.listen({ port,host:"0.0.0.0"});
     console.log('Util Server listening at http://localhost:4000');
   } catch (err) {

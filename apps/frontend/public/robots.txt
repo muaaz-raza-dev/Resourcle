@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://resourcle.vercel.app
-
-# Sitemaps
-Sitemap: https://resourcle.vercel.app/sitemap.xml
