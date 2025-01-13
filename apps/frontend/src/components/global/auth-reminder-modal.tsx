@@ -19,7 +19,7 @@ export default function AuthReminderModal() {
   const [isOpen, setIsOpen] = useState(false)
   const [{authReminderModal},setValue] = useRecoilState(authAtom)
    useEffect(() => {  
-    if(authReminderModal)setIsOpen(true)
+    setIsOpen(authReminderModal)
     }, [authReminderModal])
     function handleChange(open:boolean){
         setIsOpen(open)

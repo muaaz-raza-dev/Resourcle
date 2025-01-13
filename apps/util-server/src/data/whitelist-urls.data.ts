@@ -1,5 +1,5 @@
 export const whitelist = [
-  'https://canvas.com',
+  'https://canva.com',
   'https://www.netflix.com',
   'https://netflix.com',
   'https://github.com',

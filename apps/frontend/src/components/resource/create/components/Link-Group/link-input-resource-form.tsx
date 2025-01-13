@@ -35,6 +35,7 @@ export default function LinkInputResourceForm({
     <div className="">
       <Label className="font-semibold text-sm my-1">URL *</Label>
       <div className="flex gap-2 items-center">
+
         <Input
           type="url"
           className={"bg-white placeholder:text-muted-foreground"}
@@ -46,6 +47,9 @@ export default function LinkInputResourceForm({
           autoFocus
           {...rest}
         />
+        {
+          isLoading&& <RequestLoader size="18" />
+        }
       </div>
       
 
@@ -54,9 +58,8 @@ export default function LinkInputResourceForm({
       null
       :
       isLoading?
-       <RequestLoader size="18" />
+      null
       :
-
       (!isValid||errors.url) ? (
         <span className="text-red-500 text-xs">Link is not valid</span>
       ) : (null

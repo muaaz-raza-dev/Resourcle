@@ -7,6 +7,7 @@ export async function LinkValidator(request: FastifyRequest<{ Body: {link:string
         const {link}=request.body;
         const response = await fetch(link,{headers: { Range: "bytes=0-720" }})
         if(!response.ok){
+            console.log(isWhitelisted(link),link)
             if(isWhitelisted(link)){
                 SuccessResponse(reply,{message:"Link is valid",payload:{title:""}})        
                 return;
