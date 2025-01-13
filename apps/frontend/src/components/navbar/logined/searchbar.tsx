@@ -1,4 +1,4 @@
-import RequestLoader from "@/components/loader/request-loading";
+import SearchLoader from "@/components/loader/search-loader";
 import useSearchResource from "@/hooks/resource/useSearchResource";
 import { searchedResourcesAtom } from "@/state/search-resource.atom";
 import clsx from "clsx";
@@ -61,7 +61,7 @@ export default function Searchbar() {
       />
       <div className={clsx("flex gap-1 border text-xs bg-secondary items-center px-1 rounded font-semibold ",isLoading&&"py-2")}>
         {isLoading?
-        <RequestLoader size="12" />
+        <SearchLoader/>
         :
         <>
               <MdKeyboardCommandKey />

@@ -26,14 +26,16 @@ const steps = [
   
 export default function HowItWorks() {
   return (
-    <section className="py-8 ">
-    <div className="container mx-auto  py-4">
+    <section className="py-8 w-full overflow-hidden">
+    <div className=" max-md:px-0   py-4">
+      <div className="w-full">
              <HeadingComp text='How it works'/>
+      </div>
       <div className="flex flex-wrap">
         <div className="space-y-4">
           {steps.map((step, index) => (
             <div key={index} className="flex items-center ">
-              <div className="h-full aspect-square p-2 rounded-md bg-secondary text-accent  border  hover:border-accent transition-colors  mr-4  text-sm 
+              <div className="h-full aspect-square p-2 rounded-md bg-secondary  border  hover:bg-accent/10 transition-colors  mr-4  text-sm 
                flex items-center justify-center ">
                 {step.icon({})}
               </div>
@@ -48,7 +50,7 @@ export default function HowItWorks() {
     </div>
     <Separator/>
           <div className='leading-snug bg-secondary  px-4 p-2  text-sm rounded-md   flex flex-col gap-1 my-4'>
-            <h2 className='text-accent bg-secondary-foreground  px-4 w-max py-1 rounded-md  font-semibold inline'>Good practice  </h2>
+            <h2 className='text-accent bg-accent/10  px-4 w-max py-1 rounded-md  font-semibold inline'>Good practice  </h2>
             <p className='font-medium text-base tracking-tight text-muted-foreground '>
              If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
             </p>

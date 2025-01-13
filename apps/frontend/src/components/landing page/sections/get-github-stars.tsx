@@ -9,7 +9,7 @@ export default function GetGithubStars() {
           
           <Spotlight fill="green"/>
           <Spotlight fill="white" className="left-20"/>
-      <div className="z-50 relative inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-8  text-4xl text-center md:text-5xl lg:text-7xl">
+      <div className="z-50 relative inset-0 flex flex-col items-center gap-4 justify-center  font-bold px-8 max-md:mx-2  text-5xl text-center md:text-5xl lg:text-7xl">
         <h2 className="bg-clip-text h-max py-4  text-transparent  drop-shadow-2xl bg-gradient-to-b from-black/90 to-black/80">
           Actively Maintained
         </h2>

@@ -16,7 +16,7 @@ import HeadingComp from '../components/heading-comp'
 export function FAQSection() {
   return (
     <>
-    <section className="  py-8  container overflow-hidden w-full">
+    <section className="  py-8   overflow-hidden w-full">
       <HeadingComp text='Frequently Asked Questions'/>
 
       <div className="  mx-auto ">

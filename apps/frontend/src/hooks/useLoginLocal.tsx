@@ -12,7 +12,7 @@ const useLoginLocal = () => {
       mutationKey: ["Login", "Locale"],
       mutationFn: (payload:{email:string,password:string}) => LoginLocal(payload),
       onSuccess(data) {
-        setState(e=>({...e,isLogined:true,user:data.payload}))
+        setState(e=>({...e,isLogined:true,user:data.payload,authReminderModal:false}))
         // Set session cookie just becuase of domain confilct
         Cookie.set(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY,data.token,{expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),})
         toast.success(data.message)

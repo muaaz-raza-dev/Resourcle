@@ -21,11 +21,11 @@ export default function SecuritySettingsProviderInfoDialog() {
           <p className="mt-2">
             The provider setup allows you to choose between three options for your data source:
           </p>
-          <ul className="list-disc list-inside mt-2 space-y-1">
+          <ul className="list-disc  list-inside  mt-2 space-y-1">
             
-            <li><strong>Google:</strong> Uses Google's services for your authentication.</li>
-            <li><strong>Local:</strong> Stores and processes data on your local infrastructure.</li>
-            <li><strong>Hybrid:</strong> Combines both Google and local resources for a customized solution.</li>
+            <li className='text-left'><strong>Google:</strong> Uses Google's services for your authentication.</li>
+            <li className='text-left'><strong>Local:</strong> Stores and processes data on your local infrastructure.</li>
+            <li className='text-left'><strong>Hybrid:</strong> Combines both Google and local resources for a customized solution.</li>
           </ul>
           <p className="mt-2">
             Select the option that best fits your needs by clicking on the corresponding icon. 

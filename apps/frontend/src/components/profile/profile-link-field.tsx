@@ -16,7 +16,7 @@ export default function ProfileLinkField() {
     <Label className="!font-bold text-2xl ">Handles</Label>
     <p className='text-sm text-muted-foreground pb-4 leading-tight'>Add an additional link to showcase more about yourself, such as a personal website, portfolio, or social media profile.</p>
     {
-        links?.map((l,i)=><EachLinkInput key={i+l.url} index={i}/>)
+        links?.map((l,i)=><EachLinkInput key={`${i} link`} index={i}/>)
     }
     <button className='text-primary font-semibold flex items-center gap-1 text-sm' onClick={AddLinkHandler}>
         Add Link <FaPlus size={12}/>

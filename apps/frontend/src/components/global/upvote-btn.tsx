@@ -57,7 +57,7 @@ export default function UpvoteBtn({
           className={clsx(
             "hover:text-orange-500 transition-colors text-balck",
             className,
-            isLoading && "animate-ping"
+            isLoading && "animate-pulse transition-all"
           )}
           size={size || 18}
         />

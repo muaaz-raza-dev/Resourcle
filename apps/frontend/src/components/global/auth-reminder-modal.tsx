@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Button } from "@/shadcn/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -13,6 +12,8 @@ import Link from "next/link"
 import { useRecoilState } from "recoil"
 import { authAtom } from "@/state/auth.atom"
 import Image from "next/image"
+import LocalLoginForm from "../auth/local-login-form"
+import GoogleAuthButton from "../auth/Google-auth-button"
 
 export default function AuthReminderModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,14 +39,14 @@ export default function AuthReminderModal() {
             Log in or sign up to access all resources and features.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col  justify-center gap-2 ">
-          <Button  className="w-full bg-secondary-foreground hover:bg-secondary-foreground/90  font-semibold ">
-            <Link href="/login"> Log In</Link>
-          </Button>
-          <Button  variant="secondary" className="bg-accent font-semibold text-white hover:bg-accent/90">
-            <Link href="/signup">Sign up</Link>
-          </Button>
-        </div>
+            <GoogleAuthButton /> 
+        <LocalLoginForm/>
+        <div className=" text-center text-muted text-sm font-medium">
+        Dont have an account?{" "}
+        <Link href="/auth/signup" className="font-semibold hover:underline">
+          Sign up
+        </Link>
+      </div>
       </DialogContent>
     </Dialog>
   )

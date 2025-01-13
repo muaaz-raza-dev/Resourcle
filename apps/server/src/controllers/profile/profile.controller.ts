@@ -16,7 +16,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function GetProfileInfoController(req: Request, res: Response) {
   try {
     const user_details = await User.findById(req.userid).select(
-      "-password -user_provider_id",
+      "name username picture links headline about",
     );
     if (!user_details) {
       ErrorResponse(res, { message: "User not found", status: 404 });

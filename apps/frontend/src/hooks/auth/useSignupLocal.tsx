@@ -12,7 +12,7 @@ const useSignupLocal = () => {
       mutationKey: ["Sign up", "Locale"],
       mutationFn: (payload:{name:string,email:string,password:string}) => SignupLocalApi(payload),
       onSuccess(data) {
-        setState(e=>({...e,isLogined:true,user:data.payload}))
+        setState(e=>({...e,isLogined:true,user:data.payload,authReminderModal:false}))
         Cookie.set(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY,data.token,{expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),})
         toast.success(data.message)
         router.push("/")
