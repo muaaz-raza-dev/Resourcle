@@ -7,7 +7,6 @@ import Link from "next/link";
 import ResourceLoader from "../loader/resource-loader";
 import SaveBtn from "@/components/global/save-btn";
 import {motion} from "framer-motion"
-import moment from "moment";
 import { accurateFromNow } from "@/utils/accurate-time-from-now";
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();

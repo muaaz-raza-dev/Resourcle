@@ -40,15 +40,14 @@ export default function ResourceEachLinkComponent({
           {index + 1}
         </Badge>
 
-          <div className="flex md:gap-4 md:items-center max-md:flex-col">
+          <div className="flex md:gap-4 md:items-center max-md:flex-col ">
 
               <LinkPreview quality={100}  url={resource.url} >
-
               <Link
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className=" font-semibold md:border-r pr-2"
+                className=" font-semibold md:border-r pr-2 md:whitespace-nowrap "
                 onClick={()=>mutate(resource._id)}
                 >
                 {resource.title}
