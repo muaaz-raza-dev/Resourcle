@@ -10,6 +10,7 @@ const resourceLinkSchema = new mongoose.Schema(
     description: String,
     isDeleted: Boolean,
     upvotes: Number,
+    clicks:{default:0,type:Number},
     tags: [String],
     upvotesDoc: { type: mongoose.Types.ObjectId, ref: "Upvotes" },
   },
@@ -22,6 +23,7 @@ export interface IResourceLink extends mongoose.Document {
   isDeleted: boolean;
   title: string;
   tags: string[];
+  clicks:number,
   url: string;
   description: string;
   upvotes: number;

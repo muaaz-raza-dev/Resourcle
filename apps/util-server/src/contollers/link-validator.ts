@@ -5,13 +5,12 @@ import { isWhitelisted } from "../data/whitelist-urls.data.js";
 export async function LinkValidator(request: FastifyRequest<{ Body: {link:string} }>, reply: FastifyReply,){
     try{
         const {link}=request.body;
+        if(isWhitelisted(link)){
+            SuccessResponse(reply,{message:"Link is valid",payload:{title:""}})        
+            return;
+        }
         const response = await fetch(link,{headers: { Range: "bytes=0-720" }})
         if(!response.ok){
-            console.log(isWhitelisted(link),link)
-            if(isWhitelisted(link)){
-                SuccessResponse(reply,{message:"Link is valid",payload:{title:""}})        
-                return;
-            }
             ErrorResponse(reply,{message:"Link is not valid",status:404})
             return ;
         }

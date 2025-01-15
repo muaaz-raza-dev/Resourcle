@@ -99,7 +99,7 @@ export default function NewLinkDailogResourceForm({
           <Input
               {...field}
             id="title"
-            maxLength={50}
+            maxLength={64}
               className="bg-white placeholder:text-muted-foreground"
               placeholder="Netflix Engineering blogs"
             />
@@ -129,7 +129,7 @@ export default function NewLinkDailogResourceForm({
               {...field}
               placeholder="A short and concise description"
             id="description"
-            maxLength={120}
+            maxLength={180}
               className="bg-white placeholder:text-muted-foreground"
             />
            </FormControl>
@@ -151,10 +151,9 @@ export default function NewLinkDailogResourceForm({
                 mode="tags"
                 className="w-full h-9 text-sm placeholder:!text-muted-foreground"
                 maxTagCount={3}
-                
                 value={watch("tags")}
                 placeholder="assign appropriate tags"
-                onChange={(value: string[]) => setValue("tags", value)}
+                onChange={(value: string[]) =>{ setValue("tags", value);}}
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
             </div>

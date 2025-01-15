@@ -13,6 +13,9 @@ import ResourceEachLinkUpvote from "./resource-each-link-upvote";
 import ResourceEachLinkCollectButton from "./resource-each-link-collect-button";
 import useScreenSizeTracker from "@/hooks/global/useScreenSizeTracker";
 import { LinkPreview } from "@/shadcn/components/ui/link-preview";
+import { LuMousePointerClick } from "react-icons/lu";
+import { FaCaretUp } from "react-icons/fa";
+import useTrackLinkClick from "@/hooks/resource/useTrackLinkClick";
 
 export default function ResourceEachLinkComponent({
   data: resource,
@@ -23,30 +26,36 @@ export default function ResourceEachLinkComponent({
   resource_id: string;
   index: number;
 }) {
+  const {mutate} =useTrackLinkClick()
   return (
     <li
       key={resource.url}
       className="flex items-center justify-between gap-2 w-full  py-2 "
     >
+      <div>
+
+      
       <div className="flex gap-2 items-center">
         <Badge variant="outline" className="mr-2 h-max">
           {index + 1}
         </Badge>
-        <div className="">
-          <div className="flex md:gap-2 md:items-center max-md:flex-col">
-            <div className="flex gap-2 items-center ">
+
+          <div className="flex md:gap-4 md:items-center max-md:flex-col">
+
               <LinkPreview quality={100}  url={resource.url} >
+
               <Link
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className=" font-semibold md:border-r pr-2"
+                onClick={()=>mutate(resource._id)}
                 >
                 {resource.title}
               </Link>
               </LinkPreview>
-            </div>
             <Link
+            onClick={()=>mutate(resource._id)}
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
@@ -54,6 +63,23 @@ export default function ResourceEachLinkComponent({
               >
               {resource.url}
             </Link>
+      <div className="flex gap-2 border-l px-2 max-md:hidden">
+{
+  resource.clicks?
+            <div className="text-xs text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
+              <LuMousePointerClick />
+              {resource.clicks} clicks 
+            </div>:null
+}
+{
+  resource.upvotes?
+            <div className="text-xs text-muted-foreground border rounded p-0.5 flex gap-1 items-center px-2">
+              <FaCaretUp  fontSize={14}/> 
+              {resource.upvotes} upvotes
+            </div>:null
+}
+
+      </div>
           </div>
         </div>
       </div>
@@ -116,10 +142,28 @@ function ScreeenSizeBasedLayout({
                 </div>
             </div>
           )}
+          {
+            size == "sm"&&
+          
+          <div className="flex gap-2 mt-2">
+
+          <div className="text-xs text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
+            <LuMousePointerClick />
+            {resource.clicks} clicks 
+          </div>
+          <div className="text-xs text-muted-foreground border rounded p-0.5 flex gap-1 items-center px-2">
+            <FaCaretUp  fontSize={14}/> 
+            {resource.upvotes} upvotes
+          </div>
+
+        </div>
+}
         </PopoverContent>
+        
       </Popover>
       {size == "md" ||
         (size == "lg" && (
+          <>
           <div className="flex gap-2">
             <ResourceEachLinkCollectButton link_id={resource._id} />
             <ResourceEachLinkUpvote
@@ -129,6 +173,7 @@ function ScreeenSizeBasedLayout({
               isUpvoted={resource.isUpvoted}
             />
           </div>
+        </>
         ))}
     </div>
   );

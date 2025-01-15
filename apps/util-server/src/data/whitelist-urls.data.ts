@@ -1,10 +1,11 @@
 export const whitelist = [
   'https://canva.com',
-  'https://www.netflix.com',
+  'https://netflix.com',
   'https://netflix.com',
   'https://github.com',
   'https://google.com',
   'https://vercel.com',
+  'https://udemy.com',
   'https://udemy.com',
   'https://coursera.org',
   'https://khanacademy.org',
@@ -15,6 +16,6 @@ export const whitelist = [
 ];
 
 export function isWhitelisted(url:string):boolean {
-  return whitelist.some((trustedUrl) => url.startsWith(trustedUrl));
+  return whitelist.some((trustedUrl) => url.startsWith(trustedUrl.split("www.").join("")));
 }
 

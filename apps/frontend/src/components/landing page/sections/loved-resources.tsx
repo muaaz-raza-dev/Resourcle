@@ -8,6 +8,7 @@ import ResourceLoader from "../loader/resource-loader";
 import SaveBtn from "@/components/global/save-btn";
 import {motion} from "framer-motion"
 import moment from "moment";
+import { accurateFromNow } from "@/utils/accurate-time-from-now";
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();
   const q = data?.payload;
@@ -28,7 +29,7 @@ export default function LovedResources() {
           <Link href={`/resource/${resource._id}`} className="">
               <h2 className=" font-semibold whitespace-wrap">{resource.title}</h2>
           </Link>
-          <p className="text-muted-foreground text-xs">{moment(resource.createdAt).fromNow()}</p>                  
+          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.createdAt)}</p>                  
           </div>
           </div>
                 <motion.div

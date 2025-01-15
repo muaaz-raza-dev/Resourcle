@@ -12,7 +12,7 @@ export default function AuthNavLinksDynamic() {
             {
                 isSignIn?
                 "Don't have an account?" : 
-                "Already the member of Colabra?" 
+                "Already the member of Resourcle?" 
             }
         </p>
     

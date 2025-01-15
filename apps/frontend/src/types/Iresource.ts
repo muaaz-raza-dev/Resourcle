@@ -17,6 +17,7 @@ export interface IresourceContent{
     links:IResourceLink[];
 }
 export interface IResourceLink{
+    clicks?:number;
     title: string;
     isUpvoted:boolean;
     _id:string;

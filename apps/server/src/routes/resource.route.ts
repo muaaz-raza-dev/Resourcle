@@ -7,6 +7,7 @@ import CreateResource, {
   UpvoteIndividualLink,
   EditResourceFetchResource,
   GetResourceMetaDetails,
+  TrackResourceLinkClicks,
 } from "../controllers/resource/resource.controller.js";
 import { Authenticate } from "../middlewares/Authenticate.js";
 import ResourceSearchController from "../controllers/resource/resource.search.controller.js";
@@ -35,6 +36,8 @@ router.put("/upvote/link", Authenticate, UpvoteIndividualLink);
 
 router.get("/feed", GetFeedResources);
 router.post("/search", ResourceSearchController);
+
+router.post("/track/clicks/link/:id",TrackResourceLinkClicks);
 
 router.post("/user/resources/", GetUserResource);
 router.post("/user/resources/saved", SavedResources);

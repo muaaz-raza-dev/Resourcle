@@ -653,3 +653,17 @@ export async function EditResourceFetchResource(req: Request, res: Response) {
     });
   }
 }
+
+
+export async function TrackResourceLinkClicks(
+  req: Request,
+  res: Response,
+) {
+const {id}= req.params;
+await ResourceLink.findByIdAndUpdate(id,{
+$inc: { clicks: 1 },
+$setOnInsert: { clicks: 1 }
+})
+SuccessResponse(res,{message:"You clicked the link"})
+return;
+}
