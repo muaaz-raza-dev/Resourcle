@@ -22,6 +22,7 @@ export default function ResourceHeader() {
           alt="Resource Library Banner"
           width={800}
           height={200}
+          unoptimized
           className="w-full h-40 object-contain mb-4 rounded-t-lg"
         />
       ) : null}

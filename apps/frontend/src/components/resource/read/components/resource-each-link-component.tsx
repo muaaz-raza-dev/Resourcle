@@ -40,14 +40,14 @@ export default function ResourceEachLinkComponent({
           {index + 1}
         </Badge>
 
-          <div className="flex md:gap-4 md:items-center max-md:flex-col ">
+          <div className="flex gap-x-4 md:items-center max-md:flex-col flex-wrap ">
 
               <LinkPreview quality={100}  url={resource.url} >
               <Link
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className=" font-semibold md:border-r pr-2 md:whitespace-nowrap "
+                className=" font-semibold   md:whitespace-nowrap "
                 onClick={()=>mutate(resource._id)}
                 >
                 {resource.title}
@@ -58,15 +58,15 @@ export default function ResourceEachLinkComponent({
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-sm text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
+              className="text-sm text-wrap md:border-x px-2 break-all max-md:text-xs text-primary underline py-0 leading-tight"
               >
-              {resource.url}
+              {resource.url.slice(0,30)}
             </Link>
-      <div className="flex gap-2 border-l px-2 max-md:hidden">
+      <div className="flex gap-2 max-md:hidden">
 {
   resource.clicks?
-            <div className="text-xs text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
-              <LuMousePointerClick />
+            <div className="text-xs  text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
+              <LuMousePointerClick className="text-accent"/>
               {resource.clicks} clicks 
             </div>:null
 }
@@ -82,7 +82,7 @@ export default function ResourceEachLinkComponent({
           </div>
         </div>
       </div>
-      <ScreeenSizeBasedLayout resource_id={resource_id} data={resource} />
+      <ScreeenSizeBasedLayout mutate={mutate} resource_id={resource_id} data={resource} />
     </li>
   );
 }
@@ -90,9 +90,11 @@ export default function ResourceEachLinkComponent({
 function ScreeenSizeBasedLayout({
   data: resource,
   resource_id,
+  mutate
 }: {
   data: IResourceLink;
   resource_id: string;
+  mutate: (id: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const size = useScreenSizeTracker();
@@ -105,6 +107,15 @@ function ScreeenSizeBasedLayout({
             </button>
         </PopoverTrigger>
         <PopoverContent side="bottom" align="center">
+        <Link
+            onClick={()=>mutate(resource._id)}
+              href={resource.url}
+              rel="noopener noreferrer"
+              target="_blank"
+              className="text-xs text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
+              >
+              {resource.url.slice(0,30)}
+            </Link>
           <p className="text-muted-foreground text-xs">
             {resource.description || "no description"}
           </p>
@@ -124,7 +135,7 @@ function ScreeenSizeBasedLayout({
             </div>
           ) : null}
           {size == "sm" && (
-            <div className="flex justify-between flex-col  mt-4 gap-4 w-full border-t  t py-2">
+            <div className="flex justify-between flex-col  mt-2 gap-4 w-full border-t  t py-2">
               
               <ResourceEachLinkCollectButton link_id={resource._id} />
               
@@ -146,8 +157,8 @@ function ScreeenSizeBasedLayout({
           
           <div className="flex gap-2 mt-2">
 
-          <div className="text-xs text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
-            <LuMousePointerClick />
+          <div className="text-xs  text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
+            <LuMousePointerClick className="text-accent"/>
             {resource.clicks} clicks 
           </div>
           <div className="text-xs text-muted-foreground border rounded p-0.5 flex gap-1 items-center px-2">

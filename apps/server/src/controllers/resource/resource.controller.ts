@@ -662,7 +662,6 @@ export async function TrackResourceLinkClicks(
 const {id}= req.params;
 await ResourceLink.findByIdAndUpdate(id,{
 $inc: { clicks: 1 },
-$setOnInsert: { clicks: 1 }
 })
 SuccessResponse(res,{message:"You clicked the link"})
 return;

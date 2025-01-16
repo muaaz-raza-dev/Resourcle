@@ -35,6 +35,8 @@ export default function EachResourceComponent({
                 layout="fill"
                 objectFit="contain"
                 className="rounded-md"
+                quality={75}
+                unoptimized
               />
             </Link>
            )} 

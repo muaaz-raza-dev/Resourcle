@@ -16,6 +16,7 @@ export const whitelist = [
 ];
 
 export function isWhitelisted(url:string):boolean {
-  return whitelist.some((trustedUrl) => url.startsWith(trustedUrl.split("www.").join("")));
+  const GenericURI = url.split("www.").join("")
+  return whitelist.some((trustedUrl) => GenericURI.startsWith(trustedUrl));
 }
 
