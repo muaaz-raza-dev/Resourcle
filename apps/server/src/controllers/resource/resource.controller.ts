@@ -138,7 +138,7 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
           localField: "publisher",
           foreignField: "_id",
           pipeline: [
-            { $project: { name: 1, _id: 1, picture: 1, headline: 1 } },
+            { $project: { name: 1, _id: 1, picture: 1, headline: 1,username:1 } },
           ],
           as: "publisher",
         },
@@ -188,7 +188,7 @@ export async function GetResource(req: Request, res: Response): Promise<void> {
       {
         $group: {
           _id: "$_id",
-          content: { $push: "$content" },
+          content: { $addToSet: "$content" },
           banner: { $first: "$banner" },
           tags: { $addToSet: "$tags" },
           description: { $first: "$description" },
