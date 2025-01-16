@@ -9,7 +9,7 @@ export default async  function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.log(response,process.env)
     // Map fetched data to the expected sitemap format
     const resourceRoutes = response.data.map((resource) => ({
-      url: `${process.env.NEXT_PUBLIC_URL}/u/${resource._id}`,
+      url: `${process.env.NEXT_PUBLIC_URL}/resource/${resource._id}`,
       lastModified: new Date(resource.updatedAt).toISOString(),
       priority: 1,
     }));
