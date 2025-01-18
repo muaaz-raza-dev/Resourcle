@@ -35,7 +35,7 @@ export default function SecuritySettingsPasswordSection() {
       provider: q?.provider || "hybrid",
     },
   });
-  const { watch,formState:{errors,isValid},handleSubmit,control,reset,trigger } = form
+  const { watch,formState:{errors,isValid},handleSubmit,control,reset } = form
   const new_password = watch("new_password"); // Watch the new_password field
   const onSumbit: SubmitHandler<IChangePasswordForm> = async(data) => {
       await mutate(data);
@@ -131,7 +131,7 @@ export default function SecuritySettingsPasswordSection() {
           <div className="flex justify-between">
           {q?.provider == "google" ? (
             <SecuritySettingsPasswordProviderSelectionModal  disabled={!isValid||isLoading}>
-              <Button className="w-full " onClick={()=>trigger()} type="button"  >
+              <Button className="w-full "  type="button"  >
                 {q?.provider == "google" ? "Setup Password" : "Update Password"}
               </Button>
             </SecuritySettingsPasswordProviderSelectionModal>

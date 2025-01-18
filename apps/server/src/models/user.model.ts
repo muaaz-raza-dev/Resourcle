@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
       attempts_today:Number
     },
     deletedAt: Date,
+    ips:[String]
   },
   { timestamps: true },
 );
@@ -69,6 +70,7 @@ export interface Iuser {
     url: string;
   }>;
   about?: string;
+  ips:string[]
   deletedAt: string;
   createdAt: Date;
   updatedAt: Date;

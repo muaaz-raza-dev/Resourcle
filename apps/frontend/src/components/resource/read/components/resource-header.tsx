@@ -1,18 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import useGetResource from "@/hooks/resource/useGetResource";
+import useGetNonContentResource from "@/hooks/resource/useGetNonContentResource";
 import useTrackUserResourceVisit from "@/hooks/user-activity/useTrackUserResourceVisit";
 import { Separator } from "@/shadcn/components/ui/separator";
+import { ResourceFilterLinksAtom } from "@/state/resource-link-searchbar.atom";
 import { accurateFromNow } from "@/utils/accurate-time-from-now";
 import Image from "next/image";
 import React, { useMemo } from "react";
+import { useRecoilValue } from "recoil";
 
 export default function ResourceHeader() {
   useTrackUserResourceVisit()
-  const { data } = useGetResource({ hitApi: false });
+  const { data } = useGetNonContentResource({ hitApi: false });
+  const {original} = useRecoilValue(ResourceFilterLinksAtom)
   const totalResources = useMemo(
-    () => data?.payload.content.reduce((acc, elm) => acc + elm.links.length, 0),
-    [data?.payload.content]
+    () => original.reduce((acc, elm) => acc + elm.links.length, 0),
+    [original]
   );
   return (
     <header>
@@ -41,7 +44,7 @@ export default function ResourceHeader() {
       <div className="flex gap-2 justify-between  flex-wrap">
         <div className="flex gap-2">
           <p className="font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2">
-            {data?.payload.content.length} resource groups
+            {original.length} resource groups
           </p>
           <p className="font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2">
             {totalResources} resources

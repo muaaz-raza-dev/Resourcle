@@ -1,16 +1,35 @@
-import { Loader2 } from 'lucide-react'
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 export default function ResourceLoader() {
   return (
-    <div className="min-h-screen flex flex-col">
-    <main className="flex-grow flex items-center justify-center">
-    <div className="text-center">
-      <Loader2 className="h-16 w-16 animate-spin text-primary mx-auto mb-4" />
-      <h2 className="text-2xl font-semibold mb-2">Loading </h2>
-      <p className="text-muted-foreground">Please wait while we gather the best content for you...</p>
-    </div>
-  </main>
+    <div className=" flex flex-col gap-4">
+      <Skeleton className='w-full h-48 rounded-md'/>
+      <Skeleton className='w-full h-20 rounded-md'/>
+      <Skeleton className='w-full h-10 rounded-md'/>
+      <ResourceLinkLoader/>
   </div>
 )
+}
+
+
+
+export  function ResourceMetaLoader() {
+  return (
+    <div className=" flex flex-col gap-4">
+      <Skeleton className='w-full h-48 rounded-md'/>
+      <Skeleton className='w-full h-20 rounded-md'/>
+      <Skeleton className='w-full h-10 rounded-md'/>
+  </div>
+)
+}
+
+export  function ResourceLinkLoader() {
+  return (
+    <div className='w-full flex flex-col gap-4'>
+      <Skeleton height={120} />
+      <Skeleton height={60} />
+      <Skeleton height={80} />
+    </div>
+  )
 }

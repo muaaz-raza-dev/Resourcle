@@ -12,7 +12,7 @@ const resourceSchema = new mongoose.Schema(
       unique: false,
       text: true,
     },
-    views: { ref: "User", type: [mongoose.Types.ObjectId] },
+    views: { ref: "User", type: [{user:mongoose.Types.ObjectId,ip:String}] },
     description: String,
     tags: {
       type: [mongoose.Types.ObjectId],
@@ -41,7 +41,7 @@ const resourceSchema = new mongoose.Schema(
 );
 
 export interface IResource extends mongoose.Document {
-  views: any;
+  views: {user:mongoose.Types.ObjectId,ip:string}[];
   title: string;
   tags: mongoose.Types.ObjectId[] | Itags[];
   publisher: mongoose.Types.ObjectId | Iuser;
@@ -55,6 +55,7 @@ export interface IResource extends mongoose.Document {
   isPrivate: boolean;
   _id:mongoose.Types.ObjectId
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 resourceSchema.pre(/^find/, function (this: Query<any, any>, next) {
   this.where({ isDeleted: false });
   next();

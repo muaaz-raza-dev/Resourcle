@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Itags, Tags } from "../../models/tag.model.js";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
 import { Resource } from "../../models/resource.model.js";
+import redis from "../../redis-server.js";
 
 export default async function SearchTags(req: Request, res: Response) {
   const { q } = req.body;
@@ -29,7 +30,12 @@ interface ItrendingTagPayload {
 }
 export async function TrendingTags(req: Request, res: Response) {
   try {
-    const resources: ItrendingTagPayload[] = await Resource.aggregate([
+    const ChachedTrendingTags = await redis?.get("resourcle:tags-feed")
+    if (ChachedTrendingTags) {
+      SuccessResponse(res, { payload: JSON.parse(ChachedTrendingTags) });
+      return;
+    }
+    const tags: ItrendingTagPayload[] = await Resource.aggregate([
       {
         $sort: {upvotes:-1},
       },
@@ -70,7 +76,8 @@ export async function TrendingTags(req: Request, res: Response) {
         $limit: 10,
       },
     ]);
-    SuccessResponse(res, { payload: resources });
+    await redis?.set("resourcle:resource-feed",JSON.stringify(tags),"EX",3600*12) //12 hour
+    SuccessResponse(res, { payload: tags });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {

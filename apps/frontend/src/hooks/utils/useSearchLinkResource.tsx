@@ -1,8 +1,8 @@
-import { ResourceSearchBarAtom } from '@/state/resource-link-searchbar.atom'
+import { ResourceFilterLinksAtom } from '@/state/resource-link-searchbar.atom'
 import { useRecoilState } from 'recoil'
 
 export default function useSearchLinkResource  () {
-  const [state,setState] = useRecoilState(ResourceSearchBarAtom)
+  const [state,setState] = useRecoilState(ResourceFilterLinksAtom)
   function Search(query:string) {
     if(query.length === 0) {
       setState({...state,filtered:state.original})

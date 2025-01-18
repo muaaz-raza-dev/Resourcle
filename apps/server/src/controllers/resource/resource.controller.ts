@@ -9,7 +9,6 @@ import { ValidateLogin } from "../../middlewares/Authenticate.js";
 import { SaveList } from "../../models/savelist.model.js";
 import mongoose, { Types } from "mongoose";
 import { Upvotes } from "../../models/upvote.model.js";
-import { UpvoteAndSavedPopulator } from "../../functions/upvote-saved-populator-js.js";
 import { IResourceLink, ResourceLink } from "../../models/link.model.js";
 import { ObjectId } from "mongoose";
 import { ResourceCollection } from "../../models/resource-collection.model.js";
@@ -110,148 +109,7 @@ export default async function CreateResource(
   }
 }
 
-export async function GetResource(req: Request, res: Response): Promise<void> {
-  try {
-    if (!req.params.id || req.params.id.length != 24) {
-      ErrorResponse(res, { status: 404, message: "Invalid Id" });
-      return;
-    }
-    const query = [
-      { $match: { _id: new Types.ObjectId(req.params.id) } },
-      {
-        $lookup: {
-          from: "tags",
-          localField: "tags",
-          foreignField: "_id",
-          as: "tags",
-        },
-      },
-      {
-        $unwind: {
-          path: "$tags",
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "publisher",
-          foreignField: "_id",
-          pipeline: [
-            { $project: { name: 1, _id: 1, picture: 1, headline: 1,username:1 } },
-          ],
-          as: "publisher",
-        },
-      },
-      { $unwind: "$publisher" },
-      {
-        $lookup: {
-          from: "upvotes",
-          localField: "upvotesDoc",
-          foreignField: "_id",
-          as: "upvotesDoc",
-        },
-      },
-      { $unwind: "$upvotesDoc" },
-      {
-        $unwind: {
-          path: "$content",
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $addFields: {
-          "content.links": {
-            $ifNull: ["$content.links", []],
-          },
-        },
-      },
-      {
-        $lookup: {
-          from: "resourcelinks",
-          localField: "content.links",
-          foreignField: "_id",
-          as: "content.links",
-        },
-      },
-      {
-        $addFields: {
-          "content.links": {
-            $cond: {
-              if: { $not: ["$content.links"] },
-              then: [],
-              else: { $sortArray: { input: "$content.links", sortBy: { upvotes: -1 } } },
-            },
-          },
-        },
-      },
-      {
-        $group: {
-          _id: "$_id",
-          content: { $addToSet: "$content" },
-          banner: { $first: "$banner" },
-          tags: { $addToSet: "$tags" },
-          description: { $first: "$description" },
-          upvotesDoc: { $first: "$upvotesDoc" },
-          publisher: { $first: "$publisher" },
-          createdAt: { $first: "$createdAt" },
-          updatedAt: { $first: "$updatedAt" },
-          upvotes: { $first: "$upvotes" },
-          title: { $first: "$title" },
-          views: { $first: "$views" },
-        },
-      },
-      {
-        $addFields: {
-          tags: { $ifNull: ["$tags", []] },
-        },
-      },
-    ];
-    
-    const populatedResource = await Resource.aggregate(query);
-    const resourceRaw = populatedResource[0] as IResource;
-    if (!resourceRaw) {
-      ErrorResponse(res, { status: 404, message: "Resource not found" });
-      return;
-    }
-    const resource = JSON.parse(JSON.stringify(resourceRaw));
-    resource.isUpvoted = false;
-    resource.isSaved = false;
 
-    const isLogined = await ValidateLogin(req);
-    if (isLogined) {
-      await Resource.findByIdAndUpdate(req.params.id, {
-        $addToSet: { views: req.userid },
-      });
-    }
-
-    if (resource.isPrivate) {
-      if (
-        isLogined &&
-        typeof resource.publisher != "string" &&
-        req.userid?.toString() == resource.publisher._id.toString()
-      ) {
-        SuccessResponse(res, { payload: resource });
-        return;
-      } else {
-        ErrorResponse(res, { message: "Not found", status: 404 });
-        return;
-      }
-    } else {
-      await UpvoteAndSavedPopulator(req, {
-        resourceRaw,
-        resource,
-        isNestedUpvote: true,
-      });
-      SuccessResponse(res, { payload: resource });
-      return;
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: "Internal server error" });
-    return;
-  }
-}
 export async function GetResourceMetaDetails(
   req: Request,
   res: Response,
@@ -292,7 +150,7 @@ export async function GetFeedResources(
       .populate({path:"upvotesDoc",select:"users _id"})
       .select("title upvotes createdAt upvotesDoc")
       .lean();
-      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*3)
+      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*10)
     }
     else{
       resources = JSON.parse(ChachedResources)

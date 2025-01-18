@@ -3,7 +3,6 @@ import CreateResource, {
   DeleteResource,
   EditResource,
   GetFeedResources,
-  GetResource,
   UpvoteIndividualLink,
   EditResourceFetchResource,
   GetResourceMetaDetails,
@@ -16,6 +15,7 @@ import {
   SavedResources,
   SwitchVisiblityResource,
 } from "../controllers/resource/resources-profile.controller.js";
+import {  GetResourceContent, GetResourceNonContentDetails } from "../controllers/resource/get-resource.controller.js";
 
 const router = express.Router();
 
@@ -28,7 +28,8 @@ router
 
 router.put("/remove", Authenticate, DeleteResource);
 
-router.get("/d/:id", GetResource);
+router.get("/d/:id", GetResourceNonContentDetails);
+router.get("/d/link/:id/:sort", GetResourceContent);
 router.get("/d/meta/:id", GetResourceMetaDetails);
 
 router.put("/switch/visiblity/", Authenticate, SwitchVisiblityResource);

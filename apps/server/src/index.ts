@@ -17,6 +17,8 @@ import redis  from "./redis-server.js"
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+app.set('trust proxy', true);
 app.use(express.json());
 app.use(cookieParser());
 app.use(

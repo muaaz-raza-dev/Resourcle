@@ -2,7 +2,7 @@ import SaveBtn from "@/components/global/save-btn";
 import UpvoteBtn from "@/components/global/upvote-btn";
 import RequestLoader from "@/components/loader/request-loading";
 import useShare from "@/hooks/global/useShare";
-import useGetResource from "@/hooks/resource/useGetResource";
+import useGetResource from "@/hooks/resource/useGetNonContentResource";
 import { Card, CardContent } from "@/shadcn/components/ui/card";
 import { Tooltip } from "antd";
 import Image from "next/image";
