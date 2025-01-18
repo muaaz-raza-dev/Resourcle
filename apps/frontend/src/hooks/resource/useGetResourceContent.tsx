@@ -23,6 +23,7 @@ export function useGetContentResource({hitApi}:{hitApi?:boolean}) {
         retry:2,
         onError({response:{data:{message}}}){
             toast.error(message||"An error occured")
+            setState(e=>({...e,sort:e.sort=="recent"?"top rated":"recent"}))
         }
     })
   )

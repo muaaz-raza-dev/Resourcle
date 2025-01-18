@@ -24,8 +24,8 @@ export default function ResourceEachLinkUpvote({link_id,resource_id,upvotes,isUp
     }
   return (
     <div className='flex gap-2  justify-end font-semibold items-center text-xs '>
-      <Tooltip title="upvote"  className={clsx(`relative aspect-square  text-xs font-semibold items-center h-8    transition-colors  border rounded-md flex  `,isLoading&&"animate-pulse",isUpvoted?"gap-0":"")}>
-    <button onClick={Proceed} className={"rounded-l-md h-full px-2 hover:bg-border bg-secondary-foreground"}>
+      <Tooltip title="upvote"  className={clsx(`relative aspect-square  text-xs font-semibold items-center h-8  transition-colors  border rounded-md flex  `,isLoading&&"animate-pulse",isUpvoted?"gap-0":"")}>
+    <button onClick={Proceed} className={"rounded-l-md h-full px-2 hover:bg-border bg-white"}>
       {
         upvoted ?
         <BiSolidUpvote fill={"black"} fontSize={14}/> :

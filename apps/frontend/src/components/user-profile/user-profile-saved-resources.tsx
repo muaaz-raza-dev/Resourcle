@@ -28,7 +28,7 @@ export default function UserProfileSavedResources() {
   }
   return (
     <main className="flex flex-col gap-2">
-      <p className="text-muted-foreground">{total} resources</p>
+      { total ?<p className="text-muted-foreground">{total} resources</p> :null}
       {FlatResources.map((resource,index) => (
         <EachResourceComponent index={index} key={resource?._id} resource={resource} />
       ))}

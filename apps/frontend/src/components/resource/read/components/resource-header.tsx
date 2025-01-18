@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import useCollectResourceView from "@/hooks/resource/useCollectResourceView";
 import useGetNonContentResource from "@/hooks/resource/useGetNonContentResource";
 import useTrackUserResourceVisit from "@/hooks/user-activity/useTrackUserResourceVisit";
 import { Separator } from "@/shadcn/components/ui/separator";
@@ -10,7 +11,8 @@ import React, { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export default function ResourceHeader() {
-  useTrackUserResourceVisit()
+  useTrackUserResourceVisit();
+  useCollectResourceView();
   const { data } = useGetNonContentResource({ hitApi: false });
   const {original} = useRecoilValue(ResourceFilterLinksAtom)
   const totalResources = useMemo(

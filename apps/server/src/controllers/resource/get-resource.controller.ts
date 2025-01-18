@@ -9,6 +9,7 @@ import { IResourceContentPayload, NestedUpvotePopulator, UpvoteAndSavedPopulator
 import { Iupvote } from "../../models/upvote.model.js";
 
 export async function GetResourceNonContentDetails(req: Request, res: Response): Promise<void> {
+
     try {
       if (!req.params.id || req.params.id.length != 24) {
         ErrorResponse(res, { status: 404, message: "Invalid Id" });
@@ -30,18 +31,10 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
   
       const isLogined = await ValidateLogin(req);
 
-      const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip },{ $set: { "views.$.user": isLogined ? req.userid : '-' } });
 
-      if(isViewedCollected.matchedCount === 0){
-        await Resource.findByIdAndUpdate(
-          req.params.id , 
-          { 
-            $addToSet: { views: { user: isLogined ? req.userid : '-', ip: req.ip } } 
-          }
-        );
-      }
   
       if (resource.isPrivate) {
+
         if ( isLogined && typeof resource.publisher != "string" && req.userid?.toString() == resource.publisher._id.toString()) {
           SuccessResponse(res, { payload: resource });
           return;
@@ -60,7 +53,27 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
       return;
     }
   }
+export async function CollectResourceView(req:Request,res:Response){
+  const isLogined = await ValidateLogin(req);
+  // views scheme
+  // views is unique to ip adress two ips can contain single userid
+  // unlogined user view will be counted
+  // unlogined view will be shifted to logged in one if the same user access it with the same ip
+  // logged in user view will be counted for logged in user
 
+  const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip },{ $set: { "views.$.user": isLogined ? req.userid : '-' } });
+
+  if(isViewedCollected.matchedCount === 0){
+    await Resource.findByIdAndUpdate(
+      req.params.id , 
+      { 
+        $addToSet: { views: { user: isLogined ? req.userid : '-', ip: req.ip } } 
+      }
+    );
+  }
+  SuccessResponse(res, { message: "Viewed collected" });
+  return;
+}
   export interface IGetResourceContentPayload{
     content:IResourceContentPayload;
     upvotesDoc:Iupvote

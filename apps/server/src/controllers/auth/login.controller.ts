@@ -44,7 +44,7 @@ export async function GoogleLoginController(req: Request, res: Response) {
     if (!user) {
       user = await User.create(payloadToStore);
     }
-
+    await User.findByIdAndUpdate(user._id,{$addToSet:{ips:req.ip}})
     const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", {
       expiresIn: "30d",
     });
@@ -75,6 +75,7 @@ export async function LocaleLoginController(req: Request, res: Response) {
       ErrorResponse(res, { message: "Invalid Credentials", status: 404 });
       return;
     }
+    await User.findByIdAndUpdate(user._id,{$addToSet:{ips:req.ip}})
     const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", {
       expiresIn: "30d",
     });

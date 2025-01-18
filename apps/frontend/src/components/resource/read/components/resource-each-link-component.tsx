@@ -114,7 +114,7 @@ function ScreeenSizeBasedLayout({
               target="_blank"
               className="text-xs text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
               >
-              {resource.url.slice(0,30)}
+              {resource.url}
             </Link>
           <p className="text-muted-foreground text-xs">
             {resource.description || "no description"}
@@ -159,11 +159,11 @@ function ScreeenSizeBasedLayout({
 
           <div className="text-xs  text-muted-foreground border flex gap-1 rounded p-0.5 items-center px-2">
             <LuMousePointerClick className="text-accent"/>
-            {resource.clicks} clicks 
+            {resource.clicks||0} clicks 
           </div>
           <div className="text-xs text-muted-foreground border rounded p-0.5 flex gap-1 items-center px-2">
             <FaCaretUp  fontSize={14}/> 
-            {resource.upvotes} upvotes
+            {resource.upvotes||0} upvotes
           </div>
 
         </div>

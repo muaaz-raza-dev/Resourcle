@@ -76,7 +76,7 @@ export async function TrendingTags(req: Request, res: Response) {
         $limit: 10,
       },
     ]);
-    await redis?.set("resourcle:resource-feed",JSON.stringify(tags),"EX",3600*12) //12 hour
+    await redis?.set("resourcle:tags-feed",JSON.stringify(tags),"EX",3600*12) //12 hour
     SuccessResponse(res, { payload: tags });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

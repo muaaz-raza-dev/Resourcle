@@ -151,6 +151,7 @@ export async function GetFeedResources(
       .select("title upvotes createdAt upvotesDoc")
       .lean();
       await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*10)
+      
     }
     else{
       resources = JSON.parse(ChachedResources)

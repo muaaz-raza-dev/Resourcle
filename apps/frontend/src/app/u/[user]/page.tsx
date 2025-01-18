@@ -12,8 +12,9 @@ export default function ProfilePage() {
   const {isLoading,isError}  = useGetUserProfileInfomartion({hitApi:true})
   
   return (
-    <NotFoundRenderer isError={isError}  isLoading={isLoading} Loader={<ProfileSkeletonLoader/>} errorMessage={" We couldn't find the user you're looking for. They may have been deleted or never existed. "} >
-    <main className="min-h-screen  mt-4">
+    <NotFoundRenderer isError={isError}  isLoading={isLoading} Loader={<ProfileSkeletonLoader/>} 
+    errorMessage={" We couldn't find the user you're looking for. They may have been deleted or never existed. "} >
+    <main className="min-h-screen mt-4">
       <UserProfileBanner />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-4 lg:px-8 pb-8">
       <UserProfileInformation/> 

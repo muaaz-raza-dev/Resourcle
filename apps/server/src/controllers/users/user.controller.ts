@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Resource } from "../../models/resource.model.js";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler.js";
+import redis from "../../redis-server.js";
 interface ItopUser {
   upvotes: number;
   top_posts: number;
@@ -12,6 +13,11 @@ export default async function GetTopUsers(
 ): Promise<void> {
   try {
     //? Top users  = publishers having most upvotes in their resource
+    const ChachedUsers = await redis?.get("resourcle:users-feed")
+    if (ChachedUsers) {
+      SuccessResponse(res, { payload: JSON.parse(ChachedUsers) });
+      return;
+    }
     const users: ItopUser[] = await Resource.aggregate([
       { $sort: { upvotes: -1, createdAt: -1 } },
       { $limit: 50 },
@@ -43,6 +49,7 @@ export default async function GetTopUsers(
         },
       },
     ]);
+    await redis?.set("resourcle:users-feed",JSON.stringify(users),"EX",3600*3) //12 hour
     SuccessResponse(res, { payload: users });
     return;
   } catch (err) {

@@ -15,7 +15,7 @@ import {
   SavedResources,
   SwitchVisiblityResource,
 } from "../controllers/resource/resources-profile.controller.js";
-import {  GetResourceContent, GetResourceNonContentDetails } from "../controllers/resource/get-resource.controller.js";
+import {  CollectResourceView, GetResourceContent, GetResourceNonContentDetails } from "../controllers/resource/get-resource.controller.js";
 
 const router = express.Router();
 
@@ -31,6 +31,7 @@ router.put("/remove", Authenticate, DeleteResource);
 router.get("/d/:id", GetResourceNonContentDetails);
 router.get("/d/link/:id/:sort", GetResourceContent);
 router.get("/d/meta/:id", GetResourceMetaDetails);
+router.get("/d/collect/view/:id", CollectResourceView);
 
 router.put("/switch/visiblity/", Authenticate, SwitchVisiblityResource);
 router.put("/upvote/link", Authenticate, UpvoteIndividualLink);

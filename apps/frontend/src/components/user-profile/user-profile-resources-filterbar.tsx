@@ -21,7 +21,7 @@ export default function UserProfileResourcesFilterbar() {
     <>
         <SwitchPublicOperatorComp />
     <header className="flex justify-between items-center">
-      <p className="text-muted-foreground  text-sm">{total} resource(s)</p>
+      {total? <p className="text-muted-foreground  text-sm">{total} resource(s)</p>:null}
       <section className="flex gap-4 max-md:justify-between ">
         <SortResourceOperatorComp />
       </section>
