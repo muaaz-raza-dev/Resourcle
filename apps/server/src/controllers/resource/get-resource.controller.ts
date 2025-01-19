@@ -60,7 +60,6 @@ export async function CollectResourceView(req:Request,res:Response){
   // unlogined user view will be counted
   // unlogined view will be shifted to logged in one if the same user access it with the same ip
   // logged in user view will be counted for logged in user
-  console.log(req.userid,isLogined)
   const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip , },isLogined?{$set:{"views.$.user":req.userid}}:{});
   if(isViewedCollected.matchedCount === 0){
     await Resource.findByIdAndUpdate(

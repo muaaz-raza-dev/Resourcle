@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { useMutation } from 'react-query'
 import { useSetRecoilState } from 'recoil'
-import Cookie from "js-cookie"
 export default function useGoogleLogin() {
     const router = useRouter()
   const setState = useSetRecoilState(authAtom)

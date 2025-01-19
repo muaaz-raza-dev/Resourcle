@@ -2,7 +2,7 @@ export interface IResourceFeed {
     title: string;
     upvotes: number;
     _id: string;
-    createdAt:string;
+    updatedAt:string;
     isSaved: boolean;
     isUpvoted: boolean;
 }

@@ -11,10 +11,11 @@ import { accurateFromNow } from "@/utils/accurate-time-from-now";
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();
   const q = data?.payload;
+  const maximumUpvotes = React.useMemo(()=>q?.reduce((acc,e)=>Math.max(acc,e.upvotes),0) ?? 5 ,[q])
   if (isLoading) return <ResourceLoader />;
   return (
     <section className="w-full overflow-hidden">
-      <HeadingComp text={"Top Resources"} />
+      <HeadingComp text={"Recent Resources"} />
       <div className="flex flex-wrap  gap-4 mb-4 w-full overflow-hidden">
         {q?.map((resource, index) => (
           <motion.div
@@ -24,11 +25,23 @@ export default function LovedResources() {
           transition={{ duration: 0.1 }}
         >
           <div className="flex items-center gap-2 ">
-          <div className="">
+            <div className="">
+
           <Link href={`/resource/${resource._id}`} className="">
-              <h2 className=" font-semibold whitespace-wrap">{resource.title}</h2>
+              <h2 className=" text-lg font-semibold whitespace-wrap leading-tight">{resource.title}</h2>
           </Link>
-          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.createdAt)}</p>                  
+
+
+            <div className="flex gap-4 items-center mb-1 mt-2 max-md:mt-3">
+          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.updatedAt)}</p>                  
+          {
+            resource.upvotes>(Math.max(maximumUpvotes-3,0))&&
+            <div className="bg-accent/20 px-3 py-0.5 rounded-md text-xs text-accent ">
+          Top rated
+          </div>
+            
+          }
+          </div>
           </div>
           </div>
                 <motion.div

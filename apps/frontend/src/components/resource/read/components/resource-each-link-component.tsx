@@ -58,7 +58,7 @@ export default function ResourceEachLinkComponent({
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-sm text-wrap md:border-x px-2 break-all max-md:text-xs text-primary underline py-0 leading-tight"
+              className="text-sm text-wrap md:border-x md:px-2 break-all max-md:text-xs text-primary underline py-0 leading-tight"
               >
               {resource.url.slice(0,30)}
             </Link>
