@@ -41,7 +41,7 @@ export default function AuthReminderModal() {
         </DialogHeader>
             <GoogleAuthButton /> 
         <LocalLoginForm/>
-        <div className=" text-center text-muted text-sm font-medium">
+        <div className=" text-center text-muted-foreground text-sm font-medium">
         Dont have an account?{" "}
         <Link href="/auth/signup" className="font-semibold hover:underline">
           Sign up

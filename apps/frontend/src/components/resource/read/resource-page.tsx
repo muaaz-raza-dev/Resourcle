@@ -16,11 +16,8 @@ export default function ResourcesPage() {
     <>
       <div className="min-h-screen flex flex-col ">
         <main className="flex-grow flex flex-col gap-2 container mx-auto md:px-8 max-md:px-2 py-6">
-{
-  isLoading?
-   <ResourceMetaLoader/>
-  :
-<>
+{ isLoading? <ResourceMetaLoader/> : <>
+
           <ResourceHeader />
           <ResourceMeta />
           <ResourceSearchbar />

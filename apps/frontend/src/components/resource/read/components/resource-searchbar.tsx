@@ -23,7 +23,7 @@ export default function ResourceSearchbar() {
   const debounced = useDebouncedCallback((value:string)=>{
     search(value)
   },500)  
-  const {refetch,isLoading} = useGetContentResource({hitApi:false})
+  const {refetch,isLoading,isRefetching} = useGetContentResource({hitApi:false})
       const [{sort},setState] =useRecoilState(ResourceFilterLinksAtom)
       function handleSortChange(value:"recent"|"top rated"){
           setState(e=>({...e,sort:value}));
@@ -43,10 +43,11 @@ export default function ResourceSearchbar() {
         <Search className="h-5 w-5 text-gray-400" />
       </div>
     </div>
-    <Select value={sort} onValueChange={handleSortChange}>
+    <div className="flex gap-2 items-center">
+    <Select disabled={isLoading||isRefetching} value={sort} onValueChange={handleSortChange}>
       <SelectTrigger className="md:w-[180px] max-md:w-[150px] border-border !bg-white  justify-between">
         <SelectValue placeholder="Filter by" />
-        {isLoading&&<SearchLoader/>}
+        
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="recent" >
@@ -61,6 +62,8 @@ export default function ResourceSearchbar() {
             </SelectItem>
       </SelectContent>
     </Select> 
+    {isRefetching&&<SearchLoader/>}
+    </div>
     </div>
   )
 }

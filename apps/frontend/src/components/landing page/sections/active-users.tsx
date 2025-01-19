@@ -29,19 +29,23 @@ export default function ActiveUsers() {
                 key={user._id}
                 className="flex items-center gap-3 py-4 lg:w-[48%] max-lg:w-full border-2 px-5 rounded-md"
               >
+                <Link href={`/u/${user._id}`}>
                 <Avatar className="h-12 w-12  ">
                   <AvatarImage
                     src={user.picture || "/user.png"}
                     alt={user.name} 
-                  />
+                    />
                   <AvatarFallback className="bg-secondary-foreground text-white font-semibold">
                     {user.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
+                    </Link>
                 <div className="flex-1  flex flex-col justify-betweeen">
-                  <p className="text-sm font-semibold leading-none">
+                  <Link href={`/u/${user._id}`}>
+                  <p className="font-semibold text-sm pl-1">
                     {user.name}
                   </p>
+                  </Link>
                   <p className="text-xs max-md:text-sm leading-tight text-muted-foreground">
                     {user.headline} 
                   </p>

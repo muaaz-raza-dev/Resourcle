@@ -29,11 +29,11 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
       resource.isUpvoted = false;
       resource.isSaved = false;
   
-      const isLogined = await ValidateLogin(req);
-
-
-  
+      
+      
+      
       if (resource.isPrivate) {
+        const isLogined = await ValidateLogin(req);
 
         if ( isLogined && typeof resource.publisher != "string" && req.userid?.toString() == resource.publisher._id.toString()) {
           SuccessResponse(res, { payload: resource });
@@ -60,14 +60,13 @@ export async function CollectResourceView(req:Request,res:Response){
   // unlogined user view will be counted
   // unlogined view will be shifted to logged in one if the same user access it with the same ip
   // logged in user view will be counted for logged in user
-
-  const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip },{ $set: { "views.$.user": isLogined ? req.userid : '-' } });
-
+  console.log(req.userid,isLogined)
+  const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip , },isLogined?{$set:{"views.$.user":req.userid}}:{});
   if(isViewedCollected.matchedCount === 0){
     await Resource.findByIdAndUpdate(
       req.params.id , 
       { 
-        $addToSet: { views: { user: isLogined ? req.userid : '-', ip: req.ip } } 
+        $addToSet: { views: { ...(isLogined?{user:req.userid}:{}), ip: req.ip } } 
       }
     );
   }

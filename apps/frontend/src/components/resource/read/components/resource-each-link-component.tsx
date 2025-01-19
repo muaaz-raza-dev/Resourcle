@@ -112,11 +112,11 @@ function ScreeenSizeBasedLayout({
               href={resource.url}
               rel="noopener noreferrer"
               target="_blank"
-              className="text-xs text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
+              className="text-sm text-wrap break-all max-md:text-xs text-primary underline py-0 leading-tight"
               >
               {resource.url}
             </Link>
-          <p className="text-muted-foreground text-xs">
+          <p className="text-muted-foreground text-xs mt-2">
             {resource.description || "no description"}
           </p>
           {resource.tags.length ? (

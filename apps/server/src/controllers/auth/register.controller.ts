@@ -36,6 +36,7 @@ export const RegisterLocal = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
       username: nanoid(8),
+      ips:[req.ip]
     });
     const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", {
       expiresIn: "30d",
