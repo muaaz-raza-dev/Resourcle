@@ -148,7 +148,7 @@ export async function GetFeedResources(
       .sort("-upvotes")
       .limit(15)
       .populate({path:"upvotesDoc",select:"users _id"})
-      .select("title upvotes updatedAt upvotesDoc")
+      .select("title upvotes createdAt updatedAt upvotesDoc")
       .lean();
       await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*10)
       

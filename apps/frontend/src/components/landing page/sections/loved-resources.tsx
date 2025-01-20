@@ -15,7 +15,7 @@ export default function LovedResources() {
   if (isLoading) return <ResourceLoader />;
   return (
     <section className="w-full overflow-hidden">
-      <HeadingComp text={"Recent Resources"} />
+      <HeadingComp text={"Top Resources"} />
       <div className="flex flex-wrap  gap-4 mb-4 w-full overflow-hidden">
         {q?.map((resource, index) => (
           <motion.div
@@ -33,7 +33,7 @@ export default function LovedResources() {
 
 
             <div className="flex gap-4 items-center mb-1 mt-2 max-md:mt-3">
-          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.updatedAt)}</p>                  
+          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.createdAt)}</p>                  
           {
             resource.upvotes>(Math.max(maximumUpvotes-3,0))&&
             <div className="bg-accent/20 px-3 py-0.5 rounded-md text-xs text-accent ">

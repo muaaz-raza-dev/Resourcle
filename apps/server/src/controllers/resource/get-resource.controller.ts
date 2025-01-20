@@ -32,8 +32,8 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
       
       
       
+      const isLogined = await ValidateLogin(req);
       if (resource.isPrivate) {
-        const isLogined = await ValidateLogin(req);
 
         if ( isLogined && typeof resource.publisher != "string" && req.userid?.toString() == resource.publisher._id.toString()) {
           SuccessResponse(res, { payload: resource });
