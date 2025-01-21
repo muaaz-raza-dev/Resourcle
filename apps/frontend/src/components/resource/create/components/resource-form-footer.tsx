@@ -6,9 +6,8 @@ import PublicPrivateSwitchResourceForm from './public-private-switch-resource-fo
 import { useFormContext } from 'react-hook-form'
 import { IResource } from '@/types/Iresource'
 import { useTrackChanges } from '@/hooks/utils/useTrackChanges'
-import { useFetchEditableResource } from '@/hooks/resource/useEditResource'
 
-export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;edit?:boolean}) {
+export default function ResourceFormFooter({isLoading,edit,isSuccess}:{isLoading:boolean;edit?:boolean;isSuccess?:boolean}) {
   const {watch} = useFormContext<IResource>()
   const content = watch("content")
   return (
@@ -18,7 +17,7 @@ export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;e
         
     {
       edit ? 
-      <UpdateButton isLoading={isLoading}/>
+      <UpdateButton isLoading={isLoading} isSuccess={isSuccess}/>
       :
       <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground transition-all'>
         { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
@@ -36,15 +35,14 @@ export default function ResourceFormFooter({isLoading,edit}:{isLoading:boolean;e
 }
 
 
-function UpdateButton({isLoading}:{isLoading:boolean}){
-  const {isSuccess} = useFetchEditableResource(false)
+function UpdateButton({isLoading,isSuccess}:{isLoading:boolean;isSuccess?:boolean}){
   const state  = useFormContext<IResource>()
-  const {changes,UpdateState} = useTrackChanges(state.getValues())
+  const {changes,UpdateState} = useTrackChanges(state.watch())
   React.useEffect(() => {
-  if(isSuccess) UpdateState(state.getValues())
+  if(isSuccess) UpdateState(state.watch())
   }, [isSuccess])
   return (
-    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground hover:brightness-1100 transition-all' disabled={isLoading||!changes}>
+    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground  transition-all' disabled={isLoading||!changes}>
       { isLoading? <RequestLoader size='16' /> : 'Update'}
     </Button>
   )

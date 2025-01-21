@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 
 export default function CreateResourceForm({edit}:{edit?:boolean}) {
   const methods = useForm<IResource>({ defaultValues: defaultResource });
-  const {isLoading:isFetching,isError} = useFetchEditableResource(edit||false,methods.reset)
+  const {isLoading:isFetching,isError,isSuccess} = useFetchEditableResource(edit||false,methods.reset)
   const { isLoading, mutateAsync: mutate } = useCreateResource();
   const {isLoading:isUpdating,mutateAsync:update} = useEditResource();
   const [uplaoding,setUploading] = useState(false) 
@@ -71,7 +71,7 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
           <ContentResourceForm />
           <ToolboxSelectResourceForm />
           </section>
-          <ResourceFormFooter edit={edit} isLoading={uplaoding||isLoading||isUpdating} />
+          <ResourceFormFooter isSuccess={isSuccess} edit={edit} isLoading={uplaoding||isLoading||isUpdating} />
         </form>
       </FormProvider>
     </section>

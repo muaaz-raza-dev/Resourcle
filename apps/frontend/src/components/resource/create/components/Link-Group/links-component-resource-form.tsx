@@ -4,13 +4,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/shadcn/components/ui/popover";
-import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import NewLinkDailogResourceForm from "./new-link-dailog-resource-form";
 import { useFormContext } from "react-hook-form";
 import { IResource, IResourceLink } from "@/types/Iresource";
 import { Badge } from "@/shadcn/components/ui/badge";
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { MdOutlineAddLink } from "react-icons/md";
 import { Tooltip } from "antd";
 export default function LinksComponentResourceForm({
   index,
@@ -22,29 +21,29 @@ export default function LinksComponentResourceForm({
  
   if(!links?.length) return <NoLinkFallback index={index}/>
   return (
-    <section className="flex flex-col gap-2 border rounded-md p-2 py-4">
+    <section className="flex flex-col gap-2 rounded-md ">
 
       {
         links?.map((link, i) => {
           return (
-            <section key={i + link.url}>
-              <div className="flex  gap-2  items-center">
+            <section key={i + link.url} className="border rounded-md p-2">
+              <div className="flex  gap-1  items-center ">
                 <NewLinkDailogResourceForm
                   linkGroupIndex={index}
                   linkIndex={i + 1}
                   >
                     <Tooltip title="Add new link" placement="top">
-                  <button type="button" className="border-primary border text-primary font-bold text-sm rounded-md p-2  aspect-square center hover:bg-primary/20 transition-colors">
-                  <MdOutlineAddLink size={24} />
+                  <button type="button" className=" border text-secondary-foreground font-bold text-sm rounded-md p-2  aspect-square center hover:bg-primary/40 transition-colors">
+                  <FaPlus   />
                   </button>
                   </Tooltip>
                 </NewLinkDailogResourceForm>
 
-                <div className="flex justify-between bg-secondary hover:rounded transition-all w-full rounded-md p-3">
+                <div className="flex justify-between hover:rounded transition-all w-full rounded-md p-3">
               
                   <div className="flex max-md:flex-col md:items-center md:gap-2">
                     <p className=" cursor-default text-sm font-semibold transition-colors">{link.title}</p>
-                    <a href={link.url} target="_blank" className="text-primary text-sm border-l px-3 text-wrap">{link.url}</a>
+                    <a href={link.url} target="_blank" className="text-primary text-sm md:border-l md:px-3 text-wrap">{link.url}</a>
                   </div>
               
                 
@@ -55,7 +54,14 @@ export default function LinksComponentResourceForm({
           );
         })
 }
+<div className="center">
 
+<NewLinkDailogResourceForm linkGroupIndex={index} linkIndex={links.length}>
+      <button type="button" className=" bg-primary/30 hover:bg-primary/40 w-max text-black  transition-colors px-4 py-1 font-semibold rounded-md text-sm  center gap-1">
+         Add link
+      </button>
+</NewLinkDailogResourceForm>
+</div>
     </section>
   )  
 }
@@ -77,8 +83,8 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
               <CaretSortIcon fontSize={24} />
             </button>
         </PopoverTrigger>
-        <PopoverContent side="bottom" align="center">
-          <a href={link.url} target="_blank" className="text-primary underline text-wrap break-all  text-xs w-full">
+        <PopoverContent side="bottom" align="center" className="max-md:w-4xl mr-4">
+          <a href={link.url} target="_blank" className="text-primary underline text-wrap break-all  text-sm w-full">
             <p>
               {link.url}
               </p>
@@ -102,7 +108,7 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
             </div>
           ) : null}
       
-      <div className="flex gap-2 flex-col pt-4 border-t">
+      <div className="flex gap-2 pt-4 text-sm border-t">
 
 <NewLinkDailogResourceForm
   data={link}
@@ -110,15 +116,13 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
   linkIndex={link_index}
   isEdit
 >
-  <div className="flex justify-between w-full ">
-  <p className="text-sm font-semibold">Edit link details</p>
-      <FaRegEdit  className="w-4 h-4" />
-  </div>
+  <button className="flex gap-2  border items-center px-4 py-1 bg-secondary font-semibold transition-colors rounded-md ">
+    Edit <FaEdit  className="w-4 h-4" />
+  </button>
 </NewLinkDailogResourceForm>
-<button type="button" onClick={() => DeleteLink(link_index)} className="flex justify-between w-full">
-  <p className="text-sm font-semibold">Delete link</p>  
-    <FaTrash className="text-destructive" />
-  
+
+<button type="button" onClick={() => DeleteLink(link_index)} className="flex py-1  items-center gap-2  border px-4  bg-destructive/40 text-white  transition-colors rounded-md p-2">
+  Delete <FaTrash  />
   </button>
 
   </div>

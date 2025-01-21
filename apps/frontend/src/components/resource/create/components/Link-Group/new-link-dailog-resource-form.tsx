@@ -69,7 +69,7 @@ export default function NewLinkDailogResourceForm({
         setopen(open);
       }}
     >
-      <DialogTrigger className="center ">{children}</DialogTrigger>
+      <DialogTrigger className="center " asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Link details</DialogTitle>

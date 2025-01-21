@@ -3,6 +3,7 @@ export interface IResourceFeed {
     upvotes: number;
     _id: string;
     updatedAt:string;
+    createdAt:string;
     isSaved: boolean;
     isUpvoted: boolean;
 }

@@ -15,7 +15,7 @@ export default function AppLoader() {
           width={140}
           src="/logo/logo-transparent.svg"
           alt="Logo"
-          quality={50}
+          quality={10}
         />
       </div>
 

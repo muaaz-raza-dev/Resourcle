@@ -54,23 +54,62 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
     }
   }
 export async function CollectResourceView(req:Request,res:Response){
+    
   const isLogined = await ValidateLogin(req);
-  // views scheme
-  // views is unique to ip adress two ips can contain single userid
-  // unlogined user view will be counted
-  // unlogined view will be shifted to logged in one if the same user access it with the same ip
-  // logged in user view will be counted for logged in user
-  const isViewedCollected = await Resource.updateOne({ _id: req.params.id, "views.ip": req.ip , },isLogined?{$set:{"views.$.user":req.userid}}:{});
-  if(isViewedCollected.matchedCount === 0){
-    await Resource.findByIdAndUpdate(
-      req.params.id , 
-      { 
-        $addToSet: { views: { ...(isLogined?{user:req.userid}:{}), ip: req.ip } } 
-      }
-    );
+
+  // Fetch resource views
+  const resource = await Resource.findOne({ _id: req.params.id }).select("views");
+  
+  if (!resource) {
+    ErrorResponse(res, { message: "Invalid resource ID", status: 401 });
+    return;
   }
-  SuccessResponse(res, { message: "Viewed collected" });
-  return;
+  
+  // Check if a view already exists for the current IP
+  const ipBasedView = resource.views.find(v => v.ip === req.ip);
+  
+  if (isLogined) {
+    // Case 1: Logged-in user with an existing unlinked view
+    if (ipBasedView && !ipBasedView.user) {
+      await Resource.updateOne(
+        { _id: req.params.id, "views.ip": req.ip, "views.user": { $exists: false } },
+        { $set: { "views.$.user": req.userid } },
+        { timestamps: false } 
+      );
+    }
+    // Case 2: Logged-in user with a different account for the same IP
+    else if (ipBasedView && ipBasedView.user.toString() !== req.userid) {
+      await Resource.findByIdAndUpdate(req.params.id, {
+        $addToSet: { views: { user: req.userid, ip: req.ip } }
+      },
+      { timestamps: false } 
+    );
+    }
+    // Case 3: No existing view for this IP
+    else if (!ipBasedView) {
+      await Resource.findByIdAndUpdate(req.params.id, {
+        $addToSet: { views: { user: req.userid, ip: req.ip } }
+      },
+      { timestamps: false } );
+    }
+  
+    SuccessResponse(res, { message: "View collected" });
+    return;
+  } else {
+    // Unlogged-in user: Add view if it doesn't already exist
+    if (!ipBasedView) {
+      await Resource.findByIdAndUpdate(req.params.id, {
+        $addToSet: { views: { ip: req.ip } }
+      },
+      { timestamps: false } );
+    }
+  
+    SuccessResponse(res, { message: "View collected" });
+    return;
+  }
+  
+  
+ 
 }
   export interface IGetResourceContentPayload{
     content:IResourceContentPayload;

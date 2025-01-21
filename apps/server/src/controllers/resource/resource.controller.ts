@@ -376,13 +376,17 @@ export async function EditResource(req: Request, res: Response) {
       "createdAt",
       "updatedAt",
     ];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fieldsToRemove.forEach((field) => delete (EditedResource as any)[field]);
 
     // Remove upvotes from content links
     if (EditedResource.content) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       EditedResource.content.forEach((field: any, group_index: number) => {
         if (field.links) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           field.links.forEach((_: any, link_index: number) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             delete (EditedResource as any).content[group_index].links[
               link_index
             ].upvotes;
@@ -424,13 +428,14 @@ export async function EditResource(req: Request, res: Response) {
       );
       updatedContent.push({
         ...c,
-        links: links.filter((link) => link !== null),
+        links: links.filter((link) => link != null),
       });
     }
     // Handle deleted links by marking them as isDeleted
     const deleted = [];
+    
     for (const group of resource.content) {
-      const payloadGroup = payload.content.find(
+      const payloadGroup = updatedContent.find(
         (c) => c._id.toString() == group._id.toString(),
       );
       for (const link of group.links) {

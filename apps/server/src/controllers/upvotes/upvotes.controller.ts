@@ -39,7 +39,9 @@ export default async function UpvoteResourceController(
     }
     await Resource.findByIdAndUpdate(id, {
       $inc: { upvotes: action == "up" ? 1 : -1 },
-    });
+    },
+    { timestamps: false } 
+  );
     SuccessResponse(res, { message: "successfully completed" });
   } catch (err) {
     console.log(err);

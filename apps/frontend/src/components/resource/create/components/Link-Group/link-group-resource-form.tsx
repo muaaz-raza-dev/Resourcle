@@ -61,7 +61,7 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
         <div>
         <input
           {...field}
-          className=" h-max rounded-md placeholder:font-semibold border-none w-full max-md:font-medium outline-none font-medium placeholder:text-gray-400 bg-transparent"
+          className=" h-max p-0 text-lg font-semibold placeholder:font-semibold border-none w-full max-md:font-medium outline-none  placeholder:text-gray-400 bg-transparent"
           placeholder="Label the link group"
           />
           {fieldState.error?.message&& <span className="text-red-500 px-2 text-xs">{fieldState.error?.message}</span>}
