@@ -33,7 +33,7 @@ export default function LovedResources() {
 
 
             <div className="flex gap-4 items-center mb-1 mt-2 max-md:mt-3">
-          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.createdAt)}</p>                  
+          <p className="text-muted-foreground text-xs">{accurateFromNow(resource.updatedAt)}</p>                  
           {
             resource.upvotes>(Math.max(maximumUpvotes-3,0))&&
             <div className="bg-accent/20 px-3 py-0.5 rounded-md text-xs text-accent ">
