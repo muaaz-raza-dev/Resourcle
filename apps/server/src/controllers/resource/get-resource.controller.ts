@@ -118,7 +118,7 @@ export async function CollectResourceView(req:Request,res:Response){
   export async function GetResourceContent(req: Request, res: Response): Promise<void> {
     
     const {sort}=req.params;
-    const Sort = sort === "recent" ? "recent" : sort === "top rated" ? "top rated" : "recent";
+    const Sort = sort === "recent" ? "recent" : sort === "top-rated" ? "top rated" : "recent";
     try {
         if (!req.params.id || req.params.id.length != 24) {
           ErrorResponse(res, { status: 404, message: "Invalid Id" });
@@ -136,7 +136,6 @@ export async function CollectResourceView(req:Request,res:Response){
                 return;
             }
         }
-
         const query = [
           { $match: { _id: new Types.ObjectId(req.params.id) } },
           {$project:{content:1,_id:1,upvotesDoc:1}},
@@ -176,11 +175,12 @@ export async function CollectResourceView(req:Request,res:Response){
                 $cond: {
                   if: { $not: ["$content.links"] },
                   then: [],
-                  else: { $sortArray: { input: "$content.links", sortBy: (Sort=="top rated"?{ upvotes: -1 }:{updatedAt:-1}) } },
+                  else: { $sortArray: { input: "$content.links", sortBy: Sort=="recent"?{updatedAt:-1}:{upvotes:-1} } },
                 },
               },
             },
           },
+
           {
             $group: {
               _id: "$_id",

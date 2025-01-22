@@ -1,14 +1,13 @@
 import { GetResourceMetaInfoApi } from '@/api/resource/get-resource.api';
-import ResourceLoader from '@/components/resource/read/components/resource-loader';
 import ResourcesPage from '@/components/resource/read/resource-page';
-import { Suspense } from 'react';
 
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const resource = await GetResourceMetaInfoApi(id); // Fetch resource data by ID
 
   return {
-    title: `${resource.payload.title} - ${process.env.NEXT_PUBLIC_NAME}`,
+    title: `${resource.payload.title} `,
     description: resource.payload.description,
+    keywords: resource.payload.description.split(" ").join(', ')+" , "+resource.payload.title.split(" ").join(', ')+", resources, developer resources, resources for developers",
     openGraph: {
       title: resource.payload.title,
       description: resource.payload.description,
@@ -25,11 +24,5 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
 };
 
 export default function Page() {
-  return (
-    <>
-      <Suspense fallback={<ResourceLoader />}>
-        <ResourcesPage />
-      </Suspense>
-    </>
-  );
+  return ( <ResourcesPage />);
 }
