@@ -129,8 +129,8 @@ export async function CollectResourceView(req:Request,res:Response){
             ErrorResponse(res, { status: 404, message: "Resource not found" });
             return;
         }
+        const isLogined = await ValidateLogin(req);
         if(resource.isPrivate){
-            const isLogined = await ValidateLogin(req);
             if(!isLogined||req.userid?.toString()!=resource.publisher.toString()){
                 ErrorResponse(res, { message: "Not found", status: 404 });
                 return;
@@ -176,7 +176,7 @@ export async function CollectResourceView(req:Request,res:Response){
                 $cond: {
                   if: { $not: ["$content.links"] },
                   then: [],
-                  else: { $sortArray: { input: "$content.links", sortBy: (Sort=="top rated"?{ upvotes: -1 }:{updatedAt:1}) } },
+                  else: { $sortArray: { input: "$content.links", sortBy: (Sort=="top rated"?{ upvotes: -1 }:{updatedAt:-1}) } },
                 },
               },
             },
