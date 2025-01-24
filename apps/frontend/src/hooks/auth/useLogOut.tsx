@@ -22,6 +22,7 @@ export default function useLogOut(noToast?:boolean,onSuccess?:()=>void) {
         toast.success("logged out successfully. See you again ")
       }
     }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       catch(_){
       toast.error("Failed to log out. Please try again later")
     }
