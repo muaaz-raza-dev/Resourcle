@@ -7,7 +7,7 @@ export default function useLogOut(noToast?:boolean) {
     const logout = useResetRecoilState(authAtom)
     const router = useRouter()
   function LogOut(){
-        Cookie.remove(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)        
+        Cookie.remove(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY,{domain:"resourcle.com"})
         logout()
         router.push("/")
         if(!noToast){

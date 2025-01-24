@@ -82,6 +82,8 @@ export async function LocaleLoginController(req: Request, res: Response) {
     res
       .cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        domain:"resourcle.com",
+        secure:true
       })
       .json({ token, message: "Logged in successfully!",payload:user });
     return;

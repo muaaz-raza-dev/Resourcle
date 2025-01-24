@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../utils/tokens.js";
 import { nanoid } from "nanoid";
 import passwordValidator from 'password-validator';
-// const cookie_key = process.env.SESSION_COOKIE_KEY;
+const cookie_key = process.env.SESSION_COOKIE_KEY;
 const schema = new passwordValidator();
 schema.is().min(8)                        // Minimum length 8
        .is().max(20)                      // Maximum length 20
@@ -40,11 +40,13 @@ export const RegisterLocal = async (req: Request, res: Response) => {
     });
     const token = jwt.sign({ user_id: user._id }, JWT_SECRET || "", {
       expiresIn: "30d",
+      
     });
-    res
-      // .cookie(cookie_key, token, {
-      //   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      // })
+    res.cookie(cookie_key, token, {
+        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        domain:"resourcle.com",
+        secure:true
+      })
       .json({ token, message: "Registered and logined successful!",payload:user });
     return;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
