@@ -66,11 +66,19 @@ export async function CollectResourceView(req:Request,res:Response){
   }
   
   // Check if a view already exists for the current IP
-  const ipBasedView = resource.views.find(v => v.ip === req.ip);
+  const ipBasedView = resource?.views?.filter(v => v.ip == req.ip)||[];
   
   if (isLogined) {
-    // Case 1: Logged-in user with an existing unlinked view
-    if (ipBasedView && !ipBasedView.user) {
+    const existingViewByUser = ipBasedView.find((v) => v.user?.toString() === req.userid);
+    const existingAnonymousView = ipBasedView.find((v) => !v.user);
+    // Case 1: No existing view for this IP
+    if (!ipBasedView.length) {
+      await Resource.findByIdAndUpdate(req.params.id, {
+        $addToSet: { views: { user: req.userid, ip: req.ip } }
+      },
+      { timestamps: false } );
+    }
+    else if (existingAnonymousView) {
       await Resource.updateOne(
         { _id: req.params.id, "views.ip": req.ip, "views.user": { $exists: false } },
         { $set: { "views.$.user": req.userid } },
@@ -78,26 +86,21 @@ export async function CollectResourceView(req:Request,res:Response){
       );
     }
     // Case 2: Logged-in user with a different account for the same IP
-    else if (ipBasedView && ipBasedView.user.toString() !== req.userid) {
+    else if (!existingViewByUser) {
       await Resource.findByIdAndUpdate(req.params.id, {
         $addToSet: { views: { user: req.userid, ip: req.ip } }
       },
       { timestamps: false } 
     );
     }
-    // Case 3: No existing view for this IP
-    else if (!ipBasedView) {
-      await Resource.findByIdAndUpdate(req.params.id, {
-        $addToSet: { views: { user: req.userid, ip: req.ip } }
-      },
-      { timestamps: false } );
-    }
+  
+     
   
     SuccessResponse(res, { message: "View collected" });
     return;
   } else {
     // Unlogged-in user: Add view if it doesn't already exist
-    if (!ipBasedView) {
+    if (!ipBasedView.length) {
       await Resource.findByIdAndUpdate(req.params.id, {
         $addToSet: { views: { ip: req.ip } }
       },
