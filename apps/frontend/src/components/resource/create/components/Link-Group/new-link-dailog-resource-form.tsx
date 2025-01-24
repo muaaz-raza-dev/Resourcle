@@ -86,20 +86,20 @@ export default function NewLinkDailogResourceForm({
         <FormField
       control={form.control}
       name="title"
-      rules={{required:"*Title is required",maxLength:{value:50,message:"Title should be less than 50 characters"}}}
+      rules={{required:"*Title is required",maxLength:{value:80,message:"Title must be less than 80 characters"}}}
       render={({field}) => (
         <FormItem>
           <FormLabel className="py-0">
           <div className="flex justify-between w-full">
           <Label className="font-semibold my-1" htmlFor="title">Title *</Label>
-          <p className="text-muted-foreground text-xs">{field.value?.length||0}/50</p>
+          <p className="text-muted-foreground text-xs">{field.value?.length||0}/80</p>
           </div>
           </FormLabel>
           <FormControl>
           <Input
               {...field}
             id="title"
-            maxLength={64}
+            maxLength={80}
               className="bg-white placeholder:text-muted-foreground"
               placeholder="Netflix Engineering blogs"
             />
@@ -115,7 +115,7 @@ export default function NewLinkDailogResourceForm({
            <FormField
       control={form.control}
       name="description"
-      rules={{maxLength:{value:120,message:"Title should be less than 50 characters"}}}
+      rules={{maxLength:{value:120,message:"Description should be less than 120 characters"}}}
       render={({field}) => (
         <FormItem>
           <FormLabel className="py-0">
@@ -129,7 +129,7 @@ export default function NewLinkDailogResourceForm({
               {...field}
               placeholder="A short and concise description"
             id="description"
-            maxLength={180}
+            maxLength={120}
               className="bg-white placeholder:text-muted-foreground"
             />
            </FormControl>
