@@ -2,7 +2,6 @@ import RequestLoader from "@/components/loader/request-loading";
 import useLogOut from "@/hooks/auth/useLogOut"
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
