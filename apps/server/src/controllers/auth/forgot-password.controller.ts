@@ -63,6 +63,9 @@ export async function RequestForgotPassword(req: Request, res: Response) {
     res
       .cookie(ForgotCookieKey, forgotKeyToken, {
         expires: new Date(expirationTime),
+        domain:".resourcle.com",
+        sameSite:"none",
+        secure:true
       })
       .json({ message: "Password reset link sent to your email",token:forgotKeyToken });
   } catch (err) {
@@ -109,6 +112,9 @@ export async function VerifyOTP(req: Request, res: Response) {
   res
     .cookie(cookie_key, login_token, {
       expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      domain:".resourcle.com",
+        sameSite:"none",
+        secure:true
     })
     .json({
       token: login_token,
@@ -147,6 +153,9 @@ export async function VerifyOTPToken(req: Request, res: Response) {
     res
       .cookie(cookie_key, login_token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        domain:".resourcle.com",
+        sameSite:"none",
+        secure:true
       })
       .json({ login_token, message: "You're Logged in !" });
   } catch (err) {

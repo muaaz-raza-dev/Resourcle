@@ -44,7 +44,8 @@ export const RegisterLocal = async (req: Request, res: Response) => {
     });
     res.cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        domain:"resourcle.com",
+        domain:".resourcle.com",
+        sameSite:"none",
         secure:true
       })
       .json({ token, message: "Registered and logined successful!",payload:user });

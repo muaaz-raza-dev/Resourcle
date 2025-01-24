@@ -51,6 +51,9 @@ export async function GoogleLoginController(req: Request, res: Response) {
     res
       .cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        domain:".resourcle.com",
+        sameSite:"none",
+        secure:true
       })
       .json({ token, message: "Logged in successfully!", payload: user });
     return;
@@ -82,7 +85,8 @@ export async function LocaleLoginController(req: Request, res: Response) {
     res
       .cookie(cookie_key, token, {
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        domain:"resourcle.com",
+        domain:".resourcle.com",
+        sameSite:"none",
         secure:true
       })
       .json({ token, message: "Logged in successfully!",payload:user });

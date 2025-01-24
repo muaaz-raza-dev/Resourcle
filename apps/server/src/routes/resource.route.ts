@@ -9,7 +9,7 @@ import CreateResource, {
   TrackResourceLinkClicks,
 } from "../controllers/resource/resource.controller.js";
 import { Authenticate } from "../middlewares/Authenticate.js";
-import ResourceSearchController from "../controllers/resource/resource.search.controller.js";
+import ResourceSearchController, { PartialAdvancedSearchController } from "../controllers/resource/resource.search.controller.js";
 import {
   GetUserResource,
   SavedResources,
@@ -39,6 +39,7 @@ router.put("/upvote/link", Authenticate, UpvoteIndividualLink);
 
 router.get("/feed", GetFeedResources);
 router.post("/search", ResourceSearchController);
+router.post("/search/advanced/partial", PartialAdvancedSearchController);
 
 router.post("/track/clicks/link/:id",TrackResourceLinkClicks);
 
@@ -46,3 +47,4 @@ router.post("/user/resources/", GetUserResource);
 router.post("/user/resources/saved", SavedResources);
 
 export default router;
+

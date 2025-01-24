@@ -285,7 +285,7 @@ export async function UpvoteIndividualLink(req: Request, res: Response) {
 
     await ResourceLink.findByIdAndUpdate(link_id, {
       upvotes: totalUpvotes + (isUpvoted ? -1 : 1),
-    });
+    },{timestamps:false});
 
     if (LinkUpvoteDoc == -1) {
       await Upvotes.findByIdAndUpdate(resource.upvotesDoc, {
