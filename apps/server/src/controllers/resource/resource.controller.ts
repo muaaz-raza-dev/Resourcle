@@ -274,8 +274,7 @@ export async function UpvoteIndividualLink(req: Request, res: Response) {
             (user) => user.toString() == req.userid?.toString(),
           ) ?? false)
         : false;
-    const totalUpvotes =
-      upvoteDoc?.content_votes[LinkUpvoteDoc]?.users?.length ?? 0;
+    const totalUpvotes = upvoteDoc?.content_votes[LinkUpvoteDoc]?.users?.length ?? 0;
 
     const query: Record<string, any> = {
       [!isUpvoted ? "$addToSet" : "$pull"]: {
@@ -526,7 +525,7 @@ export async function TrackResourceLinkClicks(
 const {id}= req.params;
 await ResourceLink.findByIdAndUpdate(id,{
 $inc: { clicks: 1 },
-})
+},{timestamps:false})
 SuccessResponse(res,{message:"You clicked the link"})
 return;
 }

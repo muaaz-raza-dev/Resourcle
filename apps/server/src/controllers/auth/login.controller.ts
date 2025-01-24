@@ -97,3 +97,9 @@ export async function LocaleLoginController(req: Request, res: Response) {
     return;
   }
 }
+
+export async function LogOut(req:Request,res:Response){
+  res.clearCookie(cookie_key);
+  res.json({ message: "Logged out successfully!" });
+  return;
+}

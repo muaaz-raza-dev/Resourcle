@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   GoogleLoginController,
   LocaleLoginController,
+  LogOut,
 } from "../controllers/auth/login.controller.js";
 import { RegisterLocal } from "../controllers/auth/register.controller.js";
 import { getUserInfoController } from "../controllers/auth/info.controller.js";
@@ -39,6 +40,7 @@ router.post(
 );
 router.post("/change/email",  VerifyChangeEmailToken);
 
+router.post("/logout",  LogOut);
 //Current Email verification
 router.post("/request/verify/email", Authenticate, RequestCurrentEmailConfirmation);
 router.post("/verify/email", VerifyCurrentEmailAddress);
