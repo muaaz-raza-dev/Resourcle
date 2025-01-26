@@ -4,12 +4,10 @@ import RequestLoader from "@/components/loader/request-loading";
 import useShare from "@/hooks/global/useShare";
 import useGetResource from "@/hooks/resource/useGetNonContentResource";
 import { Card, CardContent } from "@/shadcn/components/ui/card";
-import { Tooltip } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaEye } from "react-icons/fa";
-import { FiShare2 } from "react-icons/fi";
+import { FaEye, FaShare } from "react-icons/fa";
 
 export default function ResourceMeta() {
   const { data } = useGetResource({ hitApi: false });
@@ -19,7 +17,7 @@ export default function ResourceMeta() {
   return (
     <Card>
       <CardContent className="flex flex-col items-start w-full py-4 gap-2 bg-transparent">
-        <div className="flex justify-between max-md:flex-col gap-4 w-full">
+           <div className="flex justify-between max-md:flex-col gap-4 w-full">
           <div className="flex items-start gap-4 w-max max-md:justify-between max-md:items-center max-md:w-full ">
             <div className="flex items-center gap-2  max-md:w-full ">
             <Link href={`/u/${q.publisher._id}`}>
@@ -45,29 +43,31 @@ export default function ResourceMeta() {
             </Link>
           </div>
           <div className="flex  justify-between items-center">
+
+
             <div className="flex items-center w-full max-md:justify-between gap-2">
-              <div className="flex gap-2">
-                <Tooltip title="upvotes">
+              <div className="flex gap-1">
+                <div >
                   <UpvoteBtn
-                    size={20}
+                    size={16}
                     id={q._id}
                     value={q.upvotes}
                     isUpvoted={q.isUpvoted}
                   />
-                </Tooltip>
-                <Tooltip
-                  title="views"
-                  className="flex gap-1 font-semibold text-xs items-center "
+                </div>
+                <div
+                  className="font-semibold  items-center rounded-lg flex gap-2  upvote-button text-xs  border py-1 px-2  text-muted-foreground"
                 >
-                  {q.views}{" "}
                   <FaEye className="text-muted-foreground " size={16} />
-                </Tooltip>
+                  <p>
+                  {q.views}  views
+                  </p>
+                </div>
               </div>
-              <div className="flex gap-1 border-l pl-2">
-                <Tooltip title="upvotes">
-                  <SaveBtn size={18} minimal id={q._id} isSaved={q.isSaved} />
-                </Tooltip>
-                <Tooltip title="share">
+              <div className="flex gap-1 md:border-l pl-2">
+                <button className="font-semibold  items-center  rounded-lg flex gap-2  text-xs  border py-1 px-2  hover:bg-secondary transition-colors">
+                  <SaveBtn size={18} minimal  id={q._id} isSaved={q.isSaved} />
+                </button>
                   <button
                     onClick={() =>
                       share({ title: q.title, text: q.description })
@@ -76,10 +76,14 @@ export default function ResourceMeta() {
                     {isSharing ? (
                       <RequestLoader size="18" color="gray" />
                     ) : (
-                      <FiShare2 size={16} className="" />
+                      <div
+                      className="font-semibold   items-center rounded-lg flex gap-2  upvote-button text-xs  border py-1 px-2  hover:bg-secondary transition-colors"
+                    >
+                      <FaShare  size={16} />
+                      <p className="text-muted-foreground">Share</p>
+                      </div>
                     )}
                   </button>
-                </Tooltip>
            
               </div>
             </div>
