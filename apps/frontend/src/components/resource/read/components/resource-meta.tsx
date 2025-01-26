@@ -49,6 +49,7 @@ export default function ResourceMeta() {
               <div className="flex gap-1">
                 <div >
                   <UpvoteBtn
+                  bordered
                     size={16}
                     id={q._id}
                     value={q.upvotes}
@@ -66,23 +67,25 @@ export default function ResourceMeta() {
               </div>
               <div className="flex gap-1 md:border-l pl-2">
                 <button className="font-semibold  items-center  rounded-lg flex gap-2  text-xs  border py-1 px-2  hover:bg-secondary transition-colors">
-                  <SaveBtn size={18} minimal  id={q._id} isSaved={q.isSaved} />
+                  <SaveBtn size={16} minimal  id={q._id} isSaved={q.isSaved} />
                 </button>
                   <button
                     onClick={() =>
                       share({ title: q.title, text: q.description })
                     }
                   >
-                    {isSharing ? (
-                      <RequestLoader size="18" color="gray" />
-                    ) : (
                       <div
-                      className="font-semibold   items-center rounded-lg flex gap-2  upvote-button text-xs  border py-1 px-2  hover:bg-secondary transition-colors"
-                    >
+                      className="font-semibold   items-center rounded-lg flex gap-2  upvote-button text-xs  border py-1 px-2  hover:bg-secondary transition-colors text-muted-foreground"
+                      >
+                      {isSharing ? (
+                        <RequestLoader size="18" color="gray" />
+                      ) : (
+                        <>
                       <FaShare  size={16} />
-                      <p className="text-muted-foreground">Share</p>
-                      </div>
+                      <p className="">Share</p>
+                        </>
                     )}
+                    </div>
                   </button>
            
               </div>

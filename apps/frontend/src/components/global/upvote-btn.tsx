@@ -11,11 +11,13 @@ export default function UpvoteBtn({
   size,
   containerClassName,
   isUpvoted,
+  bordered,
   id,
 }: {
   className?: string;
   value: number;
   size?: number;
+  bordered?: boolean;
   id: string;
   containerClassName?: string;
   isUpvoted: boolean;
@@ -43,12 +45,12 @@ export default function UpvoteBtn({
   return (
     <button
       className={clsx(
-        "rounded flex gap-0.5 items-center upvote-button text-xs font-semibold ",
-        containerClassName
+        "rounded-lg flex gap-2 items-center upvote-button text-xs font-semibold hover:bg-secondary transition-colors ",
+        containerClassName,
+        bordered && "border py-1 px-2",
       )}
       onClick={handleUpvote}
     >
-      <p className="font-semibold">{state.upvotes}</p>
       {state.isUpvoted ? (
         <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-pulse transition-all")}  
         size={size || 18} />
@@ -62,6 +64,7 @@ export default function UpvoteBtn({
           size={size || 18}
         />
       )}
+      <p className="font-semibold text-muted-foreground">{state.upvotes} {bordered?"upvotes":null}</p>
     </button>
   );
 }

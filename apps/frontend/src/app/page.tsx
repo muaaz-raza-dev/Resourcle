@@ -16,7 +16,6 @@ export default function DeveloperRoadmaps() {
     <main>
       <div className="min-h-screen relative  p-8 ">
         <div className="lg:max-w-4xl   mx-auto ">
-
           <HeroSection />
           <Suspense fallback={<ResourceLoader />}>
           <LovedResources />

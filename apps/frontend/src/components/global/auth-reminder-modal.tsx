@@ -10,10 +10,10 @@ import {
 } from "@/shadcn/components/ui/dialog"
 import Link from "next/link"
 import { useRecoilState } from "recoil"
-import { authAtom } from "@/state/auth.atom"
 import Image from "next/image"
 import LocalLoginForm from "../auth/local-login-form"
 import GoogleAuthButton from "../auth/Google-auth-button"
+import { authAtom } from "@/state/auth.atom"
 
 export default function AuthReminderModal() {
   const [isOpen, setIsOpen] = useState(false)

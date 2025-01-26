@@ -42,7 +42,7 @@ export default function ActiveUsers() {
                     </Link>
                 <div className="flex-1  flex flex-col justify-betweeen">
                   <Link href={`/u/${user._id}`}>
-                  <p className="font-semibold text-sm pl-1">
+                  <p className="font-semibold text-sm ">
                     {user.name}
                   </p>
                   </Link>

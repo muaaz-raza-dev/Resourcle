@@ -7,7 +7,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
   return {
     title: `${resource.payload.title} `,
     description: resource.payload.description,
-    keywords: resource.payload.description.split(" ").join(', ')+" , "+resource.payload.title.split(" ").join(', ')+", resources, developer resources, resources for professionals",
+    keywords: resource.payload.title.split(" ").join(' , ')+"resourcle",
     openGraph: {
       title: resource.payload.title,
       description: resource.payload.description,
