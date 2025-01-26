@@ -92,6 +92,7 @@ export async function SaveResourceInfoController(req: Request, res: Response) {
 }
 
 export async function GetUserProfileInfoController(
+
   req: Request,
   res: Response,
 ) {
@@ -109,7 +110,7 @@ export async function GetUserProfileInfoController(
       ...query,
       isDeleted: false,
     }).select(
-      "-password -user_provider_id -email -email_verified -provider -interest",
+      "name username headline links picture about",
     );
     if (!user_details) {
       ErrorResponse(res, { message: "User not found", status: 404 });
