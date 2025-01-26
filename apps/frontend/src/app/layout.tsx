@@ -11,9 +11,11 @@ import Footer from "@/components/global/footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export const metadata: Metadata = {
+
   title: "Resourcle",
   description: "Resourcle is a community-driven platform for discovering, sharing, and collaborating on valuable resources, from articles to tools, with a focus on knowledge sharing.",
-  keywords: `resource sharing, community platform, discover resources, knowledge sharing, collaborate on resources, educational resources, online resources, resource links, resource sharing platform, best educational resources, learning resources online, collaborate on knowledge, online resource collaboration, community-driven resource sharing, free educational tools, platform for resource links
+  keywords: `
+  ad-free, and no-login link-sharing platform designed for secure, anonymous, and private link sharing. Discover new links, share articles, videos, and resources effortlessly. Enjoy easy, instant, and user-friendly link sharing without ads or sign-ups. Perfect for collaborative link sharing, social bookmarking, and educational resource sharing. Explore trending links, top-shared resources, and the best link-sharing platform with no distractions. Experience a secure, community-driven, and ad-free platform for sharing and discovering content online.
 `,
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
   // Open Graph (Facebook) metadata
