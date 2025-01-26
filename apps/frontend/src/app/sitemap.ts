@@ -21,6 +21,24 @@ export default async  function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'daily',
         priority: 1,
       },
+      {
+        url: "https://resourcle.com/auth/login",
+        lastModified: new Date().toISOString(),
+        changeFrequency: 'monthly',
+        priority: 0.5,
+      },
+      {
+        url: "https://resourcle.com/auth/signup",
+        lastModified: new Date().toISOString(),
+        changeFrequency: 'monthly',
+        priority: 0.5,
+      },
+      {
+        url: "https://resourcle.com/auth/terms",
+        lastModified: new Date().toISOString(),
+        changeFrequency: 'monthly',
+        priority: 0.5,
+      },
       ...resourceRoutes,
     ];
   } catch (error) {
