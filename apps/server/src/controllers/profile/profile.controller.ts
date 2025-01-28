@@ -110,7 +110,7 @@ export async function GetUserProfileInfoController(
       ...query,
       isDeleted: false,
     }).select(
-      "name username headline links picture about",
+      "name username headline links picture aboutnpm ",
     );
     if (!user_details) {
       ErrorResponse(res, { message: "User not found", status: 404 });
