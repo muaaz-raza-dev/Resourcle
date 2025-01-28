@@ -57,6 +57,7 @@ export default function LovedResources() {
 
         <Link
           href={"/resource/create"}
+          aria-label="Create your own resource"
           className="bg-secondary border-gray-700 py-3 hover:bg-white   rounded-md px-4 hover:border-black border border-dashed  transition-colors  lg:w-[32%] max-lg:w-[49%] max-md:w-[98%]"
         >
           <div className="flex flex-row   gap-2 items-center h-max py-0   ">

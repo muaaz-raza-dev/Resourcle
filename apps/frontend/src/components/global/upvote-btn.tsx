@@ -43,7 +43,10 @@ export default function UpvoteBtn({
   };
 
   return (
-    <button
+    <button 
+    
+    disabled={isLoading}
+
       className={clsx(
         "rounded-lg flex gap-2 items-center upvote-button text-xs font-semibold hover:bg-secondary transition-colors ",
         containerClassName,

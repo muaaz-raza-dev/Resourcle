@@ -19,8 +19,9 @@ export default async function GetTopUsers(
       return;
     }
     const users: ItopUser[] = await Resource.aggregate([
-      { $sort: { upvotes: -1, createdAt: -1 } },
-      { $limit: 50 },
+
+      { $sort: { upvotes: -1, updatedAt: -1 } },
+      { $limit: 6 },
       {
         $group: {
           _id: "$publisher",
@@ -49,7 +50,7 @@ export default async function GetTopUsers(
         },
       },
     ]);
-    await redis?.set("resourcle:users-feed",JSON.stringify(users),"EX",3600*3) //12 hour
+    await redis?.set("resourcle:users-feed",JSON.stringify(users),"EX",3600*3) //3 hour
     SuccessResponse(res, { payload: users });
     return;
   } catch (err) {

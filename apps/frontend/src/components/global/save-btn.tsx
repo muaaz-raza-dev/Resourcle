@@ -37,7 +37,7 @@ export default function SaveBtn({
   }
   if (minimal)
     return (
-      <button onClick={handleSave} disabled={isLoading}>
+      <button onClick={handleSave} disabled={isLoading} aria-label="Save button"> 
         <FaBookmark
           size={size || 18}
           className={clsx(
@@ -50,7 +50,8 @@ export default function SaveBtn({
       </button>
     );
   return (
-      <Button
+      <Button 
+      aria-label="Save button"
         onClick={handleSave}
         disabled={isLoading}
         className={clsx(

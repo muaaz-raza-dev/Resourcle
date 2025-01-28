@@ -150,7 +150,7 @@ export async function GetFeedResources(
       .populate({path:"upvotesDoc",select:"users _id"})
       .select("title upvotes createdAt updatedAt upvotesDoc")
       .lean();
-      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*10)
+      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*30)
       
     }
     else{

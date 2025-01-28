@@ -1,16 +1,14 @@
 import React from "react";
 import HeadingComp from "../components/heading-comp";
-
 import { Card, CardContent } from "@/shadcn/components/ui/card";
 import {
   Avatar,
-  AvatarImage,
   AvatarFallback,
 } from "@/shadcn/components/ui/avatar";
-import { AnimatedTooltip } from "@/shadcn/components/ui/animated-tooltip";
 import useLoadUsersFeed from "@/hooks/feed/useLoadUserFeed";
 import ResourceLoader from "../loader/resource-loader";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function ActiveUsers() {
@@ -24,16 +22,21 @@ export default function ActiveUsers() {
       <HeadingComp text={" Top Contributers"} />
         <CardContent className="p-0">
           <section className="flex flex-wrap justify-between gap-y-3">
-            {users?.slice(0, 4)?.map(({ user }) => (
+            {users?.map(({ user }) => (
               <div
                 key={user._id}
                 className="flex items-center gap-3 py-4 lg:w-[48%] max-lg:w-full border-2 px-5 rounded-md"
               >
                 <Link href={`/u/${user._id}`}>
                 <Avatar className="h-12 w-12  ">
-                  <AvatarImage
+                  <Image
                     src={user.picture || "/user.png"}
                     alt={user.name} 
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                    quality={50}
+                    priority
                     />
                   <AvatarFallback className="bg-secondary-foreground text-white font-semibold">
                     {user.name.slice(0, 2).toUpperCase()}
@@ -61,20 +64,7 @@ export default function ActiveUsers() {
               </div>
             ))}
           </section>
-          {data?.payload&& data?.payload.length>5&&
-          <section className="center py-4 gap-2 font-semibold">
-            <AnimatedTooltip
-              items={users
-                ?.slice(4,8).map((e,i)=> ({
-                  name: e.user.name,
-                  image: e.user.picture || "/user.png",
-                  designation: e.user.headline,
-                  id: i,
-                  link:`${location.href}/u/${e.user._id}`
-                }))||[]}
-            ></AnimatedTooltip>
-          </section>
-            }
+        
         </CardContent>
       </Card>
     </>

@@ -20,9 +20,9 @@ export default function TrendingTopics() {
     <div className="flex  overflow-x-auto pb-4 flex-wrap gap-2">
       {
       q?.map((tag, index) => (
-        <button key={index}  className="bg-secondary px-3 rounded-md  py-1 text-sm  border-2 border-black font-bold whitespace-nowrap hover:border-primary transition-colors">
+        <div key={index}  className="bg-secondary px-3 rounded-md  py-1 text-sm  border-2 border-black font-bold whitespace-nowrap hover:border-primary transition-colors">
           {tag.name}
-        </button>
+        </div>
       ))}
     </div>
   </motion.section>
