@@ -12,7 +12,6 @@ export default function useGetUserResources() {
   const [{ resources:{count, sort: sortP,isPrivate,},userid:RecoiledUserId },setValue] = useRecoilState(UserProfileResourceAtom);
   const resetState = useResetRecoilState(UserProfileResourceAtom)
   const userid  = useParams().user as string
-  console.log(userid)
   return useMutation({
     mutationKey: ["User",  sortP,userid,count],
     onMutate:()=>{

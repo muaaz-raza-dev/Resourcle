@@ -5,7 +5,6 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import RequestLoader from "../loader/request-loading";
 import { FaBookmark } from "react-icons/fa";
-import { Tooltip } from "antd";
 import useProtectAuthorisedEvents from "@/utils/authorised-event-protector";
 
 export default function SaveBtn({
@@ -51,7 +50,6 @@ export default function SaveBtn({
       </button>
     );
   return (
-    <Tooltip title={`Save${isSaved ?"d":""}`}>
       <Button
         onClick={handleSave}
         disabled={isLoading}
@@ -73,6 +71,5 @@ export default function SaveBtn({
           </>
         )}
       </Button>
-    </Tooltip>
   );
 }

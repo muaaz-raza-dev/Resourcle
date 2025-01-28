@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import Searchbar from "./logined/searchbar";
+import { BetaSearchBar } from "../searchbar/beta-searchbar";
 
 export default function UnLoginedNavbar() {
   return (
     <div className=" sm:ml-6 sm:flex sm:items-center flex gap-2">
-      <Searchbar />
+      <BetaSearchBar />
       <div className="flex gap-2 ">
 
       <Link href={"/auth/signup"} className="       max-md:hidden ">

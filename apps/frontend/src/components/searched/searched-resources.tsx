@@ -14,7 +14,7 @@ export default function SearchedResources({
   const { resources, total, count } = useRecoilValue(searchedResourcesAtom);
   const FlatResources = useMemo( () => Object.values(resources).flat(), [resources]);
   return (
-    <div className=" flex flex-col mb-8">
+    <div className=" flex flex-col my-8">
       <div className="flex flex-col  gap-2">
         {FlatResources.map((resource) => (
           <EachResourceComponent

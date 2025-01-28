@@ -3,6 +3,9 @@ import useSearchResource from "@/hooks/resource/useSearchResource";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/components/ui/select";
 import { searchedResourcesAtom, SearchedSortOptions } from "@/state/search-resource.atom";
 import { useSearchParams } from 'next/navigation'
+import { AiFillFire } from "react-icons/ai";
+import { FaSliders } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
 import { useRecoilState } from "recoil";
 export default function FilterbarSearched() {
     const searchParams = useSearchParams()
@@ -17,36 +20,51 @@ export default function FilterbarSearched() {
 
   return (
     
-      <div className="container px-4 py-6 md:py-8 mx-auto">
-      <div className="space-y-8">
-        <div className="space-y-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{search}</h1>
-          <p className=" md:font-medium text-sm text-muted-foreground">
-            Search all the specific keywords to get the better results
-          </p>
-          
-        </div>
+      <div className="w-full  py-6 md:py-8 mx-auto space-y-8 border-b ">
+        <div className="space-y-4 w-full flex justify-between items-center ">
 
-        <div className="flex  justify-between items-center gap-4 border-b pb-4">
-            {!isLoading&& 
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold "><span className="text-muted-foreground">Results for</span> {search}</h1>
+          {!isLoading&& 
           <div className="text-muted-foreground">
-            <span className="font-semibold max-md:text-sm text-foreground">{total}</span> resource(s) found
+            <span className="font-semibold max-md:text-sm text-foreground">{total}</span> resource
           </div>
             }
-          <div className="flex items-center gap-4">
+        </div>
+
+        <div className="flex items-center gap-2">
           <Select disabled={isLoading} value={sort} onValueChange={HandleSortChange}>
-  <SelectTrigger className="md:min-w-[180px] max-md:w-[130px] border border-border ring-offset-transparent outline-none ">
+
+  <SelectTrigger className="md:min-w-[180px] max-md:w-[130px] border border-border ring-offset-transparent bg-white outline-none h-10 ">
     <SelectValue className="hover:!bg-slate-300" />
   </SelectTrigger>
   <SelectContent align="end">
-    <SelectItem value="upvotes" className="hover:!bg-muted-foreground">Most Upvoted</SelectItem>
-    <SelectItem value="createdAt" className="hover:!bg-muted-foreground">Recent</SelectItem>
+    <SelectItem value="upvotes" className="hover:!bg-border ">
+      <div className="flex gap-2 items-center">
+      <AiFillFire fill="rgb(249 115 22)" size={18}/>
+      <p>
+       Most Upvoted
+      </p>
+      </div>
+      </SelectItem>
+    <SelectItem value="createdAt" className="hover:!bg-border">
+    <div className="flex gap-2 items-center">
+      <MdAccessTime />
+      <p>
+      Recent
+      </p>
+      </div>
+    </SelectItem>
   </SelectContent>
 </Select>
+<button className="text-sm border bg-white rounded-md h-10 px-3 font-semibold flex items-center gap-2  " disabled><FaSliders /> </button>
+
 
           </div>
         </div>
-      </div>
+
+
+     
     </div>
     
   )

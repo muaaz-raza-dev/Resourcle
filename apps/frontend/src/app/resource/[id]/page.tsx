@@ -1,13 +1,14 @@
 import { GetResourceMetaInfoApi } from '@/api/resource/get-resource.api';
 import ResourcesPage from '@/components/resource/read/resource-page';
+import { Keywords } from '@/data/keywords';
 
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const resource = await GetResourceMetaInfoApi(id); // Fetch resource data by ID
 
   return {
-    title: `${resource.payload.title} `,
+    title: `${resource.payload.title}`,
     description: resource.payload.description,
-    keywords: resource.payload.title.split(" ").join(' , ')+"resourcle",
+    keywords: resource.payload.title+','+resource.payload.description,Keywords,
     openGraph: {
       title: resource.payload.title,
       description: resource.payload.description,

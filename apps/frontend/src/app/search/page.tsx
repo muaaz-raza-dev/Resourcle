@@ -16,7 +16,7 @@ export default function Page() {
   if(!isLoading&&search) mutate(undefined)
   }, [])
 return (
-  <section className='max-w-4xl px-4 mx-auto'>
+  <section className='max-w-5xl  mx-auto'>
       <FilterbarSearched/>
       <SearchedResources isLoading={isLoading}/>
     </section>

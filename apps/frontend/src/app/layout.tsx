@@ -9,24 +9,23 @@ import AuthUiValidator from "@/components/validators/auth-ui-validator";
 import AuthReminderModal from "@/components/global/auth-reminder-modal";
 import Footer from "@/components/global/footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Keywords } from "@/data/keywords";
 
 export const metadata: Metadata = {
 
   title: "Resourcle",
   description: "Resourcle is a community-driven platform for discovering, sharing, and collaborating on valuable resources, from articles to tools, with a focus on knowledge sharing.",
-  keywords: `
-  ad-free, and no-login link-sharing platform designed for secure, anonymous, and private link sharing. Discover new links, share articles, videos, and resources effortlessly. Enjoy easy, instant, and user-friendly link sharing without ads or sign-ups. Perfect for collaborative link sharing, social bookmarking, and educational resource sharing. Explore trending links, top-shared resources, and the best link-sharing platform with no distractions. Experience a secure, community-driven, and ad-free platform for sharing and discovering content online.
-`,
+  keywords: Keywords,
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
   // Open Graph (Facebook) metadata
   openGraph: {
     type: "website",
-    url: "https://resourcle.vercel.app",
+    url: "https://resourcle.com",
     title: "Resourcle",
     description: "A community-driven platform where users can share, discover, and collaborate on educational resources and useful links.",
     images: [
       {
-        url: "https://resourcle.vercel.app/logo/logo.png",
+        url: "https://resourcle.com/logo/logo.png",
         width: 1200,
         height: 630,
         alt: "Resourcle logo",
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
     creator: "@resourcleapp",
     title: "Resourcle",
     description: "Join Resourcle, a community-driven platform for discovering, sharing, and collaborating on educational and valuable resources.",
-    images: "https://resourcle.vercel.app/logo/logo.png",
+    images: "https://resourcle.com/logo/logo.png",
     card: "summary_large_image",  // Use large image for better visibility
   },
   // Additional metadata for advanced SEO

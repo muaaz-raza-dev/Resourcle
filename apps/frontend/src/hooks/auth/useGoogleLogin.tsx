@@ -14,7 +14,9 @@ export default function useGoogleLogin() {
       // Cookie.set(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY,data.token,{expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),})
         setState(e=>({...e,isLogined:true,user:data.payload,authReminderModal:false}))
         toast.success("Logged in successfully")
-        router.push("/")
+        if(location.pathname.includes("auth")){
+          router.push("/")
+        }
     },
     onError({response:{data:{message}}}) {
         toast.error(message);
