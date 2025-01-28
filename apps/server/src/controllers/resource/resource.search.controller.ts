@@ -97,7 +97,7 @@ export async function PartialAdvancedSearchController(req: Request,res: Response
   
       // Concurrently execute the queries
       const [resources, tags, users] = await Promise.all([
-        Resource.find({ $text: { $search: q } })
+        Resource.find({ $text: { $search: q },isDeleted:false,isPrivate:false })
           .sort("-upvotes")
           .select("title upvotes views updatedAt createdAt")
           .limit(5).lean()
@@ -108,7 +108,9 @@ export async function PartialAdvancedSearchController(req: Request,res: Response
           $or: [
             { name: { $regex: new RegExp(q, "i") } },
             { username: { $regex: new RegExp(q, "i") } },
+            
           ],
+          isDeleted:false
         })
           .select("name headline username picture")
           .limit(5),

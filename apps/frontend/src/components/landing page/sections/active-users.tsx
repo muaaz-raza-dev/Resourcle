@@ -1,10 +1,6 @@
 import React from "react";
 import HeadingComp from "../components/heading-comp";
 import { Card, CardContent } from "@/shadcn/components/ui/card";
-import {
-  Avatar,
-  AvatarFallback,
-} from "@/shadcn/components/ui/avatar";
 import useLoadUsersFeed from "@/hooks/feed/useLoadUserFeed";
 import ResourceLoader from "../loader/resource-loader";
 import Link from "next/link";
@@ -28,7 +24,6 @@ export default function ActiveUsers() {
                 className="flex items-center gap-3 py-4 lg:w-[48%] max-lg:w-full border-2 px-5 rounded-md"
               >
                 <Link href={`/u/${user._id}`}>
-                <Avatar className="h-12 w-12  ">
                   <Image
                     src={user.picture || "/user.png"}
                     alt={user.name} 
@@ -38,10 +33,6 @@ export default function ActiveUsers() {
                     quality={50}
                     priority
                     />
-                  <AvatarFallback className="bg-secondary-foreground text-white font-semibold">
-                    {user.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
                     </Link>
                 <div className="flex-1  flex flex-col justify-betweeen">
                   <Link href={`/u/${user._id}`}>
