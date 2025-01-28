@@ -23,12 +23,12 @@ export default function ProfileMenu() {
   return (
     <Sheet open={open} onOpenChange={(o)=>setopen(o)} >
       <SheetTrigger>
-        <Image src={ user?.picture||"/user.png"} alt="name" quality={90} className="rounded-full w-8 h-8 " width={20} height={20} />
+        <Image src={ user?.picture||"/user.png"} alt="name" quality={70} unoptimized className="rounded-full w-8 h-8 " width={20} height={20} />
       </SheetTrigger>
       <SheetContent className="!px-3 border w-full ">
         <SheetHeader>
           <div className="flex gap-2 items-center">
-          <Image src={user?.picture || "/user.png"} alt="name" quality={100} className="rounded-full w-10 h-10 " width={25} height={25}/>
+          <Image src={user?.picture || "/user.png"} alt="name" quality={90} unoptimized className="rounded-full w-10 h-10 " width={25} height={25}/>
             <div className="font-semibold">
               <h1 className="text-left leading-tight">{user?.name}</h1>
               <p className="text-muted-foreground font-normal text-sm leading-tight">

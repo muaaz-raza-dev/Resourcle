@@ -32,6 +32,7 @@ export default function ActiveUsers() {
                     className="rounded-full"
                     quality={50}
                     priority
+                    unoptimized
                     />
                     </Link>
                 <div className="flex-1  flex flex-col justify-betweeen">
