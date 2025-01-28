@@ -23,10 +23,10 @@ export default function SearchedResourceComponent({resource,Close}:{resource:{ti
                 <div
                 >
                 <div className="flex items-center gap-2 space-x-2 ">
-                    <div className="flex gap-1 py-0.5 px-2 rounded-xl text-xs  border items-center">
+                    <div className="flex gap-1 py-0.5 px-2 rounded-xl text-xs w-max whitespace-nowrap border items-center">
                    <AiFillFire fill="rgb(249 115 22)" className='!w-4 !h-4'   />  <p className=" font-semibold">{resource.upvotes} upvotes</p>
                     </div>
-                    <div className="flex gap-1 py-0.5 px-2 rounded-xl text-xs text-muted-foreground  border items-center">
+                    <div className="flex gap-1 py-0.5 px-2 rounded-xl text-xs text-muted-foreground w-max whitespace-nowrap border items-center">
                    <FaEye className='text-muted-foreground !w-3 !h-3'    />  <p className=" font-semibold">{resource.views} views</p>
                     </div>
                 </div>

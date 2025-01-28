@@ -102,7 +102,7 @@ function DetailedSearch(){
       />
         </div>
         {PartialSearchLoading ? (
-          <div className="center flex-col">
+          <div className="center gap-2 text-muted-foreground my-5">
            <RequestLoader size="24" />
            <p>Searching</p>
           </div>

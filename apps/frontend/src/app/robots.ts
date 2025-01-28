@@ -9,8 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/auth/', '/settings', '/collection'],
       },
     ],
-    
-    host: 'https://resourcle.com',
     sitemap: `https://resourcle.com/sitemap.xml`,
   };
 }

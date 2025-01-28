@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import 'react-loading-skeleton/dist/skeleton.css';
 import "./globals.css";
-import RecoilProvider from "@/components/providers/recoil-provider";
-import Navbar from "@/components/global/navbar";
+import dynamic from "next/dynamic";
 import { Toaster } from 'react-hot-toast';
-import QueryClientsProvider from "@/components/providers/query-client-provider";
-import AuthUiValidator from "@/components/validators/auth-ui-validator";
-import AuthReminderModal from "@/components/global/auth-reminder-modal";
-import Footer from "@/components/global/footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Keywords } from "@/data/keywords";
+import Head from "next/head";
+
+// Dynamically import the components to reduce initial bundle size
+const Navbar = dynamic(() => import('@/components/global/navbar'), { ssr: false });
+const Footer = dynamic(() => import('@/components/global/footer'), { ssr: false });
+const RecoilProvider = dynamic(() => import('@/components/providers/recoil-provider'), { ssr: false });
+const QueryClientsProvider = dynamic(() => import('@/components/providers/query-client-provider'), { ssr: false });
+const AuthReminderModal = dynamic(() => import('@/components/global/auth-reminder-modal'), { ssr: false });
+const AuthUiValidator = dynamic(() => import('@/components/validators/auth-ui-validator'), { ssr: false });
 
 export const metadata: Metadata = {
-
   title: "Resourcle",
   description: "Resourcle is a community-driven platform for discovering, sharing, and collaborating on valuable resources, from articles to tools, with a focus on knowledge sharing.",
   keywords: Keywords,
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
-  // Open Graph (Facebook) metadata
   openGraph: {
     type: "website",
     url: "https://resourcle.com",
@@ -41,8 +42,7 @@ export const metadata: Metadata = {
     images: "https://resourcle.com/logo/logo.png",
     card: "summary_large_image",  // Use large image for better visibility
   },
-  // Additional metadata for advanced SEO
-  robots: "index, follow",  // Allow search engines to index and follow links
+  robots: "index, follow",
 };
 
 export default function RootLayout({
@@ -52,11 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <link rel="shortcut icon" href="/logo/logo.ico" type="image/x-icon" />
-        {/* Google verification tag */}
         <meta name="google-site-verification" content="coRJi_s_5EGqv50oNGEGIIij14T0DrAtA9rYfELy0Kc" />
-      </head>
+      </Head>
       <body className={`antialiased`}>
         <Toaster />
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>

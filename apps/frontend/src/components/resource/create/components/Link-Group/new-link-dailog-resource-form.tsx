@@ -33,10 +33,12 @@ export default function NewLinkDailogResourceForm({
 }) {
   const ParentForm = useFormContext<IResource>();
   const [open, setopen] = useState(false);
+  const [expand,setExpand] = useState(false);
   const form = useForm<IResourceLink>({ defaultValues: data });
   const {handleSubmit,watch,setValue,trigger,} =form;
   const link = useState(data?true:false)
-  const [isLinkValid ] =link
+  const [isLinkValid ] =link;
+
   const onSubmit: SubmitHandler<IResourceLink> = (data,event) => {
     event?.stopPropagation();
     if(!isLinkValid)return;
@@ -86,12 +88,12 @@ export default function NewLinkDailogResourceForm({
         <FormField
       control={form.control}
       name="title"
-      rules={{required:"*Title is required",maxLength:{value:80,message:"Title must be less than 80 characters"}}}
+      rules={{maxLength:{value:80,message:"Title must be less than 80 characters"}}}
       render={({field}) => (
         <FormItem>
           <FormLabel className="py-0">
           <div className="flex justify-between w-full">
-          <Label className="font-semibold my-1" htmlFor="title">Title *</Label>
+          <Label className="font-semibold my-1" htmlFor="title">Title </Label>
           <p className="text-muted-foreground text-xs">{field.value?.length||0}/80</p>
           </div>
           </FormLabel>
@@ -111,7 +113,11 @@ export default function NewLinkDailogResourceForm({
     />
            
         
-         
+{
+  expand ?
+<>
+
+
            <FormField
       control={form.control}
       name="description"
@@ -158,8 +164,12 @@ export default function NewLinkDailogResourceForm({
                 />
             </div>
           </section>
+          <button className=" text-sm text-muted-foreground " onClick={()=>setExpand(false)}>Show less </button>
+          </>:
+          <button className=" text-sm text-accent" onClick={()=>setExpand(true)}>Setup description and tags </button>
+}
           <DialogFooter className="mt-3">
-            <Button type="button" className="w-full hover:bg-secondary-foreground/90 transition-colors bg-secondary-foreground" onClick={handleSubmit(onSubmit)}>Save</Button>
+            <Button type="button" className="w-full hover:bg-secondary-foreground/90 transition-colors bg-secondary-foreground" onClick={handleSubmit(onSubmit)}>upload</Button>
           </DialogFooter>
         </form>
                 </FormProvider>
