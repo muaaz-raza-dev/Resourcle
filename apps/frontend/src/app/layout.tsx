@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import { Toaster } from 'react-hot-toast';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Head from "next/head";
-import { Rootmetadata } from "@/assets/metaData/root-meta";
-import { RootSchemaOrgData } from "@/assets/metaData/root-schema-org";
+import { Rootmetadata } from "@/assets/root/root-meta";
+import { RootSchemaOrgData } from "@/assets/root/root-schema-org";
 
 // Dynamically import the components to reduce initial bundle size
 const Navbar = dynamic(() => import('@/components/global/navbar'), { ssr: false });

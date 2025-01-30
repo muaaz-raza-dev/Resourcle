@@ -12,7 +12,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
     }
 
     // Keywords handling: Concatenate title, description, and predefined Keywords
-    const keywords = `${resource.payload.title}, ${resource.payload.description}`;
+    const keywords = `${resource.payload.title}, ${resource?.payload?.keywords?.join(", ")||""}`;
 
     return {
       title: resource.payload.title,

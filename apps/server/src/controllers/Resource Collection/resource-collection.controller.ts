@@ -12,6 +12,7 @@ interface IsaveResourceRequestBody {
   link_id: string;
 }
 export async function SaveResourceToCollection(
+
   req: Request<{}, {}, IsaveResourceRequestBody>,
   res: Response,
 ) {
@@ -41,6 +42,25 @@ export async function SaveResourceToCollection(
   }
   SuccessResponse(res, { message: "Action completed with collection " });
 }
+
+export async function AddCustomLinkToCollection(req: Request,res: Response){
+const { linkPayload:{title,description,url,tags},collectionId} = req.body;
+try{
+  const link = await ResourceLink.create({title, description, url, tags, resource: null, user: req.userid,isPrivate:true});
+  const collection = await ResourceCollection.findByIdAndUpdate(collectionId, { $push: { links: link._id } }, { new: true });
+  SuccessResponse(res,{payload:collection,message:"Link added to the collection"});
+  return;
+}
+catch(err){
+  console.log(err);
+  ErrorResponse(res,{message:"Internal server error",status:501})
+  return;
+}
+
+
+
+
+};
 
 export async function RemoveLinkFromResourceCollection(
   req: Request,

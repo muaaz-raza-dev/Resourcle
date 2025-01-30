@@ -5,6 +5,7 @@ import { Iupvote } from "./upvote.model.js";
 const resourceLinkSchema = new mongoose.Schema(
   {
     resource: { type: Types.ObjectId, ref: "resource" },
+    user:{type:Types.ObjectId,ref:"User"}, // for private links in collection
     title: String,
     url: String,
     description: String,
@@ -13,6 +14,7 @@ const resourceLinkSchema = new mongoose.Schema(
     clicks:{default:0,type:Number},
     tags: [String],
     upvotesDoc: { type: mongoose.Types.ObjectId, ref: "Upvotes" },
+    isPrivate:{type:Boolean,default:false}  // Private custom links
   },
   { timestamps: true },
 );

@@ -23,7 +23,7 @@ export const GetResourceContentApi = async ({id,sort}:{id: string,sort:string}) 
 }
 
 export const GetResourceMetaInfoApi = async (id: string) => {
-    const response = await Axios.get<{ payload: {title:string;_id:string;description:string;banner:string} }>("/resource/d/meta/" + id, { headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } })
+    const response = await Axios.get<{ payload: {title:string;_id:string;description:string;banner:string;keywords:string[]} }>("/resource/d/meta/" + id, { headers: { "Authorization": `Bearer ${Cookie.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_KEY)}` } })
     return response.data
 }
 export default GetResourceNonContentInfoApi
