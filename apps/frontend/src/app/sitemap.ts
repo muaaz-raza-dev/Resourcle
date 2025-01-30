@@ -18,14 +18,14 @@ export default async  function sitemap(): Promise<MetadataRoute.Sitemap> {
       {
         url: "https://resourcle.com",
         lastModified: new Date().toISOString(),
-        changeFrequency: 'daily',
+        changeFrequency: 'hourly',
         priority: 1,
       },
       {
         url: "https://resourcle.com/auth/login",
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
-        priority: 0.5,
+        priority: 1,
       },
       {
         url: "https://resourcle.com/auth/signup",

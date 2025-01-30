@@ -10,7 +10,7 @@ import LocalSignupForm from "@/components/auth/local-signup-form";
 import Link from "next/link";
 import { Metadata } from "next";
 export const metadata: Metadata  = {
-  title: "Sign Up | Resourcle",
+  title: "Sign Up - Resourcle",
   description: "Create your Resourcle account to save, organize, and manage all your favorite links effortlessly in one place. Join the ultimate resource bookmarking platform today.",
   keywords: [
     "Resourcle sign up",
@@ -19,7 +19,7 @@ export const metadata: Metadata  = {
     "sign up resource manager",
     "bookmarking platform registration"
   ],
-  robots: "index, nofollow",
+  robots: "index, follow",
   openGraph: {
     title: "Sign Up | Resourcle",
     description: "Join Resourcle and start organizing your favorite links effortlessly. Sign up for free and manage your bookmarks like a pro.",

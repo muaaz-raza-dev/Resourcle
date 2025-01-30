@@ -19,7 +19,7 @@ export const metadata: Metadata  = {
     "sign in resource manager",
     "bookmarking platform login"
   ],
-  robots: "index, nofollow",
+  robots: "index, follow",
   openGraph: {
     title: "Sign In - Resourcle",
     description: "Access your Resourcle account securely to manage your saved links and bookmarks in a streamlined way.",

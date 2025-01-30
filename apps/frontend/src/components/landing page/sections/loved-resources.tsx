@@ -62,7 +62,7 @@ export default function LovedResources() {
         >
           <div className="flex flex-row   gap-2 items-center h-max py-0   ">
             <FaPlus overlineThickness={1} />
-            <h1 className="font-semibold text-sm">Create your own resource</h1>
+            <h3 className="font-semibold text-sm">Create your own resource</h3>
           </div>
         </Link>
       </div>

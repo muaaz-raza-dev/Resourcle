@@ -10,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `https://resourcle.com/sitemap.xml`,
+    host: 'https://resourcle.com'
   };
 }

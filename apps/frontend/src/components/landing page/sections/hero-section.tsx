@@ -19,12 +19,12 @@ export default function HeroSection() {
         Your Place for Organized, High Quality Resources.
       </h1>
 
-      <p className="text-center text-lg font-medium max-md:text-sm text-gray-600 tracking-tight mt-2"
+      <h2 className="text-center text-lg font-medium max-md:text-sm text-gray-600 tracking-tight mt-2"
       >
         Resourcle is a community driven effort to share resources, guides, and other
         educational content to help guide users in picking up a path and guide
         their learnings.
-      </p>
+      </h2>
       <div className="mt-4 w-full">
         <SearchingAnimation/>
       </div>
