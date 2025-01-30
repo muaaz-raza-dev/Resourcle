@@ -44,12 +44,14 @@ export default function EachResourceComponent({
         <div className="flex-1 p-3 flex flex-col justify-between">
           <CardContent className="p-0">
             <div className="flex items-center gap-1">
+            <Link href={`/u/${resource.publisher._id}`}>
               <Avatar className="w-6 h-6">
                 <AvatarImage src={resource?.publisher?.picture} />
                 <AvatarFallback className="bg-secondary-foreground text-white font-semibold center w-full h-full">
                   {resource?.publisher?.name.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
+            </Link>
               <Link href={`/u/${resource.publisher._id}`}>
               <p className="font-semibold text-sm pl-1">
                 {resource?.publisher?.name}
@@ -76,7 +78,7 @@ export default function EachResourceComponent({
             </Link>
           </CardContent>
           <CardFooter className="p-0 justify-between items-center mt-4">
-            <div className="flex items-center space-x-3  text-sm text-muted-foreground">
+            <Link href={"/resource/" + resource?._id} className="flex items-center space-x-3  text-sm text-muted-foreground">
               <span className="flex items-center  text-primary  text-xs font-semibold">
                 <LinkIcon className="h-4 w-4 mr-1 font-medium text-primary" />
                 {resource?.linksLength} links
@@ -92,7 +94,7 @@ export default function EachResourceComponent({
                 isUpvoted={resource.isUpvoted}
                 containerClassName="flex-row-reverse"
               />
-            </div>
+            </Link>
             <div className="flex gap-2 ">
               <SaveBtn id={resource?._id} isSaved={resource?.isSaved} />
               {resource.isOwned && index != null && index != undefined ? (

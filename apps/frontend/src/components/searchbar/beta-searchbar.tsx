@@ -35,7 +35,7 @@ export function BetaSearchBar() {
     setInput(searchTerm || "");
   }, [searchTerm]);
 
-  useHotkeys("ctrl+k", (e) => {e.preventDefault();setOpen(true);});
+  useHotkeys(["ctrl+k", "command+k"], (e) => {e.preventDefault();setOpen(true);});
 function DetailedSearch(){
   const params = new URLSearchParams(window.location.search);
   params.set("search", input || "");

@@ -24,7 +24,7 @@ export default function LovedResources() {
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.1 }}
         >
-          <div className="flex items-center gap-2 ">
+          <Link href={`/resource/${resource._id}`} className="flex items-center gap-2 ">
             <div className="">
 
           <Link href={`/resource/${resource._id}`} className="">
@@ -43,7 +43,7 @@ export default function LovedResources() {
           }
           </div>
           </div>
-          </div>
+          </Link>
                 <motion.div
                   transition={{ duration: 0.2 }}
                 >
