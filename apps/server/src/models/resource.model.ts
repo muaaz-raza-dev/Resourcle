@@ -36,7 +36,7 @@ const resourceSchema = new mongoose.Schema(
     ],
     isDeleted: { type: Boolean, default: false },
     isPrivate: { type: Boolean, default: false },
-    keywords:{type:Boolean,default:["resourcle"]}
+    keywords:{type:[String],default:["resourcle"]}
   },
   { timestamps: true },
 );
