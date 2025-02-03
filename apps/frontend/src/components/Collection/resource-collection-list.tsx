@@ -22,8 +22,9 @@ export default function ResourceCollectionList() {
 <Skeleton width={300} height={50}/>
 <Skeleton width={300} height={50}/>
   </section>);
+  
   return (
-    <section className="flex w-full flex-wrap gap-2">
+    <section className="flex w-full border-b pb-2 flex-wrap gap-2">
       {data?.payload.map((e) => {
         return (
           <Link

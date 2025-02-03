@@ -65,7 +65,8 @@ export default function ResoureCollectionEachResource({data}:{data:IcollectedRes
         </>
       }
       </CardHeader>
-
+{
+  expand ?
       <CardFooter className="flex items-center justify-between py-0 gap-4 mt-2 max-[350px]:flex-col-reverse max-[350px]:items-start max-md:gap-1">
         <div className="text-xs font-medium max-md:font-normal  rounded">
           Collected from{" "}
@@ -88,7 +89,9 @@ export default function ResoureCollectionEachResource({data}:{data:IcollectedRes
           </div>
           <RemoveResource linkId={data._id}/>
         </section>
-      </CardFooter>
+      </CardFooter> 
+      : null
+}
     </Card>
   );
 }

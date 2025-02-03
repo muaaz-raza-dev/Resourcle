@@ -56,14 +56,14 @@ export default function SignupPage() {
         </div>
       </div>
           <GoogleAuthButton /> 
-        </CardContent>
-      </Card>
-      <div className=" text-center text-muted text-sm font-medium">
+      <div className=" text-center text-muted-foreground text-sm font-medium">
         Already have an account?{" "}
         <Link href="/auth/signin" className="font-semibold hover:underline">
           Sign in
         </Link>
       </div>
+        </CardContent>
+      </Card>
     </div>
     </>
   );

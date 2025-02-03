@@ -2,7 +2,6 @@ import { Axios } from "@/lib/Axios"
 import Cookie from "js-cookie"
 interface IResourceCollectionMeta {
     _id: string;
-    totalResource: number;
     totalLinks: number;
     createdAt: string;
     updatedAt: string;

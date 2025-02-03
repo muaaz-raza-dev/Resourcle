@@ -120,49 +120,14 @@ export async function GetCollectionMetaDetails(req: Request, res: Response) {
     ErrorResponse(res, { message: "Invalid credentials", status: 401 });
     return;
   } else {
-    const collection =
-      await ResourceCollection.findById(collectionId).select("name updatedAt");
-    const collectionMeta = await ResourceCollection.aggregate([
-      {
-        $lookup: {
-          from: "resourcelinks",
-          localField: "links",
-          foreignField: "_id",
-          as: "links",
-        },
-      },
-      {
-        $unwind: {
-          path: "$links",
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $group: {
-          _id: "$links.resource", // Grouping by resource
-          resourcesCount: { $sum: 1 }, // Count documents per resource
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalResource: {
-            $sum: 1,
-          },
-          totalLinks: {
-            $sum: "$resourcesCount",
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-        },
-      },
-    ]);
+    const collection =await ResourceCollection.findById(collectionId).select("name updatedAt links");
+    
+    const totalLinks = collection.links.length;
     SuccessResponse(res, {
-      payload: { ...collectionMeta[0], ...collection?.toObject() },
+      payload: { ...collection?.toObject(), totalLinks },
     });
+   
+    
   }
 }
 

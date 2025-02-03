@@ -48,14 +48,14 @@ export default function page() {
           <CardContent className="space-y-3">
            <GoogleAuthButton /> 
           <LocalLoginForm/>
-        </CardContent>
-      </Card>
-      <div className=" text-center text-muted text-sm font-medium">
+      <div className=" text-center text-muted-foreground text-sm font-medium">
         Dont have an account?{" "}
         <Link href="/auth/signup" className="font-semibold hover:underline">
           Sign up
         </Link>
       </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
