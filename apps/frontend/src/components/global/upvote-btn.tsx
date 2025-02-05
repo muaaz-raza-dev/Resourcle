@@ -12,10 +12,12 @@ export default function UpvoteBtn({
   containerClassName,
   isUpvoted,
   bordered,
+  isDescription,
   id,
 }: {
   className?: string;
   value: number;
+  isDescription?:boolean,
   size?: number;
   bordered?: boolean;
   id: string;
@@ -67,7 +69,7 @@ export default function UpvoteBtn({
           size={size || 18}
         />
       )}
-      <p className="font-semibold text-muted-foreground">{state.upvotes} {bordered?"upvotes":null}</p>
+      <p className="font-semibold text-muted-foreground">{state.upvotes} {bordered?isDescription===false?"":"upvotes":null}</p>
     </button>
   );
 }

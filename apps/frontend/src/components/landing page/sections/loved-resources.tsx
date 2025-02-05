@@ -42,7 +42,7 @@ export default function LovedResources() {
                   transition={{ duration: 0.2 }}
                 >
                 <div className="flex items-center gap-2 space-x-2 ">
-                  <UpvoteBtn bordered value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted} />
+                  <UpvoteBtn isDescription={false} bordered value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted} />
                   <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
                   <div className="md:border-l md:px-2 ">
                     <Link href={`/resource/${resource._id}`} >

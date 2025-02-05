@@ -42,7 +42,7 @@ function DetailedSearch(){
   window.history.replaceState(
     {},
     "",
-    `${window.location.pathname}?${params}`
+    `${window.location.origin}/search/?${params}`
   );
   search({ search: input });
 }
@@ -110,7 +110,7 @@ function DetailedSearch(){
             : 
         (
           data ? 
-        <SearchbarResults Close={()=>{setOpen(false)}} data={data} DetailedSearchFunction={DetailedSearch} /> :
+        <SearchbarResults Close={()=>{setOpen(false)}} data={data} /> :
         <NotSearchedFallback/>
         
         )}

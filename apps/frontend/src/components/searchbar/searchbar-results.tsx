@@ -7,9 +7,11 @@ import {
 import { IpartialSearchPayload } from '@/api/search/advanced-partial-search.api';
 import SearchedResourceComponent from './searched-resource-component';
 import SearchedUserComponent from './searched-user-component';
+import { useRouter } from "next/navigation";
 
 
-export default function SearchbarResults({data,DetailedSearchFunction,Close}:{data:IpartialSearchPayload;DetailedSearchFunction:()=>void;Close:()=>void}) {
+export default function SearchbarResults({data,Close}:{data:IpartialSearchPayload;Close:()=>void}) {
+  const { push } = useRouter();
   return (
     <CommandList>
     <CommandGroup heading="Resources">
@@ -24,7 +26,7 @@ export default function SearchbarResults({data,DetailedSearchFunction,Close}:{da
           );
         })}
           <div className="flex justify-center items-center gap-2 my-2">
-          <button className="bg-secondary text-sm text-black rounded-md px-3  py-1 hover:bg-primary-darker" onClick={()=>{DetailedSearchFunction();Close()}} >
+          <button className="bg-secondary text-sm text-black rounded-md px-3  py-1 hover:bg-primary-darker" onClick={()=>{push("");Close()}} >
             more results
             </button>
           </div>

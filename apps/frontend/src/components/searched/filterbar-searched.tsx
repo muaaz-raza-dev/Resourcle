@@ -21,7 +21,7 @@ export default function FilterbarSearched() {
   return (
     
       <div className="w-full  py-6 md:py-8 mx-auto space-y-8 border-b ">
-        <div className="space-y-4 w-full flex justify-between items-center ">
+        <div className=" w-full flex justify-between items-start ">
 
         <div>
           <h1 className="text-3xl md:text-4xl font-bold "><span className="text-muted-foreground">Results for</span> {search}</h1>
