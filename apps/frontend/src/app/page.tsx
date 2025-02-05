@@ -9,7 +9,7 @@ import HeroSection from "@/components/landing page/sections/hero-section";
 import HowItWorks from '@/components/landing page/sections/how-it-works';
 
 
-export default function DeveloperRoadmaps() {
+export default function LandingPage() {
   return (
     <main>
       <div className="min-h-screen relative  p-8 ">

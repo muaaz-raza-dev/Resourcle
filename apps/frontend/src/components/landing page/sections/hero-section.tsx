@@ -28,6 +28,14 @@ export default function HeroSection() {
       <div className="mt-4 w-full">
         <SearchingAnimation/>
       </div>
+      {/* <div className="flex mt-4 gap-3">
+        <button className="text-white font-semibold px-4 py-2 bg-accent rounded-md hover:bg-primary-dark transition-colors">
+          Save your favorite link
+        </button>
+        <button className=" font-semibold px-4 py-2 bg-secondary rounded-md hover:bg-primary-dark transition-colors">
+          Create resource
+        </button>
+      </div> */}
     </div>
   );
 }
