@@ -1,6 +1,6 @@
 import React from "react";
 import HeadingComp from "../components/heading-comp";
-import { FaPlus } from "react-icons/fa";
+import { FaArrowRight,  FaPlus } from "react-icons/fa";
 import UpvoteBtn from "@/components/global/upvote-btn";
 import useLoadResourceFeed from "@/hooks/feed/useLoadResourceFeed";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import ResourceLoader from "../loader/resource-loader";
 import SaveBtn from "@/components/global/save-btn";
 import {motion} from "framer-motion"
 import { accurateFromNow } from "@/utils/accurate-time-from-now";
+import { Button } from "@/shadcn/components/ui/button";
 export default function LovedResources() {
   const { data, isLoading } = useLoadResourceFeed();
   const q = data?.payload;
@@ -18,24 +19,17 @@ export default function LovedResources() {
       <HeadingComp text={"Top Resources"} />
       <div className="flex flex-wrap  gap-4 mb-4 w-full overflow-hidden">
         {q?.map((resource, index) => (
-          <motion.div
-          key={index}
-          className="bg-gradient-to-br  from-secondary   to-secondary/80 rounded-lg w-full flex gap-3  justify-between py-4 px-4 items-center border"
-          whileHover={{ scale: 1.01 }}
-          transition={{ duration: 0.1 }}
-        >
+          <div key={index} className="bg-gradient-to-br  from-secondary   to-secondary/80 rounded-lg w-full flex gap-3  justify-between py-4 px-4 items-center border">
           <Link href={`/resource/${resource._id}`} className="flex items-center gap-2 ">
-            <div className="">
 
+          <div className="">
           <Link href={`/resource/${resource._id}`} className="">
               <h2 className=" text-lg font-semibold whitespace-wrap leading-tight">{resource.title}</h2>
           </Link>
-
-
             <div className="flex gap-4 items-center mb-1 mt-2 max-md:mt-3">
           <p className="text-muted-foreground text-xs">{accurateFromNow(resource.updatedAt)}</p>                  
           {
-            resource.upvotes>(Math.max(maximumUpvotes-3,0))&&
+            resource.upvotes>(Math.max(maximumUpvotes-5,0))&&
             <div className="bg-accent/20 px-3 py-0.5 rounded-md text-xs text-accent ">
           Top rated
           </div>
@@ -48,11 +42,16 @@ export default function LovedResources() {
                   transition={{ duration: 0.2 }}
                 >
                 <div className="flex items-center gap-2 space-x-2 ">
-                  <UpvoteBtn value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted} />
+                  <UpvoteBtn bordered value={resource.upvotes} id={resource._id} isUpvoted={resource.isUpvoted} />
                   <SaveBtn minimal id={resource._id} isSaved={resource.isSaved} />
+                  <div className="md:border-l md:px-2 ">
+                    <Link href={`/resource/${resource._id}`} >
+                  <Button  className="bg-secondary-foreground text-white flex text-sm items-center hover:bg-secondary-foreground shadow-none  gap-2 "> <p className="max-md:hidden ">Links</p> <FaArrowRight /> </Button>
+                    </Link>
+                  </div>
                 </div>
                 </motion.div>
-        </motion.div>
+        </div>
         ))}
 
         <Link
