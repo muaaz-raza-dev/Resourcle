@@ -10,12 +10,13 @@ export default function ResourceCollectionPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container  py-6 md:py-8 flex flex-col gap-4 max-w-6xl">
+        <nav>
       <ResourceCollectionList/>
-      
+        </nav>
+
     <ResourceCollectionHeader/>
     <ResourceCollectionSearchBar />
     <ResourceCollectionLinks/>
-     
     
     </div>
     </div>

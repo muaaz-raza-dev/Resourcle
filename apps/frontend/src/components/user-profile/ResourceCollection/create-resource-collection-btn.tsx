@@ -1,6 +1,6 @@
 import useCreateResourceCollection from '@/hooks/resource-collection/useCreateResourceCollection'
 import { Button } from '@/shadcn/components/ui/button'
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -15,7 +15,7 @@ import { Label } from '@/shadcn/components/ui/label'
 import RequestLoader from '@/components/loader/request-loading'
 
 
-export default function CreateResourceCollectionButton() {
+export default function CreateResourceCollectionButton({children}:{children?:ReactNode}) {
   const [name,setName] = useState("")
   const [open,setOpen] = useState(false)
   const {mutate,isLoading} = useCreateResourceCollection()
@@ -28,10 +28,13 @@ export default function CreateResourceCollectionButton() {
   }
   return (
     <Dialog open={open} onOpenChange={(o)=>!isLoading&&setOpen(o)}>
-  <DialogTrigger className='w-full'>
+  <DialogTrigger  asChild>
+    {
+      children || 
     <Button  className='w-full'>
       Create
       </Button>
+    }
       </DialogTrigger>
   <DialogContent>
     

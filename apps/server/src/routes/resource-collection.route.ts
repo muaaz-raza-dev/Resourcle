@@ -7,6 +7,7 @@ import {
   GetResourceCollectionLinks,
   GetUserCollectionsList,
   GetUserResourceCollections,
+  MinimalCollectionList,
   RemoveLinkFromResourceCollection,
   SaveResourceToCollection,
   SearchResourceCollectionLinks,
@@ -25,4 +26,6 @@ router.get("/meta/:id", Authenticate, GetCollectionMetaDetails);
 router.post("/search", Authenticate, SearchResourceCollectionLinks);
 router.post("/create", Authenticate, CreateResourceCollection);
 router.get("/", Authenticate, GetUserCollectionsList);
+
+router.get("/minimal",Authenticate,MinimalCollectionList)
 export default router;

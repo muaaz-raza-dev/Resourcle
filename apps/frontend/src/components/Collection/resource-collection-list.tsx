@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { BsCollectionFill } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa6";
 import Skeleton from "react-loading-skeleton";
+import CreateResourceCollectionButton from "../user-profile/ResourceCollection/create-resource-collection-btn";
 
 export default function ResourceCollectionList() {
   const { data, isLoading } = useGetResourceCollections({enabled:true});
@@ -30,15 +32,11 @@ export default function ResourceCollectionList() {
           <Link
             href={`/collection/${e._id}`}
             key={e._id}
-            className={clsx("flex items-center w-[32%] max-lg:w-[49%] max-md:w-full justify-between py-2 hover:bg-secondary transition-colors rounded-md cursor-pointer border-2 p-2 ")}
+            className={clsx("flex items-center w-[32%] max-lg:w-[49%] max-md:w-full justify-between py-2 hover:bg-secondary transition-colors rounded-md cursor-pointer px-6 ",e._id==id&&"bg-secondary-foreground text-white border-none hover:bg-secondary-foreground")}
           >
             <div className="flex items-center gap-2">
               <BsCollectionFill className=" h-4 w-4" />
               <h2 className="font-semibold">{e.name}</h2>
-              {
-                e._id==id&&
-                <div className="!w-2 !h-2 rounded-full aspect-square bg-primary"></div>
-              }
             </div>
             <Badge
               variant={"secondary"}
@@ -49,6 +47,14 @@ export default function ResourceCollectionList() {
           </Link>
         );
       })}
+      <CreateResourceCollectionButton>
+        <button aria-label="create new collection" className={"flex items-center w-[32%] max-lg:w-[49%] max-md:w-full justify-between py-2 bg-secondary transition-colors border rounded-md cursor-pointer px-6 border-dashed "}>
+            <div className="flex items-center gap-2">
+              <FaPlus className=" h-4 w-4" />
+              <h2 className="font-semibold"> Create a new collection </h2>
+            </div>
+          </button>
+      </CreateResourceCollectionButton>
     </section>
   );
 }

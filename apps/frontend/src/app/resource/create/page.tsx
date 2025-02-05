@@ -1,3 +1,4 @@
+import ConfirmBeforeUnload from '@/components/resource/create/components/confirm-before-reload-component'
 import CreateResourceForm from '@/components/resource/create/create-resource-form'
 import VerificationRestrictionResourceCreationDialog from '@/components/resource/create/verification-restriction-resource-creation-dialog'
 import { Metadata } from 'next'
@@ -12,6 +13,7 @@ export const metadata :Metadata={
 export default function ResourceCreatePage() {
   return (
     <>
+<ConfirmBeforeUnload/>
 <VerificationRestrictionResourceCreationDialog/>
 <CreateResourceForm/>
     </>

@@ -4,10 +4,10 @@ import { useMutation } from "react-query";
 const useCollectCustomLink = () => {
   
     return useMutation({
-      mutationKey: ["collectCustomLink"],
+      mutationKey: "collect Custom link",
       mutationFn: (payload:{collectionId:string,linkPayload:{title:string,description:string,url:string,tags:string[]}}) => CollectCustomLinkApi(payload),
-      onSuccess() {
-        toast.success("Link saved successfully");
+      onSuccess(data) {
+        toast.success(`Link saved to ${data.payload.name} successfully 🥳`);
       },
      onError() {
             toast.error("Failed to save link");

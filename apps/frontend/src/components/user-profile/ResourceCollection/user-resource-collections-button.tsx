@@ -17,7 +17,7 @@ export default function UserResourceCollectionsButton() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
     <DialogTrigger disabled={isLoading} asChild>
-      <button disabled={isLoading} className='flex gap-2  py-2 font-semibold hover:bg-white transition-colors w-max items-center justify-center whitespace-nowrap rounded-md px-3   text-sm  ring-offset-background transition-all border  bg-secondary ' >
+      <button disabled={isLoading} className='flex gap-2  py-2 font-semibold items-center' >
         <BsCollectionFill   className="h-4 w-4" />
         {isLoading?  <RequestLoader size='14'/>  :
         <p className='max-sm:hidden'>
@@ -28,7 +28,7 @@ export default function UserResourceCollectionsButton() {
     </DialogTrigger>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Resource Collections </DialogTitle>
+        <DialogTitle> Resource Collections </DialogTitle>
       </DialogHeader>
       <LinkLimitIndicator  totalCollections={q?.length||0} />
       {q?.length === 0 ||!q && ( 
@@ -91,7 +91,7 @@ export  function LinkLimitIndicator({ totalCollections, maxCollection=+Collectio
       </div>
       <Progress value={progressPercentage} className="h-2" />
       <p className="mt-2 text-xs text-gray-500 text-center">
-        {totalCollections} of {maxCollection} links used
+        {totalCollections} of {maxCollection} collections are in use
       </p>
     </div>
   )

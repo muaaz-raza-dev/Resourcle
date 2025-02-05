@@ -29,7 +29,7 @@ export default function ResourceCollectionLinks() {
     
     >
       {state.iterable.map((e, i) => (
-        <ResoureCollectionEachResource key={i} data={e} />
+        <ResoureCollectionEachResource key={i+e._id} data={e} />
       ))}
       {isSuccess && state.iterable.length==0 &&
       <div className="w-full text-center py-8 text-muted-foreground text-sm">

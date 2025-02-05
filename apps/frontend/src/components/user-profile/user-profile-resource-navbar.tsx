@@ -23,8 +23,12 @@ export default function UserProfileResourceNavbar() {
               <TabsTrigger value='saved' className='flex gap-2 items-center py-2 font-semibold w-max '>
                 <FaBookmark /> Savelist
                 </TabsTrigger>
+          {isLogined&&user?._id==q?._id&&
+                <TabsTrigger value='' className='flex gap-2 items-center py-2 font-semibold w-max '>
+           <UserResourceCollectionsButton/>
+                </TabsTrigger>
+           }
           </TabsList>
-          {isLogined&&user?._id==q?._id&& <UserResourceCollectionsButton/>}
     </section>
   )
 }

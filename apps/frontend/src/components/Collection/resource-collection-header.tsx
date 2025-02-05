@@ -19,7 +19,7 @@ export default function ResourceCollectionHeader() {
       </section>
       <section className='flex flex-col gap-2'>
         <CustomLinkFormDialog>
-      <Button className='flex gap-2 items-center text-secondary-foreground border shadow-none bg-secondary border-primary'> <FaPlus/> Add custom link </Button>
+      <Button className='flex gap-2 items-center text-primary border shadow-none bg-primary/10 hover:bg-primary/20 transition-colors'> <FaPlus/> Add custom link </Button>
         </CustomLinkFormDialog>
       </section>
   </header>
