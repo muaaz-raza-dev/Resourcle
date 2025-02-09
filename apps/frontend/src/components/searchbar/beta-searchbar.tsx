@@ -90,8 +90,9 @@ function DetailedSearch(){
           <span className="text-xs font-medium">K</span>
         </div>
       </div>
-      <CommandDialog open={open} onOpenChange={setOpen} >
-        <div className="flex  items-center h-12 w-full rounded-md bg-transparent py-3 border-b px-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50">
+      <CommandDialog  open={open} onOpenChange={setOpen} >
+        <div className="flex  items-center h-12 w-full rounded-md bg-transparent py-3 border-b px-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed 
+        disabled:opacity-50">
         <Search size={20} className="text-muted-foreground"/>
       <Input
       placeholder="Search for Resources, Categories and Users"

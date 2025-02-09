@@ -8,6 +8,7 @@ export interface IpartialSearchPayload{
   resources:{title:string;upvotes:number;updatedAt:string;createdAt:string;views:number;_id:string}[],
   tags:{name:string;_id:string}[];
   users:{name:string;_id:string;headline:string; picture:string;username:string}[]
+  links:{title:string,resource:string;clicks:number;upvotes:number;url:string;_id:string}[]
         
 }
 const AdvancedPartialSearchApi = async(q:string) => {
