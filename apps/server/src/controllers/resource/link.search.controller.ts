@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ResourceLink } from "../../models/link.model";
+import { ResourceLink } from "../../models/link.model.js";
 import { ErrorResponse, SuccessResponse } from "../../utils/responsehandler";
 const searchLinkLimit = +(process.env.SEARCH_LINK_LIMIT ?? 10)
 export async function SearchLinks(req:Request<{q:string,sort:"upvotes"|"updatedAt"|"clicks",count:number}>,res:Response){
