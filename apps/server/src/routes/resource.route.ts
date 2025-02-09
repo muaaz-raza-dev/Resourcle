@@ -16,6 +16,7 @@ import {
   SwitchVisiblityResource,
 } from "../controllers/resource/resources-profile.controller.js";
 import {  CollectResourceView, GetResourceContent, GetResourceNonContentDetails } from "../controllers/resource/get-resource.controller.js";
+import { SearchLinks } from "../controllers/resource/link.search.controller.js";
 
 const router = express.Router();
 
@@ -40,11 +41,11 @@ router.put("/upvote/link", Authenticate, UpvoteIndividualLink);
 router.get("/feed", GetFeedResources);
 router.post("/search", ResourceSearchController);
 router.post("/search/advanced/partial", PartialAdvancedSearchController);
+router.post("/search/links",SearchLinks)
 
 router.post("/track/clicks/link/:id",TrackResourceLinkClicks);
 
 router.post("/user/resources/", GetUserResource);
 router.post("/user/resources/saved", SavedResources);
-
 export default router;
 

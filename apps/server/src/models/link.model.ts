@@ -6,8 +6,8 @@ const resourceLinkSchema = new mongoose.Schema(
   {
     resource: { type: Types.ObjectId, ref: "resource" },
     user:{type:Types.ObjectId,ref:"User"}, // for private links in collection
-    title: String,
-    url: String,
+    title: { type: String, required: true, text: true },
+    url: { type: String, required: true, text: true },
     description: String,
     isDeleted: Boolean,
     upvotes: Number,
@@ -15,7 +15,8 @@ const resourceLinkSchema = new mongoose.Schema(
     tags: [String],
     upvotesDoc: { type: mongoose.Types.ObjectId, ref: "Upvotes" },
     isPublished:{type:Boolean,default:true}  // unpublished custom links
-  ,isBanned:{type:Boolean,default:false} // for link restriction
+  ,isBanned:{type:Boolean,default:false},// for link restriction
+  
   },
   { timestamps: true },
 );

@@ -18,6 +18,7 @@ export default async function SearchTags(req: Request, res: Response) {
     SuccessResponse(res, { payload: tags });
     return;
   } catch (err) {
+    console.log(err)
     SuccessResponse(res, { payload: [] });
     return;
   }
