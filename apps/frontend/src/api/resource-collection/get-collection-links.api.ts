@@ -3,7 +3,7 @@
 import { Axios } from "@/lib/Axios"
 import { IResourceLink } from "@/types/Iresource"
 import Cookie from "js-cookie"
-export interface IcollectedResourceLink extends IResourceLink{
+export interface IcollectedResourceLink extends Omit<IResourceLink,"resource">{
         resource:{name:string;_id:string;publisher:{name:string,_id:string}}
 }
 const GetCollectionLinks = async(payload:{id:string,count:number}) => {
