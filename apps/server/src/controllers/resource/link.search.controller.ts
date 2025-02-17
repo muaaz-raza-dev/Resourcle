@@ -16,57 +16,74 @@ if(sort == "upvotes" || sort == "updatedAt" || sort == "clicks") {
 else{
     SortQuery["updatedAt"] = -1;
  }
- const linkResults = await ResourceLink.aggregate([
-    {
-      $match: {
-        isDeleted:{$ne:true},
-        isPublished: { $ne: false }, // Ensure isPublished is true or undefined
-        resource: { $exists: true },
-        isBanned: { $ne: true }, // Ensure isBanned is false
-        $text: { $search: q } , 
-      },
+ const UpvoteQueryStages =  req.userid? [{
+   $lookup: {
+     from: "upvotes",
+     localField: "upvotesDoc",
+     foreignField: "_id",
+     as: "upvotesDoc",
+   },
+ },
+ {
+   $unwind: "$upvotesDoc", 
+ },] :[]
+ const query = [
+  {
+    $match: {
+      isDeleted:{$ne:true},
+      isPublished: { $ne: false }, // Ensure isPublished is true or undefined
+      resource: { $exists: true },
+      isBanned: { $ne: true }, // Ensure isBanned is false
+      $text: { $search: q } , 
     },
-    {$sort:SortQuery},
-    {
-      $lookup: {
-        from: "resources",
-        localField: "resource",
-        foreignField: "_id",
-        as: "resource",
-      },
+  },
+  {$sort:SortQuery},
+  {
+    $lookup: {
+      from: "resources",
+      localField: "resource",
+      foreignField: "_id",
+      as: "resource",
     },
-    {
-      $unwind: "$resource", // Unwind the resource array to ensure proper matching
+  },
+  {
+    $unwind: "$resource", // Unwind the resource array to ensure proper matching
+  },
+  {
+    $match: {
+      "resource.isDeleted": false,
+      "resource.isPrivate": false,
     },
-    {
-      $match: {
-        "resource.isDeleted": false,
-        "resource.isPrivate": false,
-      },
+  },
+  ...UpvoteQueryStages,
+  {
+    $addFields: {
+      isUpvoted: req.userid ? { $in: [req.userid, "$upvotesDoc"] } : false
+    }
+  }
+,  
+  {
+    $project: {
+      "resource": "$resource._id",
+      "title": 1,
+      "description":1,
+      "_id": 1,
+      "url":1,
+      "clicks": 1,
+      "upvotes": 1,
+      "upvotesDoc": "$upvotesDoc._id",
+      isUpvoted: 1
     },
-    {
-      $limit: searchLinkLimit,
-      $skip : count*searchLinkLimit
-    },
-    {
-      $project: {
-        "resource": "$resource._id",
-        "title": 1,
-        "_id": 1,
-        "clicks": 1,
-        "upvotes": 1,
-      },
-    },
-  ]);
+  },
+]
+ const linkResults = await ResourceLink.aggregate([...query,{
+   $skip : count*searchLinkLimit}
+   ,{
+   $limit: searchLinkLimit,
+},]);
   if(count == 0 ){
-  const totalLinks  = await ResourceLink.countDocuments({
-    isDeleted:{$ne:true},
-    isPublished: { $ne: false }, 
-    resource: { $exists: true },
-    isBanned: { $ne: true }, 
-    $text: { $search: q } , 
-  })
-  SuccessResponse(res,{payload:{links:linkResults,total:totalLinks}})
+  const totalLinks  = await ResourceLink.aggregate([...query,{$count:"total"}])
+  SuccessResponse(res,{payload:{links:linkResults,total:totalLinks[0]?.total || 0}})
   return;
 }
 SuccessResponse(res,{payload:{links:linkResults}})

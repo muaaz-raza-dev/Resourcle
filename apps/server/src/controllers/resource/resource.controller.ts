@@ -146,11 +146,11 @@ export async function GetFeedResources(
       resources = await Resource.find({ ...query, isPrivate: false })
       .sort("-updatedAt")
       .sort("-upvotes")
-      .limit(15)
+      .limit(10)
       .populate({path:"upvotesDoc",select:"users _id"})
       .select("title upvotes createdAt updatedAt upvotesDoc")
       .lean();
-      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*30)
+      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*90)
       
     }
     else{

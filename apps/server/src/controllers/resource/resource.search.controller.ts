@@ -16,16 +16,18 @@ export default async function ResourceSearchController(
     search,
     sort = "upvotes",
     count = 0,
+    categories
   }: {
     search: string;
-    sort: "upvotes" | "createdAt";
+    sort: "upvotes" | "updatedAt";
     count: number;
+    categories:string[]
   } = req.body;
   try {
     if (!search) {
       res.status(400).json({ message: "Search query is required." });
       return;
-    } else {
+    } else {  
       await ValidateLogin(req);
 
       const totalResource = await Resource.countDocuments({
@@ -35,7 +37,8 @@ export default async function ResourceSearchController(
       const resources = await PopulateResources(req, {
         query: [
           {
-            $match: { $text: { $search: search } },
+            $match: { $text: { $search: search }, ...(categories?.length ? { tags: { $in: categories } } : {}) },
+
           },
         ],
         sort,
@@ -98,14 +101,12 @@ export async function PartialAdvancedSearchController(req: Request, res: Respons
     }
 
     // Concurrently execute the queries
-    const [resources, tags, users] = await Promise.all([
+    const [resources, users] = await Promise.all([
       Resource.find({ $text: { $search: q }, isDeleted: false, isPrivate: false })
         .sort("-upvotes")
         .select("title upvotes views updatedAt createdAt")
         .limit(5).lean(),
-
-      Tags.find({ name: { $regex: new RegExp(q, "i") } }).limit(5),
-      User.find({
+     User.find({
         $or: [
           { name: { $regex: new RegExp(q, "i") } },
           { username: { $regex: new RegExp(q, "i") } },
@@ -165,7 +166,7 @@ export async function PartialAdvancedSearchController(req: Request, res: Respons
     ]);
 
     // Success response
-    SuccessResponse(res, { payload: { resources: resources.map(e => ({ ...e, views: e.views.length })), tags, users, links: linkResults } });
+    SuccessResponse(res, { payload: { resources: resources.map(e => ({ ...e, views: e.views.length })),  users, links: linkResults } });
     return;
   } catch (error) {
     // Error handling
