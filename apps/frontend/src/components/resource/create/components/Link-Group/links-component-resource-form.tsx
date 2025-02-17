@@ -8,7 +8,6 @@ import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import NewLinkDailogResourceForm from "./new-link-dailog-resource-form";
 import { useFormContext } from "react-hook-form";
 import { IResource, IResourceLink } from "@/types/Iresource";
-import { Badge } from "@/shadcn/components/ui/badge";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Tooltip } from "antd";
 export default function LinksComponentResourceForm({
@@ -92,21 +91,7 @@ function DetailsAndActionsLinkSection({index,link,link_index}:{index:number;link
           <p className="text-muted-foreground my-2 text-xs">
             {link.description || "no description"}
           </p>
-          {link?.tags?.length ? (
-            <div className="flex gap-2 my-2 flex-wrap">
-              {link.tags.map((tag) => {
-                return (
-                  <Badge
-                    variant="secondary"
-                    className="text-xs font-normal "
-                    key={tag}
-                  >
-                    {tag}
-                  </Badge>
-                );
-              })}
-            </div>
-          ) : null}
+          
       
       <div className="flex gap-2 pt-4 text-sm border-t">
 

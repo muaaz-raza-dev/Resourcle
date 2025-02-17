@@ -7,7 +7,6 @@ export const Rootmetadata: Metadata = {
   keywords: Keywords, // Ensure this is an array of strings
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
   robots: "index, follow",
-  themeColor: "#ffffff", // ✅ Sets browser theme color
   icons: {
     icon: "/favicon.ico", // ✅ Favicon for better branding
   },

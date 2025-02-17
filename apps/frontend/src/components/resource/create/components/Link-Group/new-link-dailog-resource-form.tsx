@@ -13,9 +13,7 @@ import { FormProvider, SubmitHandler, useForm, useFormContext } from "react-hook
 import { Button } from "@/shadcn/components/ui/button";
 import { Label } from "@/shadcn/components/ui/label";
 import { Input } from "@/shadcn/components/ui/input";
-import {  Select } from "antd";
 import LinkInputResourceForm from "./link-input-resource-form";
-import { IoMdPricetags } from "react-icons/io";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shadcn/components/ui/form";
 
 export default function NewLinkDailogResourceForm({
@@ -35,7 +33,7 @@ export default function NewLinkDailogResourceForm({
   const [open, setopen] = useState(false);
   const [expand,setExpand] = useState(false);
   const form = useForm<IResourceLink>({ defaultValues: data });
-  const {handleSubmit,watch,setValue,trigger,} =form;
+  const {handleSubmit,trigger} =form;
   const link = useState(data?true:false)
   const [isLinkValid ] =link;
 
@@ -145,28 +143,9 @@ export default function NewLinkDailogResourceForm({
       )}
     />
 
-
-          <section className="flex gap-2 w-full">
-            
-            <div className="w-full">
-              <Label className="py-2 font-semibold flex gap-2 ">
-              Tags
-              <IoMdPricetags />
-              </Label>
-              <Select 
-                mode="tags"
-                className="w-full h-9 text-sm placeholder:!text-muted-foreground"
-                maxTagCount={3}
-                value={watch("tags")}
-                placeholder="assign appropriate tags"
-                onChange={(value: string[]) =>{ setValue("tags", value);}}
-                getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                />
-            </div>
-          </section>
           <button className=" text-sm text-muted-foreground " onClick={()=>setExpand(false)}>Show less </button>
           </>:
-          <button className=" text-sm text-accent" onClick={()=>setExpand(true)}>Setup description and tags </button>
+          <button className=" text-sm text-accent" onClick={()=>setExpand(true)}>add description  </button>
 }
           <DialogFooter className="mt-3">
             <Button type="button" className="w-full hover:bg-secondary-foreground/90 transition-colors bg-secondary-foreground" onClick={handleSubmit(onSubmit)}>upload</Button>

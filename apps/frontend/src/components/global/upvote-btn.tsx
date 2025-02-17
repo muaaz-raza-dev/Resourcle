@@ -1,7 +1,7 @@
 "use client";
 import useUpvoteResource from "@/hooks/upvote/useUpvoteResource";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import { AiFillFire, AiOutlineFire } from "react-icons/ai";
 import  "../../app/globals.css"
 import useProtectAuthorisedEvents from "@/utils/authorised-event-protector";
@@ -40,7 +40,8 @@ export default function UpvoteBtn({
       setstate(prevState);
     }
   }
-  const handleUpvote =  () => {
+  const handleUpvote =  (e:MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     authorize(upvote)
   };
 
@@ -50,15 +51,14 @@ export default function UpvoteBtn({
     disabled={isLoading}
 
       className={clsx(
-        "rounded-lg flex gap-2 items-center upvote-button text-xs font-semibold hover:bg-secondary transition-colors ",
+        "rounded-lg flex gap-2 items-center upvote-button text-xs font-semibold hover:bg-secondary transition-colors py-1 px-2",
         containerClassName,
-        bordered && "border py-1 px-2",
+        bordered && "border ",
       )}
       onClick={handleUpvote}
     >
       {state.isUpvoted ? (
-        <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-pulse transition-all")}  
-        size={size || 18} />
+        <AiFillFire fill="rgb(249 115 22)" className={clsx( " ",isLoading && "animate-pulse transition-all")} size={size || 18} />
       ) : (
         <AiOutlineFire
           className={clsx(

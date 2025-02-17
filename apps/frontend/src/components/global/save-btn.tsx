@@ -2,7 +2,7 @@
 import useSaveResource from "@/hooks/resource/useSaveResource";
 import { Button } from "@/shadcn/components/ui/button";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import RequestLoader from "../loader/request-loading";
 import { FaBookmark } from "react-icons/fa";
 import useProtectAuthorisedEvents from "@/utils/authorised-event-protector";
@@ -32,7 +32,8 @@ export default function SaveBtn({
       setIsSaved(previousState);
     }
   }
-  function handleSave() {
+  function handleSave(e:MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
     authorize(save)
   }
   if (minimal)

@@ -2,7 +2,6 @@
 
 import useCollectResourceView from "@/hooks/resource/useCollectResourceView";
 import useGetNonContentResource from "@/hooks/resource/useGetNonContentResource";
-import useTrackUserResourceVisit from "@/hooks/user-activity/useTrackUserResourceVisit";
 import { Separator } from "@/shadcn/components/ui/separator";
 import { ResourceFilterLinksAtom } from "@/state/resource-link-searchbar.atom";
 import { accurateFromNow } from "@/utils/accurate-time-from-now";
@@ -11,7 +10,6 @@ import React, { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export default function ResourceHeader() {
-  useTrackUserResourceVisit();
   useCollectResourceView();
   const { data } = useGetNonContentResource({ hitApi: false });
   const {original} = useRecoilValue(ResourceFilterLinksAtom)

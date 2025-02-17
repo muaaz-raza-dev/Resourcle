@@ -1,17 +1,51 @@
+import { LinkSortOptions } from '@/api/resource/search-links.api';
+import { IResourceLink } from '@/types/Iresource';
 import { IResourceSearched } from '@/types/Isearched';
 import {atom} from 'recoil';
 interface IsearchedResource{
     count:number;
     total:number;
-    sort:SearchedSortOptions;
-    categories:string[];
+    filters:{
+      resources:{
+        sort: SearchedSortOptions
+        categories:string[];
+      },
+      links:{
+        sort:LinkSortOptions
+      }
+    };
     type:SearchedTypes;
-    resources:{[key:string]: IResourceSearched[]};
+    payload:{
+      resources:IResourceSearched[];
+      links:IResourceLink[];
+    }
     isLoading:boolean;
 }
-export type SearchedSortOptions = "upvotes"|"createdAt"
+export type SearchedSortOptions = "upvotes"|"updatedAt"
 export type SearchedTypes = "resources"|"links"
-export const searchedResourcesAtom = atom<IsearchedResource>({
+
+export const defaultSearchedState:IsearchedResource = {
+  count: 0,
+  total: 0,
+  filters: {
+      resources: {
+          sort:"updatedAt", 
+          categories: []
+      },
+      links: {
+          sort: "updatedAt" 
+      }
+  },
+  type: "resources",
+  payload: {
+      resources: [],
+      links: []
+  },
+  isLoading: false
+};
+
+
+export const searchedAtom = atom<IsearchedResource>({
   key: 'searched-resource',
-  default: {count:0,total:0,resources:{},sort:"upvotes",isLoading:false,categories:[],type:"resources"},
+  default: defaultSearchedState,
 });
