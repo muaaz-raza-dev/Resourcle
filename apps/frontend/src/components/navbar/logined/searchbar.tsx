@@ -1,6 +1,6 @@
 import SearchLoader from "@/components/loader/search-loader";
 import useSearchResource from "@/hooks/resource/useSearchResource";
-import { searchedResourcesAtom } from "@/state/search-resource.atom";
+import { searchedAtom } from "@/state/search-resource.atom";
 import clsx from "clsx";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,7 +15,7 @@ export default function Searchbar() {
   const searchTerm = searched.get("search");
   const { mutate } = useSearchResource();
   const { push } = useRouter();
-  const {isLoading}= useRecoilValue(searchedResourcesAtom);
+  const {isLoading}= useRecoilValue(searchedAtom);
   useEffect(() => {
     setinput(searchTerm || "");
   }, [searchTerm]);

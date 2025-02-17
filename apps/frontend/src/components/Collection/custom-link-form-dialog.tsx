@@ -16,7 +16,6 @@ import {  Select } from "antd";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shadcn/components/ui/form";
 import LinkInputResourceForm from "../resource/create/components/Link-Group/link-input-resource-form";
 import { IResourceLink } from "@/types/Iresource";
-import { IoMdPricetags } from "react-icons/io";
 import useGetMinimalCollectionList from "@/hooks/resource-collection/useGetMinimalCollectionList";
 import { useParams } from "next/navigation";
 import useCollectCustomLink from "@/hooks/resource-collection/useCollectCustomLink";
@@ -35,7 +34,7 @@ export default function CustomLinkFormDialog({children}: {children: React.ReactN
   const {mutateAsync:collect,isLoading:isCollecting} = useCollectCustomLink()
   const  onSubmit: SubmitHandler<ICustomResourceLinkForm> =async (data,e) => {
   e?.stopPropagation();
-  await collect({linkPayload:{title:data.title,description:data.description,url:data.url,tags:data.tags},collectionId:data.collectionId});
+  await collect({linkPayload:{title:data.title,description:data.description,url:data.url,},collectionId:data.collectionId});
   setopen(false);
   form.reset();
   };
@@ -120,24 +119,7 @@ expand ?
   />
 
 
-        <section className="flex gap-2 w-full">
-          
-          <div className="w-full">
-            <Label className="py-2 font-semibold flex gap-2 ">
-            Tags
-            <IoMdPricetags />
-            </Label>
-            <Select 
-              mode="tags"
-              className="w-full h-9 text-sm placeholder:!text-muted-foreground"
-              maxTagCount={3}
-              value={form.watch("tags")}
-              placeholder="assign appropriate tags"
-              onChange={(value: string[]) =>{ form.setValue("tags", value);}}
-              getPopupContainer={(triggerNode) => triggerNode.parentNode}
-              />
-          </div>
-        </section>
+        
         <button className=" text-sm text-muted-foreground " onClick={()=>setExpand(false)}>Show less </button>
         </>:
         <button className=" text-sm text-muted-foreground" onClick={()=>setExpand(true)}>Setup description and tags </button>

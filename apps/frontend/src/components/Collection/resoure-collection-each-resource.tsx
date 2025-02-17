@@ -75,13 +75,7 @@ export default function ResoureCollectionEachResource({
               {data.description || "no description"}
             </p>
 
-            <div className="flex flex-wrap gap-2">
-              {data?.tags.map((t) => (
-                <Badge variant="outline" className="text-xs" key={t}>
-                  {t}
-                </Badge>
-              ))}
-            </div>
+          
           </>
         )}
       </CardHeader>

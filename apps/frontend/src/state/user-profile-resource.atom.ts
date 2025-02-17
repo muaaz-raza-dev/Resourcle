@@ -12,7 +12,7 @@ export const UserProfileResourceAtom = atom<IuserProfileResource>({
     default: {
         userid:"",
         tabs: "resource",
-        resources: { count: 0, isPrivate: false, sort: "createdAt", resources: {},total:0,isLoading:false },
+        resources: { count: 0, isPrivate: false, sort: "updatedAt", resources: {},total:0,isLoading:false },
         saved: { count: 0, resources: {}, sort: "upvotes",total:0 ,isLoading:false }
     }
 });

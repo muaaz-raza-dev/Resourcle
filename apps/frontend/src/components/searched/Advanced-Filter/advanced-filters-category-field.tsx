@@ -27,7 +27,7 @@ export default function AdvancedFiltersCategorySelectField() {
     id='category'
     placeholder='select categories'
     filterOption={false}
-    value={state.categories}
+    value={state.filters.resources.categories}
     onChange={(values)=>HandleChange(values)}
     mode='multiple'
     options= {tags.map(t=>({value:t._id,label:t.name}))} 

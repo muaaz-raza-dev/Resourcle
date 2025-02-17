@@ -7,6 +7,7 @@ linksLength:number;
 upvotes:number;
 views:number,
 isPrivate:boolean;
+categories:string[]
 createdAt:string;
 publisher:{name:string;_id:string;
     picture:string;

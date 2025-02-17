@@ -5,7 +5,7 @@ const useCollectCustomLink = () => {
   
     return useMutation({
       mutationKey: "collect Custom link",
-      mutationFn: (payload:{collectionId:string,linkPayload:{title:string,description:string,url:string,tags:string[]}}) => CollectCustomLinkApi(payload),
+      mutationFn: (payload:{collectionId:string,linkPayload:{title:string,description:string,url:string,}}) => CollectCustomLinkApi(payload),
       onSuccess(data) {
         toast.success(`Link saved to ${data.payload.name} successfully 🥳`);
       },
