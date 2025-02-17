@@ -23,7 +23,7 @@ export default function SearchedLinkComponent({
   return (
     <>
       <div className=" w-full flex gap-2 justify-between  items-center ">
-        <div className="flex items-center gap-2 ">
+        <div className="flex items-center gap-2 flex-wrap">
         
           <div className="">
             <Link
@@ -39,7 +39,7 @@ export default function SearchedLinkComponent({
             onClick={()=>{Close();Track(link.url)}}
               target="_blank"
               href={`${link.url}`}
-              className="text-xs underline text-primary whitespace-wrap leading-none"
+              className="text-xs underline text-primary break-words flex flex-wrap whitespace-wrap leading-none"
             >
                 {link.url}
             </Link>
@@ -59,7 +59,7 @@ export default function SearchedLinkComponent({
             </div>
             <div className="md:border-l md:px-1 ">
                     <Link href={`/resource/${link.resource}`} onClick={Close}>
-                  <Button  className="bg-secondary hover:bg-secondary transition-colors  text-muted flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
+                  <Button  className="bg-secondary hover:bg-secondary transition-colors  text-black flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
                     </Link>
                 </div>
           </div>
