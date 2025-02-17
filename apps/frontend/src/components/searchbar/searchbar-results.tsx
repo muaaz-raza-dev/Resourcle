@@ -9,6 +9,7 @@ import SearchedResourceComponent from "./searched-resource-component";
 import SearchedUserComponent from "./searched-user-component";
 import { useRouter } from "next/navigation";
 import SearchedLinkComponent from "./searched-link-component";
+import useTrackLinkClick from "@/hooks/resource/useTrackLinkClick";
 
 export default function SearchbarResults({
   data,
@@ -18,6 +19,7 @@ export default function SearchbarResults({
   Close: () => void;
 }) {
   const { push } = useRouter();
+  const {mutate} = useTrackLinkClick()
   return (
     <CommandList>
          <CommandGroup heading=" Links ">
@@ -26,7 +28,7 @@ export default function SearchbarResults({
             {data?.links.map((link) => {
               return (
                 <CommandItem key={link._id}>
-                  <SearchedLinkComponent Close={Close} link={link} />
+                  <SearchedLinkComponent Track={mutate} Close={Close} link={link} />
                 </CommandItem>
               );
             })}
@@ -92,7 +94,7 @@ export default function SearchbarResults({
           <CommandSeparator />
         </CommandGroup>
       ) : null}
-
+{/* 
       {data.tags.length > 0 ? (
         <CommandGroup heading="Categories">
           <div className="flex  overflow-x-auto flex-wrap gap-2">
@@ -110,7 +112,7 @@ export default function SearchbarResults({
             })}
           </div>
         </CommandGroup>
-      ) : null}
+      ) : null} */}
     </CommandList>
   );
 }

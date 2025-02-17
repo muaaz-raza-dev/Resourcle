@@ -14,3 +14,13 @@ publisher:{name:string;_id:string;
 _id:string;
 
 }
+export interface ILinkSearched {
+    clicks:number;
+    isUpvoted:boolean;
+    title: string;
+    upvotes:number;
+    url:string;
+    description: string;
+    _id:string;
+    resource:string;
+}

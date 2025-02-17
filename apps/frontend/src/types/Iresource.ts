@@ -18,6 +18,7 @@ export interface IresourceContent{
 }
 export interface IResourceLink{
     clicks?:number;
+    resource:string;
     isPublished:boolean,
     title: string;
     isUpvoted:boolean;
@@ -25,12 +26,11 @@ export interface IResourceLink{
     upvotes:number;
     url: string;
     description: string;
-    tags:string[];
 }
 
 export const defaultResource: IResource = {
     title: '',
-    tags: [],
+    tags:[],
     description: '',
     isPrivate:false,
     publisher: '',
@@ -43,11 +43,11 @@ export const defaultResource: IResource = {
 
 export const defaultResourceLink: IResourceLink = {
     title: '',
+    resource:'',
     _id:"",
     isPublished:true,
     url: '',
     upvotes:0,
     description: '',
-    isUpvoted:false,
-    tags:[]
-    }
+    isUpvoted:false
+}

@@ -60,6 +60,9 @@ function DetailedSearch(){
           setOpen(false);
         }
     }
+    if (event.key == "Escape") {
+      setOpen(false);
+    }
   }
   
 
@@ -90,17 +93,25 @@ function DetailedSearch(){
           <span className="text-xs font-medium">K</span>
         </div>
       </div>
-      <CommandDialog  open={open} onOpenChange={setOpen} >
-        <div className="flex  items-center h-12 w-full rounded-md bg-transparent py-3 border-b px-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed 
+      <CommandDialog modal  open={open} onOpenChange={setOpen} >
+        <div className="flex  items-center h-16 w-full rounded-md bg-transparent py-3 border-b px-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed 
         disabled:opacity-50">
         <Search size={20} className="text-muted-foreground"/>
       <Input
-      placeholder="Search for Resources, Categories and Users"
+      placeholder="Search Anything ..."
       value={input}
       onChange={(e) => handleChange(e.target.value)}
       onKeyDown={HandleSearch}
-      className="flex h-10 w-full rounded-md bg-transparent border-none shadow-none  text-sm outline-none "
+      className="flex h-16 text-lg w-full rounded-md bg-transparent border-none shadow-none font-semibold placeholder:font-normal   outline-none "
       />
+        <div
+          className={
+            "flex gap-1 border text-sm bg-secondary items-center p-2 py-1 rounded  font-semibold z-[999] "
+          }
+        >
+          <span className=" ">Esc</span>
+        </div>
+      
         </div>
         {PartialSearchLoading ? (
           <div className="center gap-2 text-muted-foreground my-5">

@@ -87,13 +87,14 @@ export default function EachResourceComponent({
                 <FaEye className="h-4 w-4 mr-1 font-medium " />
                 {resource?.views} views
               </span>
+              <span>
               <UpvoteBtn
                 value={resource?.upvotes}
                 size={18}
                 id={resource._id}
-                isUpvoted={resource.isUpvoted}
-                containerClassName="flex-row-reverse"
+                isUpvoted={resource.isUpvoted} 
               />
+              </span>
             </Link>
             <div className="flex gap-2 ">
               <SaveBtn id={resource?._id} isSaved={resource?.isSaved} />

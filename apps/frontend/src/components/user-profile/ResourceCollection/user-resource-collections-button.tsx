@@ -18,10 +18,10 @@ export default function UserResourceCollectionsButton() {
     <Dialog open={open} onOpenChange={setOpen}>
     <DialogTrigger disabled={isLoading} asChild>
       <button disabled={isLoading} className='flex gap-2  py-2 font-semibold items-center' >
-        <BsCollectionFill   className="h-4 w-4" />
+        <BsCollectionFill   className="h-4 w-4" /> 
         {isLoading?  <RequestLoader size='14'/>  :
-        <p className='max-sm:hidden'>
-         Resource collections
+        <p className='max-[250px]:hidden'>
+         Collections
         </p>
       }
       </button>

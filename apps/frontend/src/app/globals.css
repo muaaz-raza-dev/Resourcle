@@ -69,13 +69,7 @@
 }
 
 
-@font-face {
-  font-family: 'Segoe UI';
-  src: url('/public/fonts/SegoeUI-BoldItalic.woff2') format('woff2');
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
+
 
 
 

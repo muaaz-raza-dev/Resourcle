@@ -1,3 +1,4 @@
+
 import { Button } from "@/shadcn/components/ui/button";
 import Link from "next/link";
 import React from "react";
@@ -7,6 +8,7 @@ import { LuMousePointerClick } from "react-icons/lu";
 export default function SearchedLinkComponent({
   link,
   Close,
+  Track
 }: {
   link: {
     title: string;
@@ -16,15 +18,16 @@ export default function SearchedLinkComponent({
     url: string;
   };
   Close: () => void;
+  Track:(url:string) =>void;
 }) {
   return (
     <>
-      <div className=" w-full flex gap-3  justify-between  items-center ">
+      <div className=" w-full flex gap-2 justify-between  items-center ">
         <div className="flex items-center gap-2 ">
         
           <div className="">
             <Link
-              onClick={Close}
+              onClick={()=>{Close();Track(link.url)}}
               target="_blank"
               href={`${link.url}`}
             >
@@ -33,7 +36,7 @@ export default function SearchedLinkComponent({
               </h2>
             </Link>
             <Link
-              onClick={Close}
+            onClick={()=>{Close();Track(link.url)}}
               target="_blank"
               href={`${link.url}`}
               className="text-xs underline text-primary whitespace-wrap leading-none"
@@ -44,7 +47,7 @@ export default function SearchedLinkComponent({
           </div>
         </div>
         <div>
-          <div className="flex items-center gap-1  ">
+          <div className="flex items-center gap-1 w-max ">
             <div className="flex gap-1  p-1 px-2 rounded text-xs w-max whitespace-nowrap border items-center ">
               <FaCaretUp fontSize={12} />
               {link.upvotes||0} upvotes
@@ -55,8 +58,8 @@ export default function SearchedLinkComponent({
               {link.clicks||0} clicks
             </div>
             <div className="md:border-l md:px-1 ">
-                    <Link href={`/resource/${link.resource}`} >
-                  <Button  className="bg-secondary hover:bg-secondary transition-colors text-accent flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
+                    <Link href={`/resource/${link.resource}`} onClick={Close}>
+                  <Button  className="bg-secondary hover:bg-secondary transition-colors  text-muted flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
                     </Link>
                 </div>
           </div>

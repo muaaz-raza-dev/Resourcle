@@ -51,7 +51,7 @@ export default function HowItWorks() {
     <Separator/>
           <div className='leading-snug bg-secondary  px-4 p-2  text-sm rounded-md   flex flex-col gap-1 my-4'>
             <h2 className='text-accent bg-accent/10  px-4 w-max py-1 rounded-md  font-semibold inline'>Good practice  </h2>
-            <p className='font-medium text-base tracking-tight text-muted-foreground '>
+            <p className=' text-base tracking-tight text-muted-foreground '>
              If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
             </p>
             </div>

@@ -9,18 +9,11 @@ import { FaArrowRight } from 'react-icons/fa6';
 export default function SearchedResourceComponent({resource,Close}:{resource:{title:string;upvotes:number;updatedAt:string;createdAt:string;views:number;_id:string},Close:()=>void}) {
   return (
     <div className=" w-full flex gap-3  justify-between  items-center " >
-          <div className="flex items-center gap-2 ">
-            <div className="">
+          <div className="flex items-center gap-2 flex-wrap">
           <Link onClick={Close} href={`/resource/${resource._id}`} className="">
-              <h2 className=" font-semibold text-sm whitespace-wrap leading-tight">{resource.title}</h2>
-          </Link>
-
-
-            <div className="flex gap-4 items-center  ">
+              <h2 className=" font-semibold text-sm whitespace-wrap text-wrap  whitespace-pre-line break-all leading-tight">{resource.title}</h2>
           <p className="text-muted-foreground text-xs">{accurateFromNow(resource.updatedAt)}</p>                  
-          
-          </div>
-          </div>
+          </Link>
           </div>
                 <div >
                 <div className="flex items-center gap-1   ">
@@ -31,7 +24,7 @@ export default function SearchedResourceComponent({resource,Close}:{resource:{ti
                    <FaEye className='text-muted-foreground !w-3 !h-3'    />  <p className=" font-semibold">{resource.views} views</p>
                     </div>
                     <div className="md:border-l md:px-1">
-                    <Link href={`/resource/${resource._id}`} >
+                    <Link href={`/resource/${resource._id}`} onClick={Close}>
                   <Button  className="bg-secondary-foreground hover:bg-secondary-foreground/90 transition-colors text-white flex text-sm items-center  shadow-none  gap-2  "> <p className="max-md:hidden ">Links</p> <FaArrowRight className='!w-3 !h-3' /> </Button>
                     </Link>
                       </div>

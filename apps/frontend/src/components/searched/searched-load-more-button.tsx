@@ -1,16 +1,17 @@
-import useSearchResource from '@/hooks/resource/useSearchResource'
+
 import { Button } from '@/shadcn/components/ui/button'
-import { searchedResourcesAtom } from '@/state/search-resource.atom'
+import { searchedAtom } from '@/state/search-resource.atom'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import RequestLoader from '../loader/request-loading'
+import { useDynamicSearch } from './utils/UseInitializeSearchState'
 
 export default function SearchedLoadMoreButton() {
-    const {mutate,isLoading} = useSearchResource()
-    const [state,setState] = useRecoilState(searchedResourcesAtom)
+    const {mutate,isLoading} = useDynamicSearch()
+    const [state,setState] = useRecoilState(searchedAtom)
     function handleLoadMore(){
         setState(s=>({...s,count:s.count+1}));
-        mutate({...state,count:state.count+1})
+        
     }
     
   return (
