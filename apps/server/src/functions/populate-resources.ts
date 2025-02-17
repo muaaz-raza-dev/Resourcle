@@ -15,7 +15,7 @@ export async function PopulateResources(
     allowPrivate,
   }: {
     query: PipelineStage[];
-    sort: "createdAt" | "upvotes";
+    sort: "createdAt" |"updatedAt" | "upvotes";
     count: number;
     isLogined?: boolean;
     allowPrivate?: boolean;
@@ -128,6 +128,7 @@ export async function PopulateResources(
         isPrivate: 1,
         "publisher.name": 1,
         "publisher.picture": 1,
+        "publisher._id": 1,
       },
     },
     { $skip: count * +resource_limit },

@@ -12,7 +12,6 @@ const resourceLinkSchema = new mongoose.Schema(
     isDeleted: Boolean,
     upvotes: Number,
     clicks:{default:0,type:Number},
-    tags: [String],
     upvotesDoc: { type: mongoose.Types.ObjectId, ref: "Upvotes" },
     isPublished:{type:Boolean,default:true}  // unpublished custom links
   ,isBanned:{type:Boolean,default:false},// for link restriction
@@ -28,7 +27,6 @@ export interface IResourceLink extends mongoose.Document {
   user:Types.ObjectId;
   isPublished:boolean,
   title: string;
-  tags: string[];
   clicks:number,
   url: string;
   description: string;
