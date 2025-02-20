@@ -28,6 +28,7 @@ const resourceSchema = new mongoose.Schema(
     },
     upvotesDoc: { type: mongoose.Types.ObjectId, ref: "Upvotes" },
     banner: String,
+    isGroupLinks:{default:false,type:Boolean},
     content: [
       {
         label: String,
@@ -47,6 +48,7 @@ export interface IResource extends mongoose.Document {
   tags: mongoose.Types.ObjectId[] | Itags[];
   publisher: mongoose.Types.ObjectId | Iuser;
   upvotes: number;
+  isGroupLinks:boolean;
   description?:string;
   content: IContentResource;
   upvotesDoc: mongoose.Types.ObjectId | Iupvote;

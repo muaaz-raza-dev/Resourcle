@@ -83,6 +83,7 @@ export default async function CreateResource(
     });
 
     await session.commitTransaction();
+    await redis?.del("resourcle:resource-feed")
     res.status(201).json({
       success: true,
       message: "Resource created successfully",

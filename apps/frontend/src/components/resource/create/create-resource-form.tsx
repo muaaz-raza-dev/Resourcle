@@ -2,10 +2,6 @@
 import { defaultResource, IResource } from "@/types/Iresource";
 import React, { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import TitleDescriptionResournceForm from "./components/title-description-resource-form";
-import BannerResourceForm from "./components/banner-resource-form";
-import ToolboxSelectResourceForm from "./components/toolbox-select-resource-form";
-import ContentResourceForm from "./components/content-resource-form";
 import ResourceFormFooter from "./components/resource-form-footer";
 import UploadImageCloudinary from "@/lib/upload-cloudinary";
 import useCreateResource from "@/hooks/resource/useCreateResource";
@@ -13,6 +9,7 @@ import useEditResource, { useFetchEditableResource } from "@/hooks/resource/useE
 import ResourceLoader from "@/components/landing page/loader/resource-loader";
 import NotFoundRenderer from "@/components/global/not-found-renderer";
 import toast from "react-hot-toast";
+import CreateResourceFormComponents from "./create-resource-form-components";
 
 
 export default function CreateResourceForm({edit}:{edit?:boolean}) {
@@ -62,15 +59,10 @@ export default function CreateResourceForm({edit}:{edit?:boolean}) {
   if(edit && isFetching) return <ResourceLoader/>
   return (
     <NotFoundRenderer isLoading={edit?isFetching:false} isError={edit?isError:false}>
-    <section className="max-w-5xl mx-auto m-4 p-4">
+    <section className="max-w-5xl mx-auto m-4 p-4 relative">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <section className="flex flex-col gap-2 mb-10">
-          <BannerResourceForm edit={edit} />
-          <TitleDescriptionResournceForm />
-          <ContentResourceForm />
-          <ToolboxSelectResourceForm />
-          </section>
+          <CreateResourceFormComponents edit={edit}/>
           <ResourceFormFooter isSuccess={isSuccess} edit={edit} isLoading={uplaoding||isLoading||isUpdating} />
         </form>
       </FormProvider>
