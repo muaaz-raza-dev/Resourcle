@@ -2,7 +2,7 @@
 import { Button } from "@/shadcn/components/ui/button";
 import Link from "next/link";
 import React from "react";
-import { FaArrowRight, FaCaretUp } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { LuMousePointerClick } from "react-icons/lu";
 
 export default function SearchedLinkComponent({
@@ -14,7 +14,7 @@ export default function SearchedLinkComponent({
     title: string;
     resource: string;
     clicks: number;
-    upvotes: number;
+    upvotes:number;
     url: string;
   };
   Close: () => void;
@@ -48,18 +48,13 @@ export default function SearchedLinkComponent({
         </div>
         <div>
           <div className="flex items-center gap-1 w-max ">
-            <div className="flex gap-1  p-1 px-2 rounded text-xs w-max whitespace-nowrap border items-center ">
-              <FaCaretUp fontSize={12} />
-              {link.upvotes||0} upvotes
-            </div>
-
             <div className="flex gap-1  p-1 px-2 rounded text-xs text-muted-foreground w-max whitespace-nowrap border items-center">
               <LuMousePointerClick  className="text-accent w-2 h-2" />
               {link.clicks||0} clicks
             </div>
             <div className="md:border-l md:px-1 ">
                     <Link href={`/resource/${link.resource}`} onClick={Close}>
-                  <Button  className="bg-secondary hover:bg-secondary transition-colors  text-black flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
+                  <Button  className="bg-secondary-foreground hover:bg-secondary-foreground/90 transition-colors  text-white flex text-sm items-center  shadow-none  gap-1  "> <p className="max-md:hidden ">Resource </p> <FaArrowRight className="!w-3 !h-3 "/> </Button>
                     </Link>
                 </div>
           </div>

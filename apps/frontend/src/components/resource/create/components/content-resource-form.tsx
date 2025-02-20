@@ -29,6 +29,7 @@ export default function ContentResourceForm() {
 
     return (
         <section className='flex flex-col gap-2'>
+            
         {content?.map((_,index)=><LinkGroupResourceForm key={index+"Group"} index={index} />)}
     </section>
   )

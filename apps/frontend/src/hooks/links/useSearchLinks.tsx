@@ -11,9 +11,15 @@ export default function useSearchLinks() {
         useMutation({
           mutationKey: "search links",
           mutationFn: (directPayload:{count?:number}) => SearchLinksApi({count:directPayload.count??count,sort,q:search}),
+          onMutate(){
+            setState((val) => ({...val, isLoading:true }));
+          },
           onSuccess({payload:{links,total}}) {
             setState((prev) => ({...prev,total:total??prev.total, payload:{...prev.payload,links: prev.payload.links.concat(links) }, count: prev.count + 1 }))
           },
+          onSettled(){
+            setState((val) => ({...val, isLoading:true }));
+          }
 }) 
 )   
     

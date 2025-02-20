@@ -5,11 +5,8 @@ import SearchedLoadMoreButton from "./searched-load-more-button";
 import SkeletonResources from "./skeleton-resources";
 import LinksListSearchedComponent from "./links/links-list-searched-component";
 const LinksPerRequest  =+(process.env.NEXT_PUBLIC_SEARCH_LINK_LIMIT??10);
-export default function SearchedLinks({
-  isLoading,
-}: {
-  isLoading: boolean;
-}) {
+export default function SearchedLinks() {
+  const {isLoading} = useRecoilValue(searchedAtom)
   const {  total, count,type } = useRecoilValue(searchedAtom);
   if(type == "resources"){ return null;}
   return (
@@ -20,7 +17,7 @@ export default function SearchedLinks({
       {isLoading ? (
         <SkeletonResources />
       ) : (
-        total == 0 && <NotAvailableFallbackSearched />
+        total == 0 && <NotAvailableFallbackSearched  />
       )}
       {total > (count+1 ) * LinksPerRequest ? <SearchedLoadMoreButton /> : null}
     </div>

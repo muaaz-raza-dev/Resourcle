@@ -9,7 +9,7 @@ export default async function SearchTags(req: Request, res: Response) {
   try {
     let tags: Itags[] = [];
     if (q == "" || q.trim() == "") {
-      tags = [];
+      tags =  await Tags.find().limit(20)
     } else {
       tags = await Tags.find({
         name: { $regex: new RegExp(q, "i") },

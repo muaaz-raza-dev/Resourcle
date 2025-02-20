@@ -1,8 +1,6 @@
 import { Button } from '@/shadcn/components/ui/button'
 import React from 'react'
-import TagsResourceForm from './tags-resource-form'
 import RequestLoader from '@/components/loader/request-loading'
-import PublicPrivateSwitchResourceForm from './public-private-switch-resource-form'
 import { useFormContext } from 'react-hook-form'
 import { IResource } from '@/types/Iresource'
 import { useTrackChanges } from '@/hooks/utils/useTrackChanges'
@@ -11,9 +9,9 @@ export default function ResourceFormFooter({isLoading,edit,isSuccess}:{isLoading
   const {watch} = useFormContext<IResource>()
   const content = watch("content")
   return (
-    <footer  className='  max-w-5xl border-t h-max  flex justify-between gap-4 py-4  flex-col'>
-    <TagsResourceForm/>
-    <PublicPrivateSwitchResourceForm/>
+    <footer  className='  max-w-5xl  h-max  flex justify-between gap-4  flex-col '>
+    
+ 
         
     {
       edit ? 

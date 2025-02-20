@@ -5,6 +5,7 @@ export interface IResource  {
     publisher: string;
     banner:string|File;
     upvotes: number;
+    isGroupLinks:boolean;
     isPrivate:boolean;
     content: Array<IresourceContent>;
     createdAt: Date;
@@ -31,6 +32,7 @@ export interface IResourceLink{
 export const defaultResource: IResource = {
     title: '',
     tags:[],
+    isGroupLinks:false,
     description: '',
     isPrivate:false,
     publisher: '',
