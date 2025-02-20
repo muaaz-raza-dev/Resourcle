@@ -31,10 +31,11 @@ const userSessionCookie = request.cookies.get(Cookie_key)
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: privateRoutes.concat([
+  matcher: [
     "/auth/:path*",
     "/settings/:path*",
     "/edit",
-    "/collection/:path*"
-  ])
+    "/collection/:path*",
+    ...privateRoutes
+  ]
 }
