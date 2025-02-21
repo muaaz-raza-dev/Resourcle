@@ -15,6 +15,6 @@ export default function CreateResourceFormComponents({edit}:{edit?:boolean}) {
           <ContentResourceForm />
           <ToolboxSelectResourceForm />
           <TagsResourceForm/>
-          </section>
+    </section>
   )
 }
