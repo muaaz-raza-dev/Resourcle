@@ -41,7 +41,7 @@ export default function LovedResources() {
                 )}
               </div>
 
-                <h2 className=" text-lg font-semibold  text-wrap  whitespace-pre-line break-all ">
+                <h2 className=" text-lg max-md:text-base font-semibold  text-wrap  whitespace-pre-line break-all ">
                   {resource.title}
                 </h2>
             </Link>
