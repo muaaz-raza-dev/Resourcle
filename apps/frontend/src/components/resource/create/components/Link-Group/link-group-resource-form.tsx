@@ -18,7 +18,8 @@ function LinkGroupResourceForm({ index }: { index: number }) {
 
   return (
     <div className="w-full rounded-md  flex flex-col  gap-4 ">
-      <header className="flex justify-between gap-2 items-center py-2 sm:px-2 w-full border-b ">
+      <h2 className="font-bold text-xl text-center"> Add Your Links </h2>
+      <header className="flex justify-between gap-2 items-center py-2 sm:px-2 px-4 w-full border rounded-md ">
         <GroupLabelInput index={index} />
         <div className="flex gap-1 ">
           <div className="rounded-md p-2 items-center bg-secondary  flex gap-1 font-semibold text-sm">
@@ -61,8 +62,9 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
         <div className="w-full">
         <input
           {...field}
-          className=" h-max p-0 text-lg font-semibold placeholder:font-semibold border-none w-full max-md:font-medium outline-none  placeholder:text-gray-400 bg-transparent"
-          placeholder="Label the link group"
+          max={60}
+          className=" h-max p-0  font-semibold placeholder:font-semibold border-none w-full max-md:font-medium outline-none  placeholder:text-gray-400 bg-transparent"
+          placeholder="Label of the link group e.g Yotube channels"
           />
           {fieldState.error?.message&& <span className="text-red-500 px-2 text-xs">{fieldState.error?.message}</span>}
           </div>

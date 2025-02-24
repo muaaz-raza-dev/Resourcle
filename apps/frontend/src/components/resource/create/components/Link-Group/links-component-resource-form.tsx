@@ -11,6 +11,7 @@ import { IResource, IResourceLink } from "@/types/Iresource";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Tooltip } from "antd";
 import SwitchLinkGroupResourceForm from "./switch-link-group-resource-form";
+import SwitchLinkPositionWithinGroupResourceForm from "./switch-link-position-within-group-resource-form";
 export default function LinksComponentResourceForm({
   index,
 }: {
@@ -53,13 +54,15 @@ export default function LinksComponentResourceForm({
                     {link.url}
                   </a>
                 </div>
+                <div className="flex gap-2 items-center">
 
-                {/* <SwitchLinkPositionWithinGroupResourceForm linkIndex={i}/> */}
+                <SwitchLinkPositionWithinGroupResourceForm groupIndex={index} linkIndex={i}/>
                 <DetailsAndActionsLinkSection
                   index={index}
                   link={link}
                   link_index={i}
-                />
+                  />
+                  </div>
               </div>
             </div>
           </section>

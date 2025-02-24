@@ -47,7 +47,7 @@ export default function TagsResourceForm() {
               <Select
                 {...field}
                 id="categories"
-                className="w-full"
+                className="w-full max-md:placeholder:!text-sm"
                 placeholder="Select an appropriate category"
                 mode="multiple"
                 options={tags.map((t) => ({ value: t._id, label: t.name }))}
