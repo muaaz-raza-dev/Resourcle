@@ -17,7 +17,7 @@ export default function ResourceFormFooter({isLoading,edit,isSuccess}:{isLoading
       edit ? 
       <UpdateButton isLoading={isLoading} isSuccess={isSuccess}/>
       :
-      <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground transition-all'>
+      <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground/80 transition-color'>
         { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
       </Button>
     }
@@ -40,7 +40,7 @@ function UpdateButton({isLoading,isSuccess}:{isLoading:boolean;isSuccess?:boolea
   if(isSuccess) UpdateState(state.watch())
   }, [isSuccess])
   return (
-    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground  transition-all' disabled={isLoading||!changes}>
+    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground/80  transition-color' disabled={isLoading||!changes}>
       { isLoading? <RequestLoader size='16' /> : 'Update'}
     </Button>
   )
