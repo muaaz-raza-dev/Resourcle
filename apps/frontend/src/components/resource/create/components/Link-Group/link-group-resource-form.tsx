@@ -7,9 +7,11 @@ import { IResource } from "@/types/Iresource";
 
 function LinkGroupResourceForm({ index }: { index: number }) {
   const form = useFormContext<IResource>();
+  const isGrouped = form.watch("isGroupLinks");
   const [collapse, setCollapse] = useState(false);
 
   function DeleteLinkGroup() {
+    
     form.setValue(
       "content",
       form.getValues("content").filter((_, i) => i !== index)
@@ -18,7 +20,7 @@ function LinkGroupResourceForm({ index }: { index: number }) {
 
   return (
     <div className="w-full rounded-md  flex flex-col  gap-4 ">
-      <h2 className="font-bold text-xl text-center"> Add Your Links </h2>
+      { isGrouped &&
       <header className="flex justify-between gap-2 items-center py-2 sm:px-2 px-4 w-full border rounded-md ">
         <GroupLabelInput index={index} />
         <div className="flex gap-1 ">
@@ -43,9 +45,8 @@ function LinkGroupResourceForm({ index }: { index: number }) {
           </button>
         </div>
       </header>
-
-      {!collapse && <LinksComponentResourceForm index={index} />}
-
+    }
+      {(( isGrouped  && !collapse)||!isGrouped) ? <LinksComponentResourceForm index={index} />: null }
     </div>
   );
 }
@@ -66,7 +67,7 @@ const GroupLabelInput = memo(({ index }: { index: number }) => {
           className=" h-max p-0  font-semibold placeholder:font-semibold border-none w-full max-md:font-medium outline-none  placeholder:text-gray-400 bg-transparent"
           placeholder="Label of the link group e.g Yotube channels"
           />
-          {fieldState.error?.message&& <span className="text-red-500 px-2 text-xs">{fieldState.error?.message}</span>}
+          {fieldState.error?.message&& <span className="text-red-500  text-xs">{fieldState.error?.message}</span>}
           </div>
       )}
     />

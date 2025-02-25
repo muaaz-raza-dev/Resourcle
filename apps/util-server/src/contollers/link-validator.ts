@@ -9,7 +9,7 @@ export async function LinkValidator(request: FastifyRequest<{ Body: {link:string
             SuccessResponse(reply,{message:"Link is valid",payload:{title:""}})        
             return;
         }
-        const response = await fetch(link,{headers: { Range: "bytes=0-720" }})
+        const response = await fetch(link,{headers: { Range: "bytes=0-1024" }})
         if(!response.ok){
             ErrorResponse(reply,{message:"Link is not valid",status:404})
             return ;

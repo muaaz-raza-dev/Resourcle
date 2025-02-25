@@ -1,7 +1,6 @@
 import useUpvoteIndividualLink from '@/hooks/resource/useUpvoteIndividualLink'
 import { Separator } from '@/shadcn/components/ui/separator'
 import useProtectAuthorisedEvents from '@/utils/authorised-event-protector'
-import { Tooltip } from 'antd'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { BiSolidUpvote, BiUpvote } from "react-icons/bi";
@@ -24,7 +23,7 @@ export default function ResourceEachLinkUpvote({link_id,resource_id,upvotes,isUp
     }
   return (
     <div className='flex gap-2  justify-end font-semibold items-center text-xs '>
-      <Tooltip title="upvote"  className={clsx(`relative aspect-square  text-xs font-semibold items-center h-8  transition-colors  border rounded-md flex  `,isLoading&&"animate-pulse",isUpvoted?"gap-0":"")}>
+      <div   className={clsx(`relative aspect-square  text-xs font-semibold items-center h-8  transition-colors  border rounded-md flex  `,isLoading&&"animate-pulse",isUpvoted?"gap-0":"")}>
     <button onClick={Proceed} className={"rounded-l-md h-full px-2 hover:bg-border bg-white"}>
       {
         upvoted ?
@@ -37,7 +36,7 @@ export default function ResourceEachLinkUpvote({link_id,resource_id,upvotes,isUp
     <p className={clsx('text-muted-foreground !text-xs px-3  ')}>
     {count||0} 
     </p>
-      </Tooltip>
+      </div>
     </div>
   )
 }

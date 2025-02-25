@@ -16,9 +16,9 @@ export async function GetResourceNonContentDetails(req: Request, res: Response):
         return;
       }
   
-      
+     
       const resourceRaw = await Resource.findById(req.params.id)
-      .select("banner createdAt updatedAt _id tags description upvotesDoc publisher createdAt updatedAt upvotes title views")
+      .select("banner createdAt updatedAt _id tags description upvotesDoc publisher isGroupLinks createdAt updatedAt upvotes title views")
       .populate({path:"publisher",select:"_id name username headline picture"}).populate("tags upvotesDoc");
 
       if (!resourceRaw) {

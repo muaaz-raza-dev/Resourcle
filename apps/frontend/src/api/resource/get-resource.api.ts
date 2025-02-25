@@ -8,6 +8,7 @@ export type IresourceRemote = Omit<IResource, " banner" | "tags" | "publisher" |
     isUpvoted:boolean;
     isSaved:boolean;
     _id:string;
+    isGroupLinks?:boolean;
     views:number
 }
 

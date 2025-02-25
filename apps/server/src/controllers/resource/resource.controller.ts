@@ -122,7 +122,7 @@ export async function GetResourceMetaDetails(
   const resource = await Resource.findOne({
     _id: req.params.id,
     isPrivate: false,
-  }).select("_id title description banner keywords");
+  }).select("_id title description banner keywords ");
   SuccessResponse(res, { payload: resource });
 }
 

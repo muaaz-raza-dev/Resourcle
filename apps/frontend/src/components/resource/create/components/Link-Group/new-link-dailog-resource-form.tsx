@@ -145,7 +145,7 @@ export default function NewLinkDailogResourceForm({
 
           <button className=" text-sm text-muted-foreground " onClick={()=>setExpand(false)}>Show less </button>
           </>:
-          <button className=" text-sm text-accent" onClick={()=>setExpand(true)}>add description  </button>
+          <button className=" text-sm text-muted-foreground " onClick={()=>setExpand(true)}>add description  </button>
 }
           <DialogFooter className="mt-3">
             <Button type="button" className="w-full hover:bg-secondary-foreground/90 transition-colors bg-secondary-foreground" onClick={handleSubmit(onSubmit)}>upload</Button>
