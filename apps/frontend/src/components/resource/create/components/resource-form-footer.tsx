@@ -9,15 +9,13 @@ export default function ResourceFormFooter({isLoading,edit,isSuccess}:{isLoading
   const {watch} = useFormContext<IResource>()
   const content = watch("content")
   return (
-    <footer  className='  max-w-5xl  h-max  flex justify-between gap-4  flex-col '>
+    <footer  className='  max-w-5xl  h-max mt-4 flex justify-between gap-4  flex-col '>
     
- 
-        
     {
       edit ? 
       <UpdateButton isLoading={isLoading} isSuccess={isSuccess}/>
       :
-      <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground/80 transition-color'>
+      <Button disabled={isLoading} type='submit' className='font-semibold bg-secondary-foreground  hover:bg-secondary-foreground/95 transition-color'>
         { isLoading? <RequestLoader size='16' /> : 'Launch 🚀'}
       </Button>
     }
@@ -40,7 +38,7 @@ function UpdateButton({isLoading,isSuccess}:{isLoading:boolean;isSuccess?:boolea
   if(isSuccess) UpdateState(state.watch())
   }, [isSuccess])
   return (
-    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground/80  transition-color' disabled={isLoading||!changes}>
+    <Button type='submit' className='font-semibold  bg-secondary-foreground  hover:bg-secondary-foreground/95  transition-color' disabled={isLoading||!changes}>
       { isLoading? <RequestLoader size='16' /> : 'Update'}
     </Button>
   )

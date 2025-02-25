@@ -21,7 +21,7 @@ export default function ResourceMeta() {
           <div className="flex items-start gap-4 w-max max-md:justify-between max-md:items-center max-md:w-full ">
             <div className="flex items-center gap-2  max-md:w-full ">
             <Link href={`/u/${q.publisher._id}`}>
-              <Image src={q.publisher.picture || "/user.png"} alt={q.publisher.name || "Picture"} width={40} height={40} className="rounded-full" quality={75} unoptimized/>
+              <Image src={q.publisher.picture || "user.png"}  alt={q.publisher.name.slice(0,2) || "Picture"} width={40} height={40} className="rounded-full" quality={75} unoptimized/>
             </Link>
               <div className="">
                 <div className="flex gap-4">

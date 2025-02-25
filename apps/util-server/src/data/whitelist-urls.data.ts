@@ -1,7 +1,6 @@
 export const whitelist = [
   'https://canva.com',
   'https://netflix.com',
-  'https://netflix.com',
   'https://github.com',
   'https://google.com',
   'https://vercel.com',
@@ -12,7 +11,9 @@ export const whitelist = [
   'https://linkedin.com',
   'https://edx.org',
   'https://skillshare.com',
-  'https://medium.com'
+  'https://medium.com',
+  "https://aws.com",
+  "https://amazon.com"
 ];
 
 export function isWhitelisted(url:string):boolean {

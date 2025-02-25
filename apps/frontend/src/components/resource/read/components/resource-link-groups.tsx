@@ -6,9 +6,12 @@ import { useGetContentResource } from "@/hooks/resource/useGetResourceContent";
 import { ResourceFilterLinksAtom } from "@/state/resource-link-searchbar.atom";
 import ResourceLinkLoader from "./resource-link-loader";
 import { FaUnlink } from "react-icons/fa";
+import useGetNonContentResource from "@/hooks/resource/useGetNonContentResource";
 
 export default function ResourceLinkGroups() {
   const { isLoading ,isSuccess} = useGetContentResource({ hitApi: true });
+  const { data } = useGetNonContentResource({ hitApi:false });
+  const isGrouped= data?.payload.isGroupLinks || false
   const { filtered } = useRecoilValue(ResourceFilterLinksAtom);
   if (isLoading) return <ResourceLinkLoader />;
   return (
@@ -27,7 +30,7 @@ export default function ResourceLinkGroups() {
           </h1>
         </div>
       ) : (
-        filtered.map((e) => <ResourceEachLinkGroup key={e.label} data={e} />)
+        filtered.map((e) => <ResourceEachLinkGroup key={e.label} isGrouped={isGrouped} data={e} />)
       )}
     </>
   );

@@ -43,11 +43,13 @@ export default function ResourceHeader() {
 
       <div className="flex gap-2 justify-between  flex-wrap">
         <div className="flex gap-2">
+          {data?.payload.isGroupLinks===false ?null :
           <p className="font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2">
             {original.length} resource groups
           </p>
+          }
           <p className="font-semibold text-muted-foreground text-[0.7rem] border rounded-md p-1 px-2">
-            {totalResources} resources
+            {totalResources} links
           </p>
         </div>
         <div className="flex gap-2 flex-wrap">

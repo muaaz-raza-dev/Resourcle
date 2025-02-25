@@ -19,7 +19,6 @@ export default function LinksComponentResourceForm({
 }) {
   const form = useFormContext<IResource>();
   const links = form.watch(`content.${index}.links`);
-
   if (!links?.length) return <NoLinkFallback index={index} />;
   return (
     <section className="flex flex-col gap-2 rounded-md ">

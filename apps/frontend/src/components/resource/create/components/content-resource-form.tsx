@@ -28,7 +28,7 @@ export default function ContentResourceForm() {
     const content = useMemo(() => form.getValues("content"), [contentLength]);
 
     return (
-        <section className='flex flex-col gap-2'>
+        <section className='flex flex-col gap-2 mb-4'>
         {content?.map((_,index)=><LinkGroupResourceForm key={index+"Group"} index={index} />)}
     </section>
   )
