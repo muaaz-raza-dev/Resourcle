@@ -17,7 +17,7 @@ export default function ResourceEachLinkGroup({
   isGrouped:boolean
 }) {
   return (
-    <Card className={clsx(isGrouped===false &&"pb-0 pt-3")}>
+    <Card className={clsx(isGrouped===false &&"!py-0 !px-0 shadow-none border-none bg-transparent ")}>
       {
         isGrouped===false ? null 
         :
@@ -28,9 +28,9 @@ export default function ResourceEachLinkGroup({
         </div>
       </CardHeader> 
       }
-      <CardContent >
-        <ul className="flex flex-col gap-1">
-          {data.links.map((resource, index) => (<ResourceEachLinkComponent   key={index+resource.url} data={resource} index={index}/>))}
+      <CardContent className={clsx(isGrouped===false&&"!px-0 !p-0")} >
+        <ul className="flex flex-col gap-2 w-full">
+          {data.links.map((resource, index) => (<ResourceEachLinkComponent   key={index+resource.url} data={resource} className={clsx(isGrouped===false &&'bg-white border shadow p-4 rounded-md py-5')} index={index}/>))}
         </ul>
       </CardContent>
     </Card>
