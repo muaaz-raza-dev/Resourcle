@@ -5,6 +5,8 @@
 *.env
 !*.env.example
 
+/apps/admin
+
 # Log files
 logs
 *.log

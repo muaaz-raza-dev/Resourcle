@@ -1,27 +1,58 @@
 # Resourcle
-Resourle is the community driven resource link sharing platform for everyone
+A platform for discovering, sharing, and organizing helpful resources with others
 
 
 ***
 
 # Main Features
+- 🔐 User Authentication (Sign In / Sign Up)
+- 🔍 Search and Filter Resources
+- ✍️ Create Public or Private Resources
+- 📚 Organize Links into Collections
+- 📌 Bookmark Favorite Resources
+- 👍 Upvote-Based Ranking System
+- 🔄 Import Browser Bookmarks (Coming Soon)
 
-* User Authentication
-* Search resource
-* Create resource
-* Public / Private resources
-* Resource collection
-* bookmark resource
-* upvote based ranking
 
-***
+## 🖥️ Tech Stack
 
-# 📑 Demo
+- **Frontend:** Next.js 13+ (App Router), Tailwind CSS, TypeScript
+- **Backend:** Express.js, Node.js
+- **Database:** MongoDB (via Mongoose)
+- **Monorepo Tooling:** Turborepo
+- **Others:** Vercel (Frontend), Vercel (Backend)
 
-Coming soon ...
+## 💼 Use Cases
 
-***
+1. **Community Resource Hub**  
+   A platform for users to share and discover resources in a collaborative space.
 
+2. **Personalized Learning Platform**  
+   Curate and organize learning materials for users to bookmark and access.
+
+3. **Content Curation Directory**  
+   Share and organize industry resources, articles, or product recommendations.
+
+4. **Research & Resource Archive**  
+   A centralized place for professionals to store and share research and articles.
+
+5. **Resource Discovery Platform**  
+   Let users explore and upvote valuable resources across any topic.
+
+---
+
+
+## 🧱 Project Structure (Monorepo)
+
+```bash
+resourcle/ 
+├── apps/
+│   ├── frontend       # Next.js application 
+│   ├── server         # Express.js backend API 
+│   └── util-server    # Utility server (e.g., for secondary tasks like URL verification)
+├── packages/          # Shared code and types 
+└── turbo.json         # Turborepo configuration  
+```
 # Installation
 
 Follow these steps to set up the project on your local machine:
@@ -49,13 +80,13 @@ you have the following tools installed:
 Clone the project repository from GitHub to your local machine:
 
 ```Text bash
-git clone https://github.com/username/repository-name.git
+git clone https://github.com/muaaz-raza-dev/Resourcle.git
 ```
 
 Navigate to the project directory:
 
 ```
-cd repository-name
+cd resourcle
 ```
 
 ## Step 2: Install Dependencies
@@ -146,9 +177,20 @@ Contributers are welcome! Please follow the [CONTRIBUTING.md](CONTRIBUTING.md) f
 
 This project is licensed under the Apache-2.0 license License. See the [LICENSE](LICENSE) file for details.
 
-# Acknowledgments
+## Acknowledgements
 
-* [React](https://reactjs.org/)
-* [Express](https://expressjs.com/)
-* [Typescript](https://www.typescriptlang.org/)
-* [MongoDB](https://www.mongodb.com/)
+Resourcle is built with the power of the modern web stack and amazing open-source tools:
+
+- [Next.js](https://nextjs.org/)
+- [Express.js](https://expressjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [Cloudinary](https://cloudinary.com/) for media storage
+- [Turborepo](https://turbo.build/repo) for monorepo management
+
+## 💬 Support & Feedback
+
+Found a bug, have a feature request, or just want to say hi?  
+Feel free to [open an issue](https://github.com/muaaz-raza-dev/resourcle/issues) or reach out via [email](mailto:support@resourcle.com).
+
+---
