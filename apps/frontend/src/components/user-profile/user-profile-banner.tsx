@@ -1,9 +1,7 @@
-import useTrackUserProfileVisit from '@/hooks/user-activity/useTrackUserVisit'
 import useGetUserProfileInfomartion from '@/hooks/user-profile/useGetUserInfomartion'
 import React from 'react'
 
 export default function UserProfileBanner() {
-  useTrackUserProfileVisit()
   const {data}  = useGetUserProfileInfomartion({hitApi:false})
   const q= data?.payload
   return (
