@@ -104,7 +104,7 @@ export async function PartialAdvancedSearchController(req: Request, res: Respons
     const [resources, users] = await Promise.all([
       Resource.find({ $text: { $search: q }, isDeleted: false, isPrivate: false })
         .sort("-upvotes")
-        .select("title upvotes views updatedAt createdAt")
+        .select("title views updatedAt createdAt")
         .limit(5).lean(),
      User.find({
         $or: [
@@ -160,7 +160,6 @@ export async function PartialAdvancedSearchController(req: Request, res: Respons
           "url":1,
           "_id": 1,
           "clicks": 1,
-          "upvotes": 1,
         },
       },
     ]);

@@ -149,9 +149,9 @@ export async function GetFeedResources(
       .sort("-upvotes")
       .limit(10)
       .populate({path:"upvotesDoc",select:"users _id"})
-      .select("title upvotes createdAt updatedAt upvotesDoc")
+      .select("title upvotes updatedAt upvotesDoc")
       .lean();
-      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX",60*90)
+      await redis?.set("resourcle:resource-feed",JSON.stringify(resources),"EX", 60 * 60 * 24); 
       
     }
     else{
@@ -160,13 +160,14 @@ export async function GetFeedResources(
 
     let payload = JSON.parse(JSON.stringify(resources));
 
-    payload = resources.map((elm) => {
+    payload = resources.map((e) => {
+      const {upvotesDoc,...elm} = e 
       return {
         ...elm,
         isSaved: isLogined ? saveList?.resource?.some((r) => r.toString() == elm._id.toString()): false,
-        ...(isLogined ? elm.upvotesDoc && "users" in elm.upvotesDoc 
+        ...(isLogined ? upvotesDoc && "users" in upvotesDoc 
             ? {
-                isUpvoted: elm.upvotesDoc.users.some(
+                isUpvoted: upvotesDoc.users.some(
                   (id) => id.toString() == req.userid?.toString(),
                 ),
               }
