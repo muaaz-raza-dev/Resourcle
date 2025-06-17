@@ -11,7 +11,7 @@ export default function Page() {
       if(data?.payload && data.payload.length > 0){
         push(`/collection/${data?.payload[0]?._id}`)
       }
-    }, [isLoading])
+    }, [isLoading,data])
   return (
     <ResourceLoader/>
   )

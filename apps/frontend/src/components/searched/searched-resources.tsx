@@ -4,7 +4,7 @@ import NotAvailableFallbackSearched from "./not-available-fallback-searched";
 import SearchedLoadMoreButton from "./searched-load-more-button";
 import SkeletonResources from "./skeleton-resources";
 import EachResourceComponent from "./resource/each-resource-component";
-const ResourcesPerRequest  =+(process.env.NEXT_PUBLIC_SEARCH_RESOURCE_LIMIT??10);
+const ResourcesPerRequest  =+(process.env.NEXT_PUBLIC_SEARCH_RESOURCE_LIMIT??5);
 export default function SearchedResources() {
   const { payload:{resources}, total, count,type,isLoading } = useRecoilValue(searchedAtom);
   if(type == "links") return null;

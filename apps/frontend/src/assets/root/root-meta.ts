@@ -2,8 +2,8 @@ import { Keywords } from "@/data/keywords";
 import type { Metadata } from "next";
 
 export const Rootmetadata: Metadata = {
-  title: "Resourcle - Top Learning Resources & Web Links",
-  description:"Discover the web’s best free resources, tools, and learning materials—all curated by the community! Join Resourcle to explore, organize, and share valuable knowledge effortlessly.",
+    "title": "Resourcle – Explore Best Resources & Community Web Links",
+    "description": "Explore, save & share top resources, tools and guides curated by learners. Resourcle helps you organize valuable web resources and level up your skills.",
   keywords: Keywords, // Ensure this is an array of strings
   authors: [{ name: "Muaaz Raza", url: "https://linkedin.com/in/muaaz-raza" }],
   robots: "index, follow",
