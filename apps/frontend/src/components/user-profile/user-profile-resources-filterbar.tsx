@@ -9,6 +9,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import RequestLoader from "../loader/request-loading";
 import { authAtom } from "@/state/auth.atom";
 import { useParams } from "next/navigation";
+import { Button } from "@/shadcn/components/ui/button";
+import { cn } from "@/shadcn/lib/utils";
 
 export default function UserProfileResourcesFilterbar() {
   const { mutate } = useGetUserResources();
@@ -19,9 +21,9 @@ export default function UserProfileResourcesFilterbar() {
 
   return (
     <>
-        <SwitchPublicOperatorComp />
+    <SwitchPublicOperatorComp />
     <header className="flex justify-between items-center">
-      {total? <p className="text-muted-foreground  text-sm">{total} resource(s)</p>:null}
+      <p className="text-muted-foreground  text-sm">{total} resources</p>
       <section className="flex gap-4 max-md:justify-between ">
         <SortResourceOperatorComp />
       </section>
@@ -48,8 +50,8 @@ function SortResourceOperatorComp() {
       className="w-[120px] max-md:text-sm"
       disabled={isLoading}
       options={[
-        { value: "createdAt", label: "recent" },
-        { label: "popular", value: "upvotes" },
+        { label: "Recent" , value: "updatedAt",  },
+        { label: "Popular", value: "upvotes" },
       ]}
       onChange={handleSortOptionChange}
       value={sort}
@@ -75,21 +77,17 @@ function SwitchPublicOperatorComp() {
 
 
   return (
-    <div className="flex gap-3 items-center w-full justify-between border rounded-md p-2 mb-2">
+    <Button className={cn("flex gap-3 items-center w-max justify-between bg-muted hover:bg-hover border shadow-none text-black   rounded-md p-2 mb-2",isPrivate?"bg-primary-foreground border-black":"bg-muted ")}
+    disabled={isLoading}
+    onClick={()=>handlePublicPrivateOptionChange(!isPrivate)}
+    >
+        {isLoading? <RequestLoader size="18" />:null}
       <div className="">
       <div className="  flex items-center gap-2 text-sm font-semibold ">
         <FaLock /> Private Resources
       </div>
  
       </div>
-      <div className="  flex items-center gap-2 ">
-        {isLoading? <RequestLoader size="18" />:null}
-      <Switch
-      disabled={isLoading}
-      checked={isPrivate}
-      onCheckedChange={handlePublicPrivateOptionChange}
-      />
-      </div>
-    </div>
+    </Button>
   );
 }

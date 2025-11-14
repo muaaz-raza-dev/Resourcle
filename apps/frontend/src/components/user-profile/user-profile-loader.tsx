@@ -6,9 +6,9 @@ export default function ProfileSkeletonLoader() {
   return (
     <div className="max-w-5xl mx-auto my-4">
       {/* Banner Skeleton */}
-      <div className="relative h-52 bg-gradient-to-r from-secondary-foreground to-primary  rounded-lg overflow-hidden">
+      <div className="relative h-52 bg-muted  rounded-lg overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-green-700/30 to-transparent"
+          className="absolute inset-0 bg-white opacity-20"
           animate={{
             x: ['100%', '-100%'],
           }}

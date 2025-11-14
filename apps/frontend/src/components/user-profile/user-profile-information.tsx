@@ -39,8 +39,10 @@ export default function UserProfileInformation() {
         <p className="text-muted-foreground  leading-tight  ">{q?.headline||""}</p>
       </div>
       </div>
+      {
+        q?.links && q?.links.length>0 &&
       <div className="md:mt-2">
-        <h2 className='font-semibold text-muted-foreground text-sm md:hidden'> Links</h2>
+        <h2 className='font-bold text-muted-foreground text-sm md:hidden'>Handles</h2>
         <div className="flex gap-2 flex-wrap ">
           {
             q?.links?.map(link=> <Link target='_blank' href={link.url} key={link.url}  className="inline-flex items-center max-md:text-xs  hover:bg-primary/10 transition-colors  py-2
@@ -53,6 +55,7 @@ export default function UserProfileInformation() {
             }
             </div>
         </div>
+      }
 </section>
       
 
