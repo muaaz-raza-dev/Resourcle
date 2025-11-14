@@ -50,9 +50,9 @@ export default function HowItWorks() {
     </div>
     <Separator/>
           <div className='leading-snug bg-secondary  px-4 p-2  text-sm rounded-md   flex flex-col gap-1 my-4'>
-            <h2 className='text-accent bg-accent/10  px-4 w-max py-1 rounded-md  font-semibold inline'>Good practice  </h2>
+            <h2 className='text-accent bg-accent/10  px-4 w-max py-1 rounded-md  font-semibold inline'> Request from community  </h2>
             <p className=' text-base tracking-tight text-muted-foreground '>
-             If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in motivating and driving our ongoing efforts.
+             If you find a resource valuable, we kindly encourage you to upvote it. Your support plays a crucial role in ranking the true valuable resources .
             </p>
             </div>
             <Separator/>

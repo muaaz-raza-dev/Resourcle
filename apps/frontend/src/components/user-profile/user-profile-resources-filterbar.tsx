@@ -1,5 +1,4 @@
 import useGetUserResources from "@/hooks/user-profile/useGetUserResource";
-import { Switch } from "@/shadcn/components/ui/switch";
 import { SearchedSortOptions } from "@/state/search-resource.atom";
 import { UserProfileResourceAtom } from "@/state/user-profile-resource.atom";
 import { Select } from "antd";
