@@ -8,7 +8,7 @@ import ResourceRoutes from './routes/resource.routes.js';
 config();
 const fastify = Fastify();
 const corsOptions:FastifyCorsOptions = {
-  origin: ["https://resourcle.com","http://localhost:3000"], 
+  origin: ["https://resourcle.vercel.app","http://localhost:3000"], 
   credentials: true, // Allow cookies to be sent with requests (if needed)
 };
 fastify.register(cors,corsOptions );
