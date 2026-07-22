@@ -59,7 +59,7 @@ export async function RequestForgotPassword(req: Request, res: Response) {
 
     await SendMail(receiver, GenerateHTMLTemplate(receiver, OTP, authToken));
 
-    const forgotKeyToken = jwt.sign({ email: user.email }, JWT_SECRET);
+    const forgotKeyToken = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: "1h" });
     res
       .cookie(ForgotCookieKey, forgotKeyToken, {
         expires: new Date(expirationTime),
@@ -157,7 +157,7 @@ export async function VerifyOTPToken(req: Request, res: Response) {
         sameSite:"none",
         secure:true
       })
-      .json({ login_token, message: "You're Logged in !" });
+      .json({ token: login_token, message: "You're Logged in !" });
   } catch (err) {
     ErrorResponse(res, { message: "Invalid Request", status: 403 });
     return;

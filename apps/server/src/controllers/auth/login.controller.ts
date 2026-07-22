@@ -99,7 +99,11 @@ export async function LocaleLoginController(req: Request, res: Response) {
 }
 
 export async function LogOut(req:Request,res:Response){
-  res.clearCookie(cookie_key);
+  res.clearCookie(cookie_key, {
+    domain: ".resourcle.com",
+    sameSite: "none",
+    secure: true,
+  });
   res.json({ message: "Logged out successfully!" });
   return;
 }
